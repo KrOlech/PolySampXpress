@@ -81,10 +81,10 @@ class Camera:
     def getFrame(self) -> numpy.ndarray:
         ret, newFrame = self.device.read()
 
-        return self.rotate90deg(newFrame)
+        return cv2.resize(self.rotate90deg(newFrame),(1920,1080))
 
     def rotate90deg(self, newFrame: numpy.ndarray) -> numpy.ndarray:
-        return self._rotete(newFrame, -90)
+        return self._rotete(newFrame, 90)
 
     def _rotete(self, newFrame: numpy.ndarray, angle: int) -> numpy.ndarray:
         h, w = newFrame.shape[:2]
