@@ -2,66 +2,60 @@ from PyQt5.QtWidgets import QSlider
 from PyQt5.QtCore import Qt
 
 
-class Slider(QSlider):
-    '''
-    Obiekt dziedzicacy z Qslidera umozliwiajacy obsluge osi x
-    manipulatora odpowiadajacego za przyblizenie kamery
-    '''
-    max_slidera = 1000
+class _Slider(QSlider):
 
-    def __init__(self, mainwinow, min, max, value=int(25), *args, **kwargs):
-        super(Slider, self).__init__(*args, **kwargs)
-        self.mainwindow = mainwinow
+    maxSlider = 1000
 
-        # wartosci na slajderze
-        self.max, self.min, self.value = max, min, value
+    def __init__(self, mainWindow, minV, maxV, value=int(25), *args, **kwargs):
+        super(_Slider, self).__init__(Qt.Horizontal, *args, **kwargs)
+        self.mainWindow = mainWindow
 
-        # przpisanie funkcji do zmiany wartosci na sliderze
-        self.valueChanged[int].connect(self.zmiana)
+        self.max, self.min, self.value = maxV, minV, value
 
-        # ustawienia wygladu i parametrow slidera
+        self.valueChanged[int].connect(self.change)
+
         self.setFocusPolicy(Qt.StrongFocus)
         self.setTickPosition(QSlider.TicksBothSides)
         self.setTickInterval(100)
         self.setSingleStep(10)
-        self.setMaximum(self.max_slidera)
+        self.setMaximum(self.maxSlider)
         self.setMinimum(0)
-        self.setValue(self.rekonwersja(self.value))
+        self.setValue(self.reconversion(self.value))
 
-    def konwersja(self, wartosc):
-        '''
-        konwersja wartosci z wartosci w przestrzeni
-        slidera na wartosc rzeczywista
-        :param wartosc: wartosc w przestrzeni slidera
-        :return: wartosc w przestrzeni rzeczywistej
-        '''
-        wynik = wartosc / self.max_slidera
-        wynik *= (self.max - self.min)
-        wynik += self.min
-        return wynik
+    def conversion(self, value):
+        value = value / self.maxSlider
+        value *= (self.max - self.min)
+        value += self.min
+        return value
 
-    def rekonwersja(self, wartosc):
-        '''
-        konwersja wartosci z przestrzeni rzeczywistej
-        na przestrzen slidera
-        :param wartosc: wartosc w przestrzeni rzeczywistej
-        :return: wartosc w przestrzeni slidera
-        '''
-        wynik = (wartosc - self.min)
-        wynik /= (self.max - self.min)
-        wynik *= self.max_slidera
-        return int(wynik)
+    def reconversion(self, value):
+        value = (value - self.min)
+        value /= (self.max - self.min)
+        value *= self.maxSlider
+        return int(value)
 
-    def zmiana(self, wartosc):
-        self.value = self.konwersja(wartosc)
-        self.mainwindow.manipulaor.przesun_x(self.konwersja(wartosc))
+    def change(self, value):
+        self.value = self.conversion(value)
+        self.mainWindow.manipulaor.przesun_x(self.conversion(value))
 
-    def ustaw_min_max(self, min, max):
-        self.max, self.min = int(max), int(min)
-        self.setValue(self.rekonwersja(self.value))
+    def set_min_max(self, minV, maxV):
+        self.max, self.min = int(maxV), int(minV)
+        self.setValue(self.reconversion(self.value))
+
+
+class Slider(_Slider):
+
+    def __init__(self, mainWindow, cP, *args, **kwargs):
+        self.communicationPoint = cP
+        super(Slider, self).__init__(mainWindow, cP.min, cP.max, cP.value, *args, **kwargs)
+
+    def change(self, value) -> None:
+        self.value = self.conversion(value)
+        self.mainWindow.camera.device.set(self.communicationPoint.address, self.value)
 
 
 if __name__ == '__main__':
+    # test nie aktualny testuje klase _Slider nie Slider
     from PyQt5.QtWidgets import QMainWindow, QApplication
     import sys as sys
 
@@ -82,7 +76,7 @@ if __name__ == '__main__':
 
     okno = MainWindow()
 
-    okno.setCentralWidget(Slider(okno, -1, 1))
+    okno.setCentralWidget(_Slider(okno, -1, 1))
 
     okno.show()
 
