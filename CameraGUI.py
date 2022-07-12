@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QAction
 from Camera import Camera
 from CameraSetings import CameraSettingsWindow
 from View import SimpleView
+from PyQt5 import QtWidgets, QtCore
 import sys
 
 
@@ -24,6 +25,8 @@ class MainWindow(QMainWindow):
         file_menu = menu.addMenu("&Camera settings")
         file_menu.addAction(cameraSettings)
 
+        self.showMaximized()
+
     def showAllCameraSettings(self, a) -> None:
         self.widget.show()
 
@@ -34,6 +37,12 @@ class MainWindow(QMainWindow):
 
 
 if __name__ == '__main__':
+
+    if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
+        QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+    if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
+        QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
+
     kam = Camera()
 
     app = QApplication(sys.argv)
