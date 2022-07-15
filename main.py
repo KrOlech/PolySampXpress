@@ -1,17 +1,16 @@
 
-from PyQt5.QtWidgets import QMainWindow, QApplication
 
-from PyQt5 import QtGui
-import sys
 
-class MainWindow(QMainWindow):
+from RightClickMenu import MainWindow
 
-   def resizeEvent(self, a0: QtGui.QResizeEvent) -> None:
-      print(self.size())
+
+class MAINWINDOW(MainWindow):
+   pass
+
 
 if __name__ == '__main__':
-
-
+   import sys
+   from PyQt5.QtWidgets import QApplication
    app = QApplication(sys.argv)
 
    window = MainWindow()
@@ -19,4 +18,3 @@ if __name__ == '__main__':
    window.show()
 
    app.exec_()
-
