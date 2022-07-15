@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import QMainWindow
 from WindowBar import MyBar
 from PyQt5.QtCore import Qt
 
-class MainWindowCustomBar(QMainWindow):
 
+class MainWindowCustomBar(QMainWindow):
 
     def __init__(self, *args, **kwargs) -> None:
         super(MainWindowCustomBar, self).__init__(*args, **kwargs)
@@ -13,8 +13,6 @@ class MainWindowCustomBar(QMainWindow):
         self.titleBar = MyBar(self)
         self.setContentsMargins(0, self.titleBar.height(), 0, 0)
 
-
-
     def resizeEvent(self, event):
         self.titleBar.resize(self.width(), self.titleBar.height())
 
@@ -22,6 +20,7 @@ class MainWindowCustomBar(QMainWindow):
 if __name__ == "__main__":
     import sys
     from PyQt5.QtWidgets import QApplication
+
     app = QApplication(sys.argv)
     mw = MainWindowCustomBar()
 
