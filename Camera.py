@@ -1,3 +1,4 @@
+# import the opencv library
 import cv2
 import numpy
 
@@ -78,22 +79,13 @@ class Camera:
     def setFps(self, fps: int) -> None:
         self._setValue(self._FPS.address, fps)
 
-    def setCurentScall(self, width, height):
-        self.width = width
-        self.height = height
-
     def _setValue(self, propertyID: int, value: int) -> None:
         self.device.set(propertyID, value)
 
     def getFrame(self) -> numpy.ndarray:
         ret, newFrame = self.device.read()
 
-        return self._aJuste(newFrame)
-        #return newFrame
-
-    def _aJuste(self, newFrame):
-        newFrame = self.rotate90deg(newFrame)
-        return self.resize(newFrame)
+        return self.rotate90deg(newFrame)
 
     def resize(self, newFrame):
         if self.width:
