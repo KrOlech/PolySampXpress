@@ -1,14 +1,16 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QAction
+from PyQt5.QtWidgets import QMainWindow, QApplication, QAction, QVBoxLayout
 from Camera import Camera
 from CameraSetings import CameraSettingsWindow
 from View import SimpleView
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
+from MainWindowMenuBar import MainWindowMenuBar
+
 import sys
 
 
-class MainWindow(QMainWindow):
+class MainWindow(MainWindowMenuBar):
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self,  *args, **kwargs) -> None:
         super(MainWindow, self).__init__(*args, **kwargs)
 
         self.camera = Camera()
@@ -19,21 +21,11 @@ class MainWindow(QMainWindow):
 
         self.widget = CameraSettingsWindow(self)
 
-        menu = self.menuBar()
-
-        cameraSettings = self.qActionCreate("&All settings", self.showAllCameraSettings)
-        file_menu = menu.addMenu("&Camera settings")
-        file_menu.addAction(cameraSettings)
-
         self.showMaximized()
 
-    def showAllCameraSettings(self, a) -> None:
-        self.widget.show()
 
-    def qActionCreate(self, name: str, triggerFun) -> QAction:
-        qAction = QAction(name, self)
-        qAction.triggered.connect(triggerFun)
-        return qAction
+    def showAllCameraSettings(self) -> None:
+        self.widget.show()
 
 
 if __name__ == '__main__':
@@ -42,8 +34,6 @@ if __name__ == '__main__':
         QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
     if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
         QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
-
-    kam = Camera()
 
     app = QApplication(sys.argv)
 

@@ -34,8 +34,8 @@ class Camera:
 
     COMMUNICATIONPOINTS = [_BRIGHTNESS, _SATURATION, _HUE, _SHARPNESS, _GAMMA, _EXPOSURE, _GAIN]
 
-    HEIGHT = 2160
-    WIDTH = 3840
+    HEIGHT = 2048
+    WIDTH = 3072
     FPS = 60
 
     def __init__(self) -> None:
@@ -54,6 +54,9 @@ class Camera:
         self.setBritnes(100)
 
         self.readValues()
+
+        self.width = 0
+        self.height = 0
 
     def readValues(self) -> None:
         [communicationPoint.setValue(self.device) for communicationPoint in self.COMMUNICATIONPOINTS]
@@ -75,13 +78,27 @@ class Camera:
     def setFps(self, fps: int) -> None:
         self._setValue(self._FPS.address, fps)
 
+    def setCurentScall(self, width, height):
+        self.width = width
+        self.height = height
+
     def _setValue(self, propertyID: int, value: int) -> None:
         self.device.set(propertyID, value)
 
     def getFrame(self) -> numpy.ndarray:
         ret, newFrame = self.device.read()
 
-        return self.rotate90deg(newFrame)
+        return self._aJuste(newFrame)
+        #return newFrame
+
+    def _aJuste(self, newFrame):
+        newFrame = self.rotate90deg(newFrame)
+        return self.resize(newFrame)
+
+    def resize(self, newFrame):
+        if self.width:
+            return cv2.resize(newFrame, (self.width, self.height), interpolation=cv2.INTER_CUBIC)
+        return newFrame
 
     def rotate90deg(self, newFrame: numpy.ndarray) -> numpy.ndarray:
         return self._rotete(newFrame, 90)
