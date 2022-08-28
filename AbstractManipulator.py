@@ -1,6 +1,7 @@
 from abc import ABCMeta
 from abc import abstractmethod
 from Exceptions import InvalidSpeed
+from Abstract import abstractmetod
 
 
 class AbstractManipulator:
@@ -15,15 +16,15 @@ class AbstractManipulator:
 
     @abstractmethod
     def getCurentPosytion(self):
-        print("Abstract Methode")
+        abstractmetod()
 
     @abstractmethod
     def center(self, pozycja):
-        print("Abstract Methode")
+        abstractmetod()
 
     @abstractmethod
     def validateSpeed(self, speed):
-        print("Abstract Methode")
+        abstractmetod()
 
     def setSpeed(self, speed):
         if self.validateSpeed(speed):
@@ -37,7 +38,7 @@ class AbstractManipulator:
 
     @abstractmethod
     def goto(self, x, y, z):
-        print("Abstract Methode")
+        abstractmetod()
 
     def up(self):
         self.z += self.speed
