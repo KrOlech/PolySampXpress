@@ -2,6 +2,7 @@ from MainWindowCustomBar import MainWindowCustomBar
 from PyQt5.QtWidgets import QAction
 from abc import abstractmethod
 from abc import ABCMeta
+from Abstract import abstractmetod
 
 
 class MainWindowMenuBar(MainWindowCustomBar):
@@ -38,19 +39,19 @@ class MainWindowMenuBar(MainWindowCustomBar):
 
     @abstractmethod
     def showAllCameraSettings(self):
-        print("Abstract Metode")
+        abstractmetod()
 
     @abstractmethod
     def showListOfROI(self):
-        print("Abstract Metode")
+        abstractmetod()
 
     @abstractmethod
     def loadListOfROI(self):
-        print("Abstract Metode")
+        abstractmetod()
 
     @abstractmethod
     def saveListOfROI(self):
-        print("Abstract Metode")
+        abstractmetod()
 
     def WIP(self):
         pass

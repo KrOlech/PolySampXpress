@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt
 from abc import abstractmethod
 from abc import ABCMeta
 from MainWindowMenuBar import MainWindowMenuBar
-
+from Abstract import abstractmetod
 
 class RightMenu(QMenu):
 
@@ -42,19 +42,19 @@ class MainWindow(MainWindowMenuBar):
 
     @abstractmethod
     def newROI(self):
-        print("Abstract Metode")
+        abstractmetod()
 
     @abstractmethod
     def editROI(self):
-        print("Abstract Metode")
+        abstractmetod()
 
     @abstractmethod
     def center(self):
-        print("Abstract Metode")
+        abstractmetod()
 
     @abstractmethod
     def deleteROI(self):
-        print("Abstract Metode")
+        abstractmetod()
 
 
 if __name__ == '__main__':
