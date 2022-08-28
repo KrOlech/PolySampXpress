@@ -20,13 +20,13 @@ class RightMenu(QMenu):
         edit.triggered.connect(self.mainWindow.editROI)
         center.triggered.connect(self.mainWindow.center)
 
-
     def removeRoi(self):
         remove = self.addAction("delete ROI")
         remove.triggered.connect(self.mainWindow.deleteROI)
 
 
 class MainWindow(MainWindowMenuBar):
+    __metaclass__ = ABCMeta
 
     def __init__(self, *args, **kwargs) -> None:
         super(MainWindow, self).__init__(*args, **kwargs)
@@ -56,9 +56,11 @@ class MainWindow(MainWindowMenuBar):
     def deleteROI(self):
         print("Abstract Metode")
 
+
 if __name__ == '__main__':
     import sys
     from PyQt5.QtWidgets import QApplication
+
 
     class TestWindow(MainWindow):
 
@@ -77,6 +79,7 @@ if __name__ == '__main__':
             if self.delite:
                 menu.removeRoi()
             menu.exec_(self.mapToGlobal(pos))
+
 
     app = QApplication(sys.argv)
 
