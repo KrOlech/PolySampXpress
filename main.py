@@ -1,20 +1,18 @@
-
-
-
-from MainWindow.RightClickMenu import MainWindow
+from RightClickMenu import MainWindow
 
 
 class MAINWINDOW(MainWindow):
-   pass
+    pass
 
 
 if __name__ == '__main__':
-   import sys
-   from PyQt5.QtWidgets import QApplication
-   app = QApplication(sys.argv)
+    import sys
+    from PyQt5.QtWidgets import QApplication
 
-   window = MainWindow()
+    app = QApplication(sys.argv)
 
-   window.show()
+    window = MainWindow()
 
-   app.exec_()
+    window.show()
+
+    app.exec_()
