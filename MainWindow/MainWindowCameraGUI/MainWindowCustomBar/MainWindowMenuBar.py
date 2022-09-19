@@ -1,8 +1,8 @@
-from MainWindowCustomBar import MainWindowCustomBar
+from MainWindow.MainWindowCameraGUI.MainWindowCustomBar.qMainWindow.MainWindowCustomBar import MainWindowCustomBar
 from PyQt5.QtWidgets import QAction
 from abc import abstractmethod
 from abc import ABCMeta
-from Abstract import abstractmetod
+from utilitis.Abstract import abstractmetod
 
 
 class MainWindowMenuBar(MainWindowCustomBar):

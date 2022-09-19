@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QHBoxLayout, QWidget, QVBoxLayout, QLabel
-from Slider import Slider
+from utilitis.Slider import Slider
 
 
 class CameraSettingsWindow(QWidget):
