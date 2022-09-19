@@ -4,6 +4,7 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import QRect, QPoint
 from abc import abstractmethod
 from abc import ABCMeta
+from CameraGUI import CameraGUI
 
 
 class ROI:
@@ -69,6 +70,8 @@ class QlabelROI(QLabel):
     def savePressLocation(self, e):
         self.x1 = e.x()
         self.y1 = e.y()
+        self.x2 = e.x()
+        self.y2 = e.y()
         self.presed = True
 
     @abstractmethod
@@ -86,19 +89,25 @@ class QlabelROI(QLabel):
         self.y2 = e.y()
 
 
+class CameraGUIextention(CameraGUI):
+
+    def __init__(self, *args, **kwargs) -> None:
+        super(CameraGUIextention, self).__init__(*args, **kwargs)
+
+        self.cameraView = QlabelROI(self)
+
+        self.setCentralWidget(self.cameraView)
+        self.showMaximized()
+
+
 if __name__ == '__main__':
     from PyQt5.QtWidgets import QApplication
     import sys
     from RightClickMenu import MainWindow
-    from Camera import Camera
 
     app = QApplication(sys.argv)
 
-    window = MainWindow()
-    window.camera = Camera()
-    window.showMaximized()
-
-    window.setCentralWidget(QlabelROI(window))
+    window = CameraGUIextention()
 
     window.show()
 

@@ -5,10 +5,11 @@ from abc import ABCMeta
 from MainWindowMenuBar import MainWindowMenuBar
 from Abstract import abstractmetod
 
-class RightMenu(QMenu):
+
+class _RightMenu(QMenu):
 
     def __init__(self, mainWindow, *args, **kwargs):
-        super(RightMenu, self).__init__(*args, **kwargs)
+        super(_RightMenu, self).__init__(*args, **kwargs)
 
         self.mainWindow = mainWindow
 
@@ -36,7 +37,7 @@ class MainWindow(MainWindowMenuBar):
 
     @abstractmethod
     def right_menu(self, pos):
-        menu = RightMenu(self)
+        menu = _RightMenu(self)
 
         menu.exec_(self.mapToGlobal(pos))
 
@@ -75,7 +76,7 @@ if __name__ == '__main__':
             self.delite = not self.delite
 
         def right_menu(self, pos):
-            menu = RightMenu(self)
+            menu = _RightMenu(self)
             if self.delite:
                 menu.removeRoi()
             menu.exec_(self.mapToGlobal(pos))
