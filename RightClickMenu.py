@@ -16,21 +16,20 @@ class RightMenu(QMenu):
 
         self.center = self.addAction("Center Hear")
         self.center.triggered.connect(self.mainWindow.center)
-        self.edit = self.addAction("Edit ROI")
-        self.edit.triggered.connect(self.mainWindow.editROI)
-        self.remove = self.addAction("delete ROI")
-        self.remove.triggered.connect(self.mainWindow.deleteROI)
-        self.disableOptions()
 
-    def enableOptions(self):
-        self._changeOptions(True)
+    def addRoiMenus(self, rois, editTrybe):
+        menus = []
+        if editTrybe:
+            self.center = self.addAction("end edit")
+            self.center.triggered.connect(self.mainWindow.endEdit)
 
-    def disableOptions(self):
-        self._changeOptions(False)
-
-    def _changeOptions(self, change):
-        self.edit.setEnabled(change)
-        self.remove.setEnabled(change)
+        for roi in rois:
+            menu = self.addMenu(str(roi.name))
+            menus.append(menu)
+            edit = menu.addAction("Edit ROI")
+            delete = menu.addAction("delete ROI")
+            edit.triggered.connect(roi.edit)
+            delete.triggered.connect(roi.delete)
 
 
 class RightClickLabel(QLabel):
