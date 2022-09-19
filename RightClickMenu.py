@@ -4,6 +4,8 @@ from abc import abstractmethod
 from abc import ABCMeta
 from MainWindowMenuBar import MainWindowMenuBar
 from Abstract import abstractmetod
+from PyQt5.QtWidgets import QLabel
+
 
 class RightMenu(QMenu):
 
@@ -12,24 +14,29 @@ class RightMenu(QMenu):
 
         self.mainWindow = mainWindow
 
-        new = self.addAction("New ROI")
-        edit = self.addAction("Edit ROI")
-        center = self.addAction("Center Hear")
+        self.center = self.addAction("Center Hear")
+        self.center.triggered.connect(self.mainWindow.center)
 
-        new.triggered.connect(self.mainWindow.newROI)
-        edit.triggered.connect(self.mainWindow.editROI)
-        center.triggered.connect(self.mainWindow.center)
+    def addRoiMenus(self, rois, editTrybe):
+        menus = []
+        if editTrybe:
+            self.center = self.addAction("end edit")
+            self.center.triggered.connect(self.mainWindow.endEdit)
 
-    def removeRoi(self):
-        remove = self.addAction("delete ROI")
-        remove.triggered.connect(self.mainWindow.deleteROI)
+        for roi in rois:
+            menu = self.addMenu(str(roi.name))
+            menus.append(menu)
+            edit = menu.addAction("Edit ROI")
+            delete = menu.addAction("delete ROI")
+            edit.triggered.connect(roi.edit)
+            delete.triggered.connect(roi.delete)
 
 
-class MainWindow(MainWindowMenuBar):
+class RightClickLabel(QLabel):
     __metaclass__ = ABCMeta
 
     def __init__(self, *args, **kwargs) -> None:
-        super(MainWindow, self).__init__(*args, **kwargs)
+        super(RightClickLabel, self).__init__(*args, **kwargs)
 
         self.setContextMenuPolicy(Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.right_menu)
@@ -75,7 +82,7 @@ if __name__ == '__main__':
             self.delite = not self.delite
 
         def right_menu(self, pos):
-            menu = RightMenu(self)
+            menu = _RightMenu(self)
             if self.delite:
                 menu.removeRoi()
             menu.exec_(self.mapToGlobal(pos))
