@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow
-from WindowBar import MyBar
+from MainWindow.MainWindowCameraGUI.MainWindowCustomBar.qMainWindow.WindowBar.WindowBar import MyBar
 from PyQt5.QtCore import Qt
 
 
