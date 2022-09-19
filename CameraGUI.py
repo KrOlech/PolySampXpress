@@ -2,10 +2,10 @@ from Camera import Camera
 from CameraSetings import CameraSettingsWindow
 from View import SimpleView
 from PyQt5 import QtWidgets, QtCore
-from RightClickMenu import MainWindow
+from MainWindowMenuBar import MainWindowMenuBar
 
 
-class CameraGUI(MainWindow):
+class CameraGUI(MainWindowMenuBar):
 
     def __init__(self, *args, **kwargs) -> None:
         super(CameraGUI, self).__init__(*args, **kwargs)

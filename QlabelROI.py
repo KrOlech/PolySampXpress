@@ -1,10 +1,10 @@
-from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor
 from PyQt5 import QtGui
-from PyQt5.QtCore import QRect, QPoint
+from PyQt5.QtCore import QRect, QPoint, Qt
 from abc import abstractmethod
 from abc import ABCMeta
 from CameraGUI import CameraGUI
+from RightClickMenu import RightMenu, RightClickLabel
 
 
 class ROI:
@@ -19,7 +19,7 @@ class ROI:
         self.rect = QRect(QPoint(x1, y1), QPoint(x2, y2))
 
 
-class QlabelROI(QLabel):
+class QlabelROI(RightClickLabel):
     __metaclass__ = ABCMeta
 
     def __init__(self, mainWindow, *args, **kwargs):
@@ -88,22 +88,37 @@ class QlabelROI(QLabel):
         self.x2 = e.x()
         self.y2 = e.y()
 
+    @abstractmethod
+    def newROI(self):
+        abstractmetod()
 
-class CameraGUIextention(CameraGUI):
+    @abstractmethod
+    def editROI(self):
+        abstractmetod()
 
-    def __init__(self, *args, **kwargs) -> None:
-        super(CameraGUIextention, self).__init__(*args, **kwargs)
+    @abstractmethod
+    def center(self):
+        abstractmetod()
 
-        self.cameraView = QlabelROI(self)
-
-        self.setCentralWidget(self.cameraView)
-        self.showMaximized()
+    @abstractmethod
+    def deleteROI(self):
+        abstractmetod()
 
 
 if __name__ == '__main__':
+    class CameraGUIextention(CameraGUI):
+
+        def __init__(self, *args, **kwargs) -> None:
+            super(CameraGUIextention, self).__init__(*args, **kwargs)
+
+            self.cameraView = QlabelROI(self)
+
+            self.setCentralWidget(self.cameraView)
+            self.showMaximized()
+
+
     from PyQt5.QtWidgets import QApplication
     import sys
-    from RightClickMenu import MainWindow
 
     app = QApplication(sys.argv)
 
