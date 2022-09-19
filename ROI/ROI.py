@@ -168,19 +168,5 @@ class ROI:
     def delete(self):
         self.mainWindow.ROIList.remove(self)
 
-    def _pobierz_gorny_naroznik(self, ox=100, oy=100):
-
-        if self.x0 < self.x1 and self.y0 < self.y1:
-            xp0 = (self.x0 - ox)
-            yp0 = (self.y0 - oy)
-        elif self.x0 < self.x1 and self.y0 > self.y1:
-            xp0 = (self.x0 - ox)
-            yp0 = (self.y1 - oy)
-        elif self.x0 > self.x1 and self.y0 < self.y1:
-            xp0 = (self.x1 - ox)
-            yp0 = (self.y0 - oy)
-        else:
-            xp0 = (self.x1 - ox)
-            yp0 = (self.y1 - oy)
-
-        return xp0, yp0
+    def pobierz_lokacje_tekstu(self):
+        return self.x0-15, self.y0-15

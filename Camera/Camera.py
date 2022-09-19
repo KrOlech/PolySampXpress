@@ -37,7 +37,7 @@ class Camera:
 
     HEIGHT = 2048
     WIDTH = 3072
-    FPS = 60
+    FPS = 40
 
     def __init__(self) -> None:
 
@@ -85,12 +85,10 @@ class Camera:
     def getFrame(self) -> numpy.ndarray:
         ret, newFrame = self.device.read()
 
-        return self.rotate90deg(newFrame)
+        return self.resize(newFrame, 2560, 1440)
 
-    def resize(self, newFrame):
-        if self.width:
-            return cv2.resize(newFrame, (self.width, self.height), interpolation=cv2.INTER_CUBIC)
-        return newFrame
+    def resize(self, newFrame, width, height):
+        return cv2.resize(newFrame, (width, height), interpolation=cv2.INTER_CUBIC)
 
     def rotate90deg(self, newFrame: numpy.ndarray) -> numpy.ndarray:
         return self._rotete(newFrame, 90)
