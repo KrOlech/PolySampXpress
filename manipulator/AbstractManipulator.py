@@ -17,6 +17,7 @@ class AbstractManipulator:
     @abstractmethod
     def getCurentPosytion(self):
         abstractmetod()
+        return 0, 0, 0
 
     @abstractmethod
     def center(self, pozycja):
@@ -25,6 +26,7 @@ class AbstractManipulator:
     @abstractmethod
     def validateSpeed(self, speed):
         abstractmetod()
+        return True
 
     def setSpeed(self, speed):
         if self.validateSpeed(speed):

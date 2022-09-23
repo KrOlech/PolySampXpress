@@ -1,7 +1,7 @@
 
 
 
-from MainWindow.RightClickMenu import MainWindow
+from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.RightClickMenu import MainWindow
 
 
 class MAINWINDOW(MainWindow):
