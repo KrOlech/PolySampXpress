@@ -3,7 +3,6 @@ from PyQt5.QtCore import Qt
 from abc import abstractmethod
 from abc import ABCMeta
 
-
 from utilitis.Abstract import abstractmetod
 from PyQt5.QtWidgets import QLabel
 
@@ -28,9 +27,11 @@ class RightMenu(QMenu):
             menu = self.addMenu(str(roi.name))
             menus.append(menu)
             edit = menu.addAction("Edit ROI")
+            rename = menu.addAction("Rename")
             delete = menu.addAction("delete ROI")
             edit.triggered.connect(roi.edit)
             delete.triggered.connect(roi.delete)
+            rename.triggered.connect(roi.rename)
 
 
 class RightClickLabel(QLabel):
