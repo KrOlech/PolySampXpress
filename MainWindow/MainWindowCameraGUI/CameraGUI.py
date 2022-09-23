@@ -18,8 +18,6 @@ class CameraGUI(MainWindowMenuBar):
 
         self.widget = CameraSettingsWindow(self)
 
-        self.showMaximized()
-
     def showAllCameraSettings(self) -> None:
         self.widget.show()
 

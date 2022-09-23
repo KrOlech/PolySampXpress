@@ -1,3 +1,4 @@
+import cv2
 from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor
 from PyQt5 import QtGui
 from PyQt5.QtCore import QRect, QPoint, Qt, QEvent
@@ -41,9 +42,21 @@ class QlabelROI(RightClickLabel):
 
         self.installEventFilter(self)
 
+        cvBGBImg = self.mainWindow.camera.getFrame()
+
+        self.setMaximumSize(cvBGBImg.shape[1], cvBGBImg.shape[0])
+        self.setMinimumSize(cvBGBImg.shape[1], cvBGBImg.shape[0])
+
     @abstractmethod
     def getFrame(self) -> QPixmap:
         cvBGBImg = self.mainWindow.camera.getFrame()
+        for i, rectangle in enumerate(self.ROIList):
+            rx, ry = rectangle.pobierz_lokacje_tekstu()
+
+            cv2.putText(cvBGBImg, str(rectangle.name),
+                        (rx, ry), cv2.FONT_HERSHEY_SIMPLEX,
+                        1, (255, 0, 0), 2)
+
         qImg = QImage(cvBGBImg.data, cvBGBImg.shape[1], cvBGBImg.shape[0], QImage.Format_BGR888)
 
         frame = QPixmap.fromImage(qImg)
@@ -143,6 +156,7 @@ class QlabelROI(RightClickLabel):
     def endEdit(self):
         self.editTrybe = False
 
+
 class CameraGUIextention(CameraGUI):
 
     def __init__(self, *args, **kwargs) -> None:
@@ -151,6 +165,7 @@ class CameraGUIextention(CameraGUI):
         self.cameraView = QlabelROI(self)
 
         self.setCentralWidget(self.cameraView)
+
         self.showMaximized()
 
 
