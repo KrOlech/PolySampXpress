@@ -51,7 +51,7 @@ class QlabelROI(RightClickLabel):
     def getFrame(self) -> QPixmap:
         cvBGBImg = self.mainWindow.camera.getFrame()
         for i, rectangle in enumerate(self.ROIList):
-            rx, ry = rectangle.pobierz_lokacje_tekstu()
+            rx, ry = rectangle.GetTextLocation()
 
             cv2.putText(cvBGBImg, str(rectangle.name),
                         (rx, ry), cv2.FONT_HERSHEY_SIMPLEX,

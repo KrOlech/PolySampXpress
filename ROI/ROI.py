@@ -1,4 +1,5 @@
 from PyQt5.QtCore import QRect, QPoint
+from ROI.RenameWidnow import ReNameWindow
 
 
 class ROI:
@@ -33,6 +34,8 @@ class ROI:
         self.mainWindow = mainWindow
 
         self._createRectagle()
+
+        self.textedit = ReNameWindow(self, text=str(name))
 
     def _createRectagle(self):
         self.rect = QRect(QPoint(self.x0, self.y0), QPoint(self.x1, self.y1))
@@ -168,5 +171,11 @@ class ROI:
     def delete(self):
         self.mainWindow.ROIList.remove(self)
 
-    def pobierz_lokacje_tekstu(self):
-        return self.x0-15, self.y0-15
+    def GetTextLocation(self):
+        return self.x0 - 15, self.y0 - 15
+
+    def rename(self):
+        self.textedit.show()
+
+    def setName(self, name):
+        self.name = name
