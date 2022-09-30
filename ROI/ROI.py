@@ -22,14 +22,8 @@ class ROI:
 
     def __init__(self, mainWindow, x1, y1, x2, y2, name='1'):
 
-        self.minX = min(x1, x2)
-        self.minY = min(y1, y2)
-        self.maxX = max(x1, x2)
-        self.maxY = max(y1, y2)
-        self.x0 = self.minX
-        self.x1 = self.maxX
-        self.y0 = self.minY
-        self.y1 = self.maxY
+        self._setBorders(x1, x2, y1, y2)
+
         self.name = name
         self.mainWindow = mainWindow
 
@@ -39,6 +33,27 @@ class ROI:
 
     def _createRectagle(self):
         self.rect = QRect(QPoint(self.x0, self.y0), QPoint(self.x1, self.y1))
+        self.setNewBorders()
+
+    def _setBorders(self, x1, x2, y1, y2):
+        self.minX = min(x1, x2)
+        self.minY = min(y1, y2)
+        self.maxX = max(x1, x2)
+        self.maxY = max(y1, y2)
+        self.x0 = self.minX
+        self.x1 = self.maxX
+        self.y0 = self.minY
+        self.y1 = self.maxY
+
+    def setNewBorders(self):
+        self.minX = min(self.x0, self.x1)
+        self.minY = min(self.y0, self.y1)
+        self.maxX = max(self.x0, self.x1)
+        self.maxY = max(self.y0, self.y1)
+        self.x0 = self.minX
+        self.x1 = self.maxX
+        self.y0 = self.minY
+        self.y1 = self.maxY
 
     def inROI(self, pos):
         return self.minX < pos.x() < self.maxX and self.minY < pos.y() < self.maxY
