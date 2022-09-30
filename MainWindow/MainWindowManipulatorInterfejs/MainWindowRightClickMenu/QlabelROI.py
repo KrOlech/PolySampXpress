@@ -8,7 +8,8 @@ from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWind
 from MainWindowRightClickMenu.RightClickMenu import RightMenu, RightClickLabel
 from utilitis.Abstract import abstractmetod
 from ROI.ROI import ROI
-from PyQt5.QtWidgets import QHBoxLayout, QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QApplication
 
 
 class QlabelROI(RightClickLabel):
@@ -47,6 +48,8 @@ class QlabelROI(RightClickLabel):
 
         self.setMaximumSize(cvBGBImg.shape[1], cvBGBImg.shape[0])
         self.setMinimumSize(cvBGBImg.shape[1], cvBGBImg.shape[0])
+
+        self.setMouseTracking(True)
 
     @abstractmethod
     def getFrame(self) -> QPixmap:
@@ -89,6 +92,7 @@ class QlabelROI(RightClickLabel):
             self.savePressLocation(e)
 
     def mouseReleaseEvent(self, e):
+
         if not self.leftMouseButton:
             return
 
@@ -99,6 +103,8 @@ class QlabelROI(RightClickLabel):
 
     def mouseMoveEvent(self, e):
         if not self.leftMouseButton:
+            if self.editTrybe:
+                self.editedROI.cursorEdit(e)
             return
 
         if self.editTrybe:
@@ -155,6 +161,7 @@ class QlabelROI(RightClickLabel):
         return rois
 
     def endEdit(self):
+        QApplication.setOverrideCursor(Qt.ArrowCursor)
         self.editTrybe = False
 
 

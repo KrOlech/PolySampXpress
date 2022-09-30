@@ -1,5 +1,7 @@
 from PyQt5.QtCore import QRect, QPoint
 from ROI.RenameWidnow import ReNameWindow
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication
 
 
 class ROI:
@@ -18,7 +20,7 @@ class ROI:
 
     move = False
 
-    pressPrecision = 100
+    pressPrecision = 50
 
     def __init__(self, mainWindow, x1, y1, x2, y2, name='1'):
 
@@ -28,13 +30,11 @@ class ROI:
         self.mainWindow = mainWindow
 
         self._createRectagle()
-        self.setNewBorders()
 
         self.textedit = ReNameWindow(self, text=str(name))
 
     def _createRectagle(self):
         self.rect = QRect(QPoint(self.x0, self.y0), QPoint(self.x1, self.y1))
-
 
     def _setBorders(self, x1, x2, y1, y2):
         self.minX = min(x1, x2)
@@ -65,11 +65,94 @@ class ROI:
 
     def mousePress(self, e):
         self.firstPress = True
+        self.mousePositionCheck(e)
 
+        self._createRectagle()
+
+    def mouseRelease(self, e):
+
+        self.firstPress = False
+
+        self.px1, self.py1 = e.x(), e.y()
+
+        if self.move:
+            dx, dy = self.px1 - self.px0, self.py1 - self.py0
+            self.x0 += dx
+            self.x1 += dx
+            self.y0 += dy
+            self.y1 += dy
+        elif self.leftTop:
+            self.x1 = self.px1
+            self.y0 = self.py1
+        elif self.leftBottom:
+            self.x1 = self.px1
+            self.y1 = self.py1
+        elif self.rightBottom:
+            self.x0 = self.px1
+            self.y1 = self.py1
+        elif self.rightTop:
+            self.x0 = self.px1
+            self.y0 = self.py1
+        elif self.bottom:
+            self.y1 = self.py1
+        elif self.left:
+            self.x1 = self.px1
+        elif self.right:
+            self.x0 = self.px1
+        elif self.top:
+            self.y0 = self.py1
+
+        self._createRectagle()
+        self.setNewBorders()
+        self.mainWindow.leftMouseButton = False
+
+    def mouseMove(self, e):
+
+        if self.firstPress:
+
+            self.px1, self.py1 = e.x(), e.y()
+
+            if self.move:
+                dx, dy = self.px1 - self.px0, self.py1 - self.py0
+                self.x0 += dx
+                self.x1 += dx
+                self.y0 += dy
+                self.y1 += dy
+                self.px0, self.py0 = e.x(), e.y()
+            elif self.leftTop:
+                self.x1 = self.px1
+                self.y0 = self.py1
+            elif self.leftBottom:
+                self.x1 = self.px1
+                self.y1 = self.py1
+            elif self.rightBottom:
+                self.x0 = self.px1
+                self.y1 = self.py1
+            elif self.rightTop:
+                self.x0 = self.px1
+                self.y0 = self.py1
+            elif self.bottom:
+                self.y1 = self.py1
+            elif self.left:
+                self.x1 = self.px1
+            elif self.right:
+                self.x0 = self.px1
+            elif self.top:
+                self.y0 = self.py1
+
+        self._createRectagle()
+
+    def mousePositionCheck(self, e):
         self.top = False
         self.bottom = False
         self.left = False
         self.right = False
+
+        self.leftTop = False
+        self.rightTop = False
+
+        self.leftBottom = False
+        self.rightBottom = False
 
         self.move = False
 
@@ -111,82 +194,24 @@ class ROI:
                 self.x1 - self.pressPrecision:
             self.move = True
 
-        self._createRectagle()
-
-    def mouseRelease(self, e):
-
-        self.firstPress = False
-
-        self.px1, self.py1 = e.x(), e.y()
-
+    def cursorEdit(self, e):
+        self.mousePositionCheck(e)
         if self.move:
-            dx, dy = self.px1 - self.px0, self.py1 - self.py0
-            self.x0 += dx
-            self.x1 += dx
-            self.y0 += dy
-            self.y1 += dy
-        elif self.leftTop:
-            self.x1 = self.px1
-            self.y0 = self.py1
-        elif self.leftBottom:
-            self.x1 = self.px1
-            self.y1 = self.py1
-        elif self.rightBottom:
-            self.x0 = self.px1
-            self.y1 = self.py1
-        elif self.rightTop:
-            self.x0 = self.px1
-            self.y0 = self.py1
-        elif self.bottom:
-            self.y1 = self.py1
-        elif self.left:
-            self.x1 = self.px1
-        elif self.right:
-            self.x0 = self.px1
-        elif self.top:
-            self.y0 = self.py1
-
-        self._createRectagle()
-        self.setNewBorders()
-
-    def mouseMove(self, e):
-
-        if self.firstPress:
-
-            self.px1, self.py1 = e.x(), e.y()
-
-            if self.move:
-                dx, dy = self.px1 - self.px0, self.py1 - self.py0
-                self.x0 += dx
-                self.x1 += dx
-                self.y0 += dy
-                self.y1 += dy
-                self.px0, self.py0 = e.x(), e.y()
-            elif self.leftTop:
-                self.x1 = self.px1
-                self.y0 = self.py1
-            elif self.leftBottom:
-                self.x1 = self.px1
-                self.y1 = self.py1
-            elif self.rightBottom:
-                self.x0 = self.px1
-                self.y1 = self.py1
-            elif self.rightTop:
-                self.x0 = self.px1
-                self.y0 = self.py1
-            elif self.bottom:
-                self.y1 = self.py1
-            elif self.left:
-                self.x1 = self.px1
-            elif self.right:
-                self.x0 = self.px1
-            elif self.top:
-                self.y0 = self.py1
-
-        self._createRectagle()
+            QApplication.setOverrideCursor(Qt.SizeAllCursor)
+        elif self.rightTop or self.leftBottom:
+            QApplication.setOverrideCursor(Qt.SizeFDiagCursor)
+        elif self.leftTop or self.rightBottom:
+            QApplication.setOverrideCursor(Qt.SizeBDiagCursor)
+        elif self.left or self.right:
+            QApplication.setOverrideCursor(Qt.SizeHorCursor)
+        elif self.top or self.bottom:
+            QApplication.setOverrideCursor(Qt.SizeVerCursor)
+        else:
+            QApplication.setOverrideCursor(Qt.ArrowCursor)
 
     def delete(self):
         self.mainWindow.ROIList.remove(self)
+        self.mainWindow.endEdit()
 
     def GetTextLocation(self):
         return self.x0 - 15, self.y0 - 15
