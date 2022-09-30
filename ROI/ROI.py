@@ -28,12 +28,13 @@ class ROI:
         self.mainWindow = mainWindow
 
         self._createRectagle()
+        self.setNewBorders()
 
         self.textedit = ReNameWindow(self, text=str(name))
 
     def _createRectagle(self):
         self.rect = QRect(QPoint(self.x0, self.y0), QPoint(self.x1, self.y1))
-        self.setNewBorders()
+
 
     def _setBorders(self, x1, x2, y1, y2):
         self.minX = min(x1, x2)
@@ -146,6 +147,7 @@ class ROI:
             self.y0 = self.py1
 
         self._createRectagle()
+        self.setNewBorders()
 
     def mouseMove(self, e):
 
