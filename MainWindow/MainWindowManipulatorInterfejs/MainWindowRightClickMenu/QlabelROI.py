@@ -4,7 +4,8 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import QRect, QPoint, Qt, QEvent
 from abc import abstractmethod
 from abc import ABCMeta
-from MainWindowRightClickMenu.RightClickMenu import RightMenu, RightClickLabel
+
+from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.RightClickMenu import RightClickLabel, RightMenu
 from utilitis.Abstract import abstractmetod
 from ROI.ROI import ROI
 from PyQt5.QtWidgets import QApplication
@@ -100,15 +101,19 @@ class QlabelROI(RightClickLabel):
             self.seveReliseLocation(e)
 
     def mouseMoveEvent(self, e):
-        if not self.leftMouseButton:
-            if self.editTrybe:
-                self.editedROI.cursorEdit(e)
-            return
 
-        if self.editTrybe:
-            self.editedROI.mouseMove(e)
-        else:
-            self.saveTemporaryLocation(e)
+        match(self.leftMouseButton, self.editTrybe):
+            case False, False:
+                self.mainWindow.showROIList(e)
+            case False, True:
+                self.editedROI.cursorEdit(e)
+            case True, True:
+                self.editedROI.mouseMove(e)
+            case True, False:
+                self.saveTemporaryLocation(e)
+                self.mainWindow.showROIList(e)
+            case _,_:
+                print("erore 1")
 
     @abstractmethod
     def savePressLocation(self, e):
@@ -127,6 +132,8 @@ class QlabelROI(RightClickLabel):
         self.roinames += 1
 
         self.presed = False
+
+        self.mainWindow.addROIToList()
 
     @abstractmethod
     def saveTemporaryLocation(self, e):
@@ -162,3 +169,5 @@ class QlabelROI(RightClickLabel):
         QApplication.setOverrideCursor(Qt.ArrowCursor)
         self.editTrybe = False
 
+    def removeLable(self,ROI):
+        self.mainWindow.removeROIFromList(ROI)

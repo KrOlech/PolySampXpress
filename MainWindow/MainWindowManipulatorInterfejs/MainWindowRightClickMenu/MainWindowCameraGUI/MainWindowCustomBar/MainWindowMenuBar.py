@@ -56,6 +56,10 @@ class MainWindowMenuBar(MainWindowCustomBar):
     def WIP(self):
         pass
 
+    @abstractmethod
+    def showROIList(self, e):
+        abstractmetod()
+
 
 if __name__ == '__main__':
     import sys

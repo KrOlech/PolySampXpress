@@ -1,4 +1,4 @@
-from MainWindowRightClickMenu.MainWindwoQlabelROI import CameraGUIextention
+from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindwoQlabelROI import CameraGUIextention
 from manipulator.ManipulatorInterfejs import ManipulatorInterfere
 from manipulator.AbstractManipulator import AbstractManipulator
 from PyQt5.QtWidgets import QMessageBox, QPushButton
