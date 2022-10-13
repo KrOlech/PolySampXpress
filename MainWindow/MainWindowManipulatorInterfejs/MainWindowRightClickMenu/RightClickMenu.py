@@ -3,6 +3,8 @@ from PyQt5.QtCore import Qt
 from abc import abstractmethod
 from abc import ABCMeta
 
+from PyQt5 import QtGui
+
 from utilitis.Abstract import abstractmetod
 from PyQt5.QtWidgets import QLabel
 
@@ -32,6 +34,10 @@ class RightMenu(QMenu):
             edit.triggered.connect(roi.edit)
             delete.triggered.connect(roi.delete)
             rename.triggered.connect(roi.rename)
+
+    def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
+        self.mainWindow.hideRightClickButtons()
+        super(RightMenu, self).closeEvent(a0)
 
 
 class RightClickLabel(QLabel):

@@ -2,7 +2,8 @@ from Camera.Camera import Camera
 from Camera.CameraSetings import CameraSettingsWindow
 from utilitis.examples.View import SimpleView
 from PyQt5 import QtWidgets, QtCore
-from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindowCameraGUI.MainWindowCustomBar.MainWindowMenuBar import MainWindowMenuBar
+from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindowCameraGUI.MainWindowCustomBar.MainWindowMenuBar import \
+    MainWindowMenuBar
 
 
 class CameraGUI(MainWindowMenuBar):
