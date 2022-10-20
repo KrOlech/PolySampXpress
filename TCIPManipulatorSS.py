@@ -1,11 +1,13 @@
-from AbstractManipulator import AbstractManipulator
+from manipulator.AbstractManipulator import AbstractManipulator
 import socket
 
 
 class TCIPManipulator(AbstractManipulator):
-    TCP_IP = '127.0.0.1'
-    TCP_PORT = 5005
-    BUFFER_SIZE = 20
+
+    TCP_IP = '172.30.254.65'
+    TCP_PORT = 22
+    BUFFER_SIZE = 1024
+
     MESSAGE = "MESSAGE"
 
     def __init__(self):
