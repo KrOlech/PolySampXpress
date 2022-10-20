@@ -3,6 +3,8 @@ from ROI.RenameWidnow import ReNameWindow
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QLabel
+from ROI.ROILable import ROILabel
+
 
 class ROI:
     x0, x1, y0, y1 = 0, 0, 0, 0
@@ -33,10 +35,15 @@ class ROI:
 
         self.textedit = ReNameWindow(self, text=str(name))
 
-        self.label = QLabel(str(name))
+        self.label = ROILabel(self, str(name))
+
+        self.viue = self.mainWindow.mainWindow.cameraView.getFrame()
 
     def _createRectagle(self):
         self.rect = QRect(QPoint(self.x0, self.y0), QPoint(self.x1, self.y1))
+
+    def updateViue(self):
+        self.label.update()
 
     def _setBorders(self, x1, x2, y1, y2):
         self.minX = min(x1, x2)
@@ -70,6 +77,7 @@ class ROI:
         self.mousePositionCheck(e)
 
         self._createRectagle()
+        self.updateViue()
 
     def mouseRelease(self, e):
 
@@ -107,6 +115,7 @@ class ROI:
         self._createRectagle()
         self.setNewBorders()
         self.mainWindow.leftMouseButton = False
+        self.updateViue()
 
     def mouseMove(self, e):
 
@@ -143,6 +152,7 @@ class ROI:
                 self.y0 = self.py1
 
         self._createRectagle()
+        self.updateViue()
 
     def mousePositionCheck(self, e):
         self.top = False
