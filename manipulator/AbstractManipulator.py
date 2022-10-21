@@ -8,10 +8,10 @@ class AbstractManipulator:
     __metaclass__ = ABCMeta
 
     speed = 0
-    x, y, z = 0, 0, 0
+    x, y, z = 25.0, 25.0, 25.0
 
     def __init__(self):
-        self.setSpeed(10)
+        self.setSpeed(1)
         self.x, self.y, self.z = self.getCurentPosytion()
 
     @abstractmethod
@@ -43,25 +43,25 @@ class AbstractManipulator:
         abstractmetod()
 
     def up(self):
-        self.z += self.speed
+        self.y += self.speed
         self.goto(self.x, self.y, self.z)
 
     def down(self):
-        self.z -= self.speed
+        self.y -= self.speed
         self.goto(self.x, self.y, self.z)
 
     def left(self):
-        self.y -= self.speed
+        self.x -= self.speed
         self.goto(self.x, self.y, self.z)
 
     def right(self):
-        self.y -= self.speed
+        self.x += self.speed
         self.goto(self.x, self.y, self.z)
 
     def forward(self):
-        self.x -= self.speed
+        self.z -= self.speed
         self.goto(self.x, self.y, self.z)
 
     def backwards(self):
-        self.x -= self.speed
+        self.z += self.speed
         self.goto(self.x, self.y, self.z)

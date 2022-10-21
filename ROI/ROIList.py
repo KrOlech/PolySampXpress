@@ -39,7 +39,6 @@ class ROIList(QScrollArea):
     def removeROI(self, ROI):
         self.vbox.removeWidget(ROI)
         self.roiCount -= 1
-        print(self.roiCount)
         if not self.roiCount:
             self._addDefalautLable()
 

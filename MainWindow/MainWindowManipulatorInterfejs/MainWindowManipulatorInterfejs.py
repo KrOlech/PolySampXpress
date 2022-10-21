@@ -1,8 +1,9 @@
+from PyQt5.Qt import QPoint
+from PyQt5.QtWidgets import QMessageBox, QPushButton
+
 from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindwoQlabelROI import CameraGUIextention
 from manipulator.ManipulatorInterfejs import ManipulatorInterfere
-from manipulator.AbstractManipulator import AbstractManipulator
-from PyQt5.QtWidgets import QMessageBox, QPushButton
-from PyQt5.Qt import QPoint
+from manipulator.TCIPManipulator import TCIPManipulator
 
 
 class MainWindowManipulatorInterfejs(CameraGUIextention):
@@ -11,7 +12,9 @@ class MainWindowManipulatorInterfejs(CameraGUIextention):
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
 
-        self.manipulatorInterferes = ManipulatorInterfere(AbstractManipulator())
+        self.manipulator = TCIPManipulator()
+
+        self.manipulatorInterferes = ManipulatorInterfere(self.manipulator)
 
         self._manipulatorButtons()
 
@@ -31,7 +34,8 @@ class MainWindowManipulatorInterfejs(CameraGUIextention):
             event.ignore()
 
     def closeActtion(self):
-        pass
+        if self.manipulator:
+            self.manipulator.close()
 
     def _createManipulatorButtons(self):
         buttons = [QPushButton(name, self.widget) for name in self.manipulatorInterferes.buttonsNames]
