@@ -18,7 +18,7 @@ class Worker(QObject):
         self.finished.emit()
 
 class TCIPManipulator(AbstractManipulator):
-    TCP_IP = '172.30.254.65'
+    TCP_IP = SOCKET.gethostbyname(SOCKET.gethostname())
     TCP_PORT = 22
     BUFFER_SIZE = 1024
 

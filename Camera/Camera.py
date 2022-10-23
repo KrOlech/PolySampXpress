@@ -41,7 +41,7 @@ class Camera:
 
     def __init__(self) -> None:
 
-        self.device = cv2.VideoCapture(0)
+        self.device = cv2.VideoCapture(1)
 
         try:
             ret, _ = self.device.read()
@@ -49,6 +49,7 @@ class Camera:
                 raise TypeError
         except TypeError:
             print("Error During camera initialisation check it connection or if any other software is using it.")
+
 
         self.set(self.WIDTH, self.HEIGHT, self.FPS)
 

@@ -21,6 +21,7 @@ class CameraGUIextention(CameraGUI):
         self.layout_box.addWidget(self.cameraView)
 
 
+
 if __name__ == '__main__':
     from PyQt5.QtWidgets import QApplication
     import sys

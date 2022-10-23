@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow
-from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindowCameraGUI.MainWindowCustomBar.qMainWindow.WindowBar.WindowBar import MyBar
+from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindowCameraGUI.MainWindowCustomBar.WindowBar.WindowBar import MyBar
 from PyQt5.QtCore import Qt
 
 
