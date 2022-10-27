@@ -11,7 +11,7 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
         self.roiList.hide()
 
     def showROIList(self, e):
-        if e.x() > 2400:# dopracowac wartosc
+        if e.x() > 2400:  # dopracowac wartosc
             self.roiList.show()
             self.roiList.move(2250, 0)  # dopracowac wartosc
 
@@ -25,8 +25,9 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
     def addROIToList(self):
         self.roiList.addROI(self.cameraView.ROIList[-1].label)
 
-    def removeROIFromList(self,lable):
+    def removeROIFromList(self, lable):
         self.roiList.removeROI(lable)
+
 
 if __name__ == '__main__':
     from PyQt5.QtWidgets import QApplication

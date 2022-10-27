@@ -2,7 +2,6 @@ from PyQt5.QtCore import QRect, QPoint
 from ROI.RenameWidnow import ReNameWindow
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QLabel
 from ROI.ROILable import ROILabel
 
 
@@ -24,7 +23,15 @@ class ROI:
 
     pressPrecision = 50
 
-    def __init__(self, mainWindow, x1, y1, x2, y2, name='1'):
+    xOffset = 172
+    yOffset = 145
+
+    def __init__(self, mainWindow, x1, y1, x2, y2, name='1', manipulatotrX=25.0, manipulatorY=25.0):
+
+        dx = int((manipulatotrX - 25) * self.xOffset)
+        dy = int((manipulatorY - 25) * self.yOffset)
+
+        x1, y1, x2, y2 = x1 + dx, y1 + dy, x2 + dx, y2 + dy
 
         self._setBorders(x1, x2, y1, y2)
 
@@ -235,3 +242,8 @@ class ROI:
 
     def setName(self, name):
         self.name = name
+
+    def getRect(self, x, y):
+        dx = int((x - 25) * self.xOffset)
+        dy = int((y - 25) * self.yOffset)
+        return QRect(QPoint(self.x0 - dx, self.y0 - dy), QPoint(self.x1 - dx, self.y1 - dy))
