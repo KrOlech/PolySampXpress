@@ -5,6 +5,8 @@ from PyQt5.QtCore import QObject, pyqtSignal, QThread
 
 from manipulator.AbstractManipulator import AbstractManipulator
 
+import threading
+
 
 class Worker(QObject):
     finished = pyqtSignal()
@@ -46,14 +48,17 @@ class TCIPManipulator(AbstractManipulator):
 
         super(TCIPManipulator, self).__init__()
 
+        self.lock = threading.Lock()
+
     def close(self):
         if self.conn:
             self.conn.send(self.NONe)
             self.conn.close()
 
     def goto(self, x, y, z):
-        self.conn.send(("x" + str(x)).encode("utf8"))
-        self.conn.send(("y" + str(y)).encode("utf8"))
+        with self.lock:
+            self.conn.send(("x" + str(x)).encode("utf8"))
+            self.conn.send(("y" + str(y)).encode("utf8"))
 
     def validateSpeed(self, speed):
         return speed <= 10
