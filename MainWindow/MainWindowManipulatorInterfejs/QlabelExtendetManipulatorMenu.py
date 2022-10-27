@@ -13,7 +13,7 @@ class Worker(QObject):
         self.mainWindow = mainwindow
 
     def run(self):
-        sleep(0.2)
+        sleep(0.01)
         self.mainWindow.hideRightClickButtons()
         self.finished.emit()
 
