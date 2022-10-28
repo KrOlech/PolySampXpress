@@ -41,7 +41,7 @@ class Camera:
 
     def __init__(self) -> None:
 
-        self.device = cv2.VideoCapture(1)
+        self.device = cv2.VideoCapture(0)
 
         try:
             ret, _ = self.device.read()
