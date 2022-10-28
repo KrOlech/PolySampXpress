@@ -19,8 +19,9 @@ class Worker(QObject):
         self.master.conn, self.master.addr = self.master.socket.accept()
         self.finished.emit()
 
+
 class TCIPManipulator(AbstractManipulator):
-    TCP_IP = "172.30.254.65"#SOCKET.gethostbyname(SOCKET.gethostname())
+    TCP_IP = "172.30.254.65"  # SOCKET.gethostbyname(SOCKET.gethostname())
     TCP_PORT = 22
     BUFFER_SIZE = 1024
 
@@ -55,10 +56,15 @@ class TCIPManipulator(AbstractManipulator):
             self.conn.send(self.NONe)
             self.conn.close()
 
-    def goto(self, x, y, z):
+    def goto(self):
         with self.lock:
-            self.conn.send(("x" + str(x)).encode("utf8"))
-            self.conn.send(("y" + str(y)).encode("utf8"))
+            try:
+                self.conn.send(("x" + str(self.x)).encode("utf8"))
+                self.conn.send(("y" + str(self.y)).encode("utf8"))
+            except AttributeError:
+                print("TCIP manipulator not yet connected")
+                self.x = 25.0
+                self.y = 25.0
 
     def validateSpeed(self, speed):
         return speed <= 10
@@ -70,5 +76,3 @@ class TCIPManipulator(AbstractManipulator):
 
     def getCurentPosytion(self):
         return self.x, self.y, self.z
-
-
