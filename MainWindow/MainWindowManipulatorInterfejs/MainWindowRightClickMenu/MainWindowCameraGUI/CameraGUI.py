@@ -17,10 +17,10 @@ class CameraGUI(MainWindowMenuBar):
 
         self.setCentralWidget(self.view)
 
-        self.cameraWidget = CameraSettingsWindow(self)
+        self.cameraSetingsWidget = CameraSettingsWindow(self)
 
     def showAllCameraSettings(self) -> None:
-        self.cameraWidget.show()
+        self.cameraSetingsWidget.show()
 
 
 if __name__ == '__main__':

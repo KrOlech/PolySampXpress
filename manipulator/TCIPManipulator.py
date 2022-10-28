@@ -47,8 +47,9 @@ class TCIPManipulator(AbstractManipulator):
         super(TCIPManipulator, self).__init__()
 
     def close(self):
-        self.conn.send(self.NONe)
-        self.conn.close()
+        if self.conn:
+            self.conn.send(self.NONe)
+            self.conn.close()
 
     def goto(self, x, y, z):
         self.conn.send(("x" + str(x)).encode("utf8"))

@@ -13,7 +13,7 @@ class MainWindowMenuBar(MainWindowCustomBar):
 
         self.menu = self.menuBar()
 
-        listROI = self.qActionCreate("List ROI", self.showListOfROI)
+        listROI = self.qActionCreate("List ROI", self.showROIListButton)
         loadROI = self.qActionCreate("Save ROI List", self.loadListOfROI)
         SaveROI = self.qActionCreate("Load ROI list", self.saveListOfROI)
 
@@ -57,7 +57,7 @@ class MainWindowMenuBar(MainWindowCustomBar):
         pass
 
     @abstractmethod
-    def showROIList(self, e):
+    def showROIListButton(self, e):
         abstractmetod()
 
 
