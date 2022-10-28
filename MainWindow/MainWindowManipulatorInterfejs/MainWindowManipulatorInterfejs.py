@@ -69,9 +69,6 @@ class MainWindowManipulatorInterfejs(CameraGUIextention):
     def hideRightClickButtons(self):
         [button.hide() for button in self.Buttons]
         self.Buttons = []
-        #[button.setStyleSheet("background-color: rgba(255, 255, 255, 10);") for button in self.manipulatorButtons]
-        #[button.move(pos) for button, pos in zip(self.manipulatorButtons, self.positions)]
-        #[button.setStyleSheet("background-color: rgba(0, 0, 0,0);") for button in self.Buttons]
 
 
 if __name__ == '__main__':
