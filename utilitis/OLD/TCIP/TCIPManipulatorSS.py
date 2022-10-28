@@ -20,7 +20,7 @@ class TCIPManipulator(AbstractManipulator):
         print(data.decode())
         s.close()
 
-    def getCurentPosytion(self):
+    def getCurrentPosition(self):
         pass
 
     def center(self, pozycja):

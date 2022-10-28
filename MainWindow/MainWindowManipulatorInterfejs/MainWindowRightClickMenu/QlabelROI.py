@@ -158,7 +158,7 @@ class QlabelROI(RightClickLabel):
 
     @abstractmethod
     def center(self):
-        abstractmetod()
+        self.mainWindow.manipulator.center(self.rightClickPos.x(), self.rightClickPos.y())
 
     @abstractmethod
     def checkIfInROI(self):

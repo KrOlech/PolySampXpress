@@ -69,10 +69,5 @@ class TCIPManipulator(AbstractManipulator):
     def validateSpeed(self, speed):
         return speed <= 10
 
-    def center(self, pozycja):
-        self.conn.send("x25.0".encode("utf8"))
-        self.conn.send("y25.0".encode("utf8"))
-        self.conn.send("z25.0".encode("utf8"))
-
-    def getCurentPosytion(self):
+    def getCurrentPosition(self):
         return self.x, self.y, self.z

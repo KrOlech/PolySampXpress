@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt
 class _AbstractManipulatorInterfejs(QWidget):
 
     def __init__(self, ManipulatorObject, *args, **kwargs):
-        super(_AbstractManipulatorInterfejs, self).__init__( *args, **kwargs)
+        super(_AbstractManipulatorInterfejs, self).__init__(*args, **kwargs)
 
         self.Manipulator = ManipulatorObject
 
@@ -38,3 +38,6 @@ class _AbstractManipulatorInterfejs(QWidget):
 
     def _key_down(self):
         self.Manipulator.down()
+
+    def center(self, pos):
+        self.Manipulator.center(pos)
