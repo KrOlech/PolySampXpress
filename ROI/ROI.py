@@ -234,8 +234,10 @@ class ROI:
         self.label = None
         self.mainWindow.endEdit()
 
-    def GetTextLocation(self):
-        return self.x0 - 15, self.y0 - 15
+    def GetTextLocation(self,x,y):
+        dx = int((x - 25) * self.xOffset)
+        dy = int((y - 25) * self.yOffset)
+        return self.x0 - 15-dx, self.y0 - 15-dy
 
     def rename(self):
         self.textedit.show()

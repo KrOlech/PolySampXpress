@@ -53,14 +53,14 @@ class QlabelROI(RightClickLabel):
     @abstractmethod
     def getFrame(self) -> QPixmap:
         cvBGBImg = self.mainWindow.camera.getFrame()
-        '''
+
         for i, rectangle in enumerate(self.ROIList):
-            rx, ry = rectangle.GetTextLocation()
+            rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
 
             cv2.putText(cvBGBImg, str(rectangle.name),
                         (rx, ry), cv2.FONT_HERSHEY_SIMPLEX,
                         1, (255, 0, 0), 2)
-        '''
+
         qImg = QImage(cvBGBImg.data, cvBGBImg.shape[1], cvBGBImg.shape[0], QImage.Format_BGR888)
 
         frame = QPixmap.fromImage(qImg)
