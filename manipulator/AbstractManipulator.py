@@ -39,29 +39,29 @@ class AbstractManipulator:
                 print(f"{speed} is invalid")
 
     @abstractmethod
-    def goto(self, x, y, z):
+    def goto(self):
         abstractmetod()
 
     def up(self):
         self.y += self.speed
-        self.goto(self.x, self.y, self.z)
+        self.goto()
 
     def down(self):
         self.y -= self.speed
-        self.goto(self.x, self.y, self.z)
+        self.goto()
 
     def left(self):
         self.x -= self.speed
-        self.goto(self.x, self.y, self.z)
+        self.goto()
 
     def right(self):
         self.x += self.speed
-        self.goto(self.x, self.y, self.z)
+        self.goto()
 
     def forward(self):
         self.z -= self.speed
-        self.goto(self.x, self.y, self.z)
+        self.goto()
 
     def backwards(self):
         self.z += self.speed
-        self.goto(self.x, self.y, self.z)
+        self.goto()

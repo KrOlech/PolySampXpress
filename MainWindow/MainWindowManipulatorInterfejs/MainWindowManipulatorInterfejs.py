@@ -18,6 +18,8 @@ class MainWindowManipulatorInterfejs(CameraGUIextention):
 
         self._manipulatorButtons()
 
+
+
     def closeEvent(self, event):
 
         reply = QMessageBox.question(self, "mesage",
@@ -54,18 +56,22 @@ class MainWindowManipulatorInterfejs(CameraGUIextention):
 
     def right_menu(self, pos):
 
-        Buttons = self._createManipulatorButtons()
+        self.Buttons = self._createManipulatorButtons()
 
-        [button.setStyleSheet("background-color: rgba(255, 255, 255,100);") for button in self.manipulatorButtons]
+        [button.setStyleSheet("background-color: rgba(255, 255, 255,100);") for button in self.Buttons]
 
         positions = [pos + button.geometry().bottomRight() - offset - QPoint(0, 20) for button, offset in
-                     zip(Buttons, self.offsets)]
+                     zip(self.Buttons, self.offsets)]
 
-        [button.move(ps) for button, ps in zip(self.manipulatorButtons, positions)]
+        [button.move(ps) for button, ps in zip(self.Buttons, positions)]
+        [button.show() for button in self.Buttons]
 
     def hideRightClickButtons(self):
-        [button.setStyleSheet("background-color: rgba(255, 255, 255, 10);") for button in self.manipulatorButtons]
-        [button.move(pos) for button, pos in zip(self.manipulatorButtons, self.positions)]
+        [button.hide() for button in self.Buttons]
+        self.Buttons = []
+        #[button.setStyleSheet("background-color: rgba(255, 255, 255, 10);") for button in self.manipulatorButtons]
+        #[button.move(pos) for button, pos in zip(self.manipulatorButtons, self.positions)]
+        #[button.setStyleSheet("background-color: rgba(0, 0, 0,0);") for button in self.Buttons]
 
 
 if __name__ == '__main__':
