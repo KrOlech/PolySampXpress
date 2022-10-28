@@ -12,6 +12,7 @@ print(c848)
 controller_id = conncect_to_controller(c848)
 print('controller_id:', controller_id)
 print('is connected:', is_connected(controller_id,c848))
+reference_axes(controller_id,c848, axes='xyz')
 move_axes_to_abs(controller_id,c848, axes='xyz', positions=[25,25,25])
 
 
@@ -19,7 +20,7 @@ try:
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((TCP_IP, TCP_PORT))
-
+    print("conectet by TCIP")
     while True:
         data = s.recv(BUFFER_SIZE) 
         print("received data:", data)
