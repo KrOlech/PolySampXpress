@@ -50,6 +50,7 @@ class Camera:
         except TypeError:
             print("Error During camera initialisation check it connection or if any other software is using it.")
 
+
         self.set(self.WIDTH, self.HEIGHT, self.FPS)
 
         self.setBritnes(100)

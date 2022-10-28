@@ -18,6 +18,10 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
         else:
             self.roiList.hide()
 
+    def showROIListButton(self, e):
+        self.roiList.move(0, 0)
+        self.roiList.show()
+
     def addROIToList(self):
         self.roiList.addROI(self.cameraView.ROIList[-1].label)
 

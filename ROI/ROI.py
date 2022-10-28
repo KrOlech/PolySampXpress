@@ -69,7 +69,7 @@ class ROI:
         return self.minX < pos.x() < self.maxX and self.minY < pos.y() < self.maxY
 
     def edit(self):
-        self.mainWindow.editTrybe = True
+        self.mainWindow.editTribe = True
         self.mainWindow.editedROI = self
 
     def mousePress(self, e):

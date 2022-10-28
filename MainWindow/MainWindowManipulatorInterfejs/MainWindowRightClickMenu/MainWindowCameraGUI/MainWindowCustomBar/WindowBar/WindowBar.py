@@ -55,19 +55,6 @@ class MyBar(QWidget):
 
             setattr(self, target + 'Button', btn)
 
-
-        self.updateTitle(parent.windowTitle())
-        parent.windowTitleChanged.connect(self.updateTitle)
-
-    def updateTitle(self, title=None):
-        if title is None:
-            title = self.window().windowTitle()
-        width = self.title.width()
-        width -= self.style().pixelMetric(QStyle.PM_LayoutHorizontalSpacing) * 2
-        self.title.setText(self.fontMetrics().elidedText(
-            title, Qt.ElideRight, width))
-
-
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.clickPos = event.windowPos().toPoint()
@@ -90,7 +77,3 @@ class MyBar(QWidget):
 
     def minClicked(self):
         self.window().showMinimized()
-
-    def resizeEvent(self, event):
-        self.title.resize(self.minButton.x(), self.height())
-        self.updateTitle()

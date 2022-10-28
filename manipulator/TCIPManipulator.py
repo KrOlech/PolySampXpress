@@ -18,7 +18,7 @@ class Worker(QObject):
         self.finished.emit()
 
 class TCIPManipulator(AbstractManipulator):
-    TCP_IP = '172.30.254.65'
+    TCP_IP = SOCKET.gethostbyname(SOCKET.gethostname())
     TCP_PORT = 22
     BUFFER_SIZE = 1024
 
@@ -47,8 +47,9 @@ class TCIPManipulator(AbstractManipulator):
         super(TCIPManipulator, self).__init__()
 
     def close(self):
-        self.conn.send(self.NONe)
-        self.conn.close()
+        if self.conn:
+            self.conn.send(self.NONe)
+            self.conn.close()
 
     def goto(self, x, y, z):
         self.conn.send(("x" + str(x)).encode("utf8"))

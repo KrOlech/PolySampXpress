@@ -13,10 +13,10 @@ from PyQt5.QtWidgets import QApplication
 
 class QlabelROI(RightClickLabel):
     __metaclass__ = ABCMeta
-    editTrybe = False
+    editTribe = False
     rightClickPos = None
     rois = None
-    roinames = 0
+    roiNames = 0
     editedROI = None
     leftMouseButton = False
 
@@ -39,7 +39,7 @@ class QlabelROI(RightClickLabel):
 
         self.setPixmap(self.getFrame())
 
-        self.presed = False
+        self.pressed = False
 
         self.installEventFilter(self)
 
@@ -78,14 +78,14 @@ class QlabelROI(RightClickLabel):
         for rectagle in self.ROIList:
             qp.drawRect(rectagle.rect)
 
-        if self.presed:
+        if self.pressed:
             qp.drawRect(QRect(QPoint(self.x1, self.y1), QPoint(self.x2, self.y2)))
 
     def mousePressEvent(self, e):
         if not self.leftMouseButton:
             return
 
-        if self.editTrybe:
+        if self.editTribe:
             self.editedROI.mousePress(e)
         else:
             self.savePressLocation(e)
@@ -95,14 +95,14 @@ class QlabelROI(RightClickLabel):
         if not self.leftMouseButton:
             return
 
-        if self.editTrybe:
+        if self.editTribe:
             self.editedROI.mouseRelease(e)
         else:
             self.seveReliseLocation(e)
 
     def mouseMoveEvent(self, e):
 
-        match(self.leftMouseButton, self.editTrybe):
+        match (self.leftMouseButton, self.editTribe):
             case False, False:
                 self.mainWindow.showROIList(e)
             case False, True:
@@ -112,8 +112,8 @@ class QlabelROI(RightClickLabel):
             case True, False:
                 self.saveTemporaryLocation(e)
                 self.mainWindow.showROIList(e)
-            case _,_:
-                print("erore 1")
+            case _, _:
+                print("error 1")
 
     @abstractmethod
     def savePressLocation(self, e):
@@ -121,17 +121,17 @@ class QlabelROI(RightClickLabel):
         self.y1 = e.y()
         self.x2 = e.x()
         self.y2 = e.y()
-        self.presed = True
+        self.pressed = True
 
     @abstractmethod
     def seveReliseLocation(self, e):
         self.x2 = e.x()
         self.y2 = e.y()
 
-        self.ROIList.append(ROI(self, self.x1, self.y1, self.x2, self.y2, self.roinames + 1))
-        self.roinames += 1
+        self.ROIList.append(ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1))
+        self.roiNames += 1
 
-        self.presed = False
+        self.pressed = False
 
         self.mainWindow.addROIToList()
 
@@ -149,7 +149,7 @@ class QlabelROI(RightClickLabel):
 
         self.rois = self.checkIfInROI()
 
-        menu.addRoiMenus(self.rois, self.editTrybe)
+        menu.addRoiMenus(self.rois, self.editTribe)
 
         menu.exec_(self.mapToGlobal(pos))
 
@@ -167,7 +167,7 @@ class QlabelROI(RightClickLabel):
 
     def endEdit(self):
         QApplication.setOverrideCursor(Qt.ArrowCursor)
-        self.editTrybe = False
+        self.editTribe = False
 
-    def removeLable(self,ROI):
+    def removeLable(self, ROI):
         self.mainWindow.removeROIFromList(ROI)
