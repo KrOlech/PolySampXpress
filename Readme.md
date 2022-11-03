@@ -18,3 +18,28 @@
 - Manipulator:
     - Centring on point
 
+***TO Do in Beta 0.3:***
+
+
+- manualne uzpełnanie wymiarowania
+- Obsluga mapy
+- predefinowany wybur holderow
+- wstempna obsluga zuma
+
+***TO Do in Beta 0.4:***
+
+-obsluga zuma
+- automatyczna mapa
+
+
+***TO Do in Beta next:***
+
+-mapa wybranego fragmentu
+
+
+
+**ogulne zalozenia**
+
+- pole robocze
+- Natwny zoom tylko na nim dziala oznaczanie roi
+- Mapa autpmatyczna dla majacych ses zlzoen zuma i pola roboczego
