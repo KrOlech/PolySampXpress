@@ -37,7 +37,7 @@ class ROI:
         x1, y1, x2, y2 = x1 + dx, y1 + dy, x2 + dx, y2 + dy
 
         self._setBorders(x1, x2, y1, y2)
-        print(self.x0, self.x1, self.y0, self.y1)
+
         self.name = name
         self.mainWindow = mainWindow
 
@@ -47,7 +47,7 @@ class ROI:
 
         self.label = ROILabel(self, str(name))
 
-        self.viue = self.mainWindow.mainWindow.cameraView.getFrame()
+        self.viue = self.mainWindow.mainWindow.camera.getFrame()
 
     def _createRectagle(self):
         self.rect = QRect(QPoint(self.x0, self.y0), QPoint(self.x1, self.y1))
