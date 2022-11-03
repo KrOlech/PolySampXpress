@@ -2,6 +2,7 @@ from abc import ABCMeta
 from abc import abstractmethod
 from utilitis.Exceptions import InvalidSpeed
 from utilitis.Abstract import abstractmetod
+from utilitis.JsonRead.JsonRead import loadOffsetsJson
 
 
 class AbstractManipulator:
@@ -10,10 +11,12 @@ class AbstractManipulator:
     speed = 0
     x, y, z = 25.0, 25.0, 25.0
 
-    xOffset = 172
-    yOffset = 145
+    xOffset = 1
+    yOffset = 1
 
     def __init__(self):
+
+        self.xOffset, self.yOffset = loadOffsetsJson()
         self.setSpeed(1)
         self.x, self.y, self.z = self.getCurrentPosition()
 

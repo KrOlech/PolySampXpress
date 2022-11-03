@@ -3,6 +3,7 @@ from ROI.RenameWidnow import ReNameWindow
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
 from ROI.ROILable import ROILabel
+from utilitis.JsonRead.JsonRead import loadOffsetsJson
 
 
 class ROI:
@@ -27,6 +28,8 @@ class ROI:
     yOffset = 145
 
     def __init__(self, mainWindow, x1, y1, x2, y2, name='1', manipulatotrX=25.0, manipulatorY=25.0):
+
+        self.xOffset, self.yOffset = loadOffsetsJson()
 
         dx = int((manipulatotrX - 25) * self.xOffset)
         dy = int((manipulatorY - 25) * self.yOffset)
