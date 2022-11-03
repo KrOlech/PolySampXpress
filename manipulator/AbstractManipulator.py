@@ -10,12 +10,15 @@ class AbstractManipulator:
     speed = 0
     x, y, z = 25.0, 25.0, 25.0
 
+    xOffset = 172
+    yOffset = 145
+
     def __init__(self):
         self.setSpeed(1)
-        self.x, self.y, self.z = self.getCurentPosytion()
+        self.x, self.y, self.z = self.getCurrentPosition()
 
     @abstractmethod
-    def getCurentPosytion(self):
+    def getCurrentPosition(self):
         abstractmetod()
         return 0, 0, 0
 
@@ -64,4 +67,16 @@ class AbstractManipulator:
 
     def backwards(self):
         self.z += self.speed
+        self.goto()
+
+    def center(self, x, y):
+
+        x1 = x - 1280
+        y1 = y - 720
+
+        x = x1 / self.xOffset
+        y = y1 / self.yOffset
+
+        self.x += x
+        self.y += y
         self.goto()
