@@ -37,7 +37,7 @@ class ROI:
         x1, y1, x2, y2 = x1 + dx, y1 + dy, x2 + dx, y2 + dy
 
         self._setBorders(x1, x2, y1, y2)
-
+        print(self.x0, self.x1, self.y0, self.y1)
         self.name = name
         self.mainWindow = mainWindow
 

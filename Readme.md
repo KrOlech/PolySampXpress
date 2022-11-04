@@ -4,12 +4,11 @@
     - ROI labels
 
 - Manipulator:
-    - Getting position from manipulator for accuracies
-
-    - Mechanical or software correction for unsquareness
-
+    - Getting position from manipulator for accuracies (unnesesery)
+    - wait for manipulator to reach goll befor displeing ROI's
+    
 - Backend:
-    - Automatic manipulator calibration
+    - Automatic manipulator calibration (uncontinued)
 
 
 ***Done:***
@@ -17,25 +16,24 @@
 - Get offset from Global Config
 - Manipulator:
     - Centring on point
+    - Mechanical or software correction for unsquareness
 
 ***TO Do in Beta 0.3:***
 
+- predefiniowanie pola roboczego
+- automatyczna mapa
+
+***TO Do in Beta 0.4:***
 
 - manualne uzpełnanie wymiarowania
 - Obsluga mapy
 - predefinowany wybur holderow
 - wstempna obsluga zuma
 
-***TO Do in Beta 0.4:***
-
--obsluga zuma
-- automatyczna mapa
-
 
 ***TO Do in Beta next:***
 
 -mapa wybranego fragmentu
-
 
 
 **ogulne zalozenia**
