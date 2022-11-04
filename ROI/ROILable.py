@@ -1,40 +1,33 @@
-from PyQt5.QtCore import QRect, QPoint
-from PyQt5.QtGui import QPainter, QBrush, QColor
-from PyQt5.QtWidgets import QWidget, QLabel
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel
+
+from ROI.ROILabelViue import ROILegendViue
 
 
-class ROILabel(QLabel):
+class ROILabel(QWidget):
     x = 256
     y = 144
-    scalaX = 10
-    scalaY = 10
 
     def __init__(self, roi, *args, **kwargs):
         super(ROILabel, self).__init__(*args, **kwargs)
 
-        self.roi = roi
+        self.widget = QWidget()
 
-        self.rectangle = self._convertRectagle()
+        self.layout = QVBoxLayout(self.widget)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+
+        self.viue = ROILegendViue(roi, self.widget)
+        self.layout.addWidget(self.viue)
+
+        self.name = QLabel(str(roi.name), self.widget)
+        self.name.setFont(QFont('Times', 20))
+        # to-do color unification
+        self.name.setStyleSheet("color: #c80a0a")
+        self.name.move(self.geometry().topRight())
+
+        self.layout.addWidget(self.name)
+
+        self.setLayout(self.layout)
 
         self.setMaximumSize(self.x, self.y)
         self.setMinimumSize(self.x, self.y)
-
-    def paintEvent(self, QPaintEvent):
-        # inicjalizacja pintera
-        qp = QPainter(self)
-
-        # rysowanie obrazu
-        qp.drawPixmap(self.rect(), self.roi.viue)
-
-        # stworzenie i wgranie stylu prostokata
-        qp.setBrush(QBrush(QColor(200, 10, 10, 200)))
-
-        # rysowanie prostokatu
-        qp.drawRect(self.rectangle)
-
-    def _convertRectagle(self):
-        return QRect(QPoint(self.roi.x0 // self.scalaX, self.roi.y0 // self.scalaY),
-                     QPoint(self.roi.x1 // self.scalaX, self.roi.y1 // self.scalaY))
-
-    def update(self):
-        self.rectangle = self._convertRectagle()

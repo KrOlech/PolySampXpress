@@ -2,14 +2,10 @@
     
 - ROI list:
     - ROI labels
-
-- Manipulator:
-    - Getting position from manipulator for accuracies (unnesesery)
-    - wait for manipulator to reach goll befor displeing ROI's
+- BUG Fixys:
+    - ROI Edit
+  
     
-- Backend:
-    - Automatic manipulator calibration (uncontinued)
-
 
 ***Done:***
 
@@ -18,10 +14,22 @@
     - Centring on point
     - Mechanical or software correction for unsquareness
 
+***uncontinued***
+
+- Manipulator:
+  - Getting position from manipulator for accuracies 
+    
+- Backend:
+    - Automatic manipulator calibration 
+
 ***TO Do in Beta 0.3:***
 
 - predefiniowanie pola roboczego
 - automatyczna mapa
+- Debug Mode
+- Manipulator:
+
+    - wait for manipulator to reach goll befor displeing ROI's
 
 ***TO Do in Beta 0.4:***
 

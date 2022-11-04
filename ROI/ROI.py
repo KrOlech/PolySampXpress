@@ -45,7 +45,7 @@ class ROI:
 
         self.textedit = ReNameWindow(self, text=str(name))
 
-        self.label = ROILabel(self, str(name))
+        self.label = ROILabel(self)
 
         self.viue = self.mainWindow.mainWindow.cameraView.getFrame()
 
@@ -237,10 +237,10 @@ class ROI:
         self.label = None
         self.mainWindow.endEdit()
 
-    def GetTextLocation(self,x,y):
+    def GetTextLocation(self, x, y):
         dx = int((x - 25) * self.xOffset)
         dy = int((y - 25) * self.yOffset)
-        return self.x0 - 15-dx, self.y0 - 15-dy
+        return self.x0 - 15 - dx, self.y0 - 15 - dy
 
     def rename(self):
         self.textedit.show()
