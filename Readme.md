@@ -1,53 +1,39 @@
-***TO Do in Beta 0.2:***
-    
-- ROI list:
-    - ROI labels
-
-- BUG Fixys:
-    - ROI Edit
-
-    
-***Done:***
-
-- Get offset from Global Config
-- Manipulator:
-    - Centring on point
-    - Mechanical or software correction for unsquareness
-
-***uncontinued***
-
-- Manipulator:
-  - Getting position from manipulator for accuracies 
-    
-- Backend:
-    - Automatic manipulator calibration 
-
 ***TO Do in Beta 0.3:***
 
-- predefiniowanie pola roboczego
-- automatyczna mapa
+- MAPA:
+    - mapa GUI
+    - automatyczna mapa
+
+***Done in Beta 0.3:***
+
+- GUI:
+    - predefiniowanie pola roboczego
+
+***TO Do in Beta 0.4:***
+
+- wstempna obsluga zumu ?
+
+***TO Do in Beta next:***
+
+- Refactor!!!!!!!!
 
 - Debug Mode
 
 - Manipulator:
+    - wait for manipulator to reach goll befor displeing ROI's (bardziej skompliowane niz powino byc z uwagi na TCIP)
 
-    - wait for manipulator to reach goll befor displeing ROI's
+-Bug fixing and searching
 
-***TO Do in Beta 0.4:***
-
-- manualne uzpełnanie wymiarowania
-- Obsluga mapy
-- predefinowany wybur holderow
-- wstempna obsluga zuma
-
-
-***TO Do in Beta next:***
-
--mapa wybranego fragmentu
-
+-GUI
+  -wybur zoomu
 
 **ogulne zalozenia**
 
-- pole robocze
+- pole robocze (zadefiniowane nie uzywane)
 - Natwny zoom tylko na nim dziala oznaczanie roi
 - Mapa autpmatyczna dla majacych ses zlzoen zuma i pola roboczego
+
+**Znalezione bledy do rozwionzania**
+
+- No ROIs in labels
+- TCIP Erore - cos bylo robione na sieci

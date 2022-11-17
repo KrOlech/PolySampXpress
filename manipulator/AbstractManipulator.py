@@ -83,3 +83,7 @@ class AbstractManipulator:
         self.x += x
         self.y += y
         self.goto()
+
+    @abstractmethod
+    def close(self):
+        abstractmetod()

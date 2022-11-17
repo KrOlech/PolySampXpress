@@ -1,4 +1,4 @@
-from MainWindow.MainWindowManipulatorInterfejs.MainWindowManipulatorInterfejs import MainWindowManipulatorInterfejs
+from MainWindow.MainWindowROIList.MainWindowManipulatorInterfejs.MainWindowManipulatorInterfejs import MainWindowManipulatorInterfejs
 from ROI.ROIList import ROIList
 
 

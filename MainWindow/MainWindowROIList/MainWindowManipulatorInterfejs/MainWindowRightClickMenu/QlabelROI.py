@@ -7,7 +7,8 @@ from PyQt5.QtCore import QRect, QPoint, Qt, QEvent
 from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor
 from PyQt5.QtWidgets import QApplication
 
-from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.RightClickMenu import RightClickLabel, RightMenu
+from MainWindow.MainWindowROIList.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.RightClickMenu import \
+    RightClickLabel, RightMenu
 from ROI.ROI import ROI
 
 
@@ -19,14 +20,16 @@ class QlabelROI(RightClickLabel):
     roiNames = 0
     editedROI = None
     leftMouseButton = False
+    afterInitialisation = False
 
     def eventFilter(self, source, event):
-        if event.type() == QEvent.MouseButtonPress or \
-                event.type() == QEvent.MouseButtonRelease:
-            if event.button() == Qt.LeftButton:
-                self.leftMouseButton = True
-            elif event.button() == Qt.RightButton:
-                self.leftMouseButton = False
+        if self.afterInitialisation:
+            if event.type() == QEvent.MouseButtonPress or \
+                    event.type() == QEvent.MouseButtonRelease:
+                if event.button() == Qt.LeftButton:
+                    self.leftMouseButton = True
+                elif event.button() == Qt.RightButton:
+                    self.leftMouseButton = False
 
         return super().eventFilter(source, event)
 
@@ -126,17 +129,18 @@ class QlabelROI(RightClickLabel):
 
     @abstractmethod
     def seveReliseLocation(self, e):
-        self.x2 = e.x()
-        self.y2 = e.y()
+        if self.pressed:
+            self.x2 = e.x()
+            self.y2 = e.y()
 
-        self.ROIList.append(
-            ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
-                self.mainWindow.manipulator.y))
-        self.roiNames += 1
+            self.ROIList.append(
+                ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
+                    self.mainWindow.manipulator.y))
+            self.roiNames += 1
 
-        self.pressed = False
+            self.pressed = False
 
-        self.mainWindow.addROIToList()
+            self.mainWindow.addROIToList()
 
     @abstractmethod
     def saveTemporaryLocation(self, e):
