@@ -2,11 +2,11 @@
     
 - ROI list:
     - ROI labels
+
 - BUG Fixys:
     - ROI Edit
-  
-    
 
+    
 ***Done:***
 
 - Get offset from Global Config
@@ -26,7 +26,9 @@
 
 - predefiniowanie pola roboczego
 - automatyczna mapa
+
 - Debug Mode
+
 - Manipulator:
 
     - wait for manipulator to reach goll befor displeing ROI's
