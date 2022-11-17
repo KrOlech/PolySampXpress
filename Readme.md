@@ -1,53 +1,27 @@
-***TO Do in Beta 0.2:***
-    
-- ROI list:
-    - ROI labels
+**Beta 0.2:**
 
+*Implemented Features:*
+
+- ROI list:
+  - ROI labels
+- Manipulator:
+  - Getting position from manipulator for accuracies
+  - Centring on point
+  - Get offset from Global Config
 - BUG Fixys:
     - ROI Edit
 
     
-***Done:***
+**Known BUGS:**
 
-- Get offset from Global Config
-- Manipulator:
-    - Centring on point
-    - Mechanical or software correction for unsquareness
+- Multiple treads even after implementing tread lock are fainting for socket usage
 
-***uncontinued***
+**uncontinued**
 
 - Manipulator:
-  - Getting position from manipulator for accuracies 
-    
+    - Getting position from manipulator for accuracies
+
 - Backend:
     - Automatic manipulator calibration 
 
-***TO Do in Beta 0.3:***
-
-- predefiniowanie pola roboczego
-- automatyczna mapa
-
-- Debug Mode
-
-- Manipulator:
-
-    - wait for manipulator to reach goll befor displeing ROI's
-
-***TO Do in Beta 0.4:***
-
-- manualne uzpełnanie wymiarowania
-- Obsluga mapy
-- predefinowany wybur holderow
-- wstempna obsluga zuma
-
-
-***TO Do in Beta next:***
-
--mapa wybranego fragmentu
-
-
-**ogulne zalozenia**
-
-- pole robocze
-- Natwny zoom tylko na nim dziala oznaczanie roi
-- Mapa autpmatyczna dla majacych ses zlzoen zuma i pola roboczego
+  
