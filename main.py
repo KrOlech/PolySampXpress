@@ -1,7 +1,7 @@
-from RightClickMenu import MainWindow
+from MainWindow.MainWindowROIList import MainWindowROIList
 
 
-class MAINWINDOW(MainWindow):
+class MainWindow(MainWindowROIList):
     pass
 
 
@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
 
-    window = MainWindow()
+    window = MainWindow(app.desktop().availableGeometry().size())
 
     window.show()
 

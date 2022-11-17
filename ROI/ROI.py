@@ -83,18 +83,19 @@ class ROI:
         self.mainWindow.editTribe = True
         self.mainWindow.editedROI = self
 
-    def mousePress(self, e):
+    def mousePress(self, e, x, y):
         self.firstPress = True
-        self.mousePositionCheck(e)
+        self.mousePositionCheck(e, x, y)
 
         self._createRectagle()
         self.updateViue()
 
-    def mouseRelease(self, e):
+    def mouseRelease(self, e, x, y):
 
         self.firstPress = False
 
-        self.px1, self.py1 = e.x(), e.y()
+        dx, dy = self._calculateOffset(x, y)
+        self.px1, self.py1 = e.x() + dx, e.y() + dy
 
         if self.move:
             dx, dy = self.px1 - self.px0, self.py1 - self.py0
@@ -128,11 +129,11 @@ class ROI:
         self.mainWindow.leftMouseButton = False
         self.updateViue()
 
-    def mouseMove(self, e):
+    def mouseMove(self, e, x, y):
 
         if self.firstPress:
-
-            self.px1, self.py1 = e.x(), e.y()
+            odx, ody = self._calculateOffset(x, y)
+            self.px1, self.py1 = e.x() + odx, e.y() + ody
 
             if self.move:
                 dx, dy = self.px1 - self.px0, self.py1 - self.py0
@@ -140,7 +141,7 @@ class ROI:
                 self.x1 += dx
                 self.y0 += dy
                 self.y1 += dy
-                self.px0, self.py0 = e.x(), e.y()
+                self.px0, self.py0 = e.x()+odx, e.y()+ody
             elif self.leftTop:
                 self.x1 = self.px1
                 self.y0 = self.py1
@@ -165,7 +166,8 @@ class ROI:
         self._createRectagle()
         self.updateViue()
 
-    def mousePositionCheck(self, e):
+    def mousePositionCheck(self, e, x, y):
+
         self.top = False
         self.bottom = False
         self.left = False
@@ -179,7 +181,9 @@ class ROI:
 
         self.move = False
 
-        self.px0, self.py0 = e.x(), e.y()
+        dx, dy = self._calculateOffset(x, y)
+
+        self.px0, self.py0 = e.x() + dx, e.y() + dy
 
         if self.x0 - self.pressPrecision < self.px0 < \
                 self.x0 + self.pressPrecision and \
@@ -217,8 +221,8 @@ class ROI:
                 self.x1 - self.pressPrecision:
             self.move = True
 
-    def cursorEdit(self, e):
-        self.mousePositionCheck(e)
+    def cursorEdit(self, e, x, y):
+        self.mousePositionCheck(e, x, y)
         if self.move:
             QApplication.setOverrideCursor(Qt.SizeAllCursor)
         elif self.rightTop or self.leftBottom:
