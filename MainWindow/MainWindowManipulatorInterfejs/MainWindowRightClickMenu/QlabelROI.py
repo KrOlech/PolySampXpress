@@ -1,14 +1,14 @@
+from abc import ABCMeta
+from abc import abstractmethod
+
 import cv2
-from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor
 from PyQt5 import QtGui
 from PyQt5.QtCore import QRect, QPoint, Qt, QEvent
-from abc import abstractmethod
-from abc import ABCMeta
+from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor
+from PyQt5.QtWidgets import QApplication
 
 from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.RightClickMenu import RightClickLabel, RightMenu
-from utilitis.Abstract import abstractmetod
 from ROI.ROI import ROI
-from PyQt5.QtWidgets import QApplication
 
 
 class QlabelROI(RightClickLabel):
