@@ -75,8 +75,9 @@ class ROI:
         self.y0 = self.minY
         self.y1 = self.maxY
 
-    def inROI(self, pos):
-        return self.minX < pos.x() < self.maxX and self.minY < pos.y() < self.maxY
+    def inROI(self, pos, x, y):
+        dx, dy = self._calculateOffset(x, y)
+        return self.minX - dx < pos.x() < self.maxX - dx and self.minY - dy < pos.y() < self.maxY - dy
 
     def edit(self):
         self.mainWindow.editTribe = True
@@ -238,8 +239,7 @@ class ROI:
         self.mainWindow.endEdit()
 
     def GetTextLocation(self, x, y):
-        dx = int((x - 25) * self.xOffset)
-        dy = int((y - 25) * self.yOffset)
+        dx, dy = self._calculateOffset(x, y)
         return self.x0 - 15 - dx, self.y0 - 15 - dy
 
     def rename(self):
@@ -249,6 +249,8 @@ class ROI:
         self.name = name
 
     def getRect(self, x, y):
-        dx = int((x - 25) * self.xOffset)
-        dy = int((y - 25) * self.yOffset)
+        dx, dy = self._calculateOffset(x, y)
         return QRect(QPoint(self.x0 - dx, self.y0 - dy), QPoint(self.x1 - dx, self.y1 - dy))
+
+    def _calculateOffset(self, x, y):
+        return int((x - 25) * self.xOffset), int((y - 25) * self.yOffset)

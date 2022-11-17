@@ -164,7 +164,7 @@ class QlabelROI(RightClickLabel):
     def checkIfInROI(self):
         rois = []
         for roi in self.ROIList:
-            if roi.inROI(self.rightClickPos):
+            if roi.inROI(self.rightClickPos,self.mainWindow.manipulator.x, self.mainWindow.manipulator.y):
                 rois.append(roi)
         return rois
 
