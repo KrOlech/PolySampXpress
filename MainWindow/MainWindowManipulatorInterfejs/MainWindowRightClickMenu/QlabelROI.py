@@ -87,7 +87,7 @@ class QlabelROI(RightClickLabel):
             return
 
         if self.editTribe:
-            self.editedROI.mousePress(e)
+            self.editedROI.mousePress(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
         else:
             self.savePressLocation(e)
 
@@ -97,7 +97,7 @@ class QlabelROI(RightClickLabel):
             return
 
         if self.editTribe:
-            self.editedROI.mouseRelease(e)
+            self.editedROI.mouseRelease(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
         else:
             self.seveReliseLocation(e)
 
@@ -107,9 +107,9 @@ class QlabelROI(RightClickLabel):
             case False, False:
                 self.mainWindow.showROIList(e)
             case False, True:
-                self.editedROI.cursorEdit(e)
+                self.editedROI.cursorEdit(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
             case True, True:
-                self.editedROI.mouseMove(e)
+                self.editedROI.mouseMove(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
             case True, False:
                 self.saveTemporaryLocation(e)
                 self.mainWindow.showROIList(e)
@@ -164,7 +164,7 @@ class QlabelROI(RightClickLabel):
     def checkIfInROI(self):
         rois = []
         for roi in self.ROIList:
-            if roi.inROI(self.rightClickPos,self.mainWindow.manipulator.x, self.mainWindow.manipulator.y):
+            if roi.inROI(self.rightClickPos, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y):
                 rois.append(roi)
         return rois
 
