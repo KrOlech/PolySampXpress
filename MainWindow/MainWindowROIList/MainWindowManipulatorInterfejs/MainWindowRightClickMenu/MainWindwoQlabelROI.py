@@ -5,8 +5,12 @@ from MainWindow.MainWindowROIList.MainWindowManipulatorInterfejs.QlabelExtendetM
 
 class CameraGUIextention(CameraGUI):
 
+    windowSize = None
+
     def __init__(self, windowsize, *args, **kwargs) -> None:
         super(CameraGUIextention, self).__init__(*args, **kwargs)
+
+        self.windowSize = windowsize
 
         self.setFixedSize(windowsize)
 

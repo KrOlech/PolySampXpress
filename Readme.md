@@ -36,4 +36,5 @@
 **Znalezione bledy do rozwionzania**
 
 - No ROIs in labels
+  - May be due to no proper manipulator connection
 - TCIP Erore - cos bylo robione na sieci
