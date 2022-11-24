@@ -2,7 +2,7 @@ from time import sleep
 
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
-from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.QlabelROI import QlabelROI
+from MainWindow.MainWindowROIList.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.QlabelROI import QlabelROI
 
 
 class Worker(QObject):

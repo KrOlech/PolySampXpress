@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout
-from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindowCameraGUI.CameraGUI import CameraGUI
-from MainWindow.MainWindowManipulatorInterfejs.QlabelExtendetManipulatorMenu import QlabelRightClickMenu
+from MainWindow.MainWindowROIList.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindowCameraGUI.CameraGUI import CameraGUI
+from MainWindow.MainWindowROIList.MainWindowManipulatorInterfejs.QlabelExtendetManipulatorMenu import QlabelRightClickMenu
 
 
 class CameraGUIextention(CameraGUI):

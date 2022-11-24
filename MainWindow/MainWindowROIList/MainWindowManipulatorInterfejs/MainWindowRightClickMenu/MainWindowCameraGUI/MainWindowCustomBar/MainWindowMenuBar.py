@@ -1,4 +1,4 @@
-from MainWindow.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindowCameraGUI.MainWindowCustomBar.WindowBar.MainWindowCustomBar import MainWindowCustomBar
+from MainWindow.MainWindowROIList.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindowCameraGUI.MainWindowCustomBar.WindowBar.MainWindowCustomBar import MainWindowCustomBar
 from PyQt5.QtWidgets import QAction
 from abc import abstractmethod
 from abc import ABCMeta
