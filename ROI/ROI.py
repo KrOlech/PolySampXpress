@@ -47,7 +47,7 @@ class ROI:
 
         self.label = ROILabel(self)
 
-        self.viue = self.mainWindow.mainWindow.cameraView.getFrame()
+        self.viue = self.mainWindow.getFrame()
 
     def _createRectagle(self):
         self.rect = QRect(QPoint(self.x0, self.y0), QPoint(self.x1, self.y1))
