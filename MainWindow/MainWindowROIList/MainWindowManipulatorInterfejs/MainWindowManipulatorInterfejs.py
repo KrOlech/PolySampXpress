@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QMessageBox, QPushButton
 from MainWindow.MainWindowROIList.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindwoQlabelROI import CameraGUIextention
 from manipulator.AbstractManipulator import AbstractManipulator
 from manipulator.ManipulatorInterfejs import ManipulatorInterfere
+from manipulator.TCIPManipulator import TCIPManipulator
 
 
 class MainWindowManipulatorInterfejs(CameraGUIextention):
@@ -12,7 +13,7 @@ class MainWindowManipulatorInterfejs(CameraGUIextention):
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
 
-        self.manipulator = AbstractManipulator()#TCIPManipulator()
+        self.manipulator = TCIPManipulator() #AbstractManipulator()
 
         self.manipulatorInterferes = ManipulatorInterfere(self.manipulator)
 

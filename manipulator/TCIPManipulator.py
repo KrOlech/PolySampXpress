@@ -17,22 +17,23 @@ class Worker(QObject):
 
     def run(self):
         self.master.conn, self.master.addr = self.master.socket.accept()
+        self.master.wait(4)
         self.finished.emit()
 
-class Worker1(QObject):
+
+class sleeper(QObject):
     finished = pyqtSignal()
 
-    def __init__(self, master, *args, **kwargs):
-        super(Worker1, self).__init__(*args, **kwargs)
+    def __init__(self, master, time, *args, **kwargs):
+        super(sleeper, self).__init__(*args, **kwargs)
         self.master = master
+        self.time = time
 
     def run(self):
-        data = self.master.socket.recv(self.master.BUFFER_SIZE)
-        print(data.decode('utf8'))
-        if data.decode('utf8') == "ok":
-            print("end of movement")
-            self.finished.emit()
-
+        self.master.inMotion = True
+        sleep(self.time)
+        self.master.inMotion = False
+        self.finished.emit()
 
 
 class TCIPManipulator(AbstractManipulator):
@@ -44,6 +45,8 @@ class TCIPManipulator(AbstractManipulator):
     NONe = NON.encode("utf8")
 
     conn = None
+
+    inMotion = True
 
     def __init__(self):
         self.socket = SOCKET.socket(SOCKET.AF_INET, SOCKET.SOCK_STREAM)
@@ -74,20 +77,10 @@ class TCIPManipulator(AbstractManipulator):
     def goto(self):
         with self.lock:
             try:
-                self.conn.send(("x" + str(self.x)).encode("utf8"))
-                self.conn.send(("y" + str(self.y)).encode("utf8"))
-
-                thread = QThread()
-                worker = Worker1(self)
-
-                worker.moveToThread(thread)
-
-                thread.started.connect(worker.run)
-                worker.finished.connect(thread.quit)
-                worker.finished.connect(worker.deleteLater)
-                thread.finished.connect(thread.deleteLater)
-
-                thread.start()
+                if not self.inMotion:
+                    self.conn.send(("x" + str(self.x)).encode("utf8"))
+                    self.conn.send(("y" + str(self.y)).encode("utf8"))
+                    self.wait(2)
 
             except AttributeError:
                 print("TCIP manipulator not yet connected")
@@ -95,9 +88,25 @@ class TCIPManipulator(AbstractManipulator):
                 self.y = 25.0
 
 
-
     def validateSpeed(self, speed):
-        return speed <= 10
+        return speed <= 1
 
     def getCurrentPosition(self):
         return self.x, self.y, self.z
+
+
+    def wait(self,time):
+
+        self.thread1 = QThread()
+        self.worker1 = sleeper(self,time)
+
+        self.worker1.moveToThread(self.thread1)
+
+        self.thread1.started.connect(self.worker1.run)
+        self.worker1.finished.connect(self.thread1.quit)
+        self.worker1.finished.connect(self.worker1.deleteLater)
+        self.thread1.finished.connect(self.thread1.deleteLater)
+
+        self.thread1.start()
+
+
