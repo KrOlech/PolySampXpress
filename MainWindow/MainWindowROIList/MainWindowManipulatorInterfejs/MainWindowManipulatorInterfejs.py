@@ -2,7 +2,6 @@ from PyQt5.Qt import QPoint
 from PyQt5.QtWidgets import QMessageBox, QPushButton
 
 from MainWindow.MainWindowROIList.MainWindowManipulatorInterfejs.MainWindowRightClickMenu.MainWindwoQlabelROI import CameraGUIextention
-from manipulator.AbstractManipulator import AbstractManipulator
 from manipulator.ManipulatorInterfejs import ManipulatorInterfere
 from manipulator.TCIPManipulator import TCIPManipulator
 
