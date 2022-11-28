@@ -38,3 +38,17 @@
 - No ROIs in labels
   - May be due to no proper manipulator connection
 - TCIP Erore - cos bylo robione na sieci
+
+
+**Refactor Rules**
+- one class per file
+- one class +optional one inherit file per folder
+- one main file per main class
+- main class list:
+  - Main Window
+  - Main Wiue
+    - Camera
+  - ROI
+    - ROI Label
+  - Manipulator
+  - Map
