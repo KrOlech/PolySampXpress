@@ -46,7 +46,7 @@
 - one main file per main class
 - main class list:
   - Main Window
-  - Main Wiue
+  - Main Vue
     - Camera
   - ROI
     - ROI Label
