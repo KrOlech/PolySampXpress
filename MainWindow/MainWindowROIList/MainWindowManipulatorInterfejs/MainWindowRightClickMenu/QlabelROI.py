@@ -60,9 +60,10 @@ class QlabelROI(RightClickLabel):
         for i, rectangle in enumerate(self.ROIList):
             rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
 
-            cv2.putText(cvBGBImg, str(rectangle.name),
-                        (rx, ry), cv2.FONT_HERSHEY_SIMPLEX,
-                        1, (255, 0, 0), 2)
+            if not self.mainWindow.manipulator.inMotion:
+                cv2.putText(cvBGBImg, str(rectangle.name),
+                            (rx, ry), cv2.FONT_HERSHEY_SIMPLEX,
+                            1, (255, 0, 0), 2)
 
         qImg = QImage(cvBGBImg.data, cvBGBImg.shape[1], cvBGBImg.shape[0], QImage.Format_BGR888)
 
@@ -79,8 +80,9 @@ class QlabelROI(RightClickLabel):
 
         self.setPixmap(frame)
 
-        for rectagle in self.ROIList:
-            qp.drawRect(rectagle.getRect(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y))
+        if not self.mainWindow.manipulator.inMotion:
+            for rectagle in self.ROIList:
+                qp.drawRect(rectagle.getRect(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y))
 
         if self.pressed:
             qp.drawRect(QRect(QPoint(self.x1, self.y1), QPoint(self.x2, self.y2)))
@@ -89,12 +91,18 @@ class QlabelROI(RightClickLabel):
         if not self.leftMouseButton:
             return
 
+        if self.mainWindow.manipulator.inMotion:
+            return
+
         if self.editTribe:
             self.editedROI.mousePress(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
         else:
             self.savePressLocation(e)
 
     def mouseReleaseEvent(self, e):
+
+        if self.mainWindow.manipulator.inMotion:
+            return
 
         if not self.leftMouseButton:
             return

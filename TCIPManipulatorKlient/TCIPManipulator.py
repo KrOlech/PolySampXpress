@@ -218,7 +218,7 @@ def simple_stop(controller_id):
     
     
     
-def check_on_target(controller_id, axes='xyz'):
+def check_on_target(controller_id, c848, axes='xyz'):
     '''
     function check if given axes is on target
     returns dictionary with axes as keys and boolean values
