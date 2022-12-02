@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QDesktopWidget
 
 from MAP.GUI.MapWindow import MapWindow
 from MainWindow.MainWindowROIList.MainWindowROIList import MainWindowROIList
+from utilitis.Depracation.DepractionFactory import deprecated
 
 
 class MainWindowInicialisationFlag(MainWindowROIList):
@@ -19,13 +20,22 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         mapMenu.addAction(showMap)
         mapMenu.addAction(createMapAction)
 
-    def createMap(self):
+    @deprecated("old Map cration manual")
+    def createMapManual(self):
         if not self.mapWindowObject:
             self.mapWindowObject = self.crateMapObject()
         else:
             x = self.manipulator.x
             y = self.manipulator.y
-            self.mapWindowObject.addFreame(self.camera.getFrame(), y, x)
+            self.mapWindowObject.addFrame(self.camera.getFrame(), y, x)
+
+    def createMap(self):
+        if not self.mapWindowObject:
+            self.mapWindowObject = self.crateMapObject()
+            self.mapWindowObject.mapCreate()
+        else:
+            print("do you wont to owe ride created Map?")
+            # ToDo implement Correct in the future
 
     def showMap(self):
         if self.mapWindowObject:
@@ -36,4 +46,4 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         self.fildParams = fildParams
 
     def crateMapObject(self):
-        return MapWindow(self, self.windowSize)
+        return MapWindow(self, self.windowSize,self.manipulator)

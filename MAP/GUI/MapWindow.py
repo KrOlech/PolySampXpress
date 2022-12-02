@@ -1,71 +1,141 @@
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QWidget, QVBoxLayout
-from numpy import ones
-import numpy as np
-from MAP.GUI.MapLabel import MapLabel
-import cv2
+from time import sleep
 
-from utilitis.JsonRead.JsonRead import loadOffsetsJson
+from MAP.GUI.MapWindowInitialiser import MapWindowInitialise
+from manipulator.TCIPManipulator import TCIPManipulator
 
 
-class MapWindow(QWidget):
-    x = 2560
-    y = 1440
-    dim = (y // 10, x // 10)
-    mapPQ = None  # mapa w Pyqt
-    crop = None
-    map = ones((x, y, 3), dtype=np.uint8)  # mapa jako tablica numpy
+class MapWindow(MapWindowInitialise):
 
-    def __init__(self, master, windowSize, *args, **kwargs):
-        super(MapWindow, self).__init__(*args, **kwargs)
+    def __init__(self, master, windowSize, manipulator: TCIPManipulator, *args, **kwargs):
+        super(MapWindow, self).__init__(master, windowSize, manipulator, *args, **kwargs)
+        self._addFrameZero(self.scalleFream(master.camera.getFrame()))
 
-        self.master = master
+    def createMap(self):
+        self.manipulator.goToCords(x=25 + (self.x / self.xOffset))
+        sleep(0.01)
+        self.wait(30)
 
-        # [25.0, 30.0, 25.0, 30.0, 'pole 0']
-        # [xmin,xmax,ymin,ymax,name]
-        self.fild = self.master.fildParams
-
-        self.xOffset = self.x / (self.fild[1] - self.fild[0])
-        self.yOffset = self.y / (self.fild[3] - self.fild[2])
-        self.xOffset, self.yOffset = loadOffsetsJson()
-
-        self.mapViue = MapLabel(self)
-
-        self.setFixedSize(windowSize)
-        self.mapViue.setFixedSize(windowSize)
-
-        self.crop = self.scalleFream(master.camera.getFrame())
-        self._addFreame(self.crop)
-
+    def takphoto(self):
+        crop = self.scalleFream(self.master.camera.getFrame())
+        self.map[:self.dim[1], self.dim[0]:] = crop[:, :self.map.shape[1] - self.dim[0]]
         self.cpmwertMap()
 
-        leyout = QVBoxLayout()
-        leyout.addWidget(self.mapViue)
-        self.setLayout(leyout)
+    def takePhotoFirst(self):
+        crop = self.scalleFream(self.master.camera.getFrame())
+        # print("first")
 
-    def scalleFream(self, fream):
-        return cv2.resize(fream, self.dim)
+    def takePhotoFull(self):
+        crop = self.scalleFream(self.master.camera.getFrame())
+        # print("Full")
 
-    def conwertManipulatotrCordsToMap(self, manipulatotrX, manipulatorY):
-        x = int((manipulatotrX - self.fild[0]) * self.xOffset/10)
-        y = int((manipulatorY - self.fild[2]) * self.yOffset/10)
+    def takePhotoRight(self):
+        crop = self.scalleFream(self.master.camera.getFrame())
+        # print("right")
 
-        return x, y
+    def takePhotoLeft(self):
+        crop = self.scalleFream(self.master.camera.getFrame())
+        # print("left")
 
-    def _addFreame(self, crop, x=25, y=25):
-        x, y = self.conwertManipulatotrCordsToMap(x, y)
+    def takePhotoBottom(self):
+        crop = self.scalleFream(self.master.camera.getFrame())
+        # print("bottom")
 
-        self.map[x:x + (self.x // 10), y:y + (self.y // 10)] = crop
+    def takePhotoBottomRight(self):
+        crop = self.scalleFream(self.master.camera.getFrame())
+        # print("botomRight")
 
-    def addFreame(self, viue, x=25, y=25):
-        x, y = self.conwertManipulatotrCordsToMap(x, y)
-        self.map[x:x + (self.x // 10), y:y + (self.y // 10)] = self.scalleFream(viue)
-        self.cpmwertMap()
+    def takePhotoBottomLeft(self):
+        crop = self.scalleFream(self.master.camera.getFrame())
+        # print("botomLeft")
 
-    def cpmwertMap(self):
-        qImage = QImage(self.map.data, self.map.shape[1], self.map.shape[0], QImage.Format_BGR888)
-        self.mapPQ = QPixmap.fromImage(qImage)
+    def moveManipulator(self):
+        #print(self.photoCount)
+        pass
+        # self.manipulator.goToCords(x=self.fild[0] + self.cmdx * self.photoCount[1])
 
-    def conwertImage(self, image):
-        qImage = QImage(image.data, image.shape[1], image.shape[0], QImage.Format_BGR888)
-        self.mapPQ = QPixmap.fromImage(qImage)
+    def mapCreate(self):
+        print(self.photoCount, self.mapDirection)
+        if self.mapDirection == "R":
+            self.rightMovement()
+        elif self.mapDirection == "L":
+            self.leftMovement()
+        elif self.mapEnd:
+            return True
+        else:
+            self.firstPhoto()
+
+        self.moveManipulator()
+        self.wait(1, self.mapCreate)
+
+    def rightMovement(self):
+        if self.photoCount == self._photoCount:
+            return self.rightEnd()
+
+        if self.photoCount[1] == 0 and self.photoCount[0] == self._photoCount[0]:
+            self.leftBottom()
+        elif self.photoCount[1] == self._photoCount[1]:
+            self.rightHopY()
+        elif self.photoCount[1] == 0:
+            self.leftEdge()
+        else:
+            self.rightFull()
+
+    def leftMovement(self):
+        if self.photoCount[1] == 0 and self.photoCount[0] == self._photoCount[0]:
+            return self.leftEnd()
+
+        if self.photoCount[1] == self._photoCount[1] and self.photoCount[0] == self._photoCount[0]:
+            self.rightBottom()
+        elif self.photoCount[1] == 0:
+            self.leftHopY()
+        elif self.photoCount[1] == self._photoCount[1]:
+            self.rightEdge()
+        else:
+            self.leftFull()
+
+    def rightHopY(self):
+        self.takePhotoRight()
+        self.photoCount[0] += 1
+        self.mapDirection = 'L'
+
+    def leftHopY(self):
+        self.takePhotoLeft()
+        self.photoCount[0] += 1
+        self.mapDirection = 'R'
+
+    def leftBottom(self):
+        self.takePhotoBottomLeft()
+        self.photoCount[1] -= 1
+
+    def rightBottom(self):
+        self.takePhotoBottomRight()
+        self.photoCount[1] += 1
+
+    def leftEdge(self):
+        self.takePhotoLeft()
+        self.photoCount[1] += 1
+
+    def rightEdge(self):
+        self.takePhotoRight()
+        self.photoCount[1] -= 1
+
+    def rightFull(self):
+        self.takePhotoFull()
+        self.photoCount[1] += 1
+
+    def leftFull(self):
+        self.takePhotoFull()
+        self.photoCount[1] -= 1
+
+    def rightEnd(self):
+        self.mapEnd = True
+        self.takePhotoBottomRight()
+
+    def leftEnd(self):
+        self.mapEnd = True
+        self.takePhotoBottomLeft()
+
+    def firstPhoto(self):
+        self.takePhotoFirst()
+        self.mapDirection = "R"
+        self.photoCount[1] += 1

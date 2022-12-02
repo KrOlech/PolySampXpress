@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
 
-    window = PoleLabel([25.0, 30.0, 25.0, 30.0, 'pole 2'])
+    window = PoleLabel([25.0, 30.0, 25.0, 14.0, 'pole 2'],app)
 
     window.show()
 

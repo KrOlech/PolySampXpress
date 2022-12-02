@@ -78,8 +78,8 @@ class TCIPManipulator(AbstractManipulator):
         with self.lock:
             try:
                 if not self.inMotion:
-                    self.conn.send(("x" + str(self.x)).encode("utf8"))
-                    self.conn.send(("y" + str(self.y)).encode("utf8"))
+                    self.conn.sendall(("x" + str(self.x)).encode("utf8"))
+                    self.conn.sendall(("y" + str(self.y)).encode("utf8"))
                     self.wait(2)
 
             except AttributeError:
@@ -94,11 +94,10 @@ class TCIPManipulator(AbstractManipulator):
     def getCurrentPosition(self):
         return self.x, self.y, self.z
 
-
-    def wait(self,time):
+    def wait(self, time):
 
         self.thread1 = QThread()
-        self.worker1 = sleeper(self,time)
+        self.worker1 = sleeper(self, time)
 
         self.worker1.moveToThread(self.thread1)
 
@@ -108,5 +107,3 @@ class TCIPManipulator(AbstractManipulator):
         self.thread1.finished.connect(self.thread1.deleteLater)
 
         self.thread1.start()
-
-

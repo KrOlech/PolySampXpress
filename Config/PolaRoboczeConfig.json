@@ -17,10 +17,10 @@
   "Ymin": 25,
   "Ymax": 30
 },
-  "pole 3": {
+  "pole 7": {
   "Xmin": 25,
-  "Xmax": 30,
+  "Xmax": 35,
   "Ymin": 25,
-  "Ymax": 30
+  "Ymax": 35
 }
 }

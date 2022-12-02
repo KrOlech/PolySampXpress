@@ -23,9 +23,13 @@ def loadPolaRoboczeJson():
             print(f"In {key} their is missing value neasesery values keys are: {jsonKeys}")
             fild = []
             break
-
     return fild
 
+
+def loadCameraResolutionJson():
+    with open(r"C:\Users\user\KrzysztofOlech\Magisterkav2\Config\CameraConfig.json", 'r') as file:
+        data = json.load(file)
+    return int(data["xResolution"]), int(data["yResolution"])
 
 if __name__ == '__main__':
     print(loadOffsetsJson())
