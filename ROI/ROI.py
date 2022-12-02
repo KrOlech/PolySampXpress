@@ -24,9 +24,6 @@ class ROI:
 
     pressPrecision = 50
 
-    xOffset = 172
-    yOffset = 145
-
     def __init__(self, mainWindow, x1, y1, x2, y2, name='1', manipulatotrX=25.0, manipulatorY=25.0):
 
         self.xOffset, self.yOffset = loadOffsetsJson()

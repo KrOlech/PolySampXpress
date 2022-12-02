@@ -30,6 +30,7 @@ class _AbstractManipulatorInterfejs(QWidget):
     def _key_up(self):
         self.Manipulator.up()
 
+
     def _key_left(self):
         self.Manipulator.left()
 
