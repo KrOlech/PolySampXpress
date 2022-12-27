@@ -2,7 +2,7 @@
 
 - MAPA:
     - automatyczna mapa
-    - 
+    - Refactor
 - ***Done in Beta 0.3:***
 - MAPA:
     - mapa GUI
@@ -16,8 +16,6 @@
 - ?
 
 ***TO Do in Beta next:***
-
-- Refactor!!!!!!!!
 
 - Debug Mode
 
