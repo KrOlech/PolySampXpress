@@ -1,8 +1,19 @@
 import json
+from os import getcwd
+
+
+def getFileLocation(file) -> str:
+    mag = r"\Magisterka"
+    lMag = len(mag)
+    config = r"\Config"
+    fullPath = getcwd()
+    fullPath = fullPath[:fullPath.find(mag) + lMag]
+
+    return fullPath + config + "\\" + file
 
 
 def loadOffsetsJson():
-    with open(r"C:\Users\user\KrzysztofOlech\Magisterka\Config\ManipulatorConfig.json", 'r') as file:
+    with open(getFileLocation("ManipulatorConfig.json"), 'r') as file:
         data = json.load(file)
     return float(data["xOffset"]), float(data["yOffset"])
 
@@ -10,7 +21,7 @@ def loadOffsetsJson():
 def loadPolaRoboczeJson():
     jsonKeys = ["Xmin", "Xmax", "Ymin", "Ymax"]
 
-    with open(r"C:\Users\user\KrzysztofOlech\Magisterka\Config\PolaRoboczeConfig.json", 'r') as file:
+    with open(getFileLocation("PolaRoboczeConfig.json"), 'r') as file:
         data = json.load(file)
 
     fild = []
@@ -27,9 +38,24 @@ def loadPolaRoboczeJson():
 
 
 def loadCameraResolutionJson():
-    with open(r"C:\Users\user\KrzysztofOlech\Magisterkav2\Config\CameraConfig.json", 'r') as file:
-        data = json.load(file)
+    with open(getFileLocation(r"CameraConfig.json"), 'r') as file:
+        Resolution = json.load(file)["ScaledResolution"]
+
+    with open(getFileLocation(r"Resolutions.json"), 'r') as file:
+        data = json.load(file)[Resolution]
+
     return int(data["xResolution"]), int(data["yResolution"])
 
+
+def loadNativeCameraResolutionJson():
+    with open(getFileLocation(r"CameraConfig.json"), 'r') as file:
+        Resolution = json.load(file)["NativeResolution"]
+
+    with open(getFileLocation(r"Resolutions.json"), 'r') as file:
+        data = json.load(file)[Resolution]
+
+    return int(data["xResolution"]), int(data["yResolution"]), int(data["FPS"])
+
+
 if __name__ == '__main__':
-    print(loadOffsetsJson())
+    print(getFileLocation("test"))

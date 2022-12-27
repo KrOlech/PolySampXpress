@@ -1,4 +1,4 @@
-from manipulator.AbstractManipulator import AbstractManipulator
+from manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 import socket
 
 
