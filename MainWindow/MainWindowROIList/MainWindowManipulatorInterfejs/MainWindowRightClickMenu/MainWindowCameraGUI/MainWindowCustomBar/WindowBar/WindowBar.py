@@ -16,7 +16,7 @@ class MyBar(QWidget):
         layout.setContentsMargins(1, 1, 1, 1)
         layout.addStretch()
 
-        self.title = QLabel("ROI Maper beta-0.1", self, alignment=Qt.AlignCenter)
+        self.title = QLabel("ROI Maper beta-0.3", self, alignment=Qt.AlignCenter)
 
         self.title.setForegroundRole(QPalette.Light)
 

@@ -14,6 +14,8 @@ class AbstractManipulator:
     xOffset = 1
     yOffset = 1
 
+    inMotion = False
+
     def __init__(self):
 
         self.xOffset, self.yOffset = loadOffsetsJson()
@@ -70,6 +72,17 @@ class AbstractManipulator:
 
     def backwards(self):
         self.z += self.speed
+        self.goto()
+
+    def goToCords(self, x=None, y=None, z=None):
+
+        if x is not None:
+            self.x = x
+        if y is not None:
+            self.y = y
+        if z is not None:
+            self.z = z
+
         self.goto()
 
     def center(self, x, y):
