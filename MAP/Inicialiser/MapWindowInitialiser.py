@@ -1,72 +1,92 @@
-from PyQt5.QtWidgets import QVBoxLayout
-
 from MAP.Abstract.AbstractMapWindow import AbstractMapWindow
-from MAP.Label.MapLabel import MapLabel
+
 from manipulator.TCIP.TCIPManipulator import TCIPManipulator
 from utilitis.JsonRead.JsonRead import loadOffsetsJson
+from numpy import ones
+import numpy as np
 
 
 class MapWindowInitialise(AbstractMapWindow):
-
     # TODO beter values names
 
+    xOffset, yOffset = loadOffsetsJson()
+
     def __init__(self, master, windowSize, manipulator: TCIPManipulator, *args, **kwargs):
-        super(MapWindowInitialise, self).__init__(*args, **kwargs)
+        super(MapWindowInitialise, self).__init__(windowSize, *args, **kwargs)
 
         self.master = master
         self.manipulator = manipulator
-        self.__windowSize = windowSize
+
         self.fild = self.master.fildParams
 
-        self.dx, self.dy = self.__deltaXY()
-        self.xOffset, self.yOffset = loadOffsetsJson()
-        self.maxX, self.maxY = self.__maxXYValues()
-        self.scalX, self.scalY = self.__scalXY()
+        self.fildSizeXmm, self.fildSizeYmm = self.__fildSizeMM()
 
-        print(self.scalY, self.scalX)
+        self.fildSizeXpx, self.fildSizeYpx = self.__fildSizePx()
 
-        self.dim = (int(self.y / self.scalY), int(self.x / self.scalX))
-        print(self.dim)
+        self.nonScaledMapSizeXInPx, self.nonScaledMapSizeYInPx = self.__nonScaledMapSizeInPx()
+        print("Non Scaled Map Size", self.nonScaledMapSizeXInPx, self.nonScaledMapSizeYInPx)
+
+        self.scalX, self.scalY = self.__calculateScaleForMap()
+        print("Scale", self.scalY, self.scalX)
+
+        self.scaledMapSizeXInPx, self.scaledMapSizeYInPx = self.__scaledMapSizeInPx()
+        print("Scaled Map Size", self.scaledMapSizeXInPx, self.scaledMapSizeYInPx)
+
+        self.scaledCameraFrameSizeX, self.scaledCameraFrameSizeY = self.__scaleCameraSizeInPx()
+        self.scaledCameraFrameSize = (int(self.scaledCameraFrameSizeY), int(self.scaledCameraFrameSizeX))
+        print("scaled Camera Frame", self.scaledCameraFrameSizeX, self.scaledCameraFrameSizeY)
 
         self._photoCount, self.photoCount = self.__calculatePhotoCount()
 
-        self.cmdx = (self.x / self.xOffset)
-        self.cmdy = (self.y / self.yOffset)
+        self.map = ones((int(self.scaledMapSizeXInPx * 2), int(self.scaledMapSizeYInPx * 2), 3), dtype=np.uint8)
 
-        self.mapViue = self.__mapLabel()
-        self.__layout()
+        self.movementMap = self.__createMovementMap()
 
-        self.setFixedSize(windowSize)
+    def __createMovementMap(self):
+        movementMap = []
+        for i in range(self._photoCount[0] + 1):
+            row = []
+            for j in range(self._photoCount[1] + 1):
+                x = self.fild[0] + self.cameraFrameSizeX / self.xOffset * j
+                y = self.fild[2] + self.cameraFrameSizeY / self.yOffset * i
+                x, xn, xr = (x, True, x) if x < 50 else (50, False, x)
+                y, yn, yr = (y, True, y) if y < 50 else (50, False, y)
+                row.append((x, y, xn, yn, xr, yr))
+            movementMap.append(row)
+        [print(row) for row in movementMap]  # Stworzyc lepsze wypisanie Tabeli
+        return movementMap
 
-    def __mapLabel(self):
-        mapViue = MapLabel(self)
-        mapViue.setFixedSize(self.__windowSize)
-        return mapViue
+    def __nonScaledMapSizeInPx(self):
+        return self.fildSizeXpx + self.cameraFrameSizeX, self.fildSizeYpx + self.cameraFrameSizeY
 
-    def __layout(self):
-        layout = QVBoxLayout()
-        layout.addWidget(self.mapViue)
-        self.setLayout(layout)
+    def __calculateScaleForMap(self):  # TODO Scalling to 4k non to Camera Size
+        return self.nonScaledMapSizeXInPx / self.cameraFrameSizeX, self.nonScaledMapSizeYInPx / self.cameraFrameSizeY
 
-    def __maxXYValues(self):
-        return self.xOffset * self.dx + self.x, self.yOffset * self.dy + self.y
-
-    def __scalXY(self):
-        return self.maxX / self.x, self.maxY / self.y
-
-    def __deltaXY(self):
+    def __fildSizeMM(self):
         return self.fild[1] - self.fild[0], self.fild[3] - self.fild[2]
 
-    def __calculatePhotoCount(self):
-        yint = self.y // self.dim[0]
-        yfloat = self.y / self.dim[0]
-        y = yint + 1 if yfloat - yint > 0 else yint
-        # y = yint
+    def __fildSizePx(self):
+        return self.xOffset * self.fildSizeXmm, self.yOffset * self.fildSizeYmm
 
-        xint = self.x // self.dim[1]
-        xfloat = self.x / self.dim[1]
-        x = xint + 1 if xfloat - yint > 0 else xint
-        # x = xint
+    def __scaledMapSizeInPx(self):
+        return self.nonScaledMapSizeXInPx / self.scalX, self.nonScaledMapSizeYInPx / self.scalY
+
+    def __scaleCameraSizeInPx(self):
+        return self.cameraFrameSizeX / self.scalX, self.cameraFrameSizeY / self.scalY
+
+    def __calculatePhotoCount(self):
+
+        yint = self.scaledMapSizeYInPx // self.scaledCameraFrameSize[0]
+        yfloat = self.scaledMapSizeYInPx / self.scaledCameraFrameSize[0]
+        y = yint if yfloat - yint > 0 else yint
+        # cameraFrameSizeY = yint
+
+        xint = self.scaledMapSizeXInPx // self.scaledCameraFrameSize[1]
+        xfloat = self.scaledMapSizeXInPx / self.scaledCameraFrameSize[1]
+        x = xint if xfloat - yint > 0 else xint
+        # cameraFreamSizeX = xint
+
+        x, y = int(x), int(y)
 
         print((y, x))
 

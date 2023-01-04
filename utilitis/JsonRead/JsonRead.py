@@ -3,12 +3,11 @@ from os import getcwd
 
 
 def getFileLocation(file) -> str:
-    mag = r"\Magisterka"
+    mag = r"\Magisterkav2"
     lMag = len(mag)
     config = r"\Config"
     fullPath = getcwd()
     fullPath = fullPath[:fullPath.find(mag) + lMag]
-
     return fullPath + config + "\\" + file
 
 
