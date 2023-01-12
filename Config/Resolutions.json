@@ -1,0 +1,12 @@
+{
+  "4K": {
+  "xResolution": "3072",
+  "yResolution": "2048",
+  "FPS" : "40"
+  },
+  "1440P": {
+  "xResolution": "2560",
+  "yResolution": "1440",
+  "FPS" : "40"
+  }
+}

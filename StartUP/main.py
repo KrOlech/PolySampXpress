@@ -2,15 +2,15 @@ import sys
 
 from PyQt5.QtWidgets import QApplication
 
-from MAP.PolaRobocze import ReadPoleRobocze
-from MainWindow.MainWindowIniciialisationFlag import MainWindowInicialisationFlag
+from MainWindow.MapConection.MapInterfejs import MainWindowMapInterfejs
+from WorkFeald.Main.main import ReadPoleRobocze
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
 
-    mainWindow = MainWindowInicialisationFlag(app.desktop().availableGeometry().size())
+    mainWindow = MainWindowMapInterfejs(app.desktop().availableGeometry().size())
 
-    window = ReadPoleRobocze(mainWindow)
+    window = ReadPoleRobocze(mainWindow,app.desktop().availableGeometry().size())
 
     mainWindow.show()
 
