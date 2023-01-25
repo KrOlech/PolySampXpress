@@ -23,6 +23,8 @@
 
 -Bug fixing and searching
 
+-Automatic tests + installation proces
+
 **Unsolved Errors**
 
 - No ROIs in labels
