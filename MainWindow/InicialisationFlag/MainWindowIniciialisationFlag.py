@@ -30,12 +30,14 @@ class MainWindowInicialisationFlag(MainWindowROIList):
             self.mapWindowObject.addFrame(self.camera.getFrame(), y, x)
 
     def createMap(self):
-        if not self.mapWindowObject:
-            self.mapWindowObject = self.crateMapObject()
-            self.mapWindowObject.mapCreate()
-        else:
-            print("do you wont to owe ride created Map?")
-            # ToDo implement Correct in the future
+        self.mapWindowObject = self.crateMapObject()
+        self.mapWindowObject.mapCreate()
+        #if not self.mapWindowObject:
+        #    self.mapWindowObject = self.crateMapObject()
+        #    self.mapWindowObject.mapCreate()
+        #else:
+        #    print("do you wont to owe ride created Map?")
+        #    # ToDo implement Correct in the future
 
     def showMap(self):
         if self.mapWindowObject:

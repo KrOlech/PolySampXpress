@@ -22,7 +22,7 @@ class MapWindowOLD(AbstractMapWindow):
     def addFrameOLD(self, vie, x=25, y=25):
         x, y = self.conwertManipulatotrCordsToMapOLD(x, y)
         try:
-            self.map[x:x + int(self.x / self.scalX), y:y + int(self.y / self.scalY)] = self.scalleFream(vie)
+            self.map[x:x + int(self.cameraFrameSizeX / self.scalX), y:y + int(self.cameraFrameSizeY / self.scalY)] = self.scalleFream(vie)
             self.cpmwertMap()
         except ValueError as e:
             print(e)
@@ -49,14 +49,14 @@ class MapWindowOLD(AbstractMapWindow):
     @deprecated("Old way do not work correct old wey may be reImplemented in the future")
     def addFrameY(self, vie, x, y):
         y = int(y / self.scalX / 2)  # 53
-        # y //=64
-        # y *=64
+        # cameraFrameSizeY //=64
+        # cameraFrameSizeY *=64
         crop = self.scalleFream(vie)
-        crop = crop[:, self.dim[0] - int(self.xOffset / self.scalX / 2):]
+        crop = crop[:, self.scaledCameraFrameSize[0] - int(self.xOffset / self.scalX / 2):]
         try:
-            print("x i y", x, y)
-            print(f"y kon{int(self.xOffset / self.scalX / 2)}")
-            self.map[x:x + self.dim[1], y + self.dim[0]:y + self.dim[0] + int(self.xOffset / self.scalX / 2)] = crop
+            print("cameraFreamSizeX i cameraFrameSizeY", x, y)
+            print(f"cameraFrameSizeY kon{int(self.xOffset / self.scalX / 2)}")
+            self.map[x:x + self.scaledCameraFrameSize[1], y + self.scaledCameraFrameSize[0]:y + self.scaledCameraFrameSize[0] + int(self.xOffset / self.scalX / 2)] = crop
             self.cpmwertMap()
         except ValueError as e:
             print(e)
@@ -64,9 +64,9 @@ class MapWindowOLD(AbstractMapWindow):
     @deprecated("Old way do not work correct old wey may be reImplemented in the future")
     def addFrameX(self, vie):
         crop = self.scalleFream(vie)
-        crop = crop[self.dim[1] - int(self.xOffset / self.scalX / 2):, :]
+        crop = crop[self.scaledCameraFrameSize[1] - int(self.xOffset / self.scalX / 2):, :]
         try:
-            self.map[self.dim[1]:self.dim[1] + int(self.xOffset / self.scalX / 2), :self.dim[0]] = crop
+            self.map[self.scaledCameraFrameSize[1]:self.scaledCameraFrameSize[1] + int(self.xOffset / self.scalX / 2), :self.scaledCameraFrameSize[0]] = crop
             self.cpmwertMap()
         except ValueError as e:
             print(e)
@@ -89,7 +89,7 @@ class MapWindowOLD(AbstractMapWindow):
             return True
 
         elif self.photoCount[1] == 0 and self.mapDirection == "R":
-            print("hop y right")
+            print("hop cameraFrameSizeY right")
             self.takePhotoRight()
             self.wait(1, self.mapCreate)
             self.photoCount[0] -= 1
@@ -97,7 +97,7 @@ class MapWindowOLD(AbstractMapWindow):
             self.moveManipulatorToY()
 
         elif self.photoCount[1] == 0 and self.mapDirection == "L":
-            print("hop y left")
+            print("hop cameraFrameSizeY left")
             self.takePhotoLeft()
             self.wait(1, self.mapCreate)
             self.photoCount[0] -= 1
@@ -149,9 +149,9 @@ class MapWindowOLD(AbstractMapWindow):
 
 
     def moveManipulatorToX(self):
-        print('x', self.photoCount)
-        #self.manipulator.goToCords(x=self.fild[0] + self.cmdx * self.photoCount[1])
+        print('cameraFreamSizeX', self.photoCount)
+        #self.manipulator.goToCords(cameraFreamSizeX=self.fild[0] + self.scaledCameraFrameSizeX * self.photoCount[1])
 
     def moveManipulatorToY(self):
-        print('y', self.photoCount)
-        #self.manipulator.goToCords(y=self.fild[2] + self.cmdy * self.photoCount[0])
+        print('cameraFrameSizeY', self.photoCount)
+        #self.manipulator.goToCords(cameraFrameSizeY=self.fild[2] + self.scaledCameraFrameSizeY * self.photoCount[0])
