@@ -1,42 +1,40 @@
-***TO Do in Beta 0.3:***
-
-- MAPA:
-    - automatyczna mapa
-
-
-- ***Done in Beta 0.3:***
-  
-  - Refactor
-  - MAPA:
-      - mapa GUI
-  - GUI:
-      - predefiniowanie pola roboczego
-  - Manipulator:
-      - wait for manipulator to reach goll befor displeing ROI's(hard coded wait
-
 ***TO Do in Beta 0.4:***
 
-- logGenie
-- Debug Mode
 - in code To DO resolve
+- alternatywne metody tworzenia ROI:
+  - klikanie Naroznikow
+  - oznacanie pktow
+  - Stworznie siatki pktow mesz radom full radom
+
+- zerowanie na pkcie znajdowanym softwrowo
+  - na start pkt wybierany recznie.
+
+- test in code manual
+
+- Map 2.0
+  - simple map
+  - alternative hiden option for curent map
+
+***Done in Beta 0.4:***
 
 ***TO Do in Beta next:***
 
+- logGenie
+- Debug Mode
+
 - zoom handling
   - Kamera ma ciagły zoom jakies pressety
+
 - obsluga fokusu
   - autofokus
+  
 -Silniki krokowe brak encodingu musi byc po strnie softweru
-
-- alternatywne metody tworzenia ROI klikanie Naroznikow
-- oznacanie pktow
-- Stworznie siatki pktow mesz radom full radom
-
-- zerowanie na pkcie znajdowanym softwrowo
 
 -Bug fixing and searching
 
 -Automatic tests + installation proces
+
+- Main class Refactor
 
 **Unsolved Errors**
 
@@ -44,10 +42,9 @@
   - May be due to no proper manipulator connection
   - Works ok with TCIP manipulator
   - after refactor do not work even with TCIP
-- TCIP Error - Someone wos messing with internet
 - Work fild window need 2 clicks if not conectet by TCIP
 - Strange movement of ROIS after manipulator ordered to move Video in bugs
-- Two map butons on main window
+- map 1.1 may not work full ok 
 
 **Refactor Rules**
 - one class per file
