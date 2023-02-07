@@ -16,7 +16,7 @@ class MapWindow(MapWindowInitialise):
     def takPhoto(self):
         crop = self.scalleFream(self.master.camera.getFrame())
         self.map[:self.scaledCameraFrameSize[1], self.scaledCameraFrameSize[0]:] = crop[:, :self.map.shape[1] - self.scaledCameraFrameSize[0]]
-        self.cpmwertMap()
+        self.convertMap()
 
     def moveManipulator(self):
         if self.manipulator.x != self.movementMap[self.photoCount[0]][self.photoCount[1]][0]:
@@ -116,7 +116,7 @@ class MapWindow(MapWindowInitialise):
         try:
             self.map[int(self.scaledCameraFrameSize[1] * self.photoCount[0]):int(self.scaledCameraFrameSize[1] * (self.photoCount[0] + 1)),
             int(self.scaledCameraFrameSize[0] * self.photoCount[1]):int(self.scaledCameraFrameSize[0] * (self.photoCount[1] + 1))] = crop
-            self.cpmwertMap()
+            self.convertMap()
         except ValueError as e:
             print(e)
 
@@ -194,7 +194,7 @@ class MapWindow(MapWindowInitialise):
             print(f"map Fragmetn shape {self.map[n: n + photoShape[0], m:m + photoShape[1]].shape}")
             print(f"photo shape {photo.shape}")
             self.map[n: n + photoShape[0], m:m + photoShape[1]] = photo
-            self.cpmwertMap()
+            self.convertMap()
         except Exception as e:
             print(e)
 

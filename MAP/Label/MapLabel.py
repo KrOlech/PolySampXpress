@@ -13,6 +13,6 @@ class MapLabel(QLabel):
     def paintEvent(self, QPaintEvent):
         qp = QPainter(self)
 
-        qp.drawPixmap(self.rect(), self.master.mapPQ)
+        qp.drawPixmap(self.rect(), self.master.mapPx)
 
         qp.setBrush(QBrush(QColor(200, 10, 10, 200)))

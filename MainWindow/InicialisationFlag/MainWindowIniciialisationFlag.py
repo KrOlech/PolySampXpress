@@ -4,10 +4,9 @@ from MAP.Main.MapWindow import MapWindow
 from MainWindow.RoiList.MainWindowROIList import MainWindowROIList
 from utilitis.Depracation.DepractionFactory import deprecated
 
-
 class MainWindowInicialisationFlag(MainWindowROIList):
     fildParams = 0
-
+    selectedManipulatorZoom = 1
     mapWindowObject = None
 
     def __init__(self, *args, **kwargs):

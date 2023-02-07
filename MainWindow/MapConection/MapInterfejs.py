@@ -5,7 +5,8 @@ from utilitis.Depracation.DepractionFactory import deprecated
 
 
 class MainWindowMapInterfejs(MainWindowInicialisationFlag):
-    @deprecated("Need to tid up Main class")
+
+    selectedManipulatorZoom = 0
 
     def __init__(self, *args, **kwargs):
         super(MainWindowMapInterfejs, self).__init__(*args, **kwargs)
