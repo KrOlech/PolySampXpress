@@ -1,7 +1,7 @@
 
 class TCIPUtilitiString:
     TCP_IP = "172.30.254.65"  # SOCKET.gethostbyname(SOCKET.gethostname())
-    TCP_PORT = 22
+    TCP_PORT = 2137
     BUFFER_SIZE = 1024
 
     NON = "non"

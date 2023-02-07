@@ -28,13 +28,17 @@
 - obsluga fokusu
   - autofokus
   
--Silniki krokowe brak encodingu musi byc po strnie softweru
+- Silniki krokowe brak encodingu musi byc po strnie softweru
 
--Bug fixing and searching
+- Bug fixing and searching
 
--Automatic tests + installation proces
-
+- Automatic tests + installation proces
+- 
 - Main class Refactor
+
+- resolution for Map
+
+- Using CUDA for imiage resize (oneFX for radeon and so one)
 
 **Unsolved Errors**
 
