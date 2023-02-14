@@ -39,7 +39,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def __createManipulatorButtons(self):
         buttons = [QPushButton(name, self.widget) for name in self.manipulatorInterferes.buttonsNames]
         [button.released.connect(f) for f, button in zip(self.manipulatorInterferes.fun, buttons)]
-        [button.setStyleSheet("background-color: rgba(255, 255, 255, 10);") for button in buttons]  #todo Unifikacja Kolorów
+        [button.setStyleSheet("background-color: rgba(255, 255, 255, 10);") for button in buttons]
         return buttons
 
     def __manipulatorButtons(self):
@@ -53,7 +53,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def rightMenu(self, pos):
         self.buttons = self.__createManipulatorButtons()
 
-        [button.setStyleSheet("background-color: rgba(255, 255, 255,100);") for button in self.buttons] #todo Unifikacja Kolorów
+        [button.setStyleSheet("background-color: rgba(255, 255, 255,100);") for button in self.buttons]
 
         positions = [pos + button.geometry().bottomRight() - offset - QPoint(0, 20) for button, offset in
                      zip(self.buttons, self.offsets)]

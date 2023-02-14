@@ -23,7 +23,7 @@ class ROILabel(QWidget):
 
         self.name = QLabel(str(roi.name), self.widget)
         self.name.setFont(QFont('Times', 20))
-        self.name.setStyleSheet("color: #c80a0a")  # TODO color unification
+        self.name.setStyleSheet("color: #c80a0a")  # Odpowiada 200 10 10 w RGB
         self.name.move(self.geometry().topRight())
 
         self.layout.addWidget(self.name)
