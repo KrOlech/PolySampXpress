@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt
 
 
 class ROIList(QScrollArea):
-    placeholder = "No marked ROI's"  # TODO move tu Utiliti String
+    placeholder = "No marked ROI's"
     roiCount = 0
 
     def __init__(self, mainWindow, *args, **kwargs):

@@ -41,6 +41,8 @@
 
 - Using CUDA for imiage resize (oneFX for radeon and so one)
 
+- Utiliti Strig Using Python "Static"
+
 **Unsolved Errors**
 
 - No ROIs in labels
