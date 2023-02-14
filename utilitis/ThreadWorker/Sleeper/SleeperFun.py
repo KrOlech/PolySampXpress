@@ -1,6 +1,6 @@
 from time import sleep
 
-from PyQt5.QtCore import pyqtSignal, QThread
+from PySide2.QtCore import pyqtSignal, QThread
 
 from utilitis.ThreadWorker.Sleeper.SimpleSleeper import SimpleSleeper
 

@@ -1,7 +1,7 @@
 from Camera.Main.Camera import Camera
 from Camera.Setings.CameraSetings import CameraSettingsWindow
 from utilitis.examples.View import SimpleView
-from PyQt5 import QtWidgets, QtCore
+from PySide2 import QtWidgets, QtCore
 from MainWindow.CustomBar.MainWindowMenuBar import \
     MainWindowMenuBar
 
@@ -24,7 +24,7 @@ class CameraGUI(MainWindowMenuBar):
 
 
 if __name__ == '__main__':
-    from PyQt5.QtWidgets import QApplication
+    from PySide2.QtWidgets import QApplication
     import sys
 
     if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):

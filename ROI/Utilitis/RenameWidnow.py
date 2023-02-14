@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QLineEdit
-from PyQt5.QtCore import Qt
+from PySide2.QtWidgets import QLineEdit
+from PySide2.QtCore import Qt
 
 
 class ReNameWindow(QLineEdit):

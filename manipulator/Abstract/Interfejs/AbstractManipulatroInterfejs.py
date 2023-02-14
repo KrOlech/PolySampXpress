@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QAction
+from PySide2.QtWidgets import QWidget, QGridLayout, QPushButton, QAction
 
 
 class AbstractManipulatorInterfejs(QWidget):

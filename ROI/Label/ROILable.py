@@ -1,5 +1,5 @@
-from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel
+from PySide2.QtGui import QFont
+from PySide2.QtWidgets import QWidget, QVBoxLayout, QLabel
 from ROI.LabelViue.ROILabelViue import ROILegendVue
 
 

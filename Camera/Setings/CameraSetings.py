@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QHBoxLayout, QWidget, QVBoxLayout, QLabel
+from PySide2.QtWidgets import QHBoxLayout, QWidget, QVBoxLayout, QLabel
 from utilitis.Slider.Slider import Slider
 
 

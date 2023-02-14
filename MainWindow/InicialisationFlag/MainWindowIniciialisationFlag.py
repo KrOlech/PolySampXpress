@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QDesktopWidget
+from PySide2.QtWidgets import QDesktopWidget
 
 from MAP.Main.MapWindow import MapWindow
 from MainWindow.RoiList.MainWindowROIList import MainWindowROIList

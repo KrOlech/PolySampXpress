@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout
+from PySide2.QtWidgets import QWidget, QVBoxLayout
 from MainWindow.CamerGUI.CameraGUI import CameraGUI
 from MainWindow.Utilitis.QlabelExtendetManipulatorMenu import QlabelRightClickMenu
 
@@ -26,7 +26,7 @@ class CameraGUIExtension(CameraGUI):
 
 
 if __name__ == '__main__':
-    from PyQt5.QtWidgets import QApplication
+    from PySide2.QtWidgets import QApplication
     import sys
 
     app = QApplication(sys.argv)

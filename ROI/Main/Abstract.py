@@ -1,6 +1,6 @@
 from abc import ABCMeta
 
-from PyQt5.QtCore import QRect, QPoint
+from PySide2.QtCore import QRect, QPoint
 
 from ROI.Label.ROILable import ROILabel
 from ROI.Main.CommonNames import CommonNames

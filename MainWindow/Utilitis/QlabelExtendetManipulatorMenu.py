@@ -1,12 +1,12 @@
 from time import sleep
 
-from PyQt5.QtCore import QObject, QThread, pyqtSignal
+from PySide2.QtCore import QObject, QThread, Signal
 
 from MainWindow.Utilitis.QlabelROI import QlabelROI
 
 
 class Worker(QObject):
-    finished = pyqtSignal()
+    finished = Signal()
 
     def __init__(self, mainwindow, *args, **kwargs):
         super(Worker, self).__init__(*args, **kwargs)

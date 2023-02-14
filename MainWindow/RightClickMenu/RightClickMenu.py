@@ -1,5 +1,5 @@
-from PyQt5 import QtGui
-from PyQt5.QtWidgets import QMenu
+from PySide2 import QtGui
+from PySide2.QtWidgets import QMenu
 
 
 class RightMenu(QMenu):

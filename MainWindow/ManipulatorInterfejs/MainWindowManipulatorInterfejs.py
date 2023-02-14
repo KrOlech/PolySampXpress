@@ -1,5 +1,5 @@
-from PyQt5.Qt import QPoint
-from PyQt5.QtWidgets import QMessageBox, QPushButton
+from PySide2.QtCore import QPoint
+from PySide2.QtWidgets import QMessageBox, QPushButton
 
 from MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
 from manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
@@ -67,7 +67,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
 
 if __name__ == '__main__':
-    from PyQt5.QtWidgets import QApplication
+    from PySide2.QtWidgets import QApplication
     import sys
 
     app = QApplication(sys.argv)

@@ -1,12 +1,12 @@
 from time import sleep
 
-from PyQt5.QtCore import pyqtSignal, QThread
+from PySide2.QtCore import Signal, QThread
 
 from utilitis.ThreadWorker.SimpleThreadWorker.SimpleThreadWorker import Worker
 
 
 class SimpleSleeper(Worker):
-    finished = pyqtSignal()
+    finished = Signal()
 
     def __init__(self, master, time, *args, **kwargs):
         super(SimpleSleeper, self).__init__(master, *args, **kwargs)

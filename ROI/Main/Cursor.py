@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication
+from PySide2.QtCore import Qt
+from PySide2.QtWidgets import QApplication
 from abc import abstractmethod, ABCMeta
 
 from ROI.Main.CommonNames import CommonNames

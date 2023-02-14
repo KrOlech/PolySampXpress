@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMainWindow
 from MainWindow.Utilitis.WindowBar import MyBar
-from PyQt5.QtCore import Qt
+from PySide2.QtCore import Qt
 
 
 class MainWindowCustomBar(QMainWindow):
@@ -19,7 +19,7 @@ class MainWindowCustomBar(QMainWindow):
 
 if __name__ == "__main__":
     import sys
-    from PyQt5.QtWidgets import QApplication
+    from PySide2.QtWidgets import QApplication
 
     app = QApplication(sys.argv)
     mw = MainWindowCustomBar()

@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt
+from PySide2.QtCore import Qt
 
 from WorkFeald.GUI.Gui import WorkFilledGui
 from utilitis.JsonRead.JsonRead import loadPolaRoboczeJson

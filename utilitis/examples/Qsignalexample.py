@@ -1,5 +1,5 @@
-from PyQt5.QtCore import pyqtSignal, pyqtSlot
-from PyQt5.QtWidgets import QWidget
+from PySide2.QtCore import pyqtSignal, pyqtSlot
+from PySide2.QtWidgets import QWidget
 
 
 class example(QWidget):

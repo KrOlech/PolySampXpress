@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QSlider
-from PyQt5.QtCore import Qt
+from PySide2.QtWidgets import QSlider
+from PySide2.QtCore import Qt
 
 
 class _Slider(QSlider):
@@ -56,7 +56,7 @@ class Slider(_Slider):
 
 if __name__ == '__main__':
     # test nie aktualny testuje klase _Slider nie Slider
-    from PyQt5.QtWidgets import QMainWindow, QApplication
+    from PySide2.QtWidgets import QMainWindow, QApplication
     import sys as sys
 
 

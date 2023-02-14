@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QWidget, QVBoxLayout
+from PySide2.QtGui import QImage, QPixmap
+from PySide2.QtWidgets import QWidget, QVBoxLayout
 from numpy import ones
 from MAP.Label.MapLabel import MapLabel
 from utilitis.JsonRead.JsonRead import loadCameraResolutionJson

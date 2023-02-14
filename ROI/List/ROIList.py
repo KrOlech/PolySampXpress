@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QLabel
-from PyQt5.QtCore import Qt
+from PySide2.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QLabel
+from PySide2.QtCore import Qt
 
 
 class ROIList(QScrollArea):

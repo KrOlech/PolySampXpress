@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QLabel
+from PySide2.QtCore import Qt
+from PySide2.QtWidgets import QLabel
 
 from MainWindow.RightClickMenu.RightClickMenu import RightMenu
 from utilitis.Abstract import abstractmetod

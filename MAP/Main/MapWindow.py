@@ -1,5 +1,3 @@
-import cv2
-
 from MAP.Inicialiser.MapWindowInitialiser import MapWindowInitialise
 
 

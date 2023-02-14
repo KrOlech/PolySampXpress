@@ -2,10 +2,10 @@ from abc import ABCMeta
 from abc import abstractmethod
 
 import cv2
-from PyQt5 import QtGui
-from PyQt5.QtCore import QRect, QPoint, Qt, QEvent
-from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor
-from PyQt5.QtWidgets import QApplication
+from PySide2 import QtGui
+from PySide2.QtCore import QRect, QPoint, Qt, QEvent
+from PySide2.QtGui import QPixmap, QImage, QPainter, QBrush, QColor
+from PySide2.QtWidgets import QApplication
 
 from MainWindow.RightClickMenu.Label import RightClickLabel
 from MainWindow.RightClickMenu.RightClickMenu import RightMenu

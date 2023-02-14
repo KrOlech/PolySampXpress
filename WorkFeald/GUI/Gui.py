@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QHBoxLayout, QDialog
+from PySide2.QtWidgets import QHBoxLayout, QDialog
 from WorkFeald.Label.Label import WorkFaldLabel
 
 
@@ -23,7 +23,7 @@ class WorkFilledGui(QDialog):  # toDo Common taskbar
 
 if __name__ == "__main__":
     import sys
-    from PyQt5.QtWidgets import QApplication
+    from PySide2.QtWidgets import QApplication
     from utilitis.JsonRead.JsonRead import loadPolaRoboczeJson
 
     app = QApplication(sys.argv)

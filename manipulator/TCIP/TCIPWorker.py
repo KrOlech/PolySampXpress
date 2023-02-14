@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QThread
+from PySide2.QtCore import QThread
 
 from utilitis.ThreadWorker.Sleeper.SimpleSleeper import simplySleep
 from utilitis.ThreadWorker.SimpleThreadWorker.SimpleThreadWorker import Worker

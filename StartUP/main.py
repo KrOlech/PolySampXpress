@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtWidgets import QApplication
+from PySide2.QtWidgets import QApplication
 
 from MainWindow.InicialisationFlag.MainWindowIniciialisationFlag import MainWindowInicialisationFlag
 from WorkFeald.Main.main import ReadPoleRobocze
@@ -16,4 +16,4 @@ if __name__ == '__main__':
 
     window.show()
 
-    app.exec_()
+    sys.exit(app.exec_())

@@ -1,5 +1,5 @@
 from MainWindow.CustomBar.MainWindowCustomBar import MainWindowCustomBar
-from PyQt5.QtWidgets import QAction
+from PySide2.QtWidgets import QAction
 from abc import abstractmethod
 from abc import ABCMeta
 from utilitis.Abstract import abstractmetod
@@ -63,7 +63,7 @@ class MainWindowMenuBar(MainWindowCustomBar):
 
 if __name__ == '__main__':
     import sys
-    from PyQt5.QtWidgets import QApplication
+    from PySide2.QtWidgets import QApplication
 
     app = QApplication(sys.argv)
 

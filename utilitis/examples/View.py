@@ -1,6 +1,6 @@
-from PyQt5.QtGui import QPixmap, QImage, QPainter
-from PyQt5 import QtGui
-from PyQt5.QtWidgets import QLabel
+from PySide2.QtGui import QPixmap, QImage, QPainter
+from PySide2 import QtGui
+from PySide2.QtWidgets import QLabel
 
 
 class SimpleView(QLabel):

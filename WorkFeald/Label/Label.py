@@ -1,5 +1,5 @@
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout
+from PySide2 import QtCore
+from PySide2.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout
 
 
 class WorkFaldLabel(QWidget):
@@ -47,7 +47,7 @@ class WorkFaldLabel(QWidget):
 
 if __name__ == "__main__":
     import sys
-    from PyQt5.QtWidgets import QApplication
+    from PySide2.QtWidgets import QApplication
 
     app = QApplication(sys.argv)
 

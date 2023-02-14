@@ -4,7 +4,7 @@ from time import sleep
 
 import cv2
 import numpy as np
-from PyQt5.QtGui import QImage, QPixmap
+from PySide2.QtGui import QImage, QPixmap
 from numpy import arange, ones
 
 from utilitis.JsonRead.JsonRead import loadResolution
@@ -49,9 +49,8 @@ class AbstractMapWindow:
         return type(self).__MANIPULATOR_FULL_MOVEMENT_FILEPATH
 
     def convertMap(self):
-        qImage = QImage(self.mapNumpy.data, self.mapNumpy.shape[1], self.mapNumpy.shape[0],self.mapNumpy.shape[1]*3, QImage.Format_BGR888)
+        qImage = QImage(self.mapNumpy.data, self.mapNumpy.shape[1], self.mapNumpy.shape[0], self.mapNumpy.shape[1] * 3, QImage.Format_BGR888)
         self.mapPx = QPixmap.fromImage(qImage)
-
 
     def takePhoto(self):
         return self.scalleFream(self.master.camera.getFrame())

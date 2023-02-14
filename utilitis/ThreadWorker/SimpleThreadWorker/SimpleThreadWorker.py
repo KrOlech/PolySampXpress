@@ -1,11 +1,11 @@
-from PyQt5.QtCore import QObject, pyqtSignal, QThread
+from PySide2.QtCore import QObject, Signal, QThread
 from abc import abstractmethod
 
 from utilitis.Abstract import abstractmetod
 
 
 class Worker(QObject):
-    finished = pyqtSignal()
+    finished = Signal()
     master = None
 
     def __init__(self, master, *args, **kwargs):

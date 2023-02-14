@@ -1,6 +1,6 @@
-from PyQt5.QtCore import QRect, QPoint
-from PyQt5.QtGui import QPainter, QBrush, QColor
-from PyQt5.QtWidgets import QLabel
+from PySide2.QtCore import QRect, QPoint
+from PySide2.QtGui import QPainter, QBrush, QColor
+from PySide2.QtWidgets import QLabel
 
 
 class MapLabel(QLabel):

@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel, QToolButton, QStyle
-from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QPalette
+from PySide2.QtWidgets import QWidget, QHBoxLayout, QLabel, QToolButton, QStyle
+from PySide2.QtCore import Qt, QSize
+from PySide2.QtGui import QPalette
 
 
 class MyBar(QWidget):
