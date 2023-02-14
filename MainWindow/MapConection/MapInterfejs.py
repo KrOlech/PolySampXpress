@@ -26,7 +26,7 @@ class MainWindowMapInterfejs(MainWindowInicialisationFlag):
         else:
             x = self.manipulator.x
             y = self.manipulator.y
-            self.mapWindowObject.addFrame(self.camera.getFrame(), y, x)
+            self.mapWindowObject.addFrame(self.camera.getFrame())
 
     def createMap(self):
         if not self.mapWindowObject:

@@ -1,17 +1,17 @@
 from abc import ABCMeta
 from itertools import chain
+from time import sleep
 
+import cv2
+import numpy as np
 from PyQt5.QtGui import QImage, QPixmap
-from numpy import arange
+from numpy import arange, ones
 
 from utilitis.JsonRead.JsonRead import loadResolution
 
 
 class AbstractMapWindow:
     __metaclass__ = ABCMeta
-
-    # map in PyQty Format
-    mapPx = None
 
     # Pointer to Object of class Map Label for showcase of mam purpose
     mapWidget = None
@@ -27,6 +27,8 @@ class AbstractMapWindow:
 
     # map container Pixmap
     mapPx = None
+
+    scaledCameraFrameSize = None
 
     def move(self, geometry):
         self.mapWidget.move(geometry)
@@ -47,5 +49,12 @@ class AbstractMapWindow:
         return type(self).__MANIPULATOR_FULL_MOVEMENT_FILEPATH
 
     def convertMap(self):
-        qImage = QImage(self.mapNumpy.data, self.mapNumpy.shape[1], self.mapNumpy.shape[0], QImage.Format_BGR888)
+        qImage = QImage(self.mapNumpy.data, self.mapNumpy.shape[1], self.mapNumpy.shape[0],self.mapNumpy.shape[1]*3, QImage.Format_BGR888)
         self.mapPx = QPixmap.fromImage(qImage)
+
+
+    def takePhoto(self):
+        return self.scalleFream(self.master.camera.getFrame())
+
+    def scalleFream(self, frame):
+        return cv2.resize(frame, self.scaledCameraFrameSize)
