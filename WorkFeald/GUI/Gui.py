@@ -1,4 +1,7 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QHBoxLayout, QDialog
+
+from MainWindow.Utilitis.WindowBar import MyBar
 from WorkFeald.Label.Label import WorkFaldLabel
 
 
@@ -14,6 +17,13 @@ class WorkFilledGui(QDialog):  # toDo Common taskbar
         self.layout = QHBoxLayout(self)
 
         [self.layout.addWidget(label) for label in self.fildLabels]
+        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+
+        self.titleBar = MyBar(self, "Work Fild")
+        self.setContentsMargins(0, self.titleBar.height(), 0, 0)
+
+    def resizeEvent(self, event):
+        self.titleBar.resize(self.width(), self.titleBar.height())
 
     def setFildParams(self, fildParams):
         self.hide()
