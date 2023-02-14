@@ -1,3 +1,5 @@
+import asyncio
+
 from PyQt5.QtWidgets import QDesktopWidget
 
 from MAP.Main.MapWindow import MapWindow
@@ -7,7 +9,7 @@ from utilitis.Depracation.DepractionFactory import deprecated
 
 class MainWindowInicialisationFlag(MainWindowROIList):
     fildParams = 0
-
+    selectedManipulatorZoom = 1
     mapWindowObject = None
 
     def __init__(self, *args, **kwargs):
@@ -27,25 +29,25 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         else:
             x = self.manipulator.x
             y = self.manipulator.y
-            self.mapWindowObject.addFrame(self.camera.getFrame(), y, x)
+            self.mapWindowObject.addFrame(self.camera.getFrame())
 
     def createMap(self):
         self.mapWindowObject = self.crateMapObject()
         self.mapWindowObject.mapCreate()
-        #if not self.mapWindowObject:
-        #    self.mapWindowObject = self.crateMapObject()
-        #    self.mapWindowObject.mapCreate()
-        #else:
-        #    print("do you wont to owe ride created Map?")
-        #    # ToDo implement Correct in the future
+        if not self.mapWindowObject:
+            self.mapWindowObject = self.crateMapObject()
+            self.mapWindowObject.mapCreate()
+        else:
+            print("do you wont to owe ride created Map?")
+            # ToDo implement Correct in the future
 
     def showMap(self):
         if self.mapWindowObject:
             self.mapWindowObject.move(QDesktopWidget().availableGeometry().topLeft())
-            self.mapWindowObject.show()
+            self.mapWindowObject.showMap()
 
     def setPoleRobocze(self, fildParams):
         self.fildParams = fildParams
 
     def crateMapObject(self):
-        return MapWindow(self, self.windowSize,self.manipulator)
+        return MapWindow(self, self.windowSize, self.manipulator)

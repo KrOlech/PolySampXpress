@@ -1,56 +1,65 @@
+from abc import ABCMeta
+from itertools import chain
+from time import sleep
+
 import cv2
 import numpy as np
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QWidget, QVBoxLayout
-from numpy import ones
-from MAP.Label.MapLabel import MapLabel
-from utilitis.JsonRead.JsonRead import loadCameraResolutionJson
+from numpy import arange, ones
+
+from utilitis.JsonRead.JsonRead import loadResolution
 from utilitis.ThreadWorker.Sleeper.SleeperFun import workSleeperFun
 
 
-class AbstractMapWindow(QWidget):
-    cameraFrameSizeX, cameraFrameSizeY = loadCameraResolutionJson()  # 2560, 1440
+class AbstractMapWindow:
+    __metaclass__ = ABCMeta
 
-    mapPQ = None  # mapa w Pyqt
-    crop = None
-    #map = ones((cameraFrameSizeX * 2, cameraFrameSizeY * 2, 3), dtype=np.uint8)  # mapa jako tablica numpy #TODO wlasciwa wartosc to bez przemnorzenia prz 2 #TODO wlasciwa inicializacja
+    # Pointer to Object of class Map Label for showcase of mam purpose
+    mapWidget = None
+
+    # Direction of next frame passable values "R" i "L"
     mapDirection = "R"
-    mapEnd = None
+
+    # If true map is finished
+    mapEnd = False
+
+    # map container Numpy
+    mapNumpy = None
+
+    # map container Pixmap
+    mapPx = None
+
     scaledCameraFrameSize = None
 
-    def __init__(self, windowSize, *args, **kwargs):
-        super(AbstractMapWindow, self).__init__(*args, **kwargs)
-        self.__windowSize = windowSize
-        self.mapViue = self.__mapLabel()
-        self.__layout()
+    def move(self, geometry):
+        self.mapWidget.move(geometry)
 
-        self.setFixedSize(windowSize)
+    def showMap(self):
+        self.mapWidget.show()
 
-    def __mapLabel(self):
-        mapViue = MapLabel(self)
-        mapViue.setFixedSize(self.__windowSize)
-        return mapViue
+    __ZOOM = "zoom"
 
-    def __layout(self):
-        layout = QVBoxLayout()
-        layout.addWidget(self.mapViue)
-        self.setLayout(layout)
+    @property
+    def ZOOM(self) -> str:
+        return type(self).__ZOOM
+
+    __MANIPULATOR_FULL_MOVEMENT_FILEPATH = "ManipulatorFullConfig.json"
+
+    @property
+    def MANIPULATOR_FULL_MOVEMENT_FILEPATH(self) -> str:
+        return type(self).__MANIPULATOR_FULL_MOVEMENT_FILEPATH
+
+    def convertMap(self):
+        qImage = QImage(self.mapNumpy.data, self.mapNumpy.shape[1], self.mapNumpy.shape[0],self.mapNumpy.shape[1]*3, QImage.Format_BGR888)
+        self.mapPx = QPixmap.fromImage(qImage)
+
+
+    def takePhoto(self):
+        return self.scalleFream(self.master.camera.getFrame())
 
     def scalleFream(self, frame):
         return cv2.resize(frame, self.scaledCameraFrameSize)
 
-    def cpmwertMap(self):
-        qImage = QImage(self.map.data, self.map.shape[1], self.map.shape[0], QImage.Format_BGR888)
-        self.mapPQ = QPixmap.fromImage(qImage)
-
-    def conwertImage(self, image):
-        qImage = QImage(image.data, image.shape[1], image.shape[0], QImage.Format_BGR888)
-        self.mapPQ = QPixmap.fromImage(qImage)
 
     def wait(self, time=30, fun=None):
         workSleeperFun(self, time, fun)
-
-    def _addFrameZero(self, crop):
-        print(crop.shape)
-        self.map[: int(self.cameraFrameSizeX / self.scalX), :int(self.cameraFrameSizeY / self.scalY)] = crop
-        self.cpmwertMap()

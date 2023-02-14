@@ -1,137 +1,63 @@
-import threading
-from time import sleep
-
 from MAP.Inicialiser.MapWindowInitialiser import MapWindowInitialise
-from manipulator.TCIP.TCIPManipulator import TCIPManipulator
 
 
 class MapWindow(MapWindowInitialise):
-    firstPhotoNotTaken = True  # ToDO move to Abstract
-    hopY = False
 
-    def __init__(self, master, windowSize, manipulator: TCIPManipulator, *args, **kwargs):
-        super(MapWindow, self).__init__(master, windowSize, manipulator, *args, **kwargs)
-        self.lock = threading.Lock()
+    def mapCreate(self):
+        while not self.mapEnd:
+            print(self.photoCount, self._photoCount)
+            self.addFrame(self.takePhoto())
+            self.calculateNextManipulatorPosition()
+            self.moveManipulator()
+            # TODO go to cords and wait for manipulator
+            #self.wait(time=30, fun=self.mapCreate)
 
-    def takPhoto(self):
-        crop = self.scalleFream(self.master.camera.getFrame())
-        self.map[:self.scaledCameraFrameSize[1], self.scaledCameraFrameSize[0]:] = crop[:, :self.map.shape[1] - self.scaledCameraFrameSize[0]]
-        self.cpmwertMap()
+    def addFrame(self, frame):
+
+        n = self.photoCount[0] * self.scaledCameraFrameSize[1]
+        m = self.photoCount[1] * self.scaledCameraFrameSize[0]
+
+        photoShape = frame.shape
+        print(f"map Fragment shape {self.mapNumpy[n: n + photoShape[0], m:m + photoShape[1]].shape}")
+        print(f"photo shape {frame.shape}")
+
+        try:
+            self.mapNumpy[n: n + photoShape[0], m:m + photoShape[1]] = frame
+            self.convertMap()
+        except Exception as e:
+            print(e)
+            eStr = str(e)
+            if eStr.find("could not broadcast input array from shape") == 0:
+                cropEstr = eStr[eStr.find("into shape"):]
+                #cropEstr = eStr
+                cropEstr = cropEstr[cropEstr.find("(") + 1:cropEstr.find(")")]
+                x = int(cropEstr[:cropEstr.find(",")])
+                cropEstr = cropEstr[cropEstr.find(",") + 1:]
+                y = int(cropEstr[:cropEstr.find(",")])
+                cropEstr = cropEstr[cropEstr.find(",") + 1:]
+                z = int(cropEstr)
+                print(x, y, z)
+                print(f"map Fragment shape { self.mapNumpy[n: n + x, n:n + y].shape}")
+                print(f"photo shape {frame[:x, :y].shape}")
+                self.addFrame(frame[:x, :y])
+
+
 
     def moveManipulator(self):
         if self.manipulator.x != self.movementMap[self.photoCount[0]][self.photoCount[1]][0]:
+            print(f"x: {self.movementMap[self.photoCount[0]][self.photoCount[1]][0]}")
             self.manipulator.goToCords(x=self.movementMap[self.photoCount[0]][self.photoCount[1]][0])
         elif self.manipulator.y != self.movementMap[self.photoCount[0]][self.photoCount[1]][1]:
+            print(f"y: {self.movementMap[self.photoCount[0]][self.photoCount[1]][1]}")
             self.manipulator.goToCords(y=self.movementMap[self.photoCount[0]][self.photoCount[1]][1])
 
-    def mapCreate(self):
-        #print(self.photoCount, self._photoCount, self.mapDirection, self.mapEnd)
+    def chopTop(self, frame):
+        return frame
 
-        if self.mapEnd:
-            return True
-
-        if self.firstPhotoNotTaken:
-            self.firstPhotoNotTaken = False
-            self.firstPhoto()
-        else:
-            self.__calculateNextPhotoTypeAndMakePhoto()
-
-        self.calculateNextManipulatorPosition()
-
-        self.moveManipulator()
-        self.wait(fun=self.mapCreate)
-
-    def firstPhoto(self):
-        self._addFrameZero(self.scalleFream(self.master.camera.getFrame()))
-
-    def __calculateNextPhotoTypeAndMakePhoto(self):
-        __funTab = self.__isBottom()
-
-        if self.photoCount[1] == self._photoCount[1]:
-            __funTab[0]()
-        elif self.photoCount[1] == 0:
-            __funTab[2]()
-        else:
-            __funTab[1]()
-
-    def __isBottom(self):
-        if self.photoCount[0] == self._photoCount[0]:  # bottom
-            return self.rightBottom, self.bottom, self.leftBottom
-        else:  # top
-            return self.right, self.takePhotoFull, self.left
-
-    def rightBottom(self):
-        crop = self.__takPhoto()
-
-        if not self.movementMap[self.photoCount[0]][self.photoCount[1]][2]:
-            crop = self.chopLeft(crop)
-
-        crop = self.chopRight(crop)
-
-        if not self.movementMap[self.photoCount[0]][self.photoCount[1]][3]:
-            crop = self.chopTop(crop)
-
-        crop = self.chopBottom(crop)
-
-        self.insertPhotoIntoMap(crop)
-
-    def bottom(self):
-        crop = self.__takPhoto()
-
-        if not self.movementMap[self.photoCount[0]][self.photoCount[1]][3]:
-            crop = self.chopTop(crop)
-
-        crop = self.chopBottom(crop)
-
-        self.insertPhotoIntoMap(crop)
-
-    def leftBottom(self):
-        crop = self.__takPhoto()
-
-        if not self.movementMap[self.photoCount[0]][self.photoCount[1]][2]:
-            crop = self.chopRight(crop)
-
-        crop = self.chopLeft(crop)
-
-        if not self.movementMap[self.photoCount[0]][self.photoCount[1]][3]:
-            crop = self.chopTop(crop)
-
-        crop = self.chopBottom(crop)
-
-        self.insertPhotoIntoMap(crop)
-
-    def right(self):
-        crop = self.__takPhoto()
-
-        if not self.movementMap[self.photoCount[0]][self.photoCount[1]][2]:
-            crop = self.chopLeft(crop)
-
-        crop = self.chopRight(crop)
-
-        self.insertPhotoIntoMap(crop)
-
-    def takePhotoFull(self):  # toDo oczyscic wklejanie bo jest bardzo nie czytelne
-        # print(f"full {self.photoCount}")
-        crop = self.__takPhoto()
-        try:
-            self.map[int(self.scaledCameraFrameSize[1] * self.photoCount[0]):int(self.scaledCameraFrameSize[1] * (self.photoCount[0] + 1)),
-            int(self.scaledCameraFrameSize[0] * self.photoCount[1]):int(self.scaledCameraFrameSize[0] * (self.photoCount[1] + 1))] = crop
-            self.cpmwertMap()
-        except ValueError as e:
-            print(e)
-
-    def left(self):
-        crop = self.__takPhoto()
-
-        if not self.movementMap[self.photoCount[0]][self.photoCount[1]][2]:
-            crop = self.chopRight(crop)
-
-        crop = self.chopLeft(crop)
-
-        self.insertPhotoIntoMap(crop)
+    def chopLeft(self, frame):
+        return frame
 
     def calculateNextManipulatorPosition(self):
-
         if self.photoCount[1] == 0 and self.mapDirection == "L":
             if self.photoCount[0] == self._photoCount[0]:
                 self.mapEnd = True
@@ -148,53 +74,3 @@ class MapWindow(MapWindowInitialise):
             self.photoCount[1] += 1
         elif self.mapDirection == "L":
             self.photoCount[1] -= 1
-
-    def __takPhoto(self):
-        return self.scalleFream(self.master.camera.getFrame())
-
-    def chopTop(self, photo):
-        y = self.movementMap[self.photoCount[0]][self.photoCount[1]][1]
-        yr = self.movementMap[self.photoCount[0]][self.photoCount[1]][5]
-        n = int((yr - y) * self.yOffset)
-
-        print(f"top:, y: {y}, yr: {yr},  n: {n}")
-        return photo[n:, :]
-
-    def chopBottom(self, photo):
-        m = int((self._photoCount[0] * self.scaledCameraFrameSize[1]) - self.scaledMapSizeXInPx)
-
-        print(f"bottom m: {m}")
-        return photo[: m, :]
-
-    def chopRight(self, photo):
-        m = int((self.photoCount[1] * self.scaledCameraFrameSize[0]) - self.scaledMapSizeYInPx)
-        x = self.movementMap[self.photoCount[0]][self.photoCount[1]][0]
-        xr = self.movementMap[self.photoCount[0]][self.photoCount[1]][4]
-        n = int((xr - x) * self.xOffset)
-
-        print(f"right:, x: {x}, xr: {xr}, m: {m}, n: {n} v: {m - n}")
-        return photo[:, :-(m - n)]
-
-    def chopLeft(self, photo):
-        #m = int((self.photoCount[1] * self.scaledCameraFrameSize[0]) - self.maxX)
-        x = self.movementMap[self.photoCount[0]][self.photoCount[1]][0]
-        xr = self.movementMap[self.photoCount[0]][self.photoCount[1]][4]
-        n = int((xr - x) * self.xOffset)
-
-        m = int((self.photoCount[1] * self.scaledCameraFrameSize[0]) - self.scaledMapSizeYInPx)
-
-        print(f"left x: {x}, xr: {xr}, m: {m}, n: {n} v: {n}")
-        return photo[:, n:]
-
-    def insertPhotoIntoMap(self, photo):
-        try:
-            n = self.photoCount[0] * self.scaledCameraFrameSize[1]
-            m = self.photoCount[1] * self.scaledCameraFrameSize[0]
-            photoShape = photo.shape
-            print(f"map Fragmetn shape {self.map[n: n + photoShape[0], m:m + photoShape[1]].shape}")
-            print(f"photo shape {photo.shape}")
-            self.map[n: n + photoShape[0], m:m + photoShape[1]] = photo
-            self.cpmwertMap()
-        except Exception as e:
-            print(e)
-

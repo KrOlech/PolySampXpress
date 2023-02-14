@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     mainWindow = MainWindowInicialisationFlag(app.desktop().availableGeometry().size())
 
-    window = ReadPoleRobocze(mainWindow,app.desktop().availableGeometry().size())
+    window = ReadPoleRobocze(mainWindow, app.desktop().availableGeometry().size())
 
     mainWindow.show()
 

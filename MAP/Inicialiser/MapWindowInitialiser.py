@@ -1,93 +1,136 @@
-from MAP.Abstract.AbstractMapWindow import AbstractMapWindow
+import threading
+from abc import ABCMeta
+from itertools import chain
 
-from manipulator.TCIP.TCIPManipulator import TCIPManipulator
-from utilitis.JsonRead.JsonRead import loadOffsetsJson
-from numpy import ones
 import numpy as np
 
+from MAP.Abstract.AbstractMapWindow import AbstractMapWindow
+from MAP.Abstract.MapParams import MapParams
+from MAP.Label.MapLabel import MapLabel
 
-class MapWindowInitialise(AbstractMapWindow):
-    # TODO beter values names
+from utilitis.JsonRead.JsonRead import JsonHandling, loadCameraResolutionJson, loadResolution
 
-    xOffset, yOffset = loadOffsetsJson()
+from numpy import arange, ones
 
-    def __init__(self, master, windowSize, manipulator: TCIPManipulator, *args, **kwargs):
-        super(MapWindowInitialise, self).__init__(windowSize, *args, **kwargs)
 
+class MapWindowInitialise(AbstractMapWindow, JsonHandling):
+    __metaclass__ = ABCMeta
+
+    # Pointer to Master object
+    master = None
+
+    # Pointer to manipulator Object
+    manipulator = None
+
+    # dictionary containing full manipulator config
+    manipulatorFullConfig = None
+
+    # Pointer to Map Params object
+    mapParams = None
+
+    cameraFrameSizeX, cameraFrameSizeY = loadCameraResolutionJson()  # 2560, 1440
+
+    def __init__(self, master, windowSize, manipulator):
         self.master = master
         self.manipulator = manipulator
 
-        self.fild = self.master.fildParams
+        self.mapWidget = self.__createMapLabel(windowSize)
 
-        self.fildSizeXmm, self.fildSizeYmm = self.__fildSizeMM()
+        self.mapParams = self.__mapParams()
 
-        self.fildSizeXpx, self.fildSizeYpx = self.__fildSizePx()
+        self.movementMap = self.__workFilledMovementMap()
 
-        self.nonScaledMapSizeXInPx, self.nonScaledMapSizeYInPx = self.__nonScaledMapSizeInPx()
-        print("Non Scaled Map Size", self.nonScaledMapSizeXInPx, self.nonScaledMapSizeYInPx)
+        self.photoCount, self._photoCount = self.__photoCount()
 
-        self.scalX, self.scalY = self.__calculateScaleForMap()
-        print("Scale", self.scalY, self.scalX)
+        self.scale, self.ScaledMapSizeIn_px = self.__mapScalle()
 
-        self.scaledMapSizeXInPx, self.scaledMapSizeYInPx = self.__scaledMapSizeInPx()
-        print("Scaled Map Size", self.scaledMapSizeXInPx, self.scaledMapSizeYInPx)
+        self.__isZoomWaliable()
 
-        self.scaledCameraFrameSizeX, self.scaledCameraFrameSizeY = self.__scaleCameraSizeInPx()
-        self.scaledCameraFrameSize = (int(self.scaledCameraFrameSizeY), int(self.scaledCameraFrameSizeX))
-        print("scaled Camera Frame", self.scaledCameraFrameSizeX, self.scaledCameraFrameSizeY)
+        self.mapNumpy = self.__mapContainer()
 
-        self._photoCount, self.photoCount = self.__calculatePhotoCount()
+        self.scaledCameraFrameSize = self.__calculateScaledCameraFrameSize()
+        print(f"scaledCameraFrameSize {self.scaledCameraFrameSize}")
 
-        self.map = ones((int(self.scaledMapSizeXInPx * 2), int(self.scaledMapSizeYInPx * 2), 3), dtype=np.uint8)
+        self.lock = threading.Lock()
 
-        self.movementMap = self.__createMovementMap()
+    def __calculateScaledCameraFrameSize(self):
+        return [int(size // self.scale) for size in loadCameraResolutionJson()[::-1]]
 
-    def __createMovementMap(self):
-        movementMap = []
-        for i in range(self._photoCount[0] + 1):
-            row = []
-            for j in range(self._photoCount[1] + 1):
-                x = self.fild[0] + self.cameraFrameSizeX / self.xOffset * j
-                y = self.fild[2] + self.cameraFrameSizeY / self.yOffset * i
-                x, xn, xr = (x, True, x) if x < 50 else (50, False, x)
-                y, yn, yr = (y, True, y) if y < 50 else (50, False, y)
-                row.append((x, y, xn, yn, xr, yr))
-            movementMap.append(row)
-        [print(row) for row in movementMap]  # Stworzyc lepsze wypisanie Tabeli
-        return movementMap
+    def __createMapLabel(self, windowSize):
+        mapWidget = MapLabel(self)
+        mapWidget.setFixedSize(windowSize)
+        return mapWidget
 
-    def __nonScaledMapSizeInPx(self):
-        return self.fildSizeXpx + self.cameraFrameSizeX, self.fildSizeYpx + self.cameraFrameSizeY
+    def __loadManipulatorFullMovement(self):
+        rowData = self.readFile(self.MANIPULATOR_FULL_MOVEMENT_FILEPATH)
 
-    def __calculateScaleForMap(self):  # TODO Scalling to 4k non to Camera Size
-        return self.nonScaledMapSizeXInPx / self.cameraFrameSizeX, self.nonScaledMapSizeYInPx / self.cameraFrameSizeY
+        for data in rowData.values():
+            if data[self.ZOOM] == self.master.selectedManipulatorZoom:
+                break
+        else:
+            print("[Warning] - There is no selected manipulator")
+            return -1
 
-    def __fildSizeMM(self):
-        return self.fild[1] - self.fild[0], self.fild[3] - self.fild[2]
+        return data
 
-    def __fildSizePx(self):
-        return self.xOffset * self.fildSizeXmm, self.yOffset * self.fildSizeYmm
+    def __mapParams(self):
+        try:
+            return MapParams(self.__loadManipulatorFullMovement())
+        except ValueError:
+            return MapParams({'zoom': 0, 'offsets': {'x': 1, 'y': 1},
+                              'borders': {'x': {'min': 0, 'max': 0}, 'y': {'min': 0, 'max': 0}}})
 
-    def __scaledMapSizeInPx(self):
-        return self.nonScaledMapSizeXInPx / self.scalX, self.nonScaledMapSizeYInPx / self.scalY
+    def __mapScalle(self):
 
-    def __scaleCameraSizeInPx(self):
-        return self.cameraFrameSizeX / self.scalX, self.cameraFrameSizeY / self.scalY
+        sizeIn_mm = [self.master.fildParams[1] - self.master.fildParams[0],
+                     self.master.fildParams[3] - self.master.fildParams[2]]
 
-    def __calculatePhotoCount(self):
+        sizeIn_px = [(wal * offset) + cam for wal, offset, cam in
+                     zip(sizeIn_mm, self.mapParams.offsets, loadCameraResolutionJson())]
 
-        yint = self.scaledMapSizeYInPx // self.scaledCameraFrameSize[0]
-        yfloat = self.scaledMapSizeYInPx / self.scaledCameraFrameSize[0]
-        y = yint if yfloat - yint > 0 else yint
-        # cameraFrameSizeY = yint
+        pixelCount = sizeIn_px[0] * sizeIn_px[1]
 
-        xint = self.scaledMapSizeXInPx // self.scaledCameraFrameSize[1]
-        xfloat = self.scaledMapSizeXInPx / self.scaledCameraFrameSize[1]
-        x = xint if xfloat - yint > 0 else xint
-        # cameraFreamSizeX = xint
+        mapRes_x, mapRes_y, _ = loadResolution("4K")
 
-        x, y = int(x), int(y)
+        mapPixelCount = mapRes_x * mapRes_y
 
-        print((y, x))
+        scale = pixelCount / mapPixelCount
+        print(scale)
 
-        return (y, x), [0, 0]
+        ScaledMapSizeIn_px = [int(wal / scale) for wal in sizeIn_px]
+
+        print(f"rozmiar w pixelach nieprzeskalowanej Mapy: {sizeIn_px}")
+        print(f"rozmiar w pixelach przeskalowanej Mapy: {mapRes_x, mapRes_y}")
+        print(f"scala: {scale}")
+        print(f"przeskalowany Rozmiar Mapy{ScaledMapSizeIn_px}")
+        return scale, ScaledMapSizeIn_px
+
+    def __workFilledMovementMap(self):
+        dx = self.cameraFrameSizeX / self.mapParams.xOffset
+        dy = self.cameraFrameSizeY / self.mapParams.yOffset
+
+        movmentMap = []
+
+        for i, x in enumerate(
+                chain(arange(self.master.fildParams[0], self.master.fildParams[1], dx), [self.master.fildParams[1]])):
+            movmentMap.append([])
+            for y in chain(arange(self.master.fildParams[2], self.master.fildParams[3], dy),
+                           [self.master.fildParams[3]]):
+                movmentMap[i].append((x, y))
+
+        [print(row) for row in movmentMap]
+
+        return movmentMap
+
+    def __isZoomWaliable(self):
+        x, y = loadCameraResolutionJson()
+        if self.scale < 1:
+            print("[Warning] Zoom to low desire map resolution exits row resolution")
+        elif self.scale > (x * y * 0.000005):
+            print("[Warning] Zoom to high to mach pixels for desire map")
+
+    def __photoCount(self):
+        return [0, 0], (len(self.movementMap) - 1, len(self.movementMap[0]) - 1)
+
+    def __mapContainer(self):
+        return ones(shape=(*self.ScaledMapSizeIn_px, 3), dtype=np.uint8)
