@@ -29,7 +29,7 @@ class ROIList(QScrollArea):
         self.setMinimumSize(300, 1200)
 
         self.vbox.addWidget(self.defalcateLabel)
-        self.setStyleSheet("background-color: rgba(255, 255, 255, 10);")  # TODO color Unificiation
+        self.setStyleSheet("background-color: rgba(255, 255, 255, 10);")
 
     def addROI(self, ROI):
         self.__delDefalautLable()

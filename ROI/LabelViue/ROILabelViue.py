@@ -23,7 +23,7 @@ class ROILegendVue(QLabel):
 
         qp.drawPixmap(self.rect(), self.roi.view)
 
-        qp.setBrush(QBrush(QColor(200, 10, 10, 200)))  # TODO color unification
+        qp.setBrush(QBrush(QColor(200, 10, 10, 200)))
 
         qp.drawRect(self.rectangle)
 

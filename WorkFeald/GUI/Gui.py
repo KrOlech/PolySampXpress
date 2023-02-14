@@ -5,7 +5,7 @@ from MainWindow.Utilitis.WindowBar import MyBar
 from WorkFeald.Label.Label import WorkFaldLabel
 
 
-class WorkFilledGui(QDialog):  # toDo Common taskbar
+class WorkFilledGui(QDialog):
     valueSet = False
     fildParameters = None
 
