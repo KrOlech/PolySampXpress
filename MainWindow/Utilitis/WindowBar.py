@@ -6,7 +6,7 @@ from PyQt5.QtGui import QPalette
 class MyBar(QWidget):
     clickPos = None
 
-    def __init__(self, parent):
+    def __init__(self, parent, name="ROI Maper beta-0.4"):
         super(MyBar, self).__init__(parent)
         self.setAutoFillBackground(True)
 
@@ -16,7 +16,7 @@ class MyBar(QWidget):
         layout.setContentsMargins(1, 1, 1, 1)
         layout.addStretch()
 
-        self.title = QLabel("ROI Maper beta-0.3", self, alignment=Qt.AlignCenter)
+        self.title = QLabel(name, self, alignment=Qt.AlignCenter)
 
         self.title.setForegroundRole(QPalette.Light)
 

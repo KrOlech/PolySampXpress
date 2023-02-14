@@ -1,4 +1,7 @@
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QHBoxLayout, QWidget, QVBoxLayout, QLabel
+
+from MainWindow.Utilitis.WindowBar import MyBar
 from utilitis.Slider.Slider import Slider
 
 
@@ -20,3 +23,11 @@ class CameraSettingsWindow(QWidget):
             self.mainLayout.addLayout(self.simplyConfig)
 
         self.setLayout(self.mainLayout)
+
+        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+
+        self.titleBar = MyBar(self, "Camera Settings")
+        self.setContentsMargins(0, self.titleBar.height(), 0, 0)
+
+    def resizeEvent(self, event):
+        self.titleBar.resize(self.width(), self.titleBar.height())

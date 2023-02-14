@@ -12,10 +12,11 @@
 - test in code manual
 
 - Map 2.0
-  - simple map
   - alternative hiden option for curent map
 
 ***Done in Beta 0.4:***
+- Map 2.0
+  - simple map
 
 ***TO Do in Beta next:***
 
