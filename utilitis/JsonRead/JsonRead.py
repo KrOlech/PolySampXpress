@@ -21,7 +21,7 @@ class JsonHandling:
 
 
 def getFileLocation(file) -> str:
-    mag = r"\Magisterkav2"
+    mag = r"\Magisterka_n"
     lMag = len(mag)
     config = r"\Config"
     fullPath = getcwd()
