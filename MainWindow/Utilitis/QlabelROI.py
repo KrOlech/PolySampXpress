@@ -3,35 +3,21 @@ from abc import abstractmethod
 
 import cv2
 from PyQt5 import QtGui
-from PyQt5.QtCore import QRect, QPoint, Qt, QEvent
+from PyQt5.QtCore import QRect, QPoint
 from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor
-from PyQt5.QtWidgets import QApplication
 
 from MainWindow.RightClickMenu.Label import RightClickLabel
 from MainWindow.RightClickMenu.RightClickMenu import RightMenu
-from ROI.Main.ROI import ROI
+from ROI.Creation.main.CreateRoi import CreateRoi
 
 
-class QlabelROI(RightClickLabel):
+class QlabelROI(RightClickLabel, CreateRoi):
     __metaclass__ = ABCMeta
-    editTribe = False
+
     rightClickPos = None
     rois = None
-    roiNames = 0
-    editedROI = None
-    leftMouseButton = False
+
     afterInitialisation = False
-
-    def eventFilter(self, source, event):
-        if self.afterInitialisation:
-            if event.type() == QEvent.MouseButtonPress or \
-                    event.type() == QEvent.MouseButtonRelease:
-                if event.button() == Qt.LeftButton:
-                    self.leftMouseButton = True
-                elif event.button() == Qt.RightButton:
-                    self.leftMouseButton = False
-
-        return super().eventFilter(source, event)
 
     def __init__(self, mainWindow, *args, **kwargs):
         super(QlabelROI, self).__init__(*args, **kwargs)
@@ -87,74 +73,6 @@ class QlabelROI(RightClickLabel):
         if self.pressed:
             qp.drawRect(QRect(QPoint(self.x1, self.y1), QPoint(self.x2, self.y2)))
 
-    def mousePressEvent(self, e):
-        if not self.leftMouseButton:
-            return
-
-        if self.mainWindow.manipulator.inMotion:
-            return
-
-        if self.editTribe:
-            self.editedROI.mousePress(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
-        else:
-            self.savePressLocation(e)
-
-    def mouseReleaseEvent(self, e):
-
-        if self.mainWindow.manipulator.inMotion:
-            return
-
-        if not self.leftMouseButton:
-            return
-
-        if self.editTribe:
-            self.editedROI.mouseRelease(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
-        else:
-            self.seveReliseLocation(e)
-
-    def mouseMoveEvent(self, e):
-
-        match (self.leftMouseButton, self.editTribe):
-            case False, False:
-                self.mainWindow.showROIList(e)
-            case False, True:
-                self.editedROI.cursorEdit(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
-            case True, True:
-                self.editedROI.mouseMove(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
-            case True, False:
-                self.saveTemporaryLocation(e)
-                self.mainWindow.showROIList(e)
-            case _, _:
-                print("error 1")
-
-    @abstractmethod
-    def savePressLocation(self, e):
-        self.x1 = e.x()
-        self.y1 = e.y()
-        self.x2 = e.x()
-        self.y2 = e.y()
-        self.pressed = True
-
-    @abstractmethod
-    def seveReliseLocation(self, e):
-        if self.pressed:
-            self.x2 = e.x()
-            self.y2 = e.y()
-
-            self.ROIList.append(
-                ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
-                    self.mainWindow.manipulator.y))
-            self.roiNames += 1
-
-            self.pressed = False
-
-            self.mainWindow.addROIToList()
-
-    @abstractmethod
-    def saveTemporaryLocation(self, e):
-        self.x2 = e.x()
-        self.y2 = e.y()
-
     @abstractmethod
     def right_menu(self, pos):
 
@@ -179,10 +97,6 @@ class QlabelROI(RightClickLabel):
             if roi.inROI(self.rightClickPos, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y):
                 rois.append(roi)
         return rois
-
-    def endEdit(self):
-        QApplication.setOverrideCursor(Qt.ArrowCursor)
-        self.editTribe = False
 
     def removeLable(self, ROI):
         self.mainWindow.removeROIFromList(ROI)
