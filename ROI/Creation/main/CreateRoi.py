@@ -5,7 +5,6 @@ from ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleCreateRoi
 
 
 class CreateRoi(SimpleCreateRoi, RoiEdit):
-
     leftMouseButton = False
 
     def eventFilter(self, source, event):
@@ -40,19 +39,18 @@ class CreateRoi(SimpleCreateRoi, RoiEdit):
             self.seveReliseLocation(e)
 
     def mouseMoveEvent(self, e):
-        match self.leftMouseButton, self.editTribe:
-            case False, False:
+        match self.leftMouseButton, self.editTribe, self.mainWindow.manipulator.inMotion:
+            case False, False, _:
                 self.mainWindow.showROIList(e)
-            case False, True:
+            case False, True, False:
                 self.editedROI.cursorEdit(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
-            case True, True:
+            case True, True, False:
                 self.editedROI.mouseMove(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
-            case True, False:
+            case True, False, False:
                 self.saveTemporaryLocation(e)
                 self.mainWindow.showROIList(e)
-            case _, _:
+            case _, _, _:
                 print("error 1")
 
-
     def __isOkToProcesEvent(self):
-        return not self.mainWindow.manipulator.inMotion and self.leftMouseButton
+        return self.mainWindow.manipulator.inMotion or not self.leftMouseButton
