@@ -5,14 +5,8 @@
   - klikanie Naroznikow
   - oznacanie pktow
   - Stworznie siatki pktow mesz radom full radom
-
-- zerowanie na pkcie znajdowanym softwrowo
-  - na start pkt wybierany recznie.
-
-- test in code manual
-
-- Map 2.0
-  - alternative hiden option for curent map
+  
+- logGenie
 
 ***Done in Beta 0.4:***
 - Map 2.0
@@ -20,7 +14,14 @@
 
 ***TO Do in Beta next:***
 
-- logGenie
+- test in code manual
+
+- Map 2.0
+  - alternative hiden option for curent map
+
+- zerowanie na pkcie znajdowanym softwrowo
+  - na start pkt wybierany recznie.
+
 - Debug Mode
 
 - zoom handling
@@ -42,6 +43,10 @@
 - Using CUDA for imiage resize (oneFX for radeon and so one)
 
 - Utiliti Strig Using Python "Static"
+
+- position on the sample on main screen + cursor position
+
+- auto mapwindow coling after program power off
 
 **Unsolved Errors**
 
