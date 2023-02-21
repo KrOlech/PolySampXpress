@@ -1,3 +1,4 @@
+import asyncio
 from abc import ABCMeta
 from abc import abstractmethod
 
@@ -45,45 +46,49 @@ class AbstractManipulator:
                 print(f"{speed} is invalid")
 
     @abstractmethod
-    def goto(self):
+    async def goto(self):
+        abstractmetod()
+
+    @abstractmethod
+    def gotoNotAsync(self):
         abstractmetod()
 
     def up(self):
         self.y += self.speed
-        self.goto()
+        asyncio.run(self.goto())
 
     def down(self):
         self.y -= self.speed
-        self.goto()
+        asyncio.run(self.goto())
 
     def left(self):
         self.x -= self.speed
-        self.goto()
+        asyncio.run(self.goto())
 
     def right(self):
         self.x += self.speed
-        self.goto()
+        asyncio.run(self.goto())
 
     def forward(self):
         self.z -= self.speed
-        self.goto()
+        asyncio.run(self.goto())
 
     def backwards(self):
         self.z += self.speed
-        self.goto()
+        asyncio.run(self.goto())
 
     def goToCords(self, x=None, y=None, z=None):
         self.x = x if x is not None else self.x
         self.y = y if y is not None else self.y
         self.z = z if z is not None else self.z
 
-        self.goto()
+        self.gotoNotAsync()
 
     def center(self, x, y):
 
         self.x += (x - self.screenSize.width() // 2) / self.xOffset
         self.y += (y - self.screenSize.height() // 2) / self.yOffset
-        self.goto()
+        asyncio.run(self.goto())
 
     @abstractmethod
     def close(self):

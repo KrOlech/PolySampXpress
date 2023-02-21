@@ -1,24 +1,26 @@
+import asyncio
+
 from PyQt5.QtCore import QThread
 
 from utilitis.ThreadWorker.SimpleThreadWorker.SimpleThreadWorker import Worker
 
 
-class FunWorker(Worker):
+class FunWorkerAsync(Worker):
 
     def __init__(self, master, fun, *args, **kwargs):
-        super(FunWorker, self).__init__(master, *args, **kwargs)
+        super(FunWorkerAsync, self).__init__(master, *args, **kwargs)
         self.fun = fun
 
     def run(self):
         print(f"[THREAD FUN] - [FunWorker] START {self.fun.__name__}")
-        self.fun()
+        asyncio.run(self.fun())
         print(f"[THREAD FUN] - [FunWorker] END {self.fun.__name__}")
         self.finished.emit()
 
 
 def createFunWorker(master, fun):
     master.thread = QThread()
-    master.worker = FunWorker(master, fun)
+    master.worker = FunWorkerAsync(master, fun)
 
     master.worker.moveToThread(master.thread)
 
@@ -28,6 +30,6 @@ def createFunWorker(master, fun):
     master.thread.finished.connect(master.thread.deleteLater)
 
 
-def workFunWorker(master, fun):
+def workFunWorkerAsync(master, fun):
     createFunWorker(master, fun)
     master.thread.start()
