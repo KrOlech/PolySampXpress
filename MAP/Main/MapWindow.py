@@ -1,21 +1,25 @@
+from asyncio import sleep
+
 from MAP.Inicialiser.MapWindowInitialiser import MapWindowInitialise
+from utilitis.ThreadWorker.Sleeper.SimpleSleeper import simplySleep
 
 
 class MapWindow(MapWindowInitialise):
 
-    def mapCreate(self):
+    async def mapCreate(self):
         while not self.mapEnd:
             print(self.photoCount, self._photoCount)
             self.addFrame(self.takePhoto())
             self.calculateNextManipulatorPosition()
             self.moveManipulator()
+            await sleep(30)
             # TODO go to cords and wait for manipulator
-            #self.wait(time=30, fun=self.mapCreate)
+            # self.wait(time=30, fun=self.mapCreate)
 
     def addFrame(self, frame):
 
-        n = self.photoCount[0] * self.scaledCameraFrameSize[1]
-        m = self.photoCount[1] * self.scaledCameraFrameSize[0]
+        n = self.photoCount[1] * self.scaledCameraFrameSize[1]
+        m = self.photoCount[0] * self.scaledCameraFrameSize[0]
 
         photoShape = frame.shape
         print(f"map Fragment shape {self.mapNumpy[n: n + photoShape[0], m:m + photoShape[1]].shape}")
@@ -29,7 +33,6 @@ class MapWindow(MapWindowInitialise):
             eStr = str(e)
             if eStr.find("could not broadcast input array from shape") == 0:
                 cropEstr = eStr[eStr.find("into shape"):]
-                #cropEstr = eStr
                 cropEstr = cropEstr[cropEstr.find("(") + 1:cropEstr.find(")")]
                 x = int(cropEstr[:cropEstr.find(",")])
                 cropEstr = cropEstr[cropEstr.find(",") + 1:]
@@ -37,11 +40,9 @@ class MapWindow(MapWindowInitialise):
                 cropEstr = cropEstr[cropEstr.find(",") + 1:]
                 z = int(cropEstr)
                 print(x, y, z)
-                print(f"map Fragment shape { self.mapNumpy[n: n + x, n:n + y].shape}")
+                print(f"map Fragment shape {self.mapNumpy[n: n + x, n:n + y].shape}")
                 print(f"photo shape {frame[:x, :y].shape}")
                 self.addFrame(frame[:x, :y])
-
-
 
     def moveManipulator(self):
         if self.manipulator.x != self.movementMap[self.photoCount[0]][self.photoCount[1]][0]:

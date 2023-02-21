@@ -1,5 +1,6 @@
 import socket as SOCKET
 import threading
+from asyncio import sleep
 
 from manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 from manipulator.TCIP.TCIPUtilitiString import TCIPUtilitiString
@@ -11,7 +12,7 @@ from utilitis.ThreadWorker.Sleeper.SimpleSleeper import simplySleep
 class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
     conn = None
 
-    inMotion = True
+    inMotion = False
 
     x, y, z = 25.0, 25.0, 25.0
 
@@ -21,9 +22,9 @@ class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
         self.socket.bind((self.TCP_IP, self.TCP_PORT))
         self.socket.listen(1)
 
+        self.lock = threading.Lock()
         tcipWork(self)
         self.setSpeed(1)
-        self.lock = threading.Lock()
         super(TCIPManipulator, self).__init__(screenSize)
 
     def close(self):
@@ -31,13 +32,27 @@ class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
             self.conn.send(self.NONe)
             self.conn.close()
 
-    def goto(self):
+    async def goto(self):
         with self.lock:
             try:
                 if not self.inMotion:
                     self.conn.sendall(("x" + str(self.x)).encode("utf8"))
                     self.conn.sendall(("y" + str(self.y)).encode("utf8"))
-                    simplySleep(self, 2)
+                    await sleep(2)
+                    # simplySleep(self, 2)
+
+            except AttributeError:
+                print("TCIP manipulator not yet connected")
+                self.x = 25.0
+                self.y = 25.0
+
+    def gotoNotAsync(self):
+        with self.lock:
+            try:
+                if not self.inMotion:
+                    self.conn.sendall(("x" + str(self.x)).encode("utf8"))
+                    self.conn.sendall(("y" + str(self.y)).encode("utf8"))
+
 
             except AttributeError:
                 print("TCIP manipulator not yet connected")

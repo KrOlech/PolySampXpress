@@ -49,8 +49,6 @@ class CreateRoi(SimpleCreateRoi, RoiEdit):
             case True, False, False:
                 self.saveTemporaryLocation(e)
                 self.mainWindow.showROIList(e)
-            case _, _, _:
-                print("error 1")
 
     def __isOkToProcesEvent(self):
         return self.mainWindow.manipulator.inMotion or not self.leftMouseButton

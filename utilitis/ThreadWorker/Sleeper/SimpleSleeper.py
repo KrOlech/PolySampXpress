@@ -1,4 +1,5 @@
-from time import sleep
+import asyncio
+from asyncio import sleep
 
 from PyQt5.QtCore import pyqtSignal, QThread
 
@@ -13,9 +14,21 @@ class SimpleSleeper(Worker):
         self.time = time
 
     def run(self):
-        self.master.inMotion = True
-        sleep(self.time)
-        self.master.inMotion = False
+        asyncio.run(self.runAsync())
+
+    async def runAsync(self):
+        print(f"[THREAD CONNECT] - [SimpleSleeper WORKER] START")
+        try:
+            print(f"[THREAD CONNECT] - [SimpleSleeper WORKER] master in motion")
+            self.master.inMotion = True
+            print(f"[THREAD CONNECT] - [SimpleSleeper WORKER] START SLEEP {self.time}s")
+            await sleep(self.time)
+            print("[THREAD CONNECT] - [SimpleSleeper WORKER] SLEEP END")
+            self.master.inMotion = False
+            print(f"[THREAD CONNECT] - [SimpleSleeper WORKER] master not in motion")
+        except Exception as e:
+            print(e)
+
         self.finished.emit()
 
 
@@ -32,4 +45,8 @@ def createSimpleSleeper(master, time):
 
 def simplySleep(master, time):
     createSimpleSleeper(master, time)
-    master.thread.start()
+    with master.lock:
+        try:
+            master.thread.start()
+        except Exception as e:
+            print(e)

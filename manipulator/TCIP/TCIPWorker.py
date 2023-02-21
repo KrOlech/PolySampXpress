@@ -1,3 +1,6 @@
+import asyncio
+from asyncio import sleep
+
 from PyQt5.QtCore import QThread
 
 from utilitis.ThreadWorker.Sleeper.SimpleSleeper import simplySleep
@@ -6,11 +9,16 @@ from utilitis.ThreadWorker.SimpleThreadWorker.SimpleThreadWorker import Worker
 
 class TCIPWorker(Worker):
 
-    def run(self):
+    async def runasync(self):
+        print("[THREAD CONNECT] - [TCIP WORKER] START CONNECTION")
         self.master.conn, self.master.addr = self.master.socket.accept()
-        simplySleep(self.master, 4)
+        print("[THREAD CONNECT] - [TCIP WORKER] CONNECTION STARTED")
+        await sleep(4)
+        print("[THREAD CONNECT] - [TCIP WORKER] THREAD END")
         self.finished.emit()
 
+    def run(self):
+        asyncio.run(self.runasync())
 
 def createTCIPWorker(master):
     master.thread = QThread()
@@ -26,4 +34,5 @@ def createTCIPWorker(master):
 
 def tcipWork(master):
     createTCIPWorker(master)
-    master.thread.start()
+    with master.lock:
+        master.thread.start()

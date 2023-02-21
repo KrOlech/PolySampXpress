@@ -1,11 +1,13 @@
+import asyncio
+
 from PyQt5.QtWidgets import QDesktopWidget
 from MAP.Main.MapWindow import MapWindow
 from MainWindow.InicialisationFlag.MainWindowIniciialisationFlag import MainWindowInicialisationFlag
 from utilitis.Depracation.DepractionFactory import deprecated
+from utilitis.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
 
 
 class MainWindowMapInterfejs(MainWindowInicialisationFlag):
-
     selectedManipulatorZoom = 0
 
     def __init__(self, *args, **kwargs):
@@ -31,7 +33,7 @@ class MainWindowMapInterfejs(MainWindowInicialisationFlag):
     def createMap(self):
         if not self.mapWindowObject:
             self.mapWindowObject = self.crateMapObject()
-            self.mapWindowObject.mapCreate()
+            workFunWorkerAsync(self, self.mapWindowObject.mapCreate)
         else:
             print("do you wont to ower ride created Map?")
             # ToDo implement Correct in the future

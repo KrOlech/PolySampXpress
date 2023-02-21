@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QDesktopWidget
 from MAP.Main.MapWindow import MapWindow
 from MainWindow.RoiList.MainWindowROIList import MainWindowROIList
 from utilitis.Depracation.DepractionFactory import deprecated
+from utilitis.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
 
 
 class MainWindowInicialisationFlag(MainWindowROIList):
@@ -33,10 +34,10 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
     def createMap(self):
         self.mapWindowObject = self.crateMapObject()
-        self.mapWindowObject.mapCreate()
+        workFunWorkerAsync(self,self.mapWindowObject.mapCreate)
         if not self.mapWindowObject:
             self.mapWindowObject = self.crateMapObject()
-            self.mapWindowObject.mapCreate()
+            workFunWorkerAsync(self,self.mapWindowObject.mapCreate)
         else:
             print("do you wont to owe ride created Map?")
             # ToDo implement Correct in the future
