@@ -58,7 +58,9 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
     def __createMapLabel(self, windowSize):
         mapWidget = MapLabel(self)
-        mapWidget.setFixedSize(windowSize)
+        mapWidget.setMinimumSize(1284, 857)
+        mapWidget.setMaximumSize(windowSize)
+        # mapWidget.setFixedSize(windowSize)
         return mapWidget
 
     def __loadManipulatorFullMovement(self):
@@ -88,35 +90,41 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         sizeIn_px = [(wal * offset) + cam for wal, offset, cam in
                      zip(sizeIn_mm, self.mapParams.offsets, loadCameraResolutionJson())]
 
+        realSizeIn_mm = [(wal / offset) for wal, offset in
+                         zip(sizeIn_px, self.mapParams.offsets)]
+
+        self.loger(f"work filld size in mm {sizeIn_mm}")
+        self.loger(f"real map size in mm {realSizeIn_mm}")
+        self.loger(f"real map size in px {sizeIn_px}")
+
         pixelCount = sizeIn_px[0] * sizeIn_px[1]
 
-        mapRes_x, mapRes_y, _ = loadResolution("4K")
+        mapRes_x, mapRes_y, _ = loadResolution("1440P")
 
         mapPixelCount = mapRes_x * mapRes_y
 
         scale = pixelCount / mapPixelCount
-        print(scale)
 
         ScaledMapSizeIn_px = [int(wal / scale) for wal in sizeIn_px]
 
-        print(f"rozmiar w pixelach nieprzeskalowanej Mapy: {sizeIn_px}")
-        print(f"rozmiar w pixelach przeskalowanej Mapy: {mapRes_x, mapRes_y}")
-        print(f"scala: {scale}")
-        print(f"przeskalowany Rozmiar Mapy{ScaledMapSizeIn_px}")
+        self.loger(f"scala: {scale}")
+        self.loger(f"scaled map size in px {ScaledMapSizeIn_px}")
         return scale, ScaledMapSizeIn_px
 
     def __workFilledMovementMap(self):
         dx = self.cameraFrameSizeX / self.mapParams.xOffset
         dy = self.cameraFrameSizeY / self.mapParams.yOffset
+        self.loger(f"krok po X {dx} krok po y {dy}")
 
         movmentMap = []
-
-        for i, x in enumerate(
-                chain(arange(self.master.fildParams[0], self.master.fildParams[1], dx), [self.master.fildParams[1]])):
+        x = self.master.fildParams[0]
+        while x < self.master.fildParams[1]+dx:
+            y = self.master.fildParams[2]
             movmentMap.append([])
-            for y in chain(arange(self.master.fildParams[2], self.master.fildParams[3], dy),
-                           [self.master.fildParams[3]]):
-                movmentMap[i].append((x, y))
+            while y < self.master.fildParams[3]+dy:
+                movmentMap[-1].append((x, y))
+                y += dy
+            x += dx
 
         [print(row) for row in movmentMap]
 

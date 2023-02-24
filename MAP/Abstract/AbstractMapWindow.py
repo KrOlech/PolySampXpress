@@ -1,3 +1,4 @@
+import inspect
 from abc import ABCMeta
 from itertools import chain
 from time import sleep
@@ -50,9 +51,9 @@ class AbstractMapWindow:
         return type(self).__MANIPULATOR_FULL_MOVEMENT_FILEPATH
 
     def convertMap(self):
-        qImage = QImage(self.mapNumpy.data, self.mapNumpy.shape[1], self.mapNumpy.shape[0],self.mapNumpy.shape[1]*3, QImage.Format_BGR888)
+        qImage = QImage(self.mapNumpy.data, self.mapNumpy.shape[1], self.mapNumpy.shape[0], self.mapNumpy.shape[1] * 3,
+                        QImage.Format_BGR888)
         self.mapPx = QPixmap.fromImage(qImage)
-
 
     def takePhoto(self):
         return self.scalleFream(self.master.camera.getFrame())
@@ -60,6 +61,8 @@ class AbstractMapWindow:
     def scalleFream(self, frame):
         return cv2.resize(frame, self.scaledCameraFrameSize)
 
-
     def wait(self, time=30, fun=None):
         workSleeperFun(self, time, fun)
+
+    def loger(self, message):
+        print(f"[{type(self).__name__}] - [{inspect.stack()[1].function}] {message}")
