@@ -27,23 +27,9 @@ class AbstractManipulator:
         return 0, 0, 0
 
     @abstractmethod
-    def center(self, pozycja):
-        abstractmetod()
-
-    @abstractmethod
     def validateSpeed(self, speed):
         abstractmetod()
         return True
-
-    def setSpeed(self, speed):
-        if self.validateSpeed(speed):
-            self.speed = speed
-        else:
-            try:
-                raise InvalidSpeed()
-            except InvalidSpeed as e:
-                print(f"{e}")
-                print(f"{speed} is invalid")
 
     @abstractmethod
     async def goto(self):
@@ -51,6 +37,10 @@ class AbstractManipulator:
 
     @abstractmethod
     def gotoNotAsync(self):
+        abstractmetod()
+
+    @abstractmethod
+    def close(self):
         abstractmetod()
 
     def up(self):
@@ -90,6 +80,12 @@ class AbstractManipulator:
         self.y += (y - self.screenSize.height() // 2) / self.yOffset
         asyncio.run(self.goto())
 
-    @abstractmethod
-    def close(self):
-        abstractmetod()
+    def setSpeed(self, speed):
+        if self.validateSpeed(speed):
+            self.speed = speed
+        else:
+            try:
+                raise InvalidSpeed()
+            except InvalidSpeed as e:
+                print(f"{e}")
+                print(f"{speed} is invalid")
