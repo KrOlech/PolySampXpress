@@ -15,7 +15,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
 
-        self.manipulator = StandaManipulator(self.windowSize)  # AbstractManipulator() TCIPManipulator, StandaManipulator
+        self.manipulator = TCIPManipulator(self.windowSize)  # AbstractManipulator() TCIPManipulator, StandaManipulator
 
         self.manipulatorInterferes = ManipulatorInterfere(self.manipulator)
 

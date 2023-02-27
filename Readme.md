@@ -8,13 +8,15 @@
   
 - logGenie
 
-- new manipulator
-
 ***Done in Beta 0.4:***
 - Map 2.0
   - simple map
 
+- new manipulator
+
 ***TO Do in Beta next:***
+
+- auto Calibration Mode
 
 - test in code manual
 
