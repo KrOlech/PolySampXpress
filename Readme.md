@@ -8,6 +8,8 @@
   
 - logGenie
 
+- new manipulator
+
 ***Done in Beta 0.4:***
 - Map 2.0
   - simple map
@@ -47,6 +49,8 @@
 - position on the sample on main screen + cursor position
 
 - auto mapwindow coling after program power off
+
+- auto wykrywanie portu com manipulatora
 
 **Unsolved Errors**
 
