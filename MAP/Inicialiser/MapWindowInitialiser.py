@@ -1,16 +1,15 @@
+import asyncio
 import threading
 from abc import ABCMeta
-from itertools import chain
+from asyncio import sleep
 
 import numpy as np
+from numpy import ones
 
 from MAP.Abstract.AbstractMapWindow import AbstractMapWindow
 from MAP.Abstract.MapParams import MapParams
 from MAP.Label.MapLabel import MapLabel
-
-from utilitis.JsonRead.JsonRead import JsonHandling, loadCameraResolutionJson, loadResolution
-
-from numpy import arange, ones
+from utilitis.JsonRead.JsonRead import JsonHandling, loadCameraResolutionJson, loadResolution, loadOffsetsJson
 
 
 class MapWindowInitialise(AbstractMapWindow, JsonHandling):
@@ -34,7 +33,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         self.master = master
         self.manipulator = manipulator
 
-        self.mapWidget = self.__createMapLabel(windowSize)
+        # asyncio.run(self.__gotoMapStart())
 
         self.mapParams = self.__mapParams()
 
@@ -53,14 +52,25 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
         self.lock = threading.Lock()
 
+        self.mapWidget = self.__createMapLabel(windowSize)
+
+    async def __gotoMapStart(self):
+        if self.manipulator.conn:
+            self.manipulator.goToCords(x=self.master.fildParams[0])
+            await sleep(60)
+            self.manipulator.goToCords(y=self.master.fildParams[2])
+            await sleep(60)
+
     def __calculateScaledCameraFrameSize(self):
         return [int(size // self.scale) for size in loadCameraResolutionJson()[::-1]]
 
     def __createMapLabel(self, windowSize):
         mapWidget = MapLabel(self)
-        mapWidget.setMinimumSize(1284, 857)
+
+
+        mapWidget.resize(self.ScaledMapSizeIn_px[0], self.ScaledMapSizeIn_px[1])
         mapWidget.setMaximumSize(windowSize)
-        # mapWidget.setFixedSize(windowSize)
+        mapWidget.setAspectRatio(self.ScaledMapSizeIn_px[0]//self.ScaledMapSizeIn_px[1])
         return mapWidget
 
     def __loadManipulatorFullMovement(self):
@@ -103,7 +113,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
         mapPixelCount = mapRes_x * mapRes_y
 
-        scale = pixelCount / mapPixelCount
+        scale = pow((pixelCount / mapPixelCount), (1 / 2))
 
         ScaledMapSizeIn_px = [int(wal / scale) for wal in sizeIn_px]
 
@@ -112,16 +122,19 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         return scale, ScaledMapSizeIn_px
 
     def __workFilledMovementMap(self):
-        dx = self.cameraFrameSizeX / self.mapParams.xOffset
-        dy = self.cameraFrameSizeY / self.mapParams.yOffset
-        self.loger(f"krok po X {dx} krok po y {dy}")
+        xOffset, yOffset = loadOffsetsJson()
+        dy = self.cameraFrameSizeX / xOffset
+        dx = self.cameraFrameSizeY / yOffset
+        self.loger(f"cameraX: {self.cameraFrameSizeX} offsetx: {xOffset}")
+        self.loger(f"cameraY: {self.cameraFrameSizeY} offsety: {yOffset}")
+        self.loger(f"krok po Y {dx} krok po X {dy}")
 
         movmentMap = []
         x = self.master.fildParams[0]
-        while x < self.master.fildParams[1]+dx:
+        while x < min(self.master.fildParams[1] + dx, 50):
             y = self.master.fildParams[2]
             movmentMap.append([])
-            while y < self.master.fildParams[3]+dy:
+            while y < min(self.master.fildParams[3] + dy, 50):
                 movmentMap[-1].append((x, y))
                 y += dy
             x += dx

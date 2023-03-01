@@ -14,8 +14,6 @@ class MapWindow(MapWindowInitialise):
             self.moveManipulator()
             await sleep(30)
 
-
-
     def addFrame(self, frame):
 
         n = self.photoCount[0] * self.scaledCameraFrameSize[1]

@@ -16,6 +16,10 @@
 
 ***TO Do in Beta next:***
 
+- Balans Bieli
+  (camera.set(cv2.CAP_PROP_AUTO_WB, 0.0) # Disable automatic white balance
+camera.set(cv2.CAP_PROP_WB_TEMPERATURE, 4200) # Set manual white balance temperature to 4200K)
+
 - auto Calibration Mode
 
 - test in code manual

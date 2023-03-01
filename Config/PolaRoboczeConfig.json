@@ -13,14 +13,14 @@
 },
   "pole 2": {
   "Xmin": 25,
-  "Xmax": 30,
+  "Xmax": 50,
   "Ymin": 25,
-  "Ymax": 30
+  "Ymax": 50
 },
   "pole 7": {
-  "Xmin": 25,
-  "Xmax": 35,
-  "Ymin": 25,
-  "Ymax": 35
+  "Xmin": 0,
+  "Xmax": 50,
+  "Ymin": 0,
+  "Ymax": 50
 }
 }
