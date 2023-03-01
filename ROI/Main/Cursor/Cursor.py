@@ -2,16 +2,12 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
 from abc import abstractmethod, ABCMeta
 
-from ROI.Main.CommonNames import CommonNames
+from ROI.Main.ComonNames.CommonNames import CommonNames
 from utilitis.Abstract import abstractmetod
 
 
 class Cursor(CommonNames):
     __metaclass__ = ABCMeta
-
-    @abstractmethod
-    def mousePositionCheck(self, e, x, y):
-        abstractmetod()
 
     def cursorEdit(self, e, x, y):
         self.mousePositionCheck(e, x, y)

@@ -1,14 +1,14 @@
 import sys
 
 from PyQt5.QtWidgets import QApplication
-
-from MainWindow.InicialisationFlag.MainWindowIniciialisationFlag import MainWindowInicialisationFlag
+from MainWindow.Main.Main import MainWindow
 from WorkFeald.Main.main import ReadPoleRobocze
 
-if __name__ == '__main__':
+
+def main():
     app = QApplication(sys.argv)
 
-    mainWindow = MainWindowInicialisationFlag(app.desktop().availableGeometry().size())
+    mainWindow = MainWindow(app.desktop().availableGeometry().size())
 
     window = ReadPoleRobocze(mainWindow, app.desktop().availableGeometry().size())
 
@@ -17,3 +17,8 @@ if __name__ == '__main__':
     window.show()
 
     app.exec_()
+
+
+if __name__ == '__main__':
+    main()
+    # cProfile.run("main()", filename='my_profile.prof')

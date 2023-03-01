@@ -1,8 +1,8 @@
 from ROI.Creation.Abstract.Abstract import CreateRoiAbstract
-from ROI.Main.ROI.ROI import ROI
+from ROI.Main.Point.PointClass import Point
 
 
-class SimpleCreateRoi(CreateRoiAbstract):
+class RoiPoint(CreateRoiAbstract):
 
     def __savePressLocation(self, e):
         self.x1 = e.x()
@@ -13,12 +13,14 @@ class SimpleCreateRoi(CreateRoiAbstract):
 
     def __seveReliseLocation(self, e):
         if self.pressed:
+            self.x1 = e.x()
+            self.y1 = e.y()
             self.x2 = e.x()
             self.y2 = e.y()
 
             self.ROIList.append(
-                ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
-                    self.mainWindow.manipulator.y))
+                Point(self, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
+                      self.mainWindow.manipulator.y))
             self.roiNames += 1
 
             self.pressed = False
@@ -26,5 +28,7 @@ class SimpleCreateRoi(CreateRoiAbstract):
             self.mainWindow.addROIToList()
 
     def __saveTemporaryLocation(self, e):
+        self.x1 = e.x()
+        self.y1 = e.y()
         self.x2 = e.x()
         self.y2 = e.y()
