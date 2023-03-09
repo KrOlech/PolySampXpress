@@ -1,20 +1,22 @@
 ***TO Do in Beta 0.4:***
 
 - in code To DO resolve
-- alternatywne metody tworzenia ROI:
-  - klikanie Naroznikow
-  - oznacanie pktow
-  - Stworznie siatki pktow mesz radom full radom
-  
-- logGenie
 
+  
 ***Done in Beta 0.4:***
 - Map 2.0
   - simple map
 
 - new manipulator
 
+- alternatywne metody tworzenia ROI:
+  - klikanie Naroznikow
+  - oznacanie pktow
+  - Stworznie siatki pktow mesz radom full radom
+
 ***TO Do in Beta next:***
+
+- logGenie
 
 - Balans Bieli
   (camera.set(cv2.CAP_PROP_AUTO_WB, 0.0) # Disable automatic white balance
