@@ -1,14 +1,19 @@
 from ROI.Creation.Abstract.Abstract import CreateRoiAbstract
 from ROI.Main.ROI.ROI import ROI
+from utilitis.JsonRead.JsonRead import loadOffsetsJson
 
 
 class ClikcCreateRoi(CreateRoiAbstract):
-
     firstPress = False
     secondPress = False
+    manipulatorXFP = None
+    manipulatorXFirstPresX = None
+    manipulatorYFirstPresY = None
 
     def __savePressLocation(self, e):
-        if not(self.firstPress or self.secondPress):
+        if not (self.firstPress or self.secondPress):
+            self.manipulatorXFirstPresX = self.mainWindow.manipulator.x
+            self.manipulatorYFirstPresY = self.mainWindow.manipulator.y
             self.x1 = e.x()
             self.y1 = e.y()
             self.x2 = e.x()
@@ -21,23 +26,25 @@ class ClikcCreateRoi(CreateRoiAbstract):
             self.firstPress = False
             self.secondPress = True
 
+    def calculateOffset(self):
+        xOffset, yOffset = loadOffsetsJson()
+        return int((self.manipulatorXFirstPresX - self.mainWindow.manipulator.x) * xOffset), int(
+            (self.manipulatorYFirstPresY - self.mainWindow.manipulator.y) * yOffset)
+
     def __seveReliseLocation(self, e):
         if self.secondPress:
             self.x2 = e.x()
             self.y2 = e.y()
+            dx, dy = self.calculateOffset()
+            self.x1 += dx
+            self.y1 += dy
 
-            self.ROIList.append(
-                ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
-                    self.mainWindow.manipulator.y))
-            self.roiNames += 1
+            self.createAndAddROIToList()
 
             self.pressed = False
             self.secondPress = False
             self.firstPress = False
 
-            self.mainWindow.addROIToList()
-
     def __saveTemporaryLocation(self, e):
-        if self.firstPress == True:
-            self.x2 = e.x()
-            self.y2 = e.y()
+        self.x2 = e.x()
+        self.y2 = e.y()
