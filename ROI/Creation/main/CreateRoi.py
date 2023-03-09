@@ -1,11 +1,18 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QEvent
 from ROI.Creation.Edit.RoiEdit import RoiEdit
+from ROI.Main.Point.Point import RoiPoint
 from ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleCreateRoi
 
 
-class CreateRoi(SimpleCreateRoi, RoiEdit):
+class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint):
     leftMouseButton = False
+
+    supportedModes = {
+        "Classic": "_SimpleCreateRoi",
+        "Point": "_RoiPoint",
+        "Scatter": "_SimpleCreateRoi",
+    }
 
     def eventFilter(self, source, event):
         if self.afterInitialisation:
@@ -26,7 +33,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit):
         if self.editTribe:
             self.mousePressEventEdit(e)
         else:
-            self.savePressLocation(e)
+            getattr(self, self.supportedModes[self.mainWindow.mode] + "__savePressLocation")(e)
 
     def mouseReleaseEvent(self, e):
 
@@ -36,7 +43,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit):
         if self.editTribe:
             self.editedROI.mouseRelease(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
         else:
-            self.seveReliseLocation(e)
+            getattr(self, self.supportedModes[self.mainWindow.mode] + "__seveReliseLocation")(e)
 
     def mouseMoveEvent(self, e):
         match self.leftMouseButton, self.editTribe, self.mainWindow.manipulator.inMotion:
@@ -47,7 +54,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit):
             case True, True, False:
                 self.editedROI.mouseMove(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
             case True, False, False:
-                self.saveTemporaryLocation(e)
+                getattr(self, self.supportedModes[self.mainWindow.mode] + "__saveTemporaryLocation")(e)
                 self.mainWindow.showROIList(e)
 
     def __isOkToProcesEvent(self):

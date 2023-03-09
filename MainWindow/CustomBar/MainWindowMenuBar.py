@@ -1,11 +1,12 @@
-from MainWindow.CustomBar.MainWindowCustomBar import MainWindowCustomBar
-from PyQt5.QtWidgets import QAction
-from abc import abstractmethod
 from abc import ABCMeta
+from abc import abstractmethod
+
+from MainWindow.CustomBar.MainWindowCustomBar import MainWindowCustomBar
+from MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 from utilitis.Abstract import abstractmetod
 
 
-class MainWindowMenuBar(MainWindowCustomBar):
+class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
     __metaclass__ = ABCMeta
 
     def __init__(self, *args, **kwargs) -> None:
@@ -31,11 +32,6 @@ class MainWindowMenuBar(MainWindowCustomBar):
         cameraSettings = self.qActionCreate("&All settings", self.showAllCameraSettings)
         cameraMenu = self.menu.addMenu("&Camera settings")
         cameraMenu.addAction(cameraSettings)
-
-    def qActionCreate(self, name: str, triggerFun) -> QAction:
-        qAction = QAction(name, self)
-        qAction.triggered.connect(triggerFun)
-        return qAction
 
     @abstractmethod
     def showAllCameraSettings(self):

@@ -1,15 +1,14 @@
 from abc import ABCMeta
 
-from ROI.Main.Abstract import AbstractROI
-from ROI.Utilitis.RenameWidnow import ReNameWindow
+from ROI.Main.Abstract.AbstractROI import AbstractROI
+from ROI.RenameWindow.RenameWidnow import ReNameWindow
 
 
-class NameHandling(AbstractROI):
+class NameHandling:
     __metaclass__ = ABCMeta
     name = ""
 
     def __init__(self, *args, **kwargs):
-        super(NameHandling, self).__init__(*args, **kwargs)
         self.name = kwargs['name']
         self.__textedit = ReNameWindow(self, text=str(self.name))
 

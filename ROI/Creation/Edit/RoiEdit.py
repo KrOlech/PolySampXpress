@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
 
-from ROI.Creation.Abstract import CreateRoiAbstract
+from ROI.Creation.Abstract.Abstract import CreateRoiAbstract
 
 
 class RoiEdit(CreateRoiAbstract):
