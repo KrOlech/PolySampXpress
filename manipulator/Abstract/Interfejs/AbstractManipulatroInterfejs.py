@@ -29,7 +29,6 @@ class AbstractManipulatorInterfejs(QWidget):
     def _key_up(self):
         self.Manipulator.up()
 
-
     def _key_left(self):
         self.Manipulator.left()
 
@@ -41,3 +40,12 @@ class AbstractManipulatorInterfejs(QWidget):
 
     def center(self, pos):
         self.Manipulator.center(pos)
+
+    def moveUp(self):
+        self.Manipulator.up()
+
+    def moveLeft(self):
+        self.Manipulator.left()
+
+    def waitForTarget(self):
+        self.Manipulator.waitForTarget()

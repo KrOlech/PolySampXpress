@@ -1,13 +1,13 @@
 import cv2
-import numpy
 
+from Camera.Calibration.Calibration import Calibrate
 from Camera.ComonNames.ComonNames import CommonNames
 from Camera.Configuration.Configuration import Configuration
 from Camera.GetFrame.GetFrame import GetFrame
 from utilitis.JsonRead.JsonRead import loadNativeCameraResolutionJson
 
 
-class Camera(CommonNames, GetFrame, Configuration):
+class Camera(CommonNames, GetFrame, Configuration,Calibrate):
     '''
     Class allowing communication with camera and adjusting her settings
     '''

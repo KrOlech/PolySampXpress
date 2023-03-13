@@ -6,7 +6,7 @@ from PyQt5.QtGui import QPalette
 class MyBar(QWidget):
     clickPos = None
 
-    def __init__(self, parent, name="ROI Maper beta-0.4"):
+    def __init__(self, parent, name="ROI Maper beta-0.5"):
         super(MyBar, self).__init__(parent)
         self.setAutoFillBackground(True)
 

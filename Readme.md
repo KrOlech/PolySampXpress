@@ -1,7 +1,7 @@
 ***TO Do in Beta 0.5:***
 
 - in code To DO resolve
-- auto Calibration Mode
+
 - Balans Bieli
   (camera.set(cv2.CAP_PROP_AUTO_WB, 0.0) # Disable automatic white balance
 camera.set(cv2.CAP_PROP_WB_TEMPERATURE, 4200) # Set manual white balance temperature to 4200K)
@@ -11,6 +11,7 @@ camera.set(cv2.CAP_PROP_WB_TEMPERATURE, 4200) # Set manual white balance tempera
   - na start pkt wybierany recznie.
   
 ***Done in Beta 0.5:***
+- auto Calibration Mode (Need testing)
 
 ***TO Do in Beta next:***
 

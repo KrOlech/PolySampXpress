@@ -19,9 +19,13 @@ class JsonHandling:
 
         return rowData
 
+    def saveFile(self, filePath, dictionary) -> dict:
+        with open(self.getFileLocation(filePath), 'w') as file:
+            json.dump(dictionary, file, indent=4)
+
 
 def getFileLocation(file) -> str:
-    mag = r"\Magisterka"
+    mag = r"\Magisterkav2"
     lMag = len(mag)
     config = r"\Config"
     fullPath = getcwd()

@@ -1,3 +1,4 @@
+import asyncio
 import socket as SOCKET
 import threading
 from asyncio import sleep
@@ -64,3 +65,10 @@ class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
 
     def getCurrentPosition(self):
         return self.x, self.y, self.z
+
+    @staticmethod
+    async def __wait():
+        await sleep(5)
+
+    def waitForTarget(self):
+        asyncio.run(self.__wait())
