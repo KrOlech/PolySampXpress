@@ -16,14 +16,10 @@ class SimpleCreateRoi(CreateRoiAbstract):
             self.x2 = e.x()
             self.y2 = e.y()
 
-            self.ROIList.append(
-                ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
-                    self.mainWindow.manipulator.y))
-            self.roiNames += 1
+            self.createAndAddROIToList()
 
             self.pressed = False
 
-            self.mainWindow.addROIToList()
 
     def __saveTemporaryLocation(self, e):
         self.x2 = e.x()
