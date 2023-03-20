@@ -3,7 +3,6 @@ from PyQt5.QtCore import Qt
 
 
 class _Slider(QSlider):
-
     maxSlider = 1000
 
     def __init__(self, mainWindow, minV, maxV, value=int(25), *args, **kwargs):
@@ -51,6 +50,7 @@ class Slider(_Slider):
 
     def change(self, value) -> None:
         self.value = self.conversion(value)
+        self.communicationPoint.value = self.value
         self.mainWindow.camera.device.set(self.communicationPoint.address, self.value)
 
 
