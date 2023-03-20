@@ -22,6 +22,8 @@ class CameraGUI(MainWindowMenuBar):
     def showAllCameraSettings(self) -> None:
         self.cameraSetingsWidget.show()
 
+    def calibrate(self):
+        self.camera.calibrate(self.manipulatorInterferes)
 
 if __name__ == '__main__':
     from PyQt5.QtWidgets import QApplication

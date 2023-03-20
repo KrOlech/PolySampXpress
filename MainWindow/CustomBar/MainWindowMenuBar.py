@@ -33,8 +33,15 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
         cameraMenu = self.menu.addMenu("&Camera settings")
         cameraMenu.addAction(cameraSettings)
 
+        cameraCalibration = self.qActionCreate("&Calibration", self.calibrate)
+        cameraMenu.addAction(cameraCalibration)
+
     @abstractmethod
     def showAllCameraSettings(self):
+        abstractmetod()
+
+    @abstractmethod
+    def calibrate(self):
         abstractmetod()
 
     @abstractmethod

@@ -43,6 +43,10 @@ class AbstractManipulator:
     def close(self):
         abstractmetod()
 
+    @abstractmethod
+    def waitForTarget(self):
+        abstractmetod()
+
     def up(self):
         self.y += self.speed
         asyncio.run(self.goto())
