@@ -38,30 +38,30 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
 
     @abstractmethod
     def showAllCameraSettings(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def calibrate(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def showListOfROI(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def loadListOfROI(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def saveListOfROI(self):
-        abstractmetod()
+        abstractmetod(self)
 
     def WIP(self):
         pass
 
     @abstractmethod
     def showROIListButton(self, e):
-        abstractmetod()
+        abstractmetod(self)
 
 
 if __name__ == '__main__':

@@ -1,7 +1,9 @@
 from abc import ABCMeta
 
+from utilitis.Logger.Logger import Loger
 
-class CommonNames:
+
+class CommonNames(Loger):
     __metaclass__ = ABCMeta
     firstPress = False
 

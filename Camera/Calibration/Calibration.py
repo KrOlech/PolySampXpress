@@ -73,7 +73,7 @@ class Calibrate(JsonHandling):
         delty = (mean(delty[0]), mean(delty[1]))
 
         if delty[not index] > 5:
-            print("warning to mach distortion in other axis")
+            self.logWarning("To math distortion in other axis")
             # toDo proper error
 
         data = self.readFile(self.configFile)

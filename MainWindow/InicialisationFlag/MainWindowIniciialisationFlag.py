@@ -7,7 +7,7 @@ from MainWindow.RoiList.MainWindowROIList import MainWindowROIList
 from utilitis.Depracation.DepractionFactory import deprecated
 from utilitis.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
 
-
+# todo podzielic do dwóch klas
 class MainWindowInicialisationFlag(MainWindowROIList):
     fildParams = 0
     selectedManipulatorZoom = 1
@@ -39,7 +39,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
             self.mapWindowObject = self.crateMapObject()
             workFunWorkerAsync(self,self.mapWindowObject.mapCreate)
         else:
-            print("do you wont to owe ride created Map?")
+            self.loger("do you wont to owe ride created Map?")
             # ToDo implement Correct in the future
 
     def showMap(self):

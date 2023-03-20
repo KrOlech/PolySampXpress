@@ -4,9 +4,10 @@ from abc import abstractmethod
 
 from utilitis.Abstract import abstractmetod
 from utilitis.CustomExceptions.Exceptions import InvalidSpeed
+from utilitis.Logger.Logger import Loger
 
 
-class AbstractManipulator:
+class AbstractManipulator(Loger):
     __metaclass__ = ABCMeta
 
     speed = 0
@@ -23,29 +24,29 @@ class AbstractManipulator:
 
     @abstractmethod
     def getCurrentPosition(self):
-        abstractmetod()
+        abstractmetod(self)
         return 0, 0, 0
 
     @abstractmethod
     def validateSpeed(self, speed):
-        abstractmetod()
+        abstractmetod(self)
         return True
 
     @abstractmethod
     async def goto(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def gotoNotAsync(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def close(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def waitForTarget(self):
-        abstractmetod()
+        abstractmetod(self)
 
     def up(self):
         self.y += self.speed
@@ -90,6 +91,5 @@ class AbstractManipulator:
         else:
             try:
                 raise InvalidSpeed()
-            except InvalidSpeed as e:
-                print(f"{e}")
-                print(f"{speed} is invalid")
+            except InvalidSpeed:
+                self.logWarning(f"{speed} is invalid")

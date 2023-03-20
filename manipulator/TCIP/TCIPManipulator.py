@@ -43,7 +43,7 @@ class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
                     # simplySleep(self, 2)
 
             except AttributeError:
-                print("TCIP manipulator not yet connected")
+                self.loger("TCIP manipulator not yet connected")
                 self.x = 25.0
                 self.y = 25.0
 
@@ -56,7 +56,7 @@ class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
 
 
             except AttributeError:
-                print("TCIP manipulator not yet connected")
+                self.loger("TCIP manipulator not yet connected")
                 self.x = 25.0
                 self.y = 25.0
 

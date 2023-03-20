@@ -2,9 +2,10 @@ from PyQt5.QtCore import QObject, pyqtSignal, QThread
 from abc import abstractmethod
 
 from utilitis.Abstract import abstractmetod
+from utilitis.Logger.Logger import Loger
 
 
-class Worker(QObject):
+class Worker(QObject, Loger):
     finished = pyqtSignal()
     master = None
 
@@ -14,7 +15,7 @@ class Worker(QObject):
 
     @abstractmethod
     def run(self):
-        abstractmetod()
+        abstractmetod(self)
 
 
 def createWorker(master):

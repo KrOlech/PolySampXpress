@@ -25,12 +25,12 @@ class AbstractR(CommonNames):
 
     @abstractmethod
     def createMarker(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def inROI(self, pos, x, y):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def getMarker(self, x, y):
-        abstractmetod()
+        abstractmetod(self)

@@ -24,16 +24,16 @@ class RightClickLabel(QLabel):
 
     @abstractmethod
     def newROI(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def editROI(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def center(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def deleteROI(self):
-        abstractmetod()
+        abstractmetod(self)

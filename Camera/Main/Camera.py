@@ -5,9 +5,10 @@ from Camera.ComonNames.ComonNames import CommonNames
 from Camera.Configuration.Configuration import Configuration
 from Camera.GetFrame.GetFrame import GetFrame
 from utilitis.JsonRead.JsonRead import loadNativeCameraResolutionJson
+from utilitis.Logger.Logger import Loger
 
 
-class Camera(CommonNames, GetFrame, Configuration, Calibrate):
+class Camera(CommonNames, GetFrame, Configuration, Calibrate, Loger):
     '''
     Class allowing communication with camera and adjusting her settings
     '''
@@ -36,4 +37,5 @@ class Camera(CommonNames, GetFrame, Configuration, Calibrate):
             if not ret:
                 raise TypeError  # TODO Proper Custom error
         except TypeError:
-            print("Error During camera initialisation check it connection or if any other software is using it.")
+            self.logError(
+                "Error During camera initialisation check it connection or if any other software is using it.")

@@ -1,14 +1,14 @@
 ***TO Do in Beta 0.5:***
 
 - in code To DO resolve
-- logGenie
 - zerowanie na pkcie znajdowanym softwrowo
    - na start pkt wybierany recznie.
   
 ***Done in Beta 0.5:***
 - auto Calibration Mode (Need testing)
 - Balans Bieli
-
+- logGenie
+- 
 ***TO Do in Beta next:***
 
 - test in code manual

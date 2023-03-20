@@ -48,7 +48,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         self.mapNumpy = self.__mapContainer()
 
         self.scaledCameraFrameSize = self.__calculateScaledCameraFrameSize()
-        print(f"scaledCameraFrameSize {self.scaledCameraFrameSize}")
+        self.loger(f"scaledCameraFrameSize {self.scaledCameraFrameSize}")
 
         self.lock = threading.Lock()
 
@@ -80,7 +80,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
             if data[self.ZOOM] == self.master.selectedManipulatorZoom:
                 break
         else:
-            print("[Warning] - There is no selected manipulator")
+            self.logWarning("There is no selected manipulator")
             return -1
 
         return data
@@ -139,16 +139,16 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
                 y += dy
             x += dx
 
-        [print(row) for row in movmentMap]
+        self.loger([row for row in movmentMap])
 
         return movmentMap
 
     def __isZoomWaliable(self):
         x, y = loadCameraResolutionJson()
         if self.scale < 1:
-            print("[Warning] Zoom to low desire map resolution exits row resolution")
+            self.logWarning("Zoom to low desire map resolution exits row resolution")
         elif self.scale > (x * y * 0.000005):
-            print("[Warning] Zoom to high to mach pixels for desire map")
+            self.logWarning("Zoom to high to mach pixels for desire map")
 
     def __photoCount(self):
         return [0, 0], (len(self.movementMap) - 1, len(self.movementMap[0]) - 1)

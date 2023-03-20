@@ -25,7 +25,7 @@ class StandaManipulator(AbstractManipulator, StandaManipulatorInicialisation):
         return True  # TODO
 
     async def goto(self):
-        print(self.x, self.y, self.z)
+        self.loger(self.x, self.y, self.z)
         self.lib.command_move(self.device_id, self.x, 0)
         await sleep(2)
 

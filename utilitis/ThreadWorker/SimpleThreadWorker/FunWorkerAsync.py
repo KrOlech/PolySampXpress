@@ -12,9 +12,9 @@ class FunWorkerAsync(Worker):
         self.fun = fun
 
     def run(self):
-        print(f"[THREAD FUN] - [FunWorker] START {self.fun.__name__}")
+        self.loger(f"[THREAD FUN] - [FunWorker] START {self.fun.__name__}")
         asyncio.run(self.fun())
-        print(f"[THREAD FUN] - [FunWorker] END {self.fun.__name__}")
+        self.loger(f"[THREAD FUN] - [FunWorker] END {self.fun.__name__}")
         self.finished.emit()
 
 
