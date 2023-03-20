@@ -7,7 +7,7 @@ from Camera.GetFrame.GetFrame import GetFrame
 from utilitis.JsonRead.JsonRead import loadNativeCameraResolutionJson
 
 
-class Camera(CommonNames, GetFrame, Configuration,Calibrate):
+class Camera(CommonNames, GetFrame, Configuration, Calibrate):
     '''
     Class allowing communication with camera and adjusting her settings
     '''
@@ -22,6 +22,9 @@ class Camera(CommonNames, GetFrame, Configuration,Calibrate):
 
         self.set(self.WIDTH, self.HEIGHT, self.FPS)
 
+        self.device.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
+        self.device.set(cv2.CAP_PROP_EXPOSURE, -2)
+
         self.readValues()
 
     def readValues(self) -> None:
@@ -34,6 +37,3 @@ class Camera(CommonNames, GetFrame, Configuration,Calibrate):
                 raise TypeError  # TODO Proper Custom error
         except TypeError:
             print("Error During camera initialisation check it connection or if any other software is using it.")
-
-
-

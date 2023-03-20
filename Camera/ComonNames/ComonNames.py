@@ -1,5 +1,6 @@
 import cv2
 
+from Camera.Utilitis.ComonComunicationPoint.CommonCommunicationPoint import CommonCommunicationPoint as CCPoint
 from Camera.Utilitis.OpenCvComunicationPort.OpenCVComunicationPort import OpenCVCCommunicationPoint as OCCPoint
 
 
@@ -12,6 +13,7 @@ class CommonNames:
     __GAMMA = "GAMMA"
     __EXPOSURE = "EXPOSURE"
     __GAIN = "GAIN"
+    __whiteBalance = "WHITE BALANCE"
 
     # Non Configurable Values
     _HEIGHT = OCCPoint(cv2.CAP_PROP_FRAME_HEIGHT)
@@ -26,5 +28,6 @@ class CommonNames:
     _GAMMA = OCCPoint(cv2.CAP_PROP_GAMMA, __GAMMA, 0, 500)
     _EXPOSURE = OCCPoint(cv2.CAP_PROP_EXPOSURE, __EXPOSURE, -15, 0)
     _GAIN = OCCPoint(cv2.CAP_PROP_GAIN, __GAIN, 0, 500)
+    _whiteBalance = CCPoint(cv2.CAP_PROP_WB_TEMPERATURE, __whiteBalance, 0, 255)
 
-    COMMUNICATIONPOINTS = [_BRIGHTNESS, _SATURATION, _HUE, _SHARPNESS, _GAMMA, _EXPOSURE, _GAIN]
+    COMMUNICATIONPOINTS = [_BRIGHTNESS, _SATURATION, _HUE, _SHARPNESS, _GAMMA, _EXPOSURE, _GAIN, _whiteBalance]

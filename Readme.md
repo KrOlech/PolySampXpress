@@ -1,17 +1,13 @@
 ***TO Do in Beta 0.5:***
 
 - in code To DO resolve
-
-- Balans Bieli
-  (camera.set(cv2.CAP_PROP_AUTO_WB, 0.0) # Disable automatic white balance
-camera.set(cv2.CAP_PROP_WB_TEMPERATURE, 4200) # Set manual white balance temperature to 4200K)
 - logGenie
-- 
 - zerowanie na pkcie znajdowanym softwrowo
-  - na start pkt wybierany recznie.
+   - na start pkt wybierany recznie.
   
 ***Done in Beta 0.5:***
 - auto Calibration Mode (Need testing)
+- Balans Bieli
 
 ***TO Do in Beta next:***
 
