@@ -1,9 +1,9 @@
+from abc import ABCMeta
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
-from abc import abstractmethod, ABCMeta
 
 from ROI.Main.ComonNames.CommonNames import CommonNames
-from utilitis.Abstract import abstractmetod
 
 
 class Cursor(CommonNames):

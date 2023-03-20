@@ -7,9 +7,10 @@ from manipulator.Standa.Filds.Calibration import Calibration
 from manipulator.Standa.Filds.DeviceInformation import DeviceInformation
 from manipulator.Standa.Filds.EngineSettings import EngineSettings
 from manipulator.Standa.Filds.Status import StatusFild
+from utilitis.Logger.Logger import Loger
 
 
-class StandaManipulatorInicialisation:
+class StandaManipulatorInicialisation(Loger):
     # Specifies the current directory.
     cur_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -61,15 +62,15 @@ class StandaManipulatorInicialisation:
     def getLibVer(self):
         sbuf = create_string_buffer(64)
         self.lib.ximc_version(sbuf)
-        print("library version: " + sbuf.raw.decode().rstrip("\0"))
+        self.loger("library version: " + sbuf.raw.decode().rstrip("\0"))
         return sbuf.raw.decode().rstrip("\0")
 
     def enter(self):
         try:
             self.device_id = self.lib.open_device("xi-com:\\\.\COM3".encode())
         except Exception as e:
-            print(e)
-            print("error Trying opening new Manipulator")
+            self.loger(e)
+            self.loger("error Trying opening new Manipulator")
             return None
         else:
             self.__test_info()
@@ -80,9 +81,9 @@ class StandaManipulatorInicialisation:
     def close(self):
         if self.device_id:
             self.lib.close_device(byref(cast(self.device_id, POINTER(c_int))))
-            print("Done")
+            self.loger("Done")
         else:
-            print("Erore alredi Closed")
+            self.logError("Erore alredi Closed")
 
     def __checkSystem(self):
         if platform.system() == "Windows":
@@ -115,15 +116,15 @@ class StandaManipulatorInicialisation:
             return None
 
     def __test_info(self):
-        print("\nGet device info")
+        self.loger("\nGet device info")
         x_device_information = DeviceInformation()
 
         result = self.lib.get_device_information(self.device_id, byref(x_device_information))
-        print("Result: " + repr(result))
+        self.loger("Result: " + repr(result))
         if result == self.ok:
-            print("Device information:")
-            print(" Manufacturer: " + repr(string_at(x_device_information.Manufacturer).decode()))
-            print(" Hardware version: " + repr(x_device_information.Major) + "." + repr(
+            self.loger("Device information:")
+            self.loger(" Manufacturer: " + repr(string_at(x_device_information.Manufacturer).decode()))
+            self.loger(" Hardware version: " + repr(x_device_information.Major) + "." + repr(
                 x_device_information.Minor) + "." + repr(x_device_information.Release))
 
     def __test_status(self, device_id):
@@ -137,15 +138,15 @@ class StandaManipulatorInicialisation:
         :param device_id:  device id.
         """
 
-        print("\nGet status")
+        self.loger("\nGet status")
         x_status = StatusFild()
         result = self.lib.get_status(device_id, byref(x_status))
-        print("Result: " + repr(result))
+        self.loger("Result: " + repr(result))
         if result == self.ok:
-            print("Status.Ipwr: " + repr(x_status.Ipwr))
-            print("Status.Upwr: " + repr(x_status.Upwr))
-            print("Status.Iusb: " + repr(x_status.Iusb))
-            print("Status.Flags: " + repr(hex(x_status.Flags)))
+            self.loger("Status.Ipwr: " + repr(x_status.Ipwr))
+            self.loger("Status.Upwr: " + repr(x_status.Upwr))
+            self.loger("Status.Iusb: " + repr(x_status.Iusb))
+            self.loger("Status.Flags: " + repr(hex(x_status.Flags)))
 
     def __test_serial(self, device_id):
         """
@@ -155,8 +156,8 @@ class StandaManipulatorInicialisation:
         :param device_id: device id.
         """
 
-        # print("\nReading serial")
+        # self.loger("\nReading serial")
         x_serial = c_uint()
         result = self.lib.get_serial_number(device_id, byref(x_serial))
         if result == self.ok:
-            print(" Serial: " + repr(x_serial.value))
+            self.loger(" Serial: " + repr(x_serial.value))

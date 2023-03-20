@@ -24,15 +24,15 @@ class AbstractEdit:
 
     @abstractmethod
     def mousePositionCheck(self, e, x, y):  # toDo better paramiter names
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def calculateOffset(self, x, y):  # toDo better paramiter names
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def createMarker(self):
-        abstractmetod()
+        abstractmetod(self)
 
     @abstractmethod
     def mouseMove(self, e, x, y):  # toDo better paramiter names

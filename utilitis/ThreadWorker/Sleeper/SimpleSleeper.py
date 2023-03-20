@@ -17,17 +17,17 @@ class SimpleSleeper(Worker):
         asyncio.run(self.runAsync())
 
     async def runAsync(self):
-        print(f"[THREAD CONNECT] - [SimpleSleeper WORKER] START")
+        self.loger(f"[THREAD CONNECT] - [SimpleSleeper WORKER] START")
         try:
-            print(f"[THREAD CONNECT] - [SimpleSleeper WORKER] master in motion")
+            self.loger(f"[THREAD CONNECT] - [SimpleSleeper WORKER] master in motion")
             self.master.inMotion = True
-            print(f"[THREAD CONNECT] - [SimpleSleeper WORKER] START SLEEP {self.time}s")
+            self.loger(f"[THREAD CONNECT] - [SimpleSleeper WORKER] START SLEEP {self.time}s")
             await sleep(self.time)
-            print("[THREAD CONNECT] - [SimpleSleeper WORKER] SLEEP END")
+            self.loger("[THREAD CONNECT] - [SimpleSleeper WORKER] SLEEP END")
             self.master.inMotion = False
-            print(f"[THREAD CONNECT] - [SimpleSleeper WORKER] master not in motion")
+            self.loger(f"[THREAD CONNECT] - [SimpleSleeper WORKER] master not in motion")
         except Exception as e:
-            print(e)
+            self.logError(e)
 
         self.finished.emit()
 

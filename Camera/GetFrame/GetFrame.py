@@ -24,7 +24,6 @@ class GetFrame:
         return newFrame
 
     def white_balance(self, img):
-        print(self._whiteBalance.value)
         result = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
         avg_a = average(result[:, :, 1])
         avg_b = average(result[:, :, 2])

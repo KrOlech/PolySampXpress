@@ -16,4 +16,4 @@ class AbstractCommunicationPoint:
 
     @abstractmethod
     def setValue(self, device: cv2.VideoCapture) -> None:
-        abstractmetod()
+        abstractmetod(self)

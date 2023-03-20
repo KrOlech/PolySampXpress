@@ -5,10 +5,11 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout
 from numpy import ones
 from MAP.Label.MapLabel import MapLabel
 from utilitis.JsonRead.JsonRead import loadCameraResolutionJson
+from utilitis.Logger.Logger import Loger
 from utilitis.ThreadWorker.Sleeper.SleeperFun import workSleeperFun
 
 
-class AbstractMapWindow(QWidget):
+class AbstractMapWindow(QWidget, Loger):
     cameraFrameSizeX, cameraFrameSizeY = loadCameraResolutionJson()  # 2560, 1440
 
     mapPQ = None  # mapa w Pyqt
@@ -51,6 +52,6 @@ class AbstractMapWindow(QWidget):
         workSleeperFun(self, time, fun)
 
     def _addFrameZero(self, crop):
-        print(crop.shape)
+        self.loger(crop.shape)
         self.map[: int(self.cameraFrameSizeX / self.scalX), :int(self.cameraFrameSizeY / self.scalY)] = crop
         self.cpmwertMap()

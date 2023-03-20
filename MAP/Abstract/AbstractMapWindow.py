@@ -1,18 +1,14 @@
 import inspect
 from abc import ABCMeta
-from itertools import chain
-from time import sleep
 
 import cv2
-import numpy as np
 from PyQt5.QtGui import QImage, QPixmap
-from numpy import arange, ones
 
-from utilitis.JsonRead.JsonRead import loadResolution
+from utilitis.Logger.Logger import Loger
 from utilitis.ThreadWorker.Sleeper.SleeperFun import workSleeperFun
 
 
-class AbstractMapWindow:
+class AbstractMapWindow(Loger):
     __metaclass__ = ABCMeta
 
     # Pointer to Object of class Map Label for showcase of mam purpose
@@ -63,6 +59,3 @@ class AbstractMapWindow:
 
     def wait(self, time=30, fun=None):
         workSleeperFun(self, time, fun)
-
-    def loger(self, message):
-        print(f"[{type(self).__name__}] - [{inspect.stack()[1].function}] {message}")

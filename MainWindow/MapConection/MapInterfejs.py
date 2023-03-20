@@ -6,7 +6,7 @@ from MainWindow.InicialisationFlag.MainWindowIniciialisationFlag import MainWind
 from utilitis.Depracation.DepractionFactory import deprecated
 from utilitis.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
 
-
+#toDo usunac po stworzniu nowej klasy z interfejsem mapy
 class MainWindowMapInterfejs(MainWindowInicialisationFlag):
     selectedManipulatorZoom = 0
 
@@ -35,7 +35,7 @@ class MainWindowMapInterfejs(MainWindowInicialisationFlag):
             self.mapWindowObject = self.crateMapObject()
             workFunWorkerAsync(self, self.mapWindowObject.mapCreate)
         else:
-            print("do you wont to ower ride created Map?")
+            self.loger("do you wont to ower ride created Map?")
             # ToDo implement Correct in the future
 
     def showMap(self):

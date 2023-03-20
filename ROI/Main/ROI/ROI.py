@@ -7,7 +7,7 @@ from ROI.Main.Edit.ROIEdit import ROIEdit
 class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
     def __init__(self, master, x1, y1, x2, y2, name='1', manipulatotrX=25.0, manipulatorY=25.0):
-        print(f"x1 = {x1}, x2 = {x2}, y1 = {y1}, y2 = {y2}")
+        self.loger(f"x1 = {x1}, x2 = {x2}, y1 = {y1}, y2 = {y2}")
 
         kwargs = {"master": master,
                   "name": name,

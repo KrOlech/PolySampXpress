@@ -24,17 +24,17 @@ class MapWindowInitialise(AbstractMapWindow):
         self.fildSizeXpx, self.fildSizeYpx = self.__fildSizePx()
 
         self.nonScaledMapSizeXInPx, self.nonScaledMapSizeYInPx = self.__nonScaledMapSizeInPx()
-        print("Non Scaled Map Size", self.nonScaledMapSizeXInPx, self.nonScaledMapSizeYInPx)
+        self.loger("Non Scaled Map Size", self.nonScaledMapSizeXInPx, self.nonScaledMapSizeYInPx)
 
         self.scalX, self.scalY = self.__calculateScaleForMap()
-        print("Scale", self.scalY, self.scalX)
+        self.loger("Scale", self.scalY, self.scalX)
 
         self.scaledMapSizeXInPx, self.scaledMapSizeYInPx = self.__scaledMapSizeInPx()
-        print("Scaled Map Size", self.scaledMapSizeXInPx, self.scaledMapSizeYInPx)
+        self.loger("Scaled Map Size", self.scaledMapSizeXInPx, self.scaledMapSizeYInPx)
 
         self.scaledCameraFrameSizeX, self.scaledCameraFrameSizeY = self.__scaleCameraSizeInPx()
         self.scaledCameraFrameSize = (int(self.scaledCameraFrameSizeY), int(self.scaledCameraFrameSizeX))
-        print("scaled Camera Frame", self.scaledCameraFrameSizeX, self.scaledCameraFrameSizeY)
+        self.loger("scaled Camera Frame", self.scaledCameraFrameSizeX, self.scaledCameraFrameSizeY)
 
         self._photoCount, self.photoCount = self.__calculatePhotoCount()
 
@@ -53,7 +53,7 @@ class MapWindowInitialise(AbstractMapWindow):
                 y, yn, yr = (y, True, y) if y < 50 else (50, False, y)
                 row.append((x, y, xn, yn, xr, yr))
             movementMap.append(row)
-        [print(row) for row in movementMap]  # Stworzyc lepsze wypisanie Tabeli
+
         return movementMap
 
     def __nonScaledMapSizeInPx(self):
@@ -87,7 +87,5 @@ class MapWindowInitialise(AbstractMapWindow):
         # cameraFreamSizeX = xint
 
         x, y = int(x), int(y)
-
-        print((y, x))
 
         return (y, x), [0, 0]

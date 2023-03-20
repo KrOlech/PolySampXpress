@@ -6,7 +6,7 @@ from ROI.Main.NameHandling.NameHandling import NameHandling
 class Point(PointEdit, NameHandling, Cursor):
 
     def __init__(self, master, x1, y1, name='1', manipulatotrX=25.0, manipulatorY=25.0):
-        print(f"x1 = {x1},  y1 = {y1}")
+        self.loger(f"x1 = {x1},  y1 = {y1}")
 
         kwargs = {"master": master,
                   "name": name,
