@@ -16,6 +16,7 @@ class Camera(CommonNames, GetFrame, Configuration, Calibrate, Loger):
     WIDTH, HEIGHT, FPS = loadNativeCameraResolutionJson()
 
     def __init__(self):
+        super().__init__()
 
         self.device = cv2.VideoCapture(1)
 
@@ -39,3 +40,8 @@ class Camera(CommonNames, GetFrame, Configuration, Calibrate, Loger):
         except TypeError:
             self.logError(
                 "Error During camera initialisation check it connection or if any other software is using it.")
+
+    def setNewValueForCommunicationPoint(self, communicationPoint):
+        self.device.set(communicationPoint.address, communicationPoint.value)
+        self.parametersDictionary[communicationPoint.name]["value"] = communicationPoint.value
+        self.saveConfig()

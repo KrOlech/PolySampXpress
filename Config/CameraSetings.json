@@ -1,0 +1,56 @@
+{
+    "BRIGHTNESS": {
+        "value": 968.0,
+        "min": 0,
+        "max": 4000,
+        "address": 10
+    },
+    "SATURATION": {
+        "value": 202.31,
+        "min": 200,
+        "max": 255,
+        "address": 12
+    },
+    "HUE": {
+        "value": 1.9390000000000072,
+        "min": -112,
+        "max": 175,
+        "address": 13
+    },
+    "SHARPNESS": {
+        "value": 1.0,
+        "min": 1,
+        "max": 14,
+        "address": 20
+    },
+    "GAMMA": {
+        "value": 100.0,
+        "min": 0,
+        "max": 500,
+        "address": 22
+    },
+    "EXPOSURE": {
+        "value": -6.195,
+        "min": -15,
+        "max": 0,
+        "address": 15
+    },
+    "GAIN": {
+        "value": 173.0,
+        "min": 0,
+        "max": 500,
+        "address": 14
+    },
+    "WHITE BALANCE": {
+        "value": 89.25,
+        "min": 0,
+        "max": 255,
+        "address": 45
+    },
+    "parklad": {
+        "value": 0,
+        "min": 0,
+        "max": 1,
+        "address": 0
+    }
+}

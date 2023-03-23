@@ -6,4 +6,4 @@ from Camera.Utilitis.Abstract.AbstractComunicationPort import AbstractCommunicat
 class OpenCVCCommunicationPoint(AbstractCommunicationPoint):
 
     def setValue(self, device: cv2.VideoCapture) -> None:
-        self.value = device.get(self.address)
+        device.set(self.address, self.value)

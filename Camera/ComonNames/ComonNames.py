@@ -1,10 +1,13 @@
+from functools import cache
+
 import cv2
 
 from Camera.Utilitis.ComonComunicationPoint.CommonCommunicationPoint import CommonCommunicationPoint as CCPoint
 from Camera.Utilitis.OpenCvComunicationPort.OpenCVComunicationPort import OpenCVCCommunicationPoint as OCCPoint
+from utilitis.JsonRead.JsonRead import JsonHandling
 
 
-class CommonNames:
+class CommonNames(JsonHandling):
     # Strings:
     __BRIGHTNESS = "BRIGHTNESS"
     __SATURATION = "SATURATION"
@@ -15,19 +18,29 @@ class CommonNames:
     __GAIN = "GAIN"
     __whiteBalance = "WHITE BALANCE"
 
+    settingsFileName = "CameraSetings.json"
+
     # Non Configurable Values
     _HEIGHT = OCCPoint(cv2.CAP_PROP_FRAME_HEIGHT)
     _WIDTH = OCCPoint(cv2.CAP_PROP_FRAME_WIDTH)
     _FPS = OCCPoint(cv2.CAP_PROP_FPS)
 
-    # Configurable Values
-    _BRIGHTNESS = OCCPoint(cv2.CAP_PROP_BRIGHTNESS, __BRIGHTNESS, 0, 4000)
-    _SATURATION = OCCPoint(cv2.CAP_PROP_SATURATION, __SATURATION, 0, 200)
-    _HUE = OCCPoint(cv2.CAP_PROP_HUE, __HUE, -112, 175)
-    _SHARPNESS = OCCPoint(cv2.CAP_PROP_SHARPNESS, __SHARPNESS, 1, 14)
-    _GAMMA = OCCPoint(cv2.CAP_PROP_GAMMA, __GAMMA, 0, 500)
-    _EXPOSURE = OCCPoint(cv2.CAP_PROP_EXPOSURE, __EXPOSURE, -15, 0)
-    _GAIN = OCCPoint(cv2.CAP_PROP_GAIN, __GAIN, 0, 500)
-    _whiteBalance = CCPoint(cv2.CAP_PROP_WB_TEMPERATURE, __whiteBalance, 0, 255)
+    def __init__(self):
+        self.parametersDictionary = self.readFile(self.settingsFileName)
 
-    COMMUNICATIONPOINTS = [_BRIGHTNESS, _SATURATION, _HUE, _SHARPNESS, _GAMMA, _EXPOSURE, _GAIN, _whiteBalance]
+        self._BRIGHTNESS = OCCPoint(self.__BRIGHTNESS, self.parametersDictionary[self.__BRIGHTNESS])
+        self._SATURATION = OCCPoint(self.__SATURATION, self.parametersDictionary[self.__SATURATION])
+        self._HUE = OCCPoint(self.__HUE, self.parametersDictionary[self.__HUE])
+        self._SHARPNESS = OCCPoint(self.__SHARPNESS, self.parametersDictionary[self.__SHARPNESS])
+
+        self._GAMMA = OCCPoint(self.__GAMMA, self.parametersDictionary[self.__GAMMA])
+        self._EXPOSURE = OCCPoint(self.__EXPOSURE, self.parametersDictionary[self.__EXPOSURE])
+        self._GAIN = OCCPoint(self.__GAIN, self.parametersDictionary[self.__GAIN])
+        self._whiteBalance = CCPoint(self.__whiteBalance, self.parametersDictionary[self.__whiteBalance])
+
+        self.COMMUNICATIONPOINTS = [self._BRIGHTNESS, self._SATURATION, self._HUE, self._SHARPNESS, self._GAMMA,
+                                    self._EXPOSURE, self._GAIN, self._whiteBalance]
+
+
+    def saveConfig(self):
+        self.saveFile(self.settingsFileName, self.parametersDictionary)

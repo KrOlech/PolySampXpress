@@ -51,7 +51,8 @@ class Slider(_Slider):
     def change(self, value) -> None:
         self.value = self.conversion(value)
         self.communicationPoint.value = self.value
-        self.mainWindow.camera.device.set(self.communicationPoint.address, self.value)
+        self.mainWindow.camera.setNewValueForCommunicationPoint(self.communicationPoint)
+
 
 
 if __name__ == '__main__':
