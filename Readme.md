@@ -8,7 +8,7 @@
 - auto Calibration Mode (Need testing)
 - Balans Bieli
 - logGenie
-- 
+- file with camera configuration
 ***TO Do in Beta next:***
 
 - test in code manual
