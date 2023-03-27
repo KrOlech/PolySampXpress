@@ -31,7 +31,7 @@
 
 - resolution for Map
 
-- Using CUDA for imiage resize (oneFX for radeon and so one)
+- Using CUDA for imiage resize (oneFX for radeon and so on)
 
 - Utiliti Strig Using Python "Static"
 
