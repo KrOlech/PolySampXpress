@@ -44,8 +44,8 @@ class AbstractManipulatorInterfejs(QWidget):
     def moveUp(self):
         self.Manipulator.up()
 
-    def moveLeft(self):
-        self.Manipulator.left()
+    def moveRight(self):
+        self.Manipulator.right()
 
     def waitForTarget(self):
         self.Manipulator.waitForTarget()

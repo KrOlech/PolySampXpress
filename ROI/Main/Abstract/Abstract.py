@@ -21,7 +21,9 @@ class AbstractR(CommonNames):
         self.label = None
 
     def calculateOffset(self, x, y):
-        return int((x - 25) * self.xOffset), int((y - 25) * self.yOffset)
+        x0 = self.master.mainWindow.manipulator.x0
+        y0 = self.master.mainWindow.manipulator.y0
+        return int((x - x0) * self.xOffset), int((y - y0) * self.yOffset)
 
     @abstractmethod
     def createMarker(self):

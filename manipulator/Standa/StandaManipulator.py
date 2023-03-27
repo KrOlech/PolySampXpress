@@ -9,7 +9,7 @@ from manipulator.Standa.InicialisationClass import StandaManipulatorInicialisati
 class StandaManipulator(AbstractManipulator, StandaManipulatorInicialisation):
 
     def __init__(self, screenSize):
-        AbstractManipulator.__init__(self, screenSize)
+        AbstractManipulator.__init__(self, screenSize, label)
         StandaManipulatorInicialisation.__init__(self)
         self.lib.command_home(self.device_id)
         self.setSpeed(100)

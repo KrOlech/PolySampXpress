@@ -1,6 +1,6 @@
 {
     "BRIGHTNESS": {
-        "value": 968.0,
+        "value": 244.0,
         "min": 0,
         "max": 4000,
         "address": 10
@@ -42,7 +42,7 @@
         "address": 14
     },
     "WHITE BALANCE": {
-        "value": 89.25,
+        "value": 89.75999999999999,
         "min": 0,
         "max": 255,
         "address": 45

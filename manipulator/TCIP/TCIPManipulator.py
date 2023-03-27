@@ -26,7 +26,7 @@ class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
         self.lock = threading.Lock()
         tcipWork(self)
         self.setSpeed(1)
-        super(TCIPManipulator, self).__init__(screenSize)
+        super(TCIPManipulator, self).__init__(screenSize, label)
 
     def close(self):
         if self.conn:

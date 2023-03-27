@@ -7,12 +7,14 @@ from MAP.Inicialiser.MapWindowInitialiser import MapWindowInitialise
 class MapWindow(MapWindowInitialise):
 
     async def mapCreate(self):
+        self.moveManipulator()
+        self.waitForManipulator()
         while not self.mapEnd:
             self.loger(f"{self.photoCount}, {self._photoCount}")
             self.addFrame(self.takePhoto())
             self.calculateNextManipulatorPosition()
             self.moveManipulator()
-            await sleep(30)
+            self.waitForManipulator()
 
     def addFrame(self, frame):
 
@@ -49,12 +51,11 @@ class MapWindow(MapWindowInitialise):
         return x, y, z
 
     def moveManipulator(self):
-        if self.manipulator.x != self.movementMap[self.photoCount[0]][self.photoCount[1]][1]:
-            self.loger(f"x: {self.movementMap[self.photoCount[0]][self.photoCount[1]][1]}")
-            self.manipulator.goToCords(x=self.movementMap[self.photoCount[0]][self.photoCount[1]][1])
-        elif self.manipulator.y != self.movementMap[self.photoCount[0]][self.photoCount[1]][0]:
-            self.loger(f"y: {self.movementMap[self.photoCount[0]][self.photoCount[1]][0]}")
-            self.manipulator.goToCords(y=self.movementMap[self.photoCount[0]][self.photoCount[1]][0])
+
+        self.loger(f"x: {self.movementMap[self.photoCount[0]][self.photoCount[1]][1]}")
+        self.loger(f"y: {self.movementMap[self.photoCount[0]][self.photoCount[1]][0]}")
+        self.manipulator.goToCords(x=self.movementMap[self.photoCount[0]][self.photoCount[1]][1],
+                                   y=self.movementMap[self.photoCount[0]][self.photoCount[1]][0])
 
     def calculateNextManipulatorPosition(self):
         if self.photoCount[1] == 0 and self.mapDirection == "L":
@@ -73,3 +74,6 @@ class MapWindow(MapWindowInitialise):
             self.photoCount[1] += 1
         elif self.mapDirection == "L":
             self.photoCount[1] -= 1
+
+    def waitForManipulator(self):
+        self.manipulator.waitForTarget()

@@ -1,8 +1,10 @@
 import json
 from os import getcwd
 
+from utilitis.Logger.Logger import Loger
 
-class JsonHandling:
+
+class JsonHandling(Loger):
 
     @staticmethod
     def getFileLocation(file) -> str:
@@ -34,9 +36,9 @@ def getFileLocation(file) -> str:
 
 
 def loadOffsetsJson():
-    with open(getFileLocation("ManipulatorConfig.json"), 'r') as file:
+    with open(getFileLocation("ManipulatorFullConfig.json"), 'r') as file:
         data = json.load(file)
-    return float(data["xOffset"]), float(data["yOffset"])
+    return float(data["0"]["offsets"]["x"]), float(data["0"]["offsets"]["y"])
 
 
 def loadPolaRoboczeJson():
