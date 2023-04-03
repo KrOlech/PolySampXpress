@@ -1,4 +1,4 @@
-from ctypes import WinDLL, c_char_p, c_int, c_void_p, c_double
+from ctypes import WinDLL, c_char_p, c_int, c_void_p, c_double, c_int, byref
 
 from manipulator.SCIIPPlus.DllFuntionWraper.DllFunctionNames import DllFunctionNames
 from manipulator.SCIIPPlus.DllFuntionWraper.dllFunctionWrapper import DllFunctionWrapper
@@ -15,6 +15,30 @@ class DllFunction(DllFunctionNames):
 
         self.__createOpenCommSimulator()
         self.__createCloseSimulator()
+
+        # self.__createInstallCallback()
+
+        self.__createToPoint()
+        self.__createToPointM()
+
+        self.__createBreak()
+        self.__createBreakM()
+
+        self.__createExtToPoint()
+        self.__createExtToPointM()
+
+        self.__createGetAxesCount()
+
+        self.__createStartSpiiPlusSC()
+        self.__createStopSpiiPlusSC()
+
+        self.__createGetFPosition()
+
+        self.__createEnable()
+        self.__createDisable()
+
+        self.__createEnableM()
+        self.__createDisableM()
 
     def __createClearBuffer(self):
         self.__OpenCommEthernetTCP = DllFunctionWrapper(self.clearBufferName, self.dll,
@@ -61,11 +85,138 @@ class DllFunction(DllFunctionNames):
     def installCallback(self, hCom, calbacFun, preciseTimer, acscIntr):
         return self.__InstallCallback(hCom, calbacFun, preciseTimer, acscIntr)
 
-    def  __creatAcscToPoint(self):
+    def __createToPoint(self):
+        # HANDLE Handle, int Flags, int Axis, double Point, ACSC_WAITBLOCK* Wait
+        self.__ToPoint = DllFunctionWrapper(self.toPointName, self.dll,
+                                            (c_void_p, c_int, c_int, c_double, c_void_p), c_int)
 
-        self.__CloseSimulator = DllFunctionWrapper(self.ToPointName, self.dll, (c_void_p, c_int, c_int, c_double, c_void_p), c_int)
+    def ToPoint(self, Handle, Flags, Axis, Point, Wait):
+        return self.__ToPoint(Handle, Flags, Axis, Point, Wait)
 
+    def __createToPointM(self):
+        # HANDLE Handle, int Flags, int* Axes, double* Point, ACSC_WAITBLOCK* Wait
+        self.__ToPointM = DllFunctionWrapper(self.toPointMName, self.dll,
+                                             (c_void_p, c_int, c_void_p, c_void_p, c_void_p), c_int)
 
+    def ToPointM(self, Handle, Flags, Axis, Point, Wait):
+        axisTab = c_int * len(Axis)
+        filledAxisTab = axisTab(*Axis)
+
+        pointTab = c_double * len(Point)
+        filledPointTab = pointTab(*Point)
+
+        return self.__ToPointM(Handle, Flags, byref(filledAxisTab), byref(filledPointTab), Wait)
+
+    def __createBreak(self):
+        # HANDLE Handle, int Axis, ACSC_WAITBLOCK* Wait
+        self.__break = DllFunctionWrapper(self.breakName, self.dll,
+                                          (c_void_p, c_int, c_void_p), c_int)
+
+    def breakF(self, Handle, Axis, Wait):
+        return self.__break(Handle, Axis, Wait)
+
+    def __createBreakM(self):
+        # HANDLE Handle, int* Axes, ACSC_WAITBLOCK* Wait
+        self.__breakM = DllFunctionWrapper(self.breakMName, self.dll,
+                                           (c_void_p, c_void_p, c_void_p), c_int)
+
+    def breakMF(self, Handle, Axis, Wait):
+        axisTab = c_int * len(Axis)
+        axisTab = axisTab(*Axis)
+        return self.__breakM(Handle, byref(axisTab), Wait)
+
+    def __createExtToPoint(self):
+        # HANDLE Handle, int Flags, int Axis, double Point, double Velocity, double EndVelocity, ACSC_WAITBLOCK* Wait
+        self.__ExtToPoint = DllFunctionWrapper(self.extToPointName, self.dll,
+                                               (c_void_p, c_int, c_int, c_double, c_double, c_double, c_void_p), c_int)
+
+    def ExtToPoint(self, Handle, Flags, Axis, Point, Velocity, EndVelocity, Wait):
+        return self.__ExtToPoint(Handle, Flags, Axis, Point, Velocity, EndVelocity, Wait)
+
+    def __createExtToPointM(self):
+        # HANDLE Handle, int Flags, int* Axes, double* Point, double Velocity, double EndVelocity, ACSC_WAITBLOCK* Wait
+        self.__ExtToPointM = DllFunctionWrapper(self.extToPointMName, self.dll,
+                                                (c_void_p, c_int, c_void_p, c_void_p, c_double, c_double, c_void_p),
+                                                c_int)
+
+    def ExtToPointM(self, Handle, Flags, Axis, Point, Velocity, EndVelocity, Wait):
+        axisTab = c_int * len(Axis)
+        filledAxisTab = axisTab(*Axis)
+
+        pointTab = c_double * len(Point)
+        filledPointTab = pointTab(*Point)
+
+        return self.__ExtToPointM(Handle, Flags, byref(filledAxisTab), byref(filledPointTab), Velocity, EndVelocity,
+                                  Wait)
+
+    def __createGetAxesCount(self):
+        # HANDLE Handle, int Flags, int* Axes, double* Point, double Velocity, double EndVelocity, ACSC_WAITBLOCK* Wait
+        self.__getAxesCount = DllFunctionWrapper(self.getAxesCountName, self.dll,
+                                                 (c_void_p, c_void_p, c_void_p),
+                                                 c_int)
+
+    def getAxesCount(self, Handle, Wait):
+        buffer = c_double()
+
+        print(self.__getAxesCount(Handle, byref(buffer), Wait))
+        return buffer
+
+    def __createStartSpiiPlusSC(self):
+        self.__StartSpiiPlus = DllFunctionWrapper(self.StartSPiiPlusSCName, self.dll, (), c_int)
+
+    def startSpiiPlusSC(self):
+        return self.__StartSpiiPlus()
+
+    def __createStopSpiiPlusSC(self):
+        self.__StopSpiiPlus = DllFunctionWrapper(self.StopSPiiPlusSCName, self.dll, (), c_int)
+
+    def stopSpiiPlusSC(self):
+        return self.__StopSpiiPlus()
+
+    def __createGetFPosition(self):
+        # HANDLE Handle, int Axis, double* FPosition, ACSC_WAITBLOCK* Wait
+        self.__getFPosition = DllFunctionWrapper(self.getFPositionName, self.dll, (c_void_p, c_int, c_void_p, c_void_p),
+                                                 c_int)
+
+    def getFPosition(self, Handle, Axis, Wait):
+        buffer = c_double()
+
+        print(self.__getFPosition(Handle, Axis, byref(buffer), Wait))
+        return buffer
+
+    def __createEnable(self):
+        # HANDLE Handle, int Axis, ACSC_WAITBLOCK* Wait
+        self.__enable = DllFunctionWrapper(self.enableName, self.dll, (c_void_p, c_int, c_void_p), c_int)
+
+    def enable(self, Handle, Axis, Wait):
+        return self.__enable(Handle, Axis, Wait)
+
+    def __createEnableM(self):
+        # HANDLE Handle, int* Axes, ACSC_WAITBLOCK* Wait
+        self.__enableM = DllFunctionWrapper(self.enableMName, self.dll, (c_void_p, c_void_p, c_void_p), c_int)
+
+    def enableM(self, Handle, Axis, Wait):
+        axisTab = c_double * len(Axis)
+        filledAxisTab = axisTab(*Axis)
+
+        return self.__enableM(Handle, byref(filledAxisTab), Wait)
+
+    def __createDisable(self):
+        # HANDLE Handle, int Axis, ACSC_WAITBLOCK* Wait
+        self.__disable = DllFunctionWrapper(self.disableName, self.dll, (c_void_p, c_int, c_void_p), c_int)
+
+    def disable(self, Handle, Axis, Wait):
+        return self.__disable(Handle, Axis, Wait)
+
+    def __createDisableM(self):
+        # HANDLE Handle, int* Axes, ACSC_WAITBLOCK* Wait
+        self.__disableM = DllFunctionWrapper(self.disableMName, self.dll, (c_void_p, c_void_p, c_void_p), c_int)
+
+    def disableM(self, Handle, Axis, Wait):
+        axisTab = c_double * len(Axis)
+        filledAxisTab = axisTab(*Axis)
+
+        return self.__disableM(Handle, byref(filledAxisTab), Wait)
 
     @staticmethod
     def __validateIPAndPort(IP, port):

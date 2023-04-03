@@ -20,9 +20,69 @@ class DllFunctionNames:
         return "acsc_ClearBuffer"
 
     @property
-    def InstallCallbackName(self):
+    def installCallbackName(self):
         return "acsc_InstallCallback"
 
     @property
-    def ToPointName(self):
+    def toPointName(self):
         return "acsc_ToPoint"
+
+    @property
+    def toPointMName(self):
+        return "acsc_ToPointM"
+
+    @property
+    def breakName(self):
+        return "acsc_Break"
+
+    @property
+    def breakMName(self):
+        return "acsc_BreakM"
+
+    @property
+    def extToPointName(self):
+        return "acsc_ExtToPoint"
+
+    @property
+    def extToPointMName(self):
+        return "acsc_ExtToPointM"
+
+    @property
+    def trackName(self):
+        return "acsc_Track"
+
+    @property
+    def trackMName(self):
+        return "acsc_TrackM"
+
+    @property
+    def getAxesCountName(self):
+        return "acsc_GetAxesCount"
+
+    @property
+    def StartSPiiPlusSCName(self):
+        return "acsc_StartSPiiPlusSC"
+
+    @property
+    def StopSPiiPlusSCName(self):
+        return "acsc_StopSPiiPlusSC"
+
+    @property
+    def getFPositionName(self):
+        return "acsc_GetFPosition"
+
+    @property
+    def enableName(self):
+        return "acsc_Enable"
+
+    @property
+    def enableMName(self):
+        return "acsc_EnableM"
+
+    @property
+    def disableName(self):
+        return "acsc_Disable"
+
+    @property
+    def disableMName(self):
+        return "acsc_DisableM"
