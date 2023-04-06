@@ -40,6 +40,15 @@ class DllFunction(DllFunctionNames):
         self.__createEnableM()
         self.__createDisableM()
 
+        self.__createGo()
+        self.__createGoM()
+
+        self.__createReadReal()
+
+        self.__createSysInfo()
+
+        self.__createWaitMotorEnable()
+
     def __createClearBuffer(self):
         self.__OpenCommEthernetTCP = DllFunctionWrapper(self.clearBufferName, self.dll,
                                                         (c_void_p, c_int, c_int, c_int, c_void_p), c_int)
@@ -156,7 +165,7 @@ class DllFunction(DllFunctionNames):
                                                  c_int)
 
     def getAxesCount(self, Handle, Wait):
-        buffer = c_double()
+        buffer = c_void_p()
 
         print(self.__getAxesCount(Handle, byref(buffer), Wait))
         return buffer
@@ -179,7 +188,7 @@ class DllFunction(DllFunctionNames):
                                                  c_int)
 
     def getFPosition(self, Handle, Axis, Wait):
-        buffer = c_double()
+        buffer = c_void_p()
 
         print(self.__getFPosition(Handle, Axis, byref(buffer), Wait))
         return buffer
@@ -217,6 +226,50 @@ class DllFunction(DllFunctionNames):
         filledAxisTab = axisTab(*Axis)
 
         return self.__disableM(Handle, byref(filledAxisTab), Wait)
+
+    def __createGo(self):
+        self.__go = DllFunctionWrapper(self.goName, self.dll, (c_void_p, c_int, c_void_p), c_int)
+
+    def Go(self, Handle, Axis, Wait):
+        return self.__go(Handle, Axis, Wait)
+
+    def __createGoM(self):
+        self.__goM = DllFunctionWrapper(self.goMName, self.dll, (c_void_p, c_void_p, c_void_p), c_int)
+
+    def GoM(self, Handle, Axis, Wait):
+        axisTab = c_double * len(Axis)
+        filledAxisTab = axisTab(*Axis)
+
+        return self.__goM(Handle, byref(filledAxisTab), Wait)
+
+    def __createReadReal(self):
+        # HANDLE Handle, int NBuf, char* Var, int From1, int To1, int From2, int To2, double* Values, ACSC_WAITBLOCK* Wait
+        self.__ReadReal = DllFunctionWrapper(self.goMName, self.dll,
+                                             (
+                                                 c_void_p, c_int, c_char_p, c_int, c_int, c_int, c_int, c_void_p,
+                                                 c_void_p),
+                                             c_int)
+
+    def readReal(self, Handle, NBuf, Var, From1, To1, From2, To2, Values, Wait):
+        return self.__ReadReal(Handle, NBuf, Var, From1, To1, From2, To2, Values, Wait)
+
+    def __createSysInfo(self):
+        # HANDLE Handle, int Key, double* Value, ACSC_WAITBLOCK* Wait
+        self.__sysInfo = DllFunctionWrapper(self.sysInfoName, self.dll, (c_void_p, c_int, c_void_p, c_void_p), c_int)
+
+    def sysInfo(self, Handle, Key, Wait):
+        # print(wrapper.sysInfo(handle, 13, byref(c_int(0))))
+        buffer = c_void_p()
+        #print(buffer.value)
+        print(self.__sysInfo(Handle, Key, byref(buffer), Wait))
+        return buffer.value
+
+    def __createWaitMotorEnable(self):
+        # HANDLE Handle, int Axis, int State, int Timeout
+        self.__waitMotorEnable = DllFunctionWrapper(self.waitMotorEnabledName, self.dll, (c_void_p, c_int, c_int, c_int), c_int)
+
+    def waitMotorEnable(self, Handle, Axis, State, Timeout):
+        return self.__waitMotorEnable(Handle, Axis, State, Timeout)
 
     @staticmethod
     def __validateIPAndPort(IP, port):

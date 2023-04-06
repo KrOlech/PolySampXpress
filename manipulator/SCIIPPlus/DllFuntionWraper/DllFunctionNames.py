@@ -86,3 +86,23 @@ class DllFunctionNames:
     @property
     def disableMName(self):
         return "acsc_DisableM"
+
+    @property
+    def goName(self):
+        return "acsc_Go"
+
+    @property
+    def goMName(self):
+        return "acsc_GoM"
+
+    @property
+    def readRealName(self):
+        return "acsc_ReadReal"
+
+    @property
+    def sysInfoName(self):
+        return "acsc_SysInfo"
+
+    @property
+    def waitMotorEnabledName(self):
+        return "acsc_WaitMotorEnabled"
