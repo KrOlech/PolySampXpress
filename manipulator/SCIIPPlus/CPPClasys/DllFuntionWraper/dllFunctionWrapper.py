@@ -16,4 +16,5 @@ class DllFunctionWrapper:
         self.__fun = self.__winFunType((functionName, dllPointer), self.__bufferParams)
 
     def __call__(self, *args, **kwargs):
-        return self.__fun(*args)
+        return getattr(self.dllPointer, self.functionName)(*args)
+        # return self.__fun(*args)

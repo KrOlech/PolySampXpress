@@ -1,7 +1,6 @@
-from ctypes import c_int, c_double, byref, c_char_p
-from time import sleep
+from ctypes import c_int, c_double, byref
 
-from manipulator.SCIIPPlus.DllFuntionWraper.DllFunctions import DllFunction
+from manipulator.SCIIPPlus.CPPClasys.DllFuntionWraper.DllFunctions import DllFunction
 
 wrapper = DllFunction()
 

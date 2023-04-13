@@ -1,7 +1,7 @@
-from ctypes import WinDLL, c_char_p, c_int, c_void_p, c_double, c_int, byref
+from ctypes import WinDLL, c_char_p, c_void_p, c_double, c_int, byref
 
-from manipulator.SCIIPPlus.DllFuntionWraper.DllFunctionNames import DllFunctionNames
-from manipulator.SCIIPPlus.DllFuntionWraper.dllFunctionWrapper import DllFunctionWrapper
+from manipulator.SCIIPPlus.CPPClasys.DllFuntionWraper.DllFunctionNames import DllFunctionNames
+from manipulator.SCIIPPlus.CPPClasys.DllFuntionWraper.dllFunctionWrapper import DllFunctionWrapper
 
 
 class DllFunction(DllFunctionNames):
@@ -165,7 +165,7 @@ class DllFunction(DllFunctionNames):
                                                  c_int)
 
     def getAxesCount(self, Handle, Wait):
-        buffer = c_void_p()
+        buffer = c_double()
 
         print(self.__getAxesCount(Handle, byref(buffer), Wait))
         return buffer
@@ -188,7 +188,7 @@ class DllFunction(DllFunctionNames):
                                                  c_int)
 
     def getFPosition(self, Handle, Axis, Wait):
-        buffer = c_void_p()
+        buffer = c_double()
 
         print(self.__getFPosition(Handle, Axis, byref(buffer), Wait))
         return buffer
@@ -255,13 +255,13 @@ class DllFunction(DllFunctionNames):
 
     def __createSysInfo(self):
         # HANDLE Handle, int Key, double* Value, ACSC_WAITBLOCK* Wait
-        self.__sysInfo = DllFunctionWrapper(self.sysInfoName, self.dll, (c_void_p, c_int, c_void_p, c_void_p), c_int)
+        self.__sysInfo = DllFunctionWrapper(self.sysInfoName, self.dll, (c_void_p, c_int, c_double, c_void_p), c_int)
 
     def sysInfo(self, Handle, Key, Wait):
         # print(wrapper.sysInfo(handle, 13, byref(c_int(0))))
-        buffer = c_void_p()
+        buffer = c_double()
         #print(buffer.value)
-        print(self.__sysInfo(Handle, Key, byref(buffer), Wait))
+        print(self.__sysInfo(Handle, Key, buffer, Wait))
         return buffer.value
 
     def __createWaitMotorEnable(self):

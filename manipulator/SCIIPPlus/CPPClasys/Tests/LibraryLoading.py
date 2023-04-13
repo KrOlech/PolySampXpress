@@ -1,9 +1,6 @@
-import os
-import sys
 from ctypes import *
 from time import sleep
 
-from DllList import dllList
 from manipulator.SCIIPPlus.DllFuntionWraper.dllFunctionWrapper import DllFunctionWrapper
 
 print(windll.kernel32)

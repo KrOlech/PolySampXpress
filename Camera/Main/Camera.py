@@ -18,7 +18,7 @@ class Camera(CommonNames, GetFrame, Configuration, Calibrate, Loger):
     def __init__(self):
         super().__init__()
 
-        self.device = cv2.VideoCapture(1)
+        self.device = cv2.VideoCapture(0)
 
         self.testCameraCommunication()
 

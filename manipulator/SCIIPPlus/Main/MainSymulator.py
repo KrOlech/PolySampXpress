@@ -5,7 +5,8 @@ class SCIManipulatorSimulator(SCIManipulator):
 
     def __init__(self, screenSize):
         super().__init__(screenSize)
-        self.OpenCommSimulator()
+        self.setSpeed(1)
+        self.handle = self.dll.acsc_OpenCommSimulator()
 
     def close(self):
-        self.closeSimulator()
+        self.dll.acsc_CloseSimulator()

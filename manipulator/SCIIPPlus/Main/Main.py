@@ -1,42 +1,44 @@
 from abc import ABCMeta
+from ctypes import CDLL
 
 from manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
-from manipulator.SCIIPPlus.DllFuntionWraper.DllFunctions import DllFunction
+from manipulator.SCIIPPlus.CPPClasys.NewDllFunction.DllFunction import DllFunctions
 
 
-class SCIManipulator(AbstractManipulator, DllFunction):
+class SCIManipulator(AbstractManipulator, DllFunctions):
     __metaclass__ = ABCMeta
-
-    d_buffer_contents = "!axisdef X=0,Y=1,Z=2,T=3,A=4,B=5,C=6,D=7\r\n						\
-    !axisdef x=0,y=1,z=2,t=3,a=4,b=5,c=6,d=7\r\n													\
-    global int I(100),I0,I1,I2,I3,I4,I5,I6,I7,I8,I9,I90,I91,I92,I93,I94,I95,I96,I97,I98,I99\r\n		\
-    global real V(100),V0,V1,V2,V3,V4,V5,V6,V7,V8,V9,V90,V91,V92,V93,V94,V95,V96,V97,V98,V99\r\n	\
-    global real shm MULTIDIM_LONG_ARRAY(10)(200)\r\n												\
-    global real shm LONG_ARRAY(200)\r\n																\
-    global real shm HELLO_VAR(2)(2)\r\n																\
-    global int shm SEMAPHORE\r\n"
-
-    d_buffer_index_query = "?sysinfo(11)\r"
-    stop_and_reset_all_buffers = "##SR\r"
-    received = 0
-    BufferIndex = 0
-    DBufferIndex = 0
 
     def __init__(self, screenSize):
         super().__init__(screenSize)
+        self.dll = CDLL(r"C:\Windows\System32\ACSCL_x64.dll")
 
     def getCurrentPosition(self):
-        pass
+        return self.x, self.y, self.z
 
     def validateSpeed(self, speed):
-        pass
+        self.loger("to Implement")
+        return True
 
     async def goto(self):
-        pass
+        if not self.getMotorState():
+            self.getPosition()
+            self.getPosition(1)
+            print(self.getCurrentPosition())
+            self.goToPoint(self.x, axis=0)
+            self.goToPoint(self.y, axis=1)
+        else:
+            print("erorre")
 
     def gotoNotAsync(self):
-        pass
+        if not self.getMotorState():
+            self.getPosition()
+            self.getPosition(1)
+            print(self.getCurrentPosition())
+            self.goToPoint(self.x, axis=0)
+            self.goToPoint(self.y, axis=1)
+        else:
+            print("erorre")
 
     def waitForTarget(self):
-        pass
-
+        while self.getMotorState():
+            pass
