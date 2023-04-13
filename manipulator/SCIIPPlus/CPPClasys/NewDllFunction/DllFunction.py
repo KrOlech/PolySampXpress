@@ -1,4 +1,4 @@
-from ctypes import CDLL, c_double, byref, c_long
+from ctypes import CDLL, c_double, byref, c_long, c_char, c_char_p
 from time import sleep
 
 
@@ -8,7 +8,7 @@ class DllFunctions:
         self.dll = CDLL(r"C:\Windows\System32\ACSCL_x64.dll")
 
     def __enter__(self):
-        self.handle = self.dll.acsc_OpenCommSimulator()
+        self.handle = self.dll.acsc_OpenCommEthernetTCP(c_char_p(b"10.0.0.100"), 701)
         return self
 
     def __exit__(self, type, value, traceback):
@@ -52,13 +52,16 @@ if __name__ == "__main__":
 
     with DllFunctions() as handle:
 
+        print(handle.handle)
+
         handle.getMotorState()
 
         handle.getPosition()
 
         handle.goToPoint(0)
 
-        sleep(5)
+        while handle.getMotorState():
+            print("pozycja", handle.getPosition().value)
 
         handle.goToPoint(10)
 
