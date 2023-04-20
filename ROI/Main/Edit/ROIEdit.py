@@ -61,7 +61,7 @@ class ROIEdit(AbstractROI, AbstractEdit):
         if self.move:
             return
 
-        self.right = self.isRight
+        self.right = self.isRight()
 
         self.left = self.isLeft()
 
