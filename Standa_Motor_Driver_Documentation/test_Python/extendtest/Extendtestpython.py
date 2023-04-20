@@ -1170,7 +1170,7 @@ def main():
     result = lib.get_engine_settings(device_id, byref(eng))
     user_unit.MicrostepMode = eng.MicrostepMode
 
-    # Dialog for selecting an action on the device
+    # GoToCordsDialog for selecting an action on the device
     device_actions_dialog(lib, device_id)
 
     print("\nClosing")

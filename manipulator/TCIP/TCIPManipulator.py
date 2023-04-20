@@ -72,3 +72,9 @@ class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
 
     def waitForTarget(self):
         asyncio.run(self.__wait())
+
+
+    def homeAxis(self):
+        self.x = 0
+        self.y = 0
+        self.gotoNotAsync()

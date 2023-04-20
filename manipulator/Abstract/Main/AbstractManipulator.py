@@ -54,6 +54,10 @@ class AbstractManipulator(Loger):
     def waitForTarget(self):
         abstractmetod(self)
 
+    @abstractmethod
+    def homeAxis(self):
+        abstractmetod(self)
+
     def up(self):
         self.y += self.speed
         self.gotoNotAsync()

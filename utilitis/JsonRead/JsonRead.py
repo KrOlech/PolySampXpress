@@ -21,9 +21,19 @@ class JsonHandling(Loger):
 
         return rowData
 
-    def saveFile(self, filePath, dictionary) -> dict:
+    def saveFile(self, filePath, dictionary: dict):
         with open(self.getFileLocation(filePath), 'w') as file:
             json.dump(dictionary, file, indent=4)
+
+    def readManipulatorPosition(self):
+        manipulatorConfig = self.readFile("ManipulatorFullConfig.json")
+        positions = manipulatorConfig["0"]["CurrentPosition"]
+        return positions["x"], positions["y"]
+
+    def saveManipulatorPosition(self, positions: dict):
+        manipulatorConfig = self.readFile("ManipulatorFullConfig.json")
+        manipulatorConfig["0"]["CurrentPosition"] = positions
+        self.saveFile("ManipulatorFullConfig.json", manipulatorConfig)
 
 
 def getFileLocation(file) -> str:
