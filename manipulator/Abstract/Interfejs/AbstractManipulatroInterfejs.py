@@ -47,5 +47,22 @@ class AbstractManipulatorInterfejs(QWidget):
     def moveRight(self):
         self.Manipulator.right()
 
+    def moveDown(self):
+        self.Manipulator.down()
+
+    def moveLeft(self):
+        self.Manipulator.left()
+
+    def moveXY(self):
+        x, y, speed = self.__getManipulatorParamiters()
+        self.Manipulator.goToCords(x=x + speed, y=y + speed)
+
+    def moveNegativeXY(self):
+        x, y, speed = self.__getManipulatorParamiters()
+        self.Manipulator.goToCords(x=x - speed, y=y - speed)
+
+    def __getManipulatorParamiters(self):
+        return self.Manipulator.x, self.Manipulator.y, self.Manipulator.speed
+
     def waitForTarget(self):
         self.Manipulator.waitForTarget()

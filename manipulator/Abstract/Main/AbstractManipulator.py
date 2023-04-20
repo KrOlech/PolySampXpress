@@ -89,7 +89,7 @@ class AbstractManipulator(Loger):
 
         self.x += (x - self.screenSize.width() // 2) / self.xOffset
         self.y += (y - self.screenSize.height() // 2) / self.yOffset
-        asyncio.run(self.goto())
+        self.gotoNotAsync()
 
     def setSpeed(self, speed):
         if self.validateSpeed(speed):
