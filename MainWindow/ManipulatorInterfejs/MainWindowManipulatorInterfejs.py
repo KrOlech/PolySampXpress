@@ -1,9 +1,12 @@
+from PyQt5 import QtWidgets
 from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMessageBox, QPushButton, QLabel
 
 from MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
 from manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
+from manipulator.DialogWindow.SimpleDialogWindow import GoToCordsDialog
+from manipulator.DialogWindow.StepSizeDialog import SetStepSizeDialog
 from manipulator.Interfejs.ManipulatorInterfejs import ManipulatorInterfere
 from manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
 from manipulator.SCIIPPlus.Main.MainSymulator import SCIManipulatorSimulator
@@ -26,6 +29,25 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         self.manipulatorInterferes = ManipulatorInterfere(self.manipulator)
 
         self.__manipulatorButtons()
+
+        manipulatorMenu = self.menu.addMenu("&Manipulator")
+
+        homeAxis = self.qActionCreate("Home All Axis", self.homeAxis)
+        goToCords = self.qActionCreate("Go To Cords", self.goToCords)
+        setStepSize = self.qActionCreate("Set Step Size", self.setStepSize)
+
+        manipulatorMenu.addAction(homeAxis)
+        manipulatorMenu.addAction(goToCords)
+        manipulatorMenu.addAction(setStepSize)
+
+    def homeAxis(self):
+        self.manipulator.homeAxis()
+
+    def goToCords(self):
+        GoToCordsDialog(self.manipulator).exec_()
+
+    def setStepSize(self):
+        SetStepSizeDialog(self.manipulator).exec_()
 
     def configureStatusBar(self):
         myStatusBar = QLabel(self)

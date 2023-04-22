@@ -5,6 +5,7 @@
    - na start pkt wybierany recznie.
 - manipulator selection interfejs
 - botom info bar with current manipulator position
+- Full migration to JsonReadClass
 
 ***Done in Beta 0.5:***
 - auto Calibration Mode (Need testing)

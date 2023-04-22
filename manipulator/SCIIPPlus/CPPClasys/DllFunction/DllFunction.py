@@ -1,4 +1,4 @@
-from ctypes import CDLL, c_double, byref, c_long, c_char, c_char_p, c_int
+from ctypes import CDLL, c_double, byref, c_long, c_char, c_char_p, c_int, c_longdouble
 
 from utilitis.Logger.Logger import Loger
 
@@ -18,7 +18,7 @@ class DllFunctions(Loger):
     def getAxisCount(self):
         buffer = c_double(-1)
         self.dll.acsc_SysInfo(self.handle, 13, byref(buffer), 0)
-        return buffer.value
+        return int(buffer.value)
 
     def getMotorState(self, axis=0):
         buffer = c_long()
@@ -65,6 +65,37 @@ class DllFunctions(Loger):
 
         self.dll.acsc_Go(self.handle, axis, 0)
         # dll.acsc_ExtToPoint(handle,0,0,c_double(2),c_double(1),c_double(1),0) nie wymaga go
+
+    def checkAxisStateM(self):
+        for axisNr in range(self.getAxisCount()):
+            self.checkAxisState(axisNr)
+
+    def checkAxisState(self, axisNr):
+
+        m_MotorFault = c_int(0)
+
+        self.dll.acsc_GetFault(self.handle, axisNr, byref(m_MotorFault), 0)
+
+        m_MotorFault = m_MotorFault.value
+
+        if m_MotorFault == 1:
+            self.loger(f"Right limit stop for axis {axisNr}")
+
+        elif m_MotorFault == 2:
+            self.loger(f"Left limit stop for axis {axisNr}")
+
+    def checkFaultMask(self, axisNr):
+        m_FaultMask = c_int(0)
+        self.dll.acsc_GetFaultMask(self.handle, axisNr, byref(m_FaultMask), 0)
+        self.loger(f"GetFaultMask for axis {axisNr}: {m_FaultMask.value}")
+
+    def setPositions(self, position: dict):
+        for axisNr, axisPosition in position.items():
+            self.dll.acsc_SetFPosition(self.handle, axisNr, axisPosition, 0)
+
+    def setZero(self):
+        for axisNr in range(self.getAxisCount()):
+            self.dll.acsc_SetFPosition(self.handle, axisNr, 0, 0)
 
 
 if __name__ == "__main__":

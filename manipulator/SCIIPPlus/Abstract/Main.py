@@ -30,10 +30,12 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
 
     async def goto(self):
         self.goToMain()
+        self.checkAxisStateM()
         super().goto()
 
     def gotoNotAsync(self):
         self.goToMain()
+        self.checkAxisStateM()
         super().gotoNotAsync()
 
     def goToMain(self):
