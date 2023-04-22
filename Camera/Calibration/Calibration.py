@@ -38,9 +38,25 @@ class Calibrate(JsonHandling, CalibrateProperty):
     def calibrateY(self, manipulatorInterferes):
         self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveUp, 1)
 
-    def __calibrate(self, manipulatorInterferes, movementFun, index):
-        template, w, h = self.extractTemplate(self.getGrayFrame())
-        cv.imwrite(str(index) + 's.png', self.getFrame())
+    def calibrateNegativeX(self, manipulatorInterferes):
+        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveLeft, 0)
+
+    def calibrateNegativeY(self, manipulatorInterferes):
+        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveDown, 1)
+
+    def calibrateXY(self, manipulatorInterferes, template0):
+        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveXY, None, template0)
+
+    def calibrateNegativeXY(self, manipulatorInterferes, template0):
+        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveNegativeXY, None, template0)
+
+    def __calibrate(self, manipulatorInterferes, movementFun, index, template=None):
+        template, w, h = self.extractTemplate(self.getGrayFrame()) if template is None else template
+
+        freame_ = self.getFrame()
+        cv.rectangle(freame_, (self.templateLocationY, self.templateLocationX),
+                     (self.templateLocationY + w, self.templateLocationX + h), (0, 0, 255), 2)
+        cv.imwrite(str(index) + 's.png', freame_)
 
         movementFun()
         manipulatorInterferes.waitForTarget()
@@ -52,7 +68,7 @@ class Calibrate(JsonHandling, CalibrateProperty):
 
         delty = [[], []]
 
-        print(loc)
+        self.loger(loc)
         freame_ = self.getFrame()
 
         for pt in zip(*loc[::-1]):
@@ -64,21 +80,33 @@ class Calibrate(JsonHandling, CalibrateProperty):
 
         delty = (mean(delty[0]), mean(delty[1]))
 
-        print(delty)
+        self.loger(delty)
 
-        if delty[not index] > 5:
-            self.logWarning("To math distortion in other axis")
-            # toDo proper error
+        if index is not None:
+            if delty[not index] > 5:
+                self.logWarning("To math distortion in other axis")
+                # toDo proper error
 
-        data = self.readFile(self.configFile)
+            data = self.readFile(self.configFile)
 
-        data["0"]["offsets"][self.indexLegend[index]] = int(delty[index])
+            data["0"]["offsets"][self.indexLegend[index]] = int(delty[index])
 
-        print(int(delty[index]))
+            self.loger(int(delty[index]))
 
-        self.saveFile(self.configFile, data)
+            self.saveFile(self.configFile, data)
 
     def calibrate(self, manipulatorInterferes):
+
+        template0 = self.extractTemplate(self.getGrayFrame())
+
         self.calibrateX(manipulatorInterferes)
 
         self.calibrateY(manipulatorInterferes)
+
+        self.calibrateNegativeXY(manipulatorInterferes, template0)
+
+        self.calibrateNegativeX(manipulatorInterferes)
+
+        self.calibrateNegativeY(manipulatorInterferes)
+
+        self.calibrateXY(manipulatorInterferes, template0)
