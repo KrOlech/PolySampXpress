@@ -1,9 +1,12 @@
 from PyQt5.Qt import QPoint
-from PyQt5.QtWidgets import QMessageBox, QPushButton
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QMessageBox, QPushButton, QLabel
 
 from MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
 from manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 from manipulator.Interfejs.ManipulatorInterfejs import ManipulatorInterfere
+from manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
+from manipulator.SCIIPPlus.Main.MainSymulator import SCIManipulatorSimulator
 from manipulator.Standa.StandaManipulator import StandaManipulator
 from manipulator.TCIP.TCIPManipulator import TCIPManipulator
 
@@ -15,11 +18,29 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
 
-        self.manipulator = TCIPManipulator(self.windowSize)  # AbstractManipulator() TCIPManipulator, StandaManipulator
+        self.myStatusBar = self.configureStatusBar()
+
+        self.manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
+        # AbstractManipulator() TCIPManipulator, StandaManipulator, SCIManipulatorSimulator
 
         self.manipulatorInterferes = ManipulatorInterfere(self.manipulator)
 
         self.__manipulatorButtons()
+
+    def configureStatusBar(self):
+        myStatusBar = QLabel(self)
+
+        myStatusBar.setFixedWidth(self.windowSize.width() // 8)
+
+        myStatusBar.setStyleSheet("background-color: rgba(255, 255, 255, 75);")
+        myStatusBar.setText("Manipulator have not been connected yet")
+        font = QFont()
+        font.setPointSize(13)
+        myStatusBar.setFont(font)
+        myStatusBar.move(QPoint(0, self.windowSize.height() - 25))
+        myStatusBar.show()
+
+        return myStatusBar
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, "mesage",

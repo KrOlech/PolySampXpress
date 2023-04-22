@@ -10,6 +10,8 @@ class ClikcCreateRoi(CreateRoiAbstract):
     manipulatorXFirstPresX = None
     manipulatorYFirstPresY = None
 
+    xOffset, yOffset = loadOffsetsJson()
+
     def __savePressLocation(self, e):
         if not (self.firstPress or self.secondPress):
             self.manipulatorXFirstPresX = self.mainWindow.manipulator.x
@@ -27,9 +29,8 @@ class ClikcCreateRoi(CreateRoiAbstract):
             self.secondPress = True
 
     def calculateOffset(self):
-        xOffset, yOffset = loadOffsetsJson()
-        return int((self.manipulatorXFirstPresX - self.mainWindow.manipulator.x) * xOffset), int(
-            (self.manipulatorYFirstPresY - self.mainWindow.manipulator.y) * yOffset)
+        return int((self.manipulatorXFirstPresX - self.mainWindow.manipulator.x) * self.xOffset), int(
+            (self.manipulatorYFirstPresY - self.mainWindow.manipulator.y) * self.yOffset)
 
     def __seveReliseLocation(self, e):
         if self.secondPress:

@@ -59,3 +59,4 @@ class AbstractMapWindow(Loger):
 
     def wait(self, time=30, fun=None):
         workSleeperFun(self, time, fun)
+

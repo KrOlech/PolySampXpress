@@ -13,12 +13,15 @@ class AbstractManipulator(Loger):
     speed = 0
     x, y, z = 0, 0, 0
 
+    x0, y0, z0 = 0, 0, 0
+
     xOffset = 1
     yOffset = 1
 
     inMotion = False
 
-    def __init__(self, screenSize):
+    def __init__(self, screenSize, label, *args, **kwargs):
+        self.label = label
         self.screenSize = screenSize
         self.x, self.y, self.z = self.getCurrentPosition()
 
@@ -34,11 +37,14 @@ class AbstractManipulator(Loger):
 
     @abstractmethod
     async def goto(self):
-        abstractmetod(self)
+        self.upadteLable()
 
     @abstractmethod
     def gotoNotAsync(self):
-        abstractmetod(self)
+        self.upadteLable()
+
+    def upadteLable(self):
+        self.label.setText(f"    X:{self.y:.4f}    Y:{self.x:.4f}")
 
     @abstractmethod
     def close(self):
@@ -50,27 +56,27 @@ class AbstractManipulator(Loger):
 
     def up(self):
         self.y += self.speed
-        asyncio.run(self.goto())
+        self.gotoNotAsync()
 
     def down(self):
         self.y -= self.speed
-        asyncio.run(self.goto())
+        self.gotoNotAsync()
 
     def left(self):
         self.x -= self.speed
-        asyncio.run(self.goto())
+        self.gotoNotAsync()
 
     def right(self):
         self.x += self.speed
-        asyncio.run(self.goto())
+        self.gotoNotAsync()
 
     def forward(self):
         self.z -= self.speed
-        asyncio.run(self.goto())
+        self.gotoNotAsync()
 
     def backwards(self):
         self.z += self.speed
-        asyncio.run(self.goto())
+        self.gotoNotAsync()
 
     def goToCords(self, x=None, y=None, z=None):
         self.x = x if x is not None else self.x
