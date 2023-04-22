@@ -1,12 +1,11 @@
 from abc import ABCMeta, abstractmethod
 
-from Camera.ComonNames.ComonNames import CommonNames
 from ROI.Label.ROILable import ROILabel
 from utilitis.Abstract import abstractmetod
 from utilitis.JsonRead.JsonRead import loadOffsetsJson
 
 
-class AbstractR(CommonNames):
+class AbstractR:
     __metaclass__ = ABCMeta
 
     xOffset, yOffset = loadOffsetsJson()
@@ -20,6 +19,7 @@ class AbstractR(CommonNames):
         self.master.removeLable(self.label)
         self.label = None
 
+    # to do caszowanie metody w celu szybszej ewaluacji
     def calculateOffset(self, x, y):
         x0 = self.master.mainWindow.manipulator.x0
         y0 = self.master.mainWindow.manipulator.y0
