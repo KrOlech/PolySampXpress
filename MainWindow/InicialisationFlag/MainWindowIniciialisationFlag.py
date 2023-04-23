@@ -1,11 +1,12 @@
-import asyncio
-
+from PyQt5.QtWidgets import QAction
 from PyQt5.QtWidgets import QDesktopWidget
 
 from MAP.Main.MapWindow import MapWindow
 from MainWindow.RoiList.MainWindowROIList import MainWindowROIList
+from WorkFeald.Main.main import ReadPoleRobocze
 from utilitis.Depracation.DepractionFactory import deprecated
 from utilitis.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
+
 
 # todo podzielic do dwóch klas
 class MainWindowInicialisationFlag(MainWindowROIList):
@@ -23,6 +24,27 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         mapMenu.addAction(showMap)
         mapMenu.addAction(createMapAction)
 
+        self.readWorkFieldWindow = ReadPoleRobocze(self, self.windowSize)
+
+        self.workFildMenu = self.menu.addMenu("&Work Field")
+
+        self.workFildActions = []
+
+        for i, field in enumerate(self.readWorkFieldWindow.workFields):
+            action = self.qActionCreate(str(field[-1]), lambda checked, nr=i: self.togle(nr), checkable=True)
+            self.workFildMenu.addAction(action)
+            self.workFildActions.append(action)
+
+    def togle(self, nr):
+        self.__UncheckAll()
+        self.workFildActions[nr].setChecked(True)
+        self.fildParams = self.readWorkFieldWindow.workFields[nr]
+        self.loger(self.fildParams)
+
+    def __UncheckAll(self, State=False):
+        for workFildAction in self.workFildActions:
+            workFildAction.setChecked(State)
+
     @deprecated("old Map cration manual")
     def createMapManual(self):
         if not self.mapWindowObject:
@@ -34,10 +56,10 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
     def createMap(self):
         self.mapWindowObject = self.crateMapObject()
-        workFunWorkerAsync(self,self.mapWindowObject.mapCreate)
+        workFunWorkerAsync(self, self.mapWindowObject.mapCreate)
         if not self.mapWindowObject:
             self.mapWindowObject = self.crateMapObject()
-            workFunWorkerAsync(self,self.mapWindowObject.mapCreate)
+            workFunWorkerAsync(self, self.mapWindowObject.mapCreate)
         else:
             self.loger("do you wont to owe ride created Map?")
             # ToDo implement Correct in the future
@@ -49,6 +71,10 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
     def setPoleRobocze(self, fildParams):
         self.fildParams = fildParams
+        for i, field in enumerate(self.readWorkFieldWindow.workFields):
+            if self.fildParams == field:
+                self.workFildActions[i].setChecked(True)
+                break
 
     def crateMapObject(self):
         return MapWindow(self, self.windowSize, self.manipulator)

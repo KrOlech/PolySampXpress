@@ -11,9 +11,9 @@ class ReadPoleRobocze:
 
         self.mainWindow = mainWindow
 
-        workFields = loadPolaRoboczeJson()
+        self.workFields = loadPolaRoboczeJson()
 
-        self.GUI = WorkFilledGui(workFields, windowSize)
+        self.GUI = WorkFilledGui(self.workFields, windowSize)
         self.GUI.setWindowFlag(Qt.Popup)
 
         workFunWorker(self, self.__threadWaitForInicialisation)

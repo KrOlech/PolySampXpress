@@ -1,10 +1,9 @@
 ***TO Do in Beta 0.5:***
 
-- in code To DO resolve
 - zerowanie na pkcie znajdowanym softwrowo
    - na start pkt wybierany recznie.
 - manipulator selection interfejs
-- botom info bar with current manipulator position
+
 - Full migration to JsonReadClass
 
 ***Done in Beta 0.5:***
@@ -13,6 +12,8 @@
 - logGenie
 - file with camera configuration
 - new Manipulator
+- botom info bar with current manipulator position
+- configure work Feald
 
 ***TO Do in Beta next:***
 
@@ -25,8 +26,6 @@
 
 - obsluga fokusu
   - autofokus
-  
-- Silniki krokowe brak encodingu musi byc po strnie softweru
 
 - Bug fixing and searching
 
