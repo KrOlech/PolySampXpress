@@ -2,8 +2,6 @@
 
 - zerowanie na pkcie znajdowanym softwrowo
    - na start pkt wybierany recznie.
-- manipulator selection interfejs
-
 - Full migration to JsonReadClass
 
 ***Done in Beta 0.5:***
@@ -14,6 +12,7 @@
 - new Manipulator
 - botom info bar with current manipulator position
 - configure work Feald
+- manipulator selection interfejs
 
 ***TO Do in Beta next:***
 

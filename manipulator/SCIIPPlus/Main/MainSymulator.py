@@ -3,8 +3,8 @@ from manipulator.SCIIPPlus.Abstract.Main import SCIManipulator
 
 class SCIManipulatorSimulator(SCIManipulator):
 
-    def __init__(self, screenSize):
-        super().__init__(screenSize)
+    def __init__(self, screenSize, *args, **kwargs):
+        super().__init__(screenSize, *args, **kwargs)
         self.init(self.dll.acsc_OpenCommSimulator(), 1)
 
     def close(self):
