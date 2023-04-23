@@ -23,8 +23,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         self.myStatusBar = self.configureStatusBar()
 
-        self.manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
-        # AbstractManipulator() TCIPManipulator, StandaManipulator, SCIManipulatorSimulator
+        self.manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
         self.manipulatorInterferes = ManipulatorInterfere(self.manipulator)
 
@@ -39,6 +38,58 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         manipulatorMenu.addAction(homeAxis)
         manipulatorMenu.addAction(goToCords)
         manipulatorMenu.addAction(setStepSize)
+
+        manipulatorChoiceMenu = manipulatorMenu.addMenu("&Manipulator Type")
+
+        self.abstractManipulatorAction = self.qActionCreate("AbstractManipulator", self.setAbstractManipulator, checkable=True)
+        self.tCIPManipulatorAction = self.qActionCreate("TCIPManipulator", self.setTCIPManipulator, checkable=True)
+        self.standManipulatorAction = self.qActionCreate("StandManipulator", self.setStandManipulator, checkable=True)
+        self.sCIManipulatorSimulatorAction = self.qActionCreate("SCIManipulatorSimulator", self.setSCIManipulatorSimulator, checkable=True)
+        self.sCIManipulatorMainAction = self.qActionCreate("SCIManipulatorMain", self.setSCIManipulatorMain, checkable=True)
+
+        manipulatorChoiceMenu.addAction(self.abstractManipulatorAction)
+        manipulatorChoiceMenu.addAction(self.tCIPManipulatorAction)
+        manipulatorChoiceMenu.addAction(self.standManipulatorAction)
+        manipulatorChoiceMenu.addAction(self.sCIManipulatorSimulatorAction)
+        manipulatorChoiceMenu.addAction(self.sCIManipulatorMainAction)
+
+        self.manipulatorActions = [self.abstractManipulatorAction, self.tCIPManipulatorAction, self.standManipulatorAction, self.sCIManipulatorSimulatorAction, self.sCIManipulatorMainAction]
+
+        self.abstractManipulatorAction.setChecked(True)
+
+    def setAbstractManipulator(self):
+        self.__UncheckAll()
+        self.manipulator.close()
+        self.abstractManipulatorAction.setChecked(True)
+        self.manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
+
+    def setTCIPManipulator(self):
+        self.__UncheckAll()
+        self.manipulator.close()
+        self.tCIPManipulatorAction.setChecked(True)
+        self.manipulator = TCIPManipulator(self.windowSize, self.myStatusBar)
+
+    def setStandManipulator(self):
+        self.__UncheckAll()
+        self.manipulator.close()
+        self.standManipulatorAction.setChecked(True)
+        self.manipulator = StandaManipulator(self.windowSize, self.myStatusBar)
+
+    def setSCIManipulatorSimulator(self):
+        self.__UncheckAll()
+        self.manipulator.close()
+        self.sCIManipulatorSimulatorAction.setChecked(True)
+        self.manipulator = SCIManipulatorSimulator(self.windowSize, self.myStatusBar)
+
+    def setSCIManipulatorMain(self):
+        self.__UncheckAll()
+        self.manipulator.close()
+        self.sCIManipulatorMainAction.setChecked(True)
+        self.manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
+
+    def __UncheckAll(self, State=False):
+        for manipulatorAction in self.manipulatorActions:
+            manipulatorAction.setChecked(State)
 
     def homeAxis(self):
         self.manipulator.homeAxis()

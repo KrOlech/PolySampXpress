@@ -17,7 +17,7 @@ class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
 
     x, y, z = 25.0, 25.0, 25.0
 
-    def __init__(self, screenSize):
+    def __init__(self, screenSize, *args, **kwargs):
         self.xOffset, self.yOffset = loadOffsetsJson()
         self.socket = SOCKET.socket(SOCKET.AF_INET, SOCKET.SOCK_STREAM)
         self.socket.bind((self.TCP_IP, self.TCP_PORT))
@@ -26,7 +26,7 @@ class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
         self.lock = threading.Lock()
         tcipWork(self)
         self.setSpeed(1)
-        super(TCIPManipulator, self).__init__(screenSize, label)
+        super(TCIPManipulator, self).__init__(screenSize, *args, **kwargs)
 
     def close(self):
         if self.conn:
@@ -72,7 +72,6 @@ class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
 
     def waitForTarget(self):
         asyncio.run(self.__wait())
-
 
     def homeAxis(self):
         self.x = 0
