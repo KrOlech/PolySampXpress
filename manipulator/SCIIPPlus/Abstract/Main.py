@@ -1,3 +1,4 @@
+import asyncio
 from abc import ABCMeta
 from ctypes import CDLL
 
@@ -30,12 +31,10 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
 
     async def goto(self):
         self.goToMain()
-        self.checkAxisStateM()
-        super().goto()
+        asyncio.run(super().goto())
 
     def gotoNotAsync(self):
         self.goToMain()
-        self.checkAxisStateM()
         super().gotoNotAsync()
 
     def goToMain(self):
@@ -48,6 +47,10 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
             self.loger({1: self.x, 0: self.y})
         else:
             self.loger("erorre")
+
+        if self.checkAxisStateM():
+            self.x = self.getPosition(1)
+            self.y = self.getPosition(0)
 
     def waitForTarget(self):
         while self.getMotorStateM([0, 1]):

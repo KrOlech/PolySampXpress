@@ -1,9 +1,9 @@
 {
 "pole 0": {
-  "Xmin": 0,
-  "Xmax": 10,
-  "Ymin": 0,
-  "Ymax": 10
+  "Xmin": 40,
+  "Xmax": 70,
+  "Ymin": 40,
+  "Ymax": 70
 },
   "pole 1": {
   "Xmin": 0,

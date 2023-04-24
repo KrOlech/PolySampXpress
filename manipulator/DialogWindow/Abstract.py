@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtWidgets import QDialog, QFormLayout, QPushButton, QSpinBox
+from PyQt5.QtWidgets import QDialog, QFormLayout, QPushButton, QSpinBox, QDoubleSpinBox
 
 from MainWindow.Utilitis.WindowBar import MyBar
 
@@ -48,7 +48,7 @@ class AbstractDialog(QDialog):
 
     @staticmethod
     def createQSpinBox(value):
-        spinBox = QSpinBox()
+        spinBox = QDoubleSpinBox()
         spinBox.setValue(value)
-        spinBox.setRange(0, 20)
+        spinBox.setRange(0, 200)
         return spinBox

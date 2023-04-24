@@ -88,12 +88,14 @@ class Calibrate(JsonHandling, CalibrateProperty):
                 # toDo proper error
 
             data = self.readFile(self.configFile)
+            try:
+                data["0"]["offsets"][self.indexLegend[index]] = int(delty[index])
+            except ValueError as e:
+                self.logError(e)
+            else:
+                self.loger(int(delty[index]))
 
-            data["0"]["offsets"][self.indexLegend[index]] = int(delty[index])
-
-            self.loger(int(delty[index]))
-
-            self.saveFile(self.configFile, data)
+                self.saveFile(self.configFile, data)
 
     def calibrate(self, manipulatorInterferes):
 

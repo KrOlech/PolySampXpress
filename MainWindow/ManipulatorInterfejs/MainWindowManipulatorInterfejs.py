@@ -23,7 +23,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         self.myStatusBar = self.configureStatusBar()
 
-        self.manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
+        self.manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
 
         self.manipulatorInterferes = ManipulatorInterfere(self.manipulator)
 
