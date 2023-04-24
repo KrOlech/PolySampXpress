@@ -51,5 +51,5 @@
   - Works ok with TCIP manipulator
   - after refactor do not work even with TCIP
 - Strange movement of ROIS after manipulator ordered to move Video in bugs
-- No ROI creation working after calibration
-- Map not working corectli (movment map calculated incorectli) for WF not starting for 0 0
+- Strage Map creation need difrent offset than the roi
+- Last ROI stays during Map Creation (propabli residum from last created ROI)

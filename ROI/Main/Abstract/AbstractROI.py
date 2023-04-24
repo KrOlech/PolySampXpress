@@ -32,6 +32,7 @@ class AbstractROI(AbstractR):
 
     def getMarker(self, x, y):
         dx, dy = self.calculateOffset(x, y)
+        #self.loger(f"x1 = {self.x0}, x2 = {self.x1}, y1 = {self.y0}, y2 = {self.y1}, manipulatotrX = {x}, manipulatorY = {y} deltaX = {dx} deltaY = {dy}")
         return QRect(QPoint(self.x0 - dx, self.y0 - dy), QPoint(self.x1 - dx, self.y1 - dy))
 
     def __setBorders(self, x1, x2, y1, y2):
