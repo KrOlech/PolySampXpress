@@ -3,9 +3,10 @@ from abc import ABCMeta, abstractmethod
 from ROI.Label.ROILable import ROILabel
 from utilitis.Abstract import abstractmetod
 from utilitis.JsonRead.JsonRead import loadOffsetsJson
+from utilitis.Logger.Logger import Loger
 
 
-class AbstractR:
+class AbstractR(Loger):
     __metaclass__ = ABCMeta
 
     xOffset, yOffset = loadOffsetsJson()
@@ -23,7 +24,10 @@ class AbstractR:
     def calculateOffset(self, x, y):
         x0 = self.master.mainWindow.manipulator.x0
         y0 = self.master.mainWindow.manipulator.y0
-        return int((x - x0) * self.xOffset), int((y - y0) * self.yOffset)
+        ox = int((x - x0) * self.xOffset)
+        oy = int((y - y0) * self.yOffset)
+        #self.loger(f"offset x={ox}, offset y={oy}")
+        return ox, oy
 
     @abstractmethod
     def createMarker(self):

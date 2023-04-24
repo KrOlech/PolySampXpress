@@ -108,7 +108,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
         pixelCount = sizeIn_px[0] * sizeIn_px[1]
 
-        mapRes_x, mapRes_y, _ = loadResolution("1440P")
+        mapRes_x, mapRes_y, _ = loadResolution("1080P")
 
         mapPixelCount = mapRes_x * mapRes_y
 
@@ -121,7 +121,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         return scale, ScaledMapSizeIn_px
 
     def __workFilledMovementMap(self):
-        xOffset, yOffset = loadOffsetsJson()
+        xOffset, yOffset = 131,111#loadOffsetsJson()
         dy = self.cameraFrameSizeX / xOffset
         dx = self.cameraFrameSizeY / yOffset
         self.loger(f"cameraX: {self.cameraFrameSizeX} offsetx: {xOffset}")
