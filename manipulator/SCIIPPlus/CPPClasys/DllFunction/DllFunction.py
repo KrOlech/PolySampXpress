@@ -67,8 +67,8 @@ class DllFunctions(Loger):
         # dll.acsc_ExtToPoint(handle,0,0,c_double(2),c_double(1),c_double(1),0) nie wymaga go
 
     def checkAxisStateM(self):
-        for axisNr in range(self.getAxisCount()):
-            self.checkAxisState(axisNr)
+        return any([self.checkAxisState(axisNr) for axisNr in range(self.getAxisCount())])
+
 
     def checkAxisState(self, axisNr):
 
@@ -78,12 +78,17 @@ class DllFunctions(Loger):
 
         m_MotorFault = m_MotorFault.value
 
+        state = False
+
         if m_MotorFault == 1:
             self.loger(f"Right limit stop for axis {axisNr}")
+            state = True
 
         elif m_MotorFault == 2:
             self.loger(f"Left limit stop for axis {axisNr}")
+            state = True
 
+        return state
     def checkFaultMask(self, axisNr):
         m_FaultMask = c_int(0)
         self.dll.acsc_GetFaultMask(self.handle, axisNr, byref(m_FaultMask), 0)

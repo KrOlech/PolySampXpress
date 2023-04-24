@@ -67,10 +67,9 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
     def __createMapLabel(self, windowSize):
         mapWidget = MapLabel(self)
 
-
         mapWidget.resize(self.ScaledMapSizeIn_px[0], self.ScaledMapSizeIn_px[1])
         mapWidget.setMaximumSize(windowSize)
-        mapWidget.setAspectRatio(self.ScaledMapSizeIn_px[0]//self.ScaledMapSizeIn_px[1])
+        mapWidget.setAspectRatio(self.ScaledMapSizeIn_px[0] // self.ScaledMapSizeIn_px[1])
         return mapWidget
 
     def __loadManipulatorFullMovement(self):
@@ -129,19 +128,21 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         self.loger(f"cameraY: {self.cameraFrameSizeY} offsety: {yOffset}")
         self.loger(f"krok po Y {dx} krok po X {dy}")
 
-        movmentMap = []
+        movementMap = []
         x = self.master.fildParams[0]
-        while x < min(self.master.fildParams[1] + dx, 50):
+        while x < min(self.master.fildParams[1] + dx, 200):  # todo read manipulator size from file
             y = self.master.fildParams[2]
-            movmentMap.append([])
-            while y < min(self.master.fildParams[3] + dy, 50):
-                movmentMap[-1].append((x, y))
+            movementMap.append([])
+            while y < min(self.master.fildParams[3] + dy, 200):  # todo read manipulator size from file
+                movementMap[-1].append((x, y))
                 y += dy
             x += dx
 
-        self.loger([row for row in movmentMap])
+        if movementMap is []:
+            movementMap = [[]]
 
-        return movmentMap
+        self.loger([row for row in movementMap])
+        return movementMap
 
     def __isZoomWaliable(self):
         x, y = loadCameraResolutionJson()

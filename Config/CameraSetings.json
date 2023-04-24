@@ -1,12 +1,12 @@
 {
     "BRIGHTNESS": {
-        "value": 244.0,
+        "value": 524.0,
         "min": 0,
         "max": 4000,
         "address": 10
     },
     "SATURATION": {
-        "value": 202.31,
+        "value": 206.27,
         "min": 200,
         "max": 255,
         "address": 12
@@ -24,13 +24,13 @@
         "address": 20
     },
     "GAMMA": {
-        "value": 100.0,
+        "value": 109.0,
         "min": 0,
         "max": 500,
         "address": 22
     },
     "EXPOSURE": {
-        "value": -6.195,
+        "value": -7.425,
         "min": -15,
         "max": 0,
         "address": 15
