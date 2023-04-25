@@ -1,31 +1,9 @@
-import sys
-
-from PyQt5.QtWidgets import QApplication
-
-from MainWindow.Main.Main import MainWindow
+from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
-def main():
-    app = QApplication(sys.argv)
+def test_JsonRead():
+    jsonHandler = JsonHandling()
 
-    mainWindow = MainWindow(app.desktop().availableGeometry().size())
+    print(jsonHandler.getFileLocation("test"))
 
-    mainWindow.show()
-
-    mainWindow.readWorkFieldWindow.show()
-
-    app.exec_()
-
-
-def CameraSettingTest():
-    app = QApplication(sys.argv)
-
-    mainWindow = MainWindow(app.desktop().availableGeometry().size())
-
-    mainWindow.show()
-
-    mainWindow.readWorkFieldWindow.show()
-
-    mainWindow.showAllCameraSettings()
-
-    app.exec_()
+    jsonHandler.readFile(r"CameraConfig.json")
