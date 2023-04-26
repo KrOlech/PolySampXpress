@@ -10,7 +10,7 @@ class AbstractManipulatorInterfejs(QWidget):
 
         self._layout = QGridLayout()
 
-        self.buttonsNames = ['/\\', "<", ">", '\/']
+        self.buttonsNames = ["/\\", "<", ">", r'\/']
 
         self.buttons = [QPushButton(name) for name in self.buttonsNames]
 

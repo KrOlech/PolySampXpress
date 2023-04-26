@@ -9,3 +9,7 @@ class MainWindow(MainWindowInicialisationFlag,
         super().__init__(*args, **kwargs)
 
         self.createRoiModsMenu()
+
+    def TestClose(self):
+        self.testEventClose = True
+        self.close()

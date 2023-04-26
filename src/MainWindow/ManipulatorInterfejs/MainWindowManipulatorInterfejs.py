@@ -16,13 +16,14 @@ from src.manipulator.TCIP.TCIPManipulator import TCIPManipulator
 class MainWindowManipulatorInterfejs(CameraGUIExtension):
     offsets = [QPoint(100, 120), QPoint(150, 85), QPoint(50, 85), QPoint(100, 50)]
     buttons = None
+    testEventClose = False
 
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
 
         self.myStatusBar = self.configureStatusBar()
 
-        self.manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
+        self.manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
         self.manipulatorInterferes = ManipulatorInterfere(self.manipulator)
 
@@ -115,6 +116,12 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         return myStatusBar
 
     def closeEvent(self, event):
+
+        if self.testEventClose:
+            self.closeAction()
+            event.accept()
+            return
+
         reply = QMessageBox.question(self, "mesage",
                                      "Czy napewno chcesz zamknac program?",
                                      QMessageBox.Yes | QMessageBox.No,
