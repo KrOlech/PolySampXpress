@@ -1,5 +1,6 @@
 import cv2
 
+from src.Camera.Symulator.CameraSymulator import CameraSymulator
 from src.Camera.Calibration.Calibration import Calibrate
 from src.Camera.ComonNames.ComonNames import CommonNames
 from src.Camera.Configuration.Configuration import Configuration
@@ -40,6 +41,8 @@ class Camera(CommonNames, GetFrame, Configuration, Calibrate, Loger):
         except TypeError:
             self.logError(
                 "Error During camera initialisation check it connection or if any other software is using it.")
+
+            self.device = CameraSymulator()
 
     def setNewValueForCommunicationPoint(self, communicationPoint):
         self.device.set(communicationPoint.address, communicationPoint.value)
