@@ -1,3 +1,5 @@
+![Tests](https://github.com/KrOlech/Magisterka-TestingStarterProject/actions/workflows/tests.yml/badge.svg)
+
 ***TO Do in Beta 0.5:***
 
 - zerowanie na pkcie znajdowanym softwrowo
