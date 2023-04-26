@@ -23,7 +23,6 @@ def test_Main_Close():
     mainWindow.TestClose()
 
 
-
 def test_JsonRead():
     jsonHandler = JsonHandling()
 
