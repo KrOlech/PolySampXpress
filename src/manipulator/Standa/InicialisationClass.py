@@ -67,7 +67,7 @@ class StandaManipulatorInicialisation(Loger):
 
     def enter(self):
         try:
-            self.device_id = self.lib.open_device("xi-com:\\\.\COM3".encode())
+            self.device_id = self.lib.open_device(r"xi-com:\\\.\COM3".encode()) #todo test after conversion to row string
         except Exception as e:
             self.loger(e)
             self.loger("error Trying opening new Manipulator")
