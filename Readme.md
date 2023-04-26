@@ -1,4 +1,4 @@
-![Tests](https://github.com/KrOlech/Magisterka/actions/workflows/tests.yml/badge.svg)
+![Tests](https://github.com/KrOlech/Magisterka/actions/workflows/python-app.yml/badge.svg)
 
 ***TO Do in Beta 0.5:***
 
