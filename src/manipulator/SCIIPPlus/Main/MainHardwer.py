@@ -1,3 +1,4 @@
+import asyncio
 from ctypes import c_char_p
 
 from src.manipulator.SCIIPPlus.Abstract.Main import SCIManipulator
@@ -18,7 +19,7 @@ class SCIManipulatorMain(SCIManipulator, JsonHandling):
     def homeAxis(self):
         self.x = -200
         self.y = -200
-        self.gotoNotAsync()
+        asyncio.run(self.goto())
         self.setZero()
         self.x = self.getPosition(1)
         self.y = self.getPosition(0)

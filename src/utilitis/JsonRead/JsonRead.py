@@ -10,9 +10,8 @@ class JsonHandling(Loger):
     def getFileLocation(file) -> str:
         config = r"\Config"
         fullPath = abspath(__file__)
-        fullPath = fullPath[:fullPath.rfind('src')+3]
+        fullPath = fullPath[:fullPath.rfind('src') + 3]
         return fullPath + config + "\\" + file
-
 
     def readFile(self, filePath) -> dict:
         with open(self.getFileLocation(filePath), 'r') as file:
@@ -33,6 +32,13 @@ class JsonHandling(Loger):
         manipulatorConfig = self.readFile("ManipulatorFullConfig.json")
         manipulatorConfig["0"]["CurrentPosition"] = positions
         self.saveFile("ManipulatorFullConfig.json", manipulatorConfig)
+
+    @staticmethod
+    def loadResolution(resolution):
+        with open(JsonHandling.getFileLocation(r"Resolutions.json"), 'r') as file:
+            data = json.load(file)[resolution]
+
+        return int(data["xResolution"]), int(data["yResolution"]), int(data["FPS"])
 
 
 def loadOffsetsJson():
