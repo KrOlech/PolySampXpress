@@ -4,6 +4,10 @@ from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFun
 
 class HomeAxisDialog(AbstractDialog):
 
+    @property
+    def windowName(self):
+        return "Homing"
+
     def __init__(self, manipulator, *args, **kwargs):
         super().__init__(manipulator, *args, **kwargs)
 

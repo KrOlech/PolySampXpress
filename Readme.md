@@ -5,6 +5,7 @@
 - zerowanie na pkcie znajdowanym softwrowo
    - na start pkt wybierany recznie.
 - Full migration to JsonReadClass
+- end mesage info uses difrent taskbar
 
 ***Done in Beta 0.5:***
 - auto Calibration Mode (Need testing)
@@ -55,3 +56,4 @@
 - Strange movement of ROIS after manipulator ordered to move Video in bugs
 - Strage Map creation need difrent offset than the roi
 - Last ROI stays during Map Creation (propabli residum from last created ROI)
+- dialog window not corectli resize (unse but mey need in future)

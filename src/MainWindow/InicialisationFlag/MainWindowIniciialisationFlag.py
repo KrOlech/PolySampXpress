@@ -1,5 +1,7 @@
 from PyQt5.QtWidgets import QDesktopWidget
 
+
+
 # todo podzielic do dwóch klas
 from src.MAP.Main.MapWindow import MapWindow
 from src.MainWindow.RoiList.MainWindowROIList import MainWindowROIList
@@ -12,6 +14,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     fildParams = 0
     selectedManipulatorZoom = 1
     mapWindowObject = None
+    isMapReadi = None
 
     def __init__(self, *args, **kwargs):
         super(MainWindowInicialisationFlag, self).__init__(*args, **kwargs)
@@ -56,11 +59,12 @@ class MainWindowInicialisationFlag(MainWindowROIList):
             self.mapWindowObject.addFrame(self.camera.getFrame())
 
     def createMap(self):
-        self.mapWindowObject = self.crateMapObject()
-        workFunWorkerAsync(self, self.mapWindowObject.mapCreate)
         if not self.mapWindowObject:
             self.mapWindowObject = self.crateMapObject()
+            dialogWindowMap = DialogWindowMap(self)
+            dialogWindowMap.run()
             workFunWorkerAsync(self, self.mapWindowObject.mapCreate)
+            dialogWindowMap.exec_()
         else:
             self.loger("do you wont to owe ride created Map?")
             # ToDo implement Correct in the future

@@ -4,9 +4,9 @@ from numpy import ndarray, average
 
 class GetFrame:
 
-    def getFrame(self) -> ndarray:
+    def getFrame(self) -> ndarray: #todo Optimalisation
         ret, newFrame = self.device.read()
-        return self.white_balance(self.resize(newFrame, 2560, 1440))
+        return self.white_balance(self.resize(newFrame, 1920, 1080)) #toDo read from system trey
 
     @staticmethod
     def resize(newFrame, width, height):
