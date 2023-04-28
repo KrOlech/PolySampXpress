@@ -40,3 +40,4 @@ class CalibrateAsync(Calibrate):
     def calibrateNegativeXYEnd(self):
         self.loger("Calibration End")
         self.calibrationDialog.end()
+        #ToDo calibration result in Gui
