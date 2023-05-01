@@ -1,4 +1,6 @@
 from src.MAP.Inicialiser.MapWindowInitialiser import MapWindowInitialise
+from PyQt5.QtWidgets import QFileDialog
+import cv2 as cv
 
 
 class MapWindow(MapWindowInitialise):
@@ -74,3 +76,9 @@ class MapWindow(MapWindowInitialise):
 
     def waitForManipulator(self):
         self.manipulator.waitForTarget()
+
+    def saveMapToFile(self):
+        folderPath, _ = QFileDialog.getSaveFileName(self.master, "Select Location to save Map", "", "BitMap Files (*.png)")
+        self.loger(folderPath)
+        if folderPath:
+            cv.imwrite(folderPath, self.mapNumpy)

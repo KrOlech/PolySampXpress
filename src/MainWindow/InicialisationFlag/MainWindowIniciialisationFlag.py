@@ -1,7 +1,5 @@
 from PyQt5.QtWidgets import QDesktopWidget
 
-
-
 # todo podzielic do dwóch klas
 from src.MAP.Main.MapWindow import MapWindow
 from src.MainWindow.RoiList.MainWindowROIList import MainWindowROIList
@@ -20,10 +18,12 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
         showMap = self.qActionCreate("Show Map", self.showMap)
         createMapAction = self.qActionCreate("Create Map", self.createMap)
+        saveMapAction = self.qActionCreate("Save Map", self.saveMap)
 
         mapMenu = self.menu.addMenu("&MAP")
         mapMenu.addAction(showMap)
         mapMenu.addAction(createMapAction)
+        mapMenu.addAction(saveMapAction)
 
         self.readWorkFieldWindow = ReadPoleRobocze(self, self.windowSize)
 
@@ -79,3 +79,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
     def crateMapObject(self):
         return MapWindow(self, self.windowSize, self.manipulator)
+
+    def saveMap(self):
+        if self.mapWindowObject:
+            self.mapWindowObject.saveMapToFile()
