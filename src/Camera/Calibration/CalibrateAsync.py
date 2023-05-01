@@ -1,6 +1,6 @@
 from src.Camera.Calibration.Calibration import Calibrate
 from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
-
+from src.Camera.Calibration.CalibrationResultWindow import CalibrationResultsDialog
 
 class CalibrateAsync(Calibrate):
 
@@ -40,4 +40,4 @@ class CalibrateAsync(Calibrate):
     def calibrateNegativeXYEnd(self):
         self.loger("Calibration End")
         self.calibrationDialog.end()
-        #ToDo calibration result in Gui
+        CalibrationResultsDialog(self.manipulatorInterferes).exec_()
