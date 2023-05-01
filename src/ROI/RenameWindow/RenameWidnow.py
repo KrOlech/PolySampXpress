@@ -9,7 +9,7 @@ class ReNameWindow(QLineEdit):
 
         self.ROI = ROI
 
-        x, y = self.ROI.GetTextLocation(0, 0)
+        x,y = 0,0 #toDo corect placement
 
         self.setGeometry(x, y, 10, 10)
 

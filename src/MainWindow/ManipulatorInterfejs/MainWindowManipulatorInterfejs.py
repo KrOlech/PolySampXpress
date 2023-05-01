@@ -58,7 +58,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
                                    self.standManipulatorAction, self.sCIManipulatorSimulatorAction,
                                    self.sCIManipulatorMainAction]
 
-        self.abstractManipulatorAction.setChecked(True)
+        self.sCIManipulatorMainAction.setChecked(True)
 
     def __createAction(self, name, manipulatorSeFun):
         return self.qActionCreate(name, manipulatorSeFun, checkable=True)
