@@ -1,4 +1,5 @@
 from src.manipulator.DialogWindow.Abstract import AbstractDialog
+from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 
 
 class GoToCordsDialog(AbstractDialog):
@@ -19,5 +20,11 @@ class GoToCordsDialog(AbstractDialog):
         self.finaliseOutput()
 
     def okPressed(self):
+        self.createWaitingLabel()
+        workFunWorker(self, self.goToThreadFun, self.endThread)
+
+    def goToThreadFun(self):
         self.manipulator.goToCords(x=self.valueX.value(), y=self.valueY.value())
+
+    def endThread(self):
         super(GoToCordsDialog, self).okPressed()

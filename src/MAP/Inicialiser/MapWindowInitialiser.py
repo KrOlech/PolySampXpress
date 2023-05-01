@@ -32,8 +32,6 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         self.master = master
         self.manipulator = manipulator
 
-        # asyncio.run(self.__gotoMapStart())
-
         self.mapParams = self.__mapParams()
 
         self.movementMap = self.__workFilledMovementMap()

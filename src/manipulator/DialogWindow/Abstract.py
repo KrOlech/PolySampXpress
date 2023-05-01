@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtWidgets import QDialog, QFormLayout, QPushButton, QDoubleSpinBox
+from PyQt5.QtWidgets import QDialog, QFormLayout, QPushButton, QDoubleSpinBox, QLabel
 
 from src.MainWindow.Utilitis.WindowBar import MyBar
 
@@ -52,3 +52,6 @@ class AbstractDialog(QDialog):
         spinBox.setValue(value)
         spinBox.setRange(0, 200)
         return spinBox
+
+    def createWaitingLabel(self):
+        self.form.addRow(QLabel("Waiting for manipulator to reach position"))

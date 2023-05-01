@@ -2,6 +2,7 @@ from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMessageBox, QPushButton, QLabel
 
+from src.manipulator.DialogWindow.WaitDialoge import HomeAxisDialog
 from src.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
 from src.manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 from src.manipulator.DialogWindow.SimpleDialogWindow import GoToCordsDialog
@@ -41,11 +42,11 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         manipulatorChoiceMenu = manipulatorMenu.addMenu("&Manipulator Type")
 
-        self.abstractManipulatorAction = self.qActionCreate("AbstractManipulator", self.setAbstractManipulator, checkable=True)
-        self.tCIPManipulatorAction = self.qActionCreate("TCIPManipulator", self.setTCIPManipulator, checkable=True)
-        self.standManipulatorAction = self.qActionCreate("StandManipulator", self.setStandManipulator, checkable=True)
-        self.sCIManipulatorSimulatorAction = self.qActionCreate("SCIManipulatorSimulator", self.setSCIManipulatorSimulator, checkable=True)
-        self.sCIManipulatorMainAction = self.qActionCreate("SCIManipulatorMain", self.setSCIManipulatorMain, checkable=True)
+        self.abstractManipulatorAction = self.__createAction("AbstractManipulator", self.setAbstractManipulator)
+        self.tCIPManipulatorAction = self.__createAction("TCIPManipulator", self.setTCIPManipulator)
+        self.standManipulatorAction = self.__createAction("StandManipulator", self.setStandManipulator)
+        self.sCIManipulatorSimulatorAction = self.__createAction("SCISimulator", self.setSCIManipulatorSimulator)
+        self.sCIManipulatorMainAction = self.__createAction("SCIManipulatorMain", self.setSCIManipulatorMain, )
 
         manipulatorChoiceMenu.addAction(self.abstractManipulatorAction)
         manipulatorChoiceMenu.addAction(self.tCIPManipulatorAction)
@@ -53,9 +54,14 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         manipulatorChoiceMenu.addAction(self.sCIManipulatorSimulatorAction)
         manipulatorChoiceMenu.addAction(self.sCIManipulatorMainAction)
 
-        self.manipulatorActions = [self.abstractManipulatorAction, self.tCIPManipulatorAction, self.standManipulatorAction, self.sCIManipulatorSimulatorAction, self.sCIManipulatorMainAction]
+        self.manipulatorActions = [self.abstractManipulatorAction, self.tCIPManipulatorAction,
+                                   self.standManipulatorAction, self.sCIManipulatorSimulatorAction,
+                                   self.sCIManipulatorMainAction]
 
         self.abstractManipulatorAction.setChecked(True)
+
+    def __createAction(self, name, manipulatorSeFun):
+        return self.qActionCreate(name, manipulatorSeFun, checkable=True)
 
     def setAbstractManipulator(self):
         self.__UncheckAll()
@@ -92,7 +98,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
             manipulatorAction.setChecked(State)
 
     def homeAxis(self):
-        self.manipulator.homeAxis()
+        homeAxis = HomeAxisDialog(self.manipulator)
+        homeAxis.run()
+        homeAxis.exec_()
 
     def goToCords(self):
         GoToCordsDialog(self.manipulator).exec_()

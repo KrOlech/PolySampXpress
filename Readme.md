@@ -15,10 +15,12 @@
 - botom info bar with current manipulator position
 - configure work Feald
 - manipulator selection interfejs
+- manipulatr GoTo and HomeAxis interfejs
+- Automatic tests start no proper tests implemented
 
 ***TO Do in Beta next:***
 
-- test in code manual
+- test in code
 
 - Debug Mode
 
@@ -30,8 +32,6 @@
 
 - Bug fixing and searching
 
-- Automatic tests + installation proces
-
 - Main class Refactor
 
 - resolution for Map
@@ -40,7 +40,7 @@
 
 - Utiliti Strig Using Python "Static"
 
-- position on the sample on main screen + cursor position
+- position off the cursor on main screen
 
 - auto mapwindow coling after program power off
 

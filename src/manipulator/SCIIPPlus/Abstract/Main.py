@@ -31,7 +31,6 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
 
     async def goto(self):
         self.goToMain()
-        asyncio.run(super().goto())
 
     def gotoNotAsync(self):
         self.goToMain()
