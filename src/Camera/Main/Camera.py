@@ -7,6 +7,7 @@ from src.Camera.Configuration.Configuration import Configuration
 from src.Camera.GetFrame.GetFrame import GetFrame
 from src.utilitis.JsonRead.JsonRead import JsonHandling
 from src.utilitis.Logger.Logger import Loger
+from src.utilitis.CustomExceptions.Exceptions import NoCammeraConected
 
 
 class Camera(CommonNames, GetFrame, Configuration, MainCalibrate, Loger):
@@ -37,10 +38,8 @@ class Camera(CommonNames, GetFrame, Configuration, MainCalibrate, Loger):
         try:
             ret, _ = self.device.read()
             if not ret:
-                raise TypeError  # TODO Proper Custom error
-        except TypeError:
-            self.logError(
-                "Error During camera initialisation check it connection or if any other software is using it.")
+                raise NoCammeraConected
+        except NoCammeraConected:
 
             self.device = CameraSymulator()
 
