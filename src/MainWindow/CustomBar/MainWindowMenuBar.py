@@ -9,10 +9,12 @@ from src.utilitis.Abstract import abstractmetod
 class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
     __metaclass__ = ABCMeta
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, windowSize, *args, **kwargs) -> None:
         super(MainWindowMenuBar, self).__init__(*args, **kwargs)
 
         self.menu = self.menuBar()
+
+        self.windowSize = windowSize
 
         listROI = self.qActionCreate("List ROI", self.showROIListButton)
         loadROI = self.qActionCreate("Save ROI List", self.loadListOfROI)

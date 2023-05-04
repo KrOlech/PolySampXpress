@@ -12,7 +12,7 @@ class CameraGUI(MainWindowMenuBar):
     def __init__(self, *args, **kwargs) -> None:
         super(CameraGUI, self).__init__(*args, **kwargs)
 
-        self.camera = Camera()
+        self.camera = Camera(self.windowSize)
 
         self.view = SimpleView(self)
 
