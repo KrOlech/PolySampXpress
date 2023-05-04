@@ -16,21 +16,21 @@ class PointEdit(AbstractPoint, AbstractEdit):
         self.y0 = self.py
 
 
-    def mouseMove(self, e, x, y):
+    def mouseMove(self, event, xManipulatorPosition, yManipulatorPosition):
         if self.firstPress:
-            odx, ody = self.calculateOffset(x, y)
-            self.px, self.py = e.x() + odx, e.y() + ody
+            odx, ody = self.calculateOffset(xManipulatorPosition, yManipulatorPosition)
+            self.px, self.py = event.x() + odx, event.y() + ody
             if self.move:
                 self.__move()
 
-        super(PointEdit, self).mouseMove(e, x, y)
+        super(PointEdit, self).mouseMove(event, xManipulatorPosition, yManipulatorPosition)
 
-    def mousePositionCheck(self, e, x, y):
+    def mousePositionCheck(self, event, xManipulatorPosition, yManipulatorPosition):
         self.move = False
 
-        dx, dy = self.calculateOffset(x, y)
+        dx, dy = self.calculateOffset(xManipulatorPosition, yManipulatorPosition)
 
-        self.px, self.py = e.x() + dx, e.y() + dy
+        self.px, self.py = event.x() + dx, event.y() + dy
 
         self.move = self.isCenter()
 

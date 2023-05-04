@@ -23,11 +23,7 @@ class AbstractEdit:
         self.updateViue()
 
     @abstractmethod
-    def mousePositionCheck(self, e, x, y):  # toDo better paramiter names
-        abstractmetod(self)
-
-    @abstractmethod
-    def calculateOffset(self, x, y):  # toDo better paramiter names
+    def mousePositionCheck(self, event, xManipulatorPosition, yManipulatorPosition):
         abstractmetod(self)
 
     @abstractmethod
@@ -35,7 +31,7 @@ class AbstractEdit:
         abstractmetod(self)
 
     @abstractmethod
-    def mouseMove(self, e, x, y):  # toDo better paramiter names
+    def mouseMove(self, event, xManipulatorPosition, yManipulatorPosition):
         self.rect = self.createMarker()
         self.updateViue()
 

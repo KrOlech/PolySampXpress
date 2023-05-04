@@ -20,19 +20,19 @@ class ROIEdit(AbstractROI, AbstractEdit):
         else:
             self.__edgeMove()
 
-    def mouseMove(self, e, x, y):
+    def mouseMove(self, event, xManipulatorPosition, yManipulatorPosition):
 
         if self.firstPress:
-            odx, ody = self.calculateOffset(x, y)
-            self.px1, self.py1 = e.x() + odx, e.y() + ody
+            odx, ody = self.calculateOffset(xManipulatorPosition, yManipulatorPosition)
+            self.px1, self.py1 = event.x() + odx, event.y() + ody
 
             if self.move:
                 self.__move()
-                self.px0, self.py0 = e.x() + odx, e.y() + ody
+                self.px0, self.py0 = event.x() + odx, event.y() + ody
             else:
                 self.__edgeMove()
 
-        super(ROIEdit, self).mouseMove(e, x, y)
+        super(ROIEdit, self).mouseMove(event, xManipulatorPosition, yManipulatorPosition)
 
     def __negateAll(self):
         self.top = False
@@ -48,13 +48,13 @@ class ROIEdit(AbstractROI, AbstractEdit):
 
         self.move = False
 
-    def mousePositionCheck(self, e, x, y):
+    def mousePositionCheck(self, event, xManipulatorPosition, yManipulatorPosition):
 
         self.__negateAll()
 
-        dx, dy = self.calculateOffset(x, y)
+        dx, dy = self.calculateOffset(xManipulatorPosition, yManipulatorPosition)
 
-        self.px0, self.py0 = e.x() + dx, e.y() + dy
+        self.px0, self.py0 = event.x() + dx, event.y() + dy
 
         self.move = self.isCenter()
 
