@@ -6,7 +6,7 @@ from asyncio import sleep
 from src.manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 from src.manipulator.TCIP.TCIPUtilitiString import TCIPUtilitiString
 from src.manipulator.TCIP.TCIPWorker import tcipWork
-from src.utilitis.JsonRead.JsonRead import loadOffsetsJson
+from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
 class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
@@ -17,7 +17,7 @@ class TCIPManipulator(AbstractManipulator, TCIPUtilitiString):
     x, y, z = 25.0, 25.0, 25.0
 
     def __init__(self, screenSize, *args, **kwargs):
-        self.xOffset, self.yOffset = loadOffsetsJson()
+        self.xOffset, self.yOffset = JsonHandling.loadOffsetsJson()
         self.socket = SOCKET.socket(SOCKET.AF_INET, SOCKET.SOCK_STREAM)
         self.socket.bind((self.TCP_IP, self.TCP_PORT))
         self.socket.listen(1)

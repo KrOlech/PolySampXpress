@@ -40,11 +40,11 @@ class JsonHandling(Loger):
 
         return int(data["xResolution"]), int(data["yResolution"]), int(data["FPS"])
 
-
-def loadOffsetsJson():
-    with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'r') as file:
-        data = json.load(file)
-    return float(data["0"]["offsets"]["x"]), float(data["0"]["offsets"]["y"])
+    @staticmethod
+    def loadOffsetsJson():
+        with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'r') as file:
+            data = json.load(file)
+        return float(data["0"]["offsets"]["x"]), float(data["0"]["offsets"]["y"])
 
 
 def loadPolaRoboczeJson():
