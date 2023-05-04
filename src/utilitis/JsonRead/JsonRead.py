@@ -7,6 +7,21 @@ from src.utilitis.Logger.Logger import Loger
 class JsonHandling(Loger):
     manipulatorMainFile = "ManipulatorFullConfig.json"
 
+    roiConfigFile = "RoiConfig.json"
+
+    @staticmethod
+    def readRoiConfig() -> dict:
+        return JsonHandling.readFile(JsonHandling.roiConfigFile)
+
+    @staticmethod
+    def readROILabelConfig() -> dict:
+        return JsonHandling.readRoiConfig()["Label"]
+
+    @staticmethod
+    def readRoiLabelScalles():
+        scalles = JsonHandling.readROILabelConfig()["scalle"]
+        return scalles["X"], scalles["Y"]
+
     @staticmethod
     def readManipulatorRange():
         data = JsonHandling.readFile(JsonHandling.manipulatorMainFile)
