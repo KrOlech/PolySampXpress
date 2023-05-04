@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QDesktopWidget
 
 
 # todo podzielic do dwóch klas
+from src.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
 from src.MAP.Main.MapWindow import MapWindow
 from src.MainWindow.RoiList.MainWindowROIList import MainWindowROIList
 from src.WorkFeald.Main.main import ReadPoleRobocze
@@ -38,6 +39,11 @@ class MainWindowInicialisationFlag(MainWindowROIList):
             action = self.qActionCreate(str(field[-1]), lambda checked, nr=i: self.togle(nr), checkable=True)
             self.workFildMenu.addAction(action)
             self.workFildActions.append(action)
+
+    def closeAction(self):
+        super(MainWindowInicialisationFlag, self).closeAction()
+        if self.mapWindowObject:
+            self.mapWindowObject.mapWidget.close()
 
     def togle(self, nr):
         self.__UncheckAll()

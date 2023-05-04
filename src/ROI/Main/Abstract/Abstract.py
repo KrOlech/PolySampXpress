@@ -2,14 +2,14 @@ from abc import ABCMeta, abstractmethod
 
 from src.ROI.Label.ROILable import ROILabel
 from src.utilitis.Abstract import abstractmetod
-from src.utilitis.JsonRead.JsonRead import loadOffsetsJson
+from src.utilitis.JsonRead.JsonRead import JsonHandling
 from src.utilitis.Logger.Logger import Loger
 
 
 class AbstractR(Loger):
     __metaclass__ = ABCMeta
 
-    xOffset, yOffset = loadOffsetsJson()
+    xOffset, yOffset = JsonHandling.loadOffsetsJson()
 
     def __init__(self, *args, **kwargs):
         self.master = kwargs['master']
