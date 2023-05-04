@@ -1,8 +1,8 @@
-from src.manipulator.DialogWindow.Abstract import AbstractDialog
+from src.manipulator.DialogWindow.AbstractM import AbstractDialogManipulator
 from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 
 
-class HomeAxisDialog(AbstractDialog):
+class HomeAxisDialog(AbstractDialogManipulator):
 
     @property
     def windowName(self):

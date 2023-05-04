@@ -16,10 +16,16 @@ class AbstractDialog(QDialog):
     def windowName(self):
         return ""
 
-    def __init__(self, manipulator, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    @property
+    def okName(self):
+        return "ok"
 
-        self.manipulator = manipulator
+    @property
+    def CancelName(self):
+        return "Cancel"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
 
@@ -28,10 +34,10 @@ class AbstractDialog(QDialog):
 
         self.form = QFormLayout(self)
 
-        self.okButton = QPushButton('OK')
+        self.okButton = QPushButton(self.okName)
         self.okButton.clicked.connect(self.okPressed)
 
-        self.cancelButton = QPushButton('Cancel')
+        self.cancelButton = QPushButton(self.CancelName)
         self.cancelButton.clicked.connect(self.cancelPressed)
 
     def resizeEvent(self, event):

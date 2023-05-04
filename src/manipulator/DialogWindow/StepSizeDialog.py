@@ -1,7 +1,7 @@
-from src.manipulator.DialogWindow.Abstract import AbstractDialog
+from src.manipulator.DialogWindow.AbstractM import AbstractDialogManipulator
 
 
-class SetStepSizeDialog(AbstractDialog):
+class SetStepSizeDialog(AbstractDialogManipulator):
 
     @property
     def windowName(self):

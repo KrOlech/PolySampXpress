@@ -1,0 +1,12 @@
+from abc import ABCMeta
+
+from src.manipulator.DialogWindow.Abstract import AbstractDialog
+
+
+class AbstractDialogManipulator(AbstractDialog):
+    __metaclass__ = ABCMeta
+
+    def __init__(self, manipulator, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.manipulator = manipulator
