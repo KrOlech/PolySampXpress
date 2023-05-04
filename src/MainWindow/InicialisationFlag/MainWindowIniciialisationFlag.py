@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QDesktopWidget
 
 
 # todo podzielic do dwóch klas
+from src.MAP.Dialog.OwerideDialog import OwerideCurrentMapDialog
+from src.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
 from src.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
 from src.MAP.Main.MapWindow import MapWindow
 from src.MainWindow.RoiList.MainWindowROIList import MainWindowROIList
@@ -16,6 +18,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     selectedManipulatorZoom = 1
     mapWindowObject = None
     isMapReadi = None
+    owerideMap = False
 
     def __init__(self, *args, **kwargs):
         super(MainWindowInicialisationFlag, self).__init__(*args, **kwargs)
@@ -73,7 +76,20 @@ class MainWindowInicialisationFlag(MainWindowROIList):
             dialogWindowMap.exec_()
         else:
             self.loger("do you wont to owe ride created Map?")
-            # ToDo implement Correct in the future
+            OwerideCurrentMapDialog(self).exec_()
+
+            if not self.owerideMap:
+                self.loger("no I don't wont to owe ride created Map?")
+                return
+
+            self.loger("Yes I wont to owe ride created Map?")
+
+            self.owerideMap = False
+            self.mapWindowObject.mapWidget.close()
+            self.mapWindowObject = None
+
+            self.createMap()
+
 
     def showMap(self):
         if self.mapWindowObject:
