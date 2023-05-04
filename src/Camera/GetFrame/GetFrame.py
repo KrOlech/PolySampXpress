@@ -6,7 +6,7 @@ class GetFrame:
 
     def getFrame(self) -> ndarray: #todo Optimalisation
         ret, newFrame = self.device.read()
-        return self.white_balance(self.resize(newFrame, 1920, 1080)) #toDo read from system trey
+        return self.white_balance(self.resize(newFrame, self.windowSize.width(), self.windowSize.height()))
 
     @staticmethod
     def resize(newFrame, width, height):

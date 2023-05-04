@@ -5,8 +5,9 @@ from src.Camera.Calibration.Main import MainCalibrate
 from src.Camera.ComonNames.ComonNames import CommonNames
 from src.Camera.Configuration.Configuration import Configuration
 from src.Camera.GetFrame.GetFrame import GetFrame
-from src.utilitis.JsonRead.JsonRead import loadNativeCameraResolutionJson
+from src.utilitis.JsonRead.JsonRead import JsonHandling
 from src.utilitis.Logger.Logger import Loger
+from src.utilitis.CustomExceptions.Exceptions import NoCammeraConected
 
 
 class Camera(CommonNames, GetFrame, Configuration, MainCalibrate, Loger):
@@ -14,12 +15,14 @@ class Camera(CommonNames, GetFrame, Configuration, MainCalibrate, Loger):
     Class allowing communication with camera and adjusting her settings
     '''
 
-    WIDTH, HEIGHT, FPS = loadNativeCameraResolutionJson()
+    WIDTH, HEIGHT, FPS = JsonHandling.loadNativeCameraResolutionJson()
 
-    def __init__(self):
+    def __init__(self, windowSize):
         super().__init__()
 
         self.device = cv2.VideoCapture(0)
+
+        self.windowSize = windowSize
 
         self.testCameraCommunication()
 
@@ -37,10 +40,8 @@ class Camera(CommonNames, GetFrame, Configuration, MainCalibrate, Loger):
         try:
             ret, _ = self.device.read()
             if not ret:
-                raise TypeError  # TODO Proper Custom error
-        except TypeError:
-            self.logError(
-                "Error During camera initialisation check it connection or if any other software is using it.")
+                raise NoCammeraConected
+        except NoCammeraConected:
 
             self.device = CameraSymulator()
 

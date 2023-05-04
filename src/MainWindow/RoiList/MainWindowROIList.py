@@ -1,5 +1,6 @@
 from src.MainWindow.ManipulatorInterfejs.MainWindowManipulatorInterfejs import MainWindowManipulatorInterfejs
 from src.ROI.List.ROIList import ROIList
+from functools import cache
 
 
 class MainWindowROIList(MainWindowManipulatorInterfejs):
@@ -10,11 +11,15 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
         self.roiList = ROIList(self, self.widget)
         self.roiList.hide()
 
-    def showROIList(self, e):
-        if e.x() > 2400:  # TODO dopracowac wartosc
-            self.roiList.show()
-            self.roiList.move(2250, 0)
+    @property
+    @cache
+    def roiListWidthFilld(self):
+        return self.windowSize.width() - self.roiList.width
 
+    def showROIList(self, e):
+        if e.x() > self.roiListWidthFilld:
+            self.roiList.move(self.roiListWidthFilld, 0)
+            self.roiList.show()
         else:
             self.roiList.hide()
 

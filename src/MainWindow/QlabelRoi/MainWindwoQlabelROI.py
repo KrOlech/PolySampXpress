@@ -5,21 +5,18 @@ from src.MainWindow.Utilitis.QlabelExtendetManipulatorMenu import QlabelRightCli
 
 
 class CameraGUIExtension(CameraGUI):
-
     windowSize = None
 
-    def __init__(self, windowSize, *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         super(CameraGUIExtension, self).__init__(*args, **kwargs)
 
-        self.windowSize = windowSize
-
-        self.setFixedSize(windowSize)
+        self.setFixedSize(self.windowSize)
 
         self.widget = QWidget()
         self.setCentralWidget(self.widget)
 
         self.cameraView = QlabelRightClickMenu(self)
-        self.cameraView.setFixedSize(windowSize)
+        self.cameraView.setFixedSize(self.windowSize)
 
         self.layout_box = QVBoxLayout(self.widget)
         self.layout_box.setContentsMargins(0, 0, 0, 0)

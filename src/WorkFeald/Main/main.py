@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt
 
 from src.WorkFeald.GUI.Gui import WorkFilledGui
-from src.utilitis.JsonRead.JsonRead import loadPolaRoboczeJson
+from src.utilitis.JsonRead.JsonRead import JsonHandling
 from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 
 
@@ -11,7 +11,7 @@ class ReadPoleRobocze:
 
         self.mainWindow = mainWindow
 
-        self.workFields = loadPolaRoboczeJson()
+        self.workFields = JsonHandling.loadPolaRoboczeJson()
 
         self.GUI = WorkFilledGui(self.workFields, windowSize)
         self.GUI.setWindowFlag(Qt.Popup)

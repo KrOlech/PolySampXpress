@@ -1,10 +1,10 @@
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout
+from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
 class WorkFaldLabel(QWidget):
-    scalaX = 10  # TODo move to config File
-    scalaY = 10
+    scalaX, scalaY = JsonHandling.readRoiLabelScalles()  # todo check if from correct value tipe it is read
 
     def __init__(self, workFildParams, gui, screenSize, *args, **kwargs):
         super(WorkFaldLabel, self).__init__(*args, **kwargs)
