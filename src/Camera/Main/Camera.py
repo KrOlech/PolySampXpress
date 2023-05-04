@@ -5,7 +5,7 @@ from src.Camera.Calibration.Main import MainCalibrate
 from src.Camera.ComonNames.ComonNames import CommonNames
 from src.Camera.Configuration.Configuration import Configuration
 from src.Camera.GetFrame.GetFrame import GetFrame
-from src.utilitis.JsonRead.JsonRead import loadNativeCameraResolutionJson
+from src.utilitis.JsonRead.JsonRead import JsonHandling
 from src.utilitis.Logger.Logger import Loger
 
 
@@ -14,7 +14,7 @@ class Camera(CommonNames, GetFrame, Configuration, MainCalibrate, Loger):
     Class allowing communication with camera and adjusting her settings
     '''
 
-    WIDTH, HEIGHT, FPS = loadNativeCameraResolutionJson()
+    WIDTH, HEIGHT, FPS = JsonHandling.loadNativeCameraResolutionJson()
 
     def __init__(self):
         super().__init__()

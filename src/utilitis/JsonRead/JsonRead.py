@@ -13,25 +13,29 @@ class JsonHandling(Loger):
         fullPath = fullPath[:fullPath.rfind('src') + 3]
         return fullPath + config + "\\" + file
 
-    def readFile(self, filePath) -> dict:
-        with open(self.getFileLocation(filePath), 'r') as file:
+    @staticmethod
+    def readFile(filePath) -> dict:
+        with open(JsonHandling.getFileLocation(filePath), 'r') as file:
             rowData = json.load(file)
 
         return rowData
 
-    def saveFile(self, filePath, dictionary: dict):
-        with open(self.getFileLocation(filePath), 'w') as file:
+    @staticmethod
+    def saveFile(filePath, dictionary: dict):
+        with open(JsonHandling.getFileLocation(filePath), 'w') as file:
             json.dump(dictionary, file, indent=4)
 
-    def readManipulatorPosition(self):
-        manipulatorConfig = self.readFile("ManipulatorFullConfig.json")
+    @staticmethod
+    def readManipulatorPosition():
+        manipulatorConfig = JsonHandling.readFile("ManipulatorFullConfig.json")
         positions = manipulatorConfig["0"]["CurrentPosition"]
         return positions["x"], positions["y"]
 
-    def saveManipulatorPosition(self, positions: dict):
-        manipulatorConfig = self.readFile("ManipulatorFullConfig.json")
+    @staticmethod
+    def saveManipulatorPosition(positions: dict):
+        manipulatorConfig = JsonHandling.readFile("ManipulatorFullConfig.json")
         manipulatorConfig["0"]["CurrentPosition"] = positions
-        self.saveFile("ManipulatorFullConfig.json", manipulatorConfig)
+        JsonHandling.saveFile("ManipulatorFullConfig.json", manipulatorConfig)
 
     @staticmethod
     def loadResolution(resolution):
@@ -65,26 +69,19 @@ class JsonHandling(Loger):
                 break
         return fild
 
+    @staticmethod
+    def loadCameraResolutionJson():
+        with open(JsonHandling.getFileLocation(r"CameraConfig.json"), 'r') as file:
+            resolution = json.load(file)["ScaledResolution"]
+        x, y, fps = JsonHandling.loadResolution(resolution)
+        return x, y
 
-def loadCameraResolutionJson():
-    with open(JsonHandling.getFileLocation(r"CameraConfig.json"), 'r') as file:
-        resolution = json.load(file)["ScaledResolution"]
-    x, y, fps = loadResolution(resolution)
-    return x, y
+    @staticmethod
+    def loadNativeCameraResolutionJson():
+        with open(JsonHandling.getFileLocation(r"CameraConfig.json"), 'r') as file:
+            resolution = json.load(file)["NativeResolution"]
 
-
-def loadNativeCameraResolutionJson():
-    with open(JsonHandling.getFileLocation(r"CameraConfig.json"), 'r') as file:
-        resolution = json.load(file)["NativeResolution"]
-
-    return loadResolution(resolution)
-
-
-def loadResolution(resolution):
-    with open(JsonHandling.getFileLocation(r"Resolutions.json"), 'r') as file:
-        data = json.load(file)[resolution]
-
-    return int(data["xResolution"]), int(data["yResolution"]), int(data["FPS"])
+        return JsonHandling.loadResolution(resolution)
 
 
 if __name__ == '__main__':
