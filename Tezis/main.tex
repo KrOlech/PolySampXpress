@@ -1,0 +1,215 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=3cm]{geometry}
+\usepackage{graphicx}
+\usepackage[document]{ragged2e}
+\usepackage{enumitem}
+\usepackage{listings}
+
+\renewcommand\lstlistingname{Kod źródłowy}
+\renewcommand\lstlistlistingname{Kod źródłowy}
+
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codeorange}{rgb}{1,0.49,0}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.96}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{codeorange},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=false,
+    captionpos=t,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    xleftmargin=10pt,
+}
+
+\lstset{style=mystyle}
+
+
+\begin{document}
+    \thispagestyle{empty}
+    \begin{center}
+        \includegraphics[width=\textwidth]{"C:\Users\Zenbook\PycharmProjects\Magisterka\Tezis\logo_AGH.jpg"}\\
+        \bf{\sf{WYDZIAŁ FIZYKI I INFORMATYKI STOSOWANEJ}}\\[5mm]
+        \bf{\sf{KATEDRA FIZYKI MEDYCZNEJ I BIOFIZYKI}}\\[14mm]
+
+        \sf{\huge Projekt Dyplomowy}\\[12mm]
+
+        \sf{\Large Rozwój oprogramowania stacji mikroskopu optycznego dla linii badawczej Polyx na synchrotronie Solaris.\\[2mm]
+        Developement of the software for the off-line microscope station for the Polyx beamline at Solaris synchrotron }\\[40mm]
+    \end{center}
+    \sf{
+        \begin{tabular}{ll}
+            Autor:            & Krzysztof Olech      \\
+            Kierunek studiów: & Fizyka Techniczna   \\
+            Opiekun pracy:    & dr inż. Paweł Wróbel \\
+        \end{tabular}
+    }\\[10mm]
+    \begin{center}
+        \sf{Kraków, 2023}
+    \end{center}
+
+
+    \newpage
+
+    \tableofcontents
+
+    \newpage
+
+
+    \section{Wstemp}
+
+
+    \section{Użyte Technologie}
+
+
+    \section{Softwer}
+
+    \subsection{Beta 0.1}
+
+    \subsubsection{Podstawowe funkcjonalności}
+    \begin{itemize}
+        \item \textbf{Obsługa Kamery} \\ Do Obsługi kamery wykorzystano OpenCV, gdyż niestety dostarczona przez producenta biblioteka nie była integrowana z zewnętrznym oprogramowaniem. Na sczeszcie kamera w dużej mierze jest natywna kamera USB wiec nie było z tym większego problemu. Poza samym odbiorem obrazu z kamery została dodana możliwość ustawienia parametrów odbieranego obrazu.
+        \item \textbf{Oznaczanie ROI} \\ Została zaimplementowana podstawowa funkcjonalność umożliwiając oznaczanie obszarów zainteresowania poprzez przeciągniecie myszki po podglądzie z kamery.
+            {\color{red}
+        Grafika}
+        \item \textbf{Lista ROI} \\ Została zaimplementowana podstawowa funkcjonalność listy ROI
+            {\color{red}
+        Grafika}
+    \end{itemize}
+
+    \subsubsection{Skalowalność oprogramowania}
+
+    \hspace{1cm} Jednym z podstawowych założeń podczas tworzenia oprogramowania było napisanie go w taki sposób żeby zamiana używanego manipulatora kamery lub innego podzespołu hardwarowego nie psuła założeń oprogramowania. Pierwsza wersja oprogramowania wykonana w ramach pracy inżynierskiej była bardzo związana z hardwerem z uwagi na metodę komunikacji z kamera i zależność mapy od manipulatora.\\
+
+    \hspace{1cm} Żeby nie powtórzyć tego błędu w nowym oprogramowaniu w celu umożliwienia użycia potencjalnie różnych manipulatorów i kamer zastosowano podejście modularne, polegające na wykonaniu klas abstrakcyjnych służących za szablony do komunikacji miedzy poszczególnymi warstwami oprogramowania.
+
+            {\color{red}
+    (schemat Frotend - Backend - hardwer)}
+
+
+    \hspace{1cm}Komunikacja pomiędzy backendem a frontendem zachodzi tylko i wypocznie na wcześniej ustalonych metodach dzięki czemu jakakolwiek zmiana w hardwerze wymaga tylko i wypocznie implementacji odpowiednich metod w ramach backendu dla nowego hardweru i nie wymagają żadnych zmian w frontendzie.\\
+
+
+    {\color{red}
+    Nie wiem czy nie jest tu za bardzo masło maślane i nie jest tak ze 3 razy opisuje to samo}
+
+    \subsubsection{Manipulator TCIP}
+
+    \hspace{1cm}Głównym problemem rozwiązanym w ramach tej części była nie kompatybilność kamery z systemami 32 bitowymi i manipulatora z 64 bitowymi. Na szczęście dzięki molarności oprogramowania do celów testowych i rozwoju funkcjonalności, bardzo prostym rozwiązaniem było rozdzielenie oprogramowanie na 2 komputery:\\
+    \hspace{1cm}Na jednym główna cześć oprogramowania odpowiedzialna za odbiór danych z kamery i od użytkownika i przekazanie po TCIP odpowiednich poleceń do komputera 2.\\
+    \hspace{1cm}Ma drugim odbiór danych z komputera pierwszego i przekazanie ich do manipulatora.
+
+    \subsection{Beta 0.2}
+
+    \subsubsection{Edycja ROI}
+    \hspace{1cm} Głównym celem do wykonania podczas tworzenia tej wersji było wykonanie funkcjonalności umożliwiającej edycje obszarów oznaczonych. \\
+    \hspace{1cm} Pierwszym napotkanym problemem podczas tego było gdzie umożliwić użytkownikowi przełączenie się na tryb edycji z trybu oznaczania. Poprzednia opcja umożliwiała to wyłącznie poprzez wybranie roi na licie, z uwagi na niska intuicyjność tego rozwiązania w nowszej wersji podstawowe przetłoczenie się na tryb edycji roi polega na przyciśnięciu na interesujący nasz ROI prawym przyciskiem myszki gdzie pojawi nam się odpowiednie menu kontekstowe w którym będziemy mogli wybrać interesujący nasz ROI i dokonać jego modyfikacji takich jak zmiana nazwy edycja wymiarów oraz usuniecie go. \\
+    \hspace{1cm} Pod spodem w warstwie backendowej sama funkcjonalność edycji została stworzona w taki sposób zęby umożliwić bardzo sprawne dodanie edycji nowych typów roi.\\
+
+    \subsubsection{Lepsza obsługa manipulatora}
+    \hspace{1cm} Druga rzeczą dopracowana w ramach tej wersji oprogramowania było dodanie dodatkowych funkcjonalności manipulatora. Podstawowa z nich było umożliwienie dokonania centrowania na wybranym punkcie na ekranie i w przyszłości na wybranym centrum oznaczonego ROI'u.\\
+    \hspace{1cm} Funkcjonalność pobierania statusu manipulatora została zamieniona na stały czas oczekiwania gdyż wykonanie jej wymagało za dużego czasu a nie będzie ona użyta w finalnym rozwiązaniu dlatego nie było sensu marnować na to czas.
+
+    \subsection{Beta 0.3}
+
+    \subsubsection{Interfejs mapy}
+    \hspace{1cm} Pierwsza rzeczom wykonana w ramach tej części oprogramowania było wykonanie interfejsu umożliwiającego użytkownikowi zainicializowanie tworzenia mapy oraz otrzymania od niego koniecznych informacji w celu wykonania mapy.\\
+    \hspace{1cm} Pobranie informacji od użytkownika jest konieczne gdyż nawet na docelowym manipulatorze przy dostatecznie dużym zoomie samo stworzenie mapy może zając bardzo dużo czasu a z uwagi na to zęby mapa nie zajmowała absurdalnej przestrzenie w pamięci i była wyświetlana bez potrzeby komputera o wygórowanych parametrach musi ona być ograniczona. Finalnie przy olbrzymiej mapie na bardzo małym zumie, może się okazać że dużo korzystniej będzie wykonać ja na mniejszym zumie jako ze z każdej klatki finalnie zsumujemy do kilku pikseli. W celu zabezpieczenia przed takimi sytuacjami została do mechanizmu pobierającego informacje od użytkownika zaimplementowana prosta metoda sprawdzając czy dla zadanych przez użytkownika parametrów mapa ma akceptowalny poziom skalowania i czas wykonania.\\
+
+    \subsubsection{Algorytm Tworzenia Mapy 1.0}
+    \hspace{1cm} Do wykonania mapy powstał bardzo rozbudowany algorytm:\\
+    {\color{red} skrin Ogulny algorytmu}\\
+    Niestety mimo tego ze podczas tworzenia algorytmu zostały rozważone i obsłużone wszystkie przypadki krańcowe które mogły nadtopić, sam mechanizm docinania został źle analizowany i napraw jego analizy zajmowała za długo dlatego został on porzucony na rzecz dużo prostszego podejścia.\\
+    {\color{red} Reszta schematu algorytmu z omówieniem}\\
+
+    \subsubsection{Refactor kodu}
+    \hspace{1cm} Na samym początku pisania oprogramowania zostały wybrane zasady pisania i segregacji posczegulnych czesci kodu w celu ich większej przejrzystości i łatwiejszego powrotu do nich. Niestety z uwagi na to ze projekt rozrósł się powyżej oczekiwań trzeba było wybrać bardziej rygorystyczne zasady w celu utrzymania struktury kodu w ryzach.\\
+    \hspace{1cm} Wybranymi na początku zasadami było jeden folder na każda duża funkcjonalność/integracja do tego drzewko zależności dla klasy głównego Okna. Niestety same podklasy do integracji/funkcjonalności rozrosły się tak bardzo ze jeden folder na nie już się nie nadawał dlatego w celu uniknięcia dalszych problemów tego typu każda pod funkcjonalność programu zyskała własny folder w ramach głównego folderu cechy, ponad to zostały wyróżnione specyficzne nazwy folderów takie jak main i abstract zawierające odpowiednio główne pliki danej cechy przeznaczone do podpięcia w głównym skrypcie oraz integracje abstrakcyjne w celu przyszłościowego integrowania funkcjonalności interfejsu bez poleganiu na działaniu poszczególnych cech.
+
+    \subsection{Beta 0.4}
+
+    \subsubsection{Nowe Metody oznaczania ROI}
+    \hspace{1cm} Korzystając z molarności oprogramowania zostały dodane oznaczanie roi punktowych oraz ich edycje. oraz ROI'e prostokątne oznaczone jako zbiór punktów w przyszłości zostanie dodana możliwości specyfikacji tych punktów \\
+
+    \subsubsection{Algorytm Tworzenia Mapy 2.0 i 3.0}
+    \hspace{1cm} Z uwagi na problemy z złożonością algorytmu tworzenia Mapy 1.0 został stworzony algorytm 2.0 będący prostszym podejściem do obsłużenia wszystkich możliwych kształtów mapy. Niestety z uwagi na uproszczenia poczynione w ramach tego algorytmu okazało się ze za dużo przypadków jest źle obsługiwanych dlatego prace nad nim zostały za rzucone na jeszcze bardziej prosty algorytm 3.0 nie umożliwiając wykonania każdego kształtu mapy lecz dzięki swojej prostocie działając bezbłędnie.
+            {\color{red} Schematy do tego i opisy co i jak.}
+
+    \subsubsection{Manipulator Zoom'u}
+
+    \subsubsection{Usprawnienia oprogramowania}
+
+    \subsection{Beta 0.5}
+
+    \subsubsection{Auto fokus}
+
+    \subsubsection{Auto kalibracja}
+
+    \subsubsection{Obsługa Zoom}
+
+    \subsubsection{Nowy manipulator}
+
+    \subsection{Beta 0.6}
+
+    \subsubsection{Optymalizacja}
+
+    \subsubsection{Refactor kodu}
+
+    \subsection{Prerelease 1.0}
+
+    \subsubsection{Metoda automatycznej aktualizacji}
+
+    \subsubsection{Zbieranie informacji od użytkowników}
+
+    \subsection{Release 1.0}
+
+    \subsubsection{Testy}
+
+    \subsubsection{stworzenie instalatora}
+
+
+    \newpage
+
+
+    \section{Hardwer}
+
+    \subsection{Stanowisko Testowe 1.1}
+    %Jakies zdjecie stanowiska
+    Główna rusznica miedzy stanowiskiem testowym 1.0 a stanowiskiem 1.1 jest nowa kamera niestety z uwagi na to ze jest to docelowa kamera wspierająca rozdzielczość 4K i 60 Hz wymaga ona USB 3.2 do poprawnego działania. Niestety nie jest ono obsługiwane na systemach 32 bitowych który jest wymagany z uwagi na to że ze stanowisko testowe wykorzystywało bardzo stary ale równie wysoce precyzyjny manipulator.
+    Obejście tego problemu zostało wykonane z użyciem komunikacji TCIP miedzy dwoma stanowiskami jednym obsługującym kamerę i gówna cześć oprogramowania i drugim przyjmującym polecenia po TCIP i przekazujący ja do manipulatora. Największym problemem stanowiska były problemy z odbiorem zwrotnym danych z komputera obsługującego manipulator. Niestety z uwagi na brak konieczności tego zastosowania w docelowym oprogramowaniu bezsensowne było poświecić czas na rozwiązywanie problemów z komunikacja.
+
+    \subsubsection{Nowa Kamera}
+    %opis kamery nie pamientam firmy ani nic z czego była xD
+
+    \subsection{Stanowisko 0.9}
+    %zdjecia
+    Stanowisko wykorzystuje docelowy manipulator.
+    %nie wiem jesce co i jak znim bo w sumie nie udało sie go oporogramowac i dostac do niego zadnego poprawnego oprogramowania.
+
+    \subsubsection{Nowy manipulator}
+    Manipulator składa się z wykonanych przez Stand'e 2 osiowego manipulatora do przemieszczania matrycy z próbkami. oraz dodatkowej osi umożliwiającej manipulacje położeniem mikroskopu w pionie. W przypadku osi obsługującej położenie mikroskopu sterownik silników krokowych został wykonany autorsko przez Stande i komunikują się z komputerem z pomocą interfejsu USB. Dla osi głównych sterownik został wykonany przez "insert nazwa firmy" i komunikuje się z komputerem za pośrednictwem sieci.
+
+    \subsection{Stanowisko 1.0}
+    Docelowe stanowisko będzie umieszczone na synchrotronie Solaris. Względem stanowiska 0.9 będzie wykorzystywać nowszy mikroskop.
+
+    \subsubsection{Nowy mikroskop}
+    %opis mikroskopu
+
+
+
+
+\end{document}

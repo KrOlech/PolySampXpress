@@ -8,7 +8,7 @@ from numpy import ones
 from src.MAP.Abstract.AbstractMapWindow import AbstractMapWindow
 from src.MAP.Abstract.MapParams import MapParams
 from src.MAP.Label.MapLabel import MapLabel
-from src.utilitis.JsonRead.JsonRead import JsonHandling, loadCameraResolutionJson
+from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
 class MapWindowInitialise(AbstractMapWindow, JsonHandling):
@@ -26,7 +26,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
     # Pointer to Map Params object
     mapParams = None
 
-    cameraFrameSizeX, cameraFrameSizeY = loadCameraResolutionJson()  # 2560, 1440
+    cameraFrameSizeX, cameraFrameSizeY = JsonHandling.loadCameraResolutionJson()  # 2560, 1440
 
     def __init__(self, master, windowSize, manipulator):
         self.master = master
@@ -59,7 +59,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
             await sleep(60)
 
     def __calculateScaledCameraFrameSize(self):
-        return [int(size // self.scale) for size in loadCameraResolutionJson()[::-1]]
+        return [int(size // self.scale) for size in JsonHandling.loadCameraResolutionJson()[::-1]]
 
     def __createMapLabel(self, windowSize):
         mapWidget = MapLabel(self)
@@ -94,7 +94,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
                      self.master.fildParams[3] - self.master.fildParams[2]]
 
         sizeIn_px = [(wal * offset) + cam for wal, offset, cam in
-                     zip(sizeIn_mm, self.mapParams.offsets, loadCameraResolutionJson())]
+                     zip(sizeIn_mm, self.mapParams.offsets, JsonHandling.loadCameraResolutionJson())]
 
         realSizeIn_mm = [(wal / offset) for wal, offset in
                          zip(sizeIn_px, self.mapParams.offsets)]
@@ -142,7 +142,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         return movementMap
 
     def __isZoomWaliable(self):
-        x, y = loadCameraResolutionJson()
+        x, y = JsonHandling.loadCameraResolutionJson()
         if self.scale < 1:
             self.logWarning("Zoom to low desire map resolution exits row resolution")
         elif self.scale > (x * y * 0.000005):
