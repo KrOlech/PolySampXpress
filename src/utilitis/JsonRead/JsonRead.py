@@ -46,24 +46,24 @@ class JsonHandling(Loger):
             data = json.load(file)
         return float(data["0"]["offsets"]["x"]), float(data["0"]["offsets"]["y"])
 
+    @staticmethod
+    def loadPolaRoboczeJson():
+        jsonKeys = ["Xmin", "Xmax", "Ymin", "Ymax"]
 
-def loadPolaRoboczeJson():
-    jsonKeys = ["Xmin", "Xmax", "Ymin", "Ymax"]
+        with open(JsonHandling.getFileLocation("PolaRoboczeConfig.json"), 'r') as file:
+            data = json.load(file)
 
-    with open(JsonHandling.getFileLocation("PolaRoboczeConfig.json"), 'r') as file:
-        data = json.load(file)
+        fild = []
+        for key, pole in data.items():
 
-    fild = []
-    for key, pole in data.items():
-
-        try:
-            fild.append([float(pole[jKey]) for jKey in jsonKeys])
-            fild[-1].append(key)
-        except KeyError:
-            print(f"In {key} their is missing value neasesery values keys are: {jsonKeys}")
-            fild = []
-            break
-    return fild
+            try:
+                fild.append([float(pole[jKey]) for jKey in jsonKeys])
+                fild[-1].append(key)
+            except KeyError:
+                print(f"In {key} their is missing value neasesery values keys are: {jsonKeys}")
+                fild = []
+                break
+        return fild
 
 
 def loadCameraResolutionJson():
