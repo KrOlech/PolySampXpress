@@ -119,6 +119,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
     def __workFilledMovementMap(self):
         xOffset, yOffset = 131, 111  # loadOffsetsJson()
+        xMaxManipulator, yMaxanipulator = self.readManipulatorMax()
         dy = self.cameraFrameSizeX / xOffset
         dx = self.cameraFrameSizeY / yOffset
         self.loger(f"cameraX: {self.cameraFrameSizeX} offsetx: {xOffset}")
@@ -127,10 +128,10 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
         movementMap = []
         x = self.master.fildParams[0]
-        while x < min(self.master.fildParams[1] + dx, 200):  # todo read manipulator size from file
+        while x < min(self.master.fildParams[1] + dx, xMaxManipulator):
             y = self.master.fildParams[2]
             movementMap.append([])
-            while y < min(self.master.fildParams[3] + dy, 200):  # todo read manipulator size from file
+            while y < min(self.master.fildParams[3] + dy, yMaxanipulator):
                 movementMap[-1].append((x, y))
                 y += dy
             x += dx

@@ -8,11 +8,11 @@
     "borders": {
       "x": {
         "min": 0,
-        "max": 50
+        "max": 200
       },
       "y": {
         "min": 0,
-        "max": 50
+        "max": 200
       }
     },
     "CurrentPosition": {

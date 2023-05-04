@@ -2,11 +2,11 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel
 
 from src.ROI.LabelViue.ROILabelViue import ROILegendVue
+from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
 class ROILabel(QWidget):
-    scalaX = 10  # TODo move to config File
-    scalaY = 10
+    scalaX, scalaY = JsonHandling.readRoiLabelScalles()
 
     def __init__(self, roi, screenSize, *args, **kwargs):
         super(ROILabel, self).__init__(*args, **kwargs)
