@@ -1,10 +1,16 @@
+from src.manipulator.DialogWindow.Abstract import AbstractDialog
 from PyQt5.QtWidgets import QLabel
 
-from src.manipulator.DialogWindow.Abstract import AbstractDialog
 
 
 class ClosseWindow(AbstractDialog):
 
+    def __init__(self):
+        super(ClosseWindow, self).__init__()
+
+
+    def resizeEvent(self, event):
+        self.titleBar.resize(self.width(), self.titleBar.height())
     @property
     def windowName(self):
         return "mesage"
