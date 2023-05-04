@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import QLabel
 
-from src.manipulator.DialogWindow.Abstract import AbstractDialog
+from src.manipulator.DialogWindow.AbstractM import AbstractDialogManipulator
 
 
-class CalibrationDialog(AbstractDialog):
+class CalibrationDialog(AbstractDialogManipulator):
 
     def __init__(self, manipulator, *args, **kwargs):
         super().__init__(manipulator, *args, **kwargs)

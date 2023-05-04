@@ -1,10 +1,10 @@
 from PyQt5.QtWidgets import QLabel
 
-from src.manipulator.DialogWindow.Abstract import AbstractDialog
+from src.manipulator.DialogWindow.AbstractM import AbstractDialogManipulator
 from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 
 
-class DialogWindowMap(AbstractDialog):
+class DialogWindowMap(AbstractDialogManipulator):
 
     def __init__(self, manipulator, *args, **kwargs):
         super().__init__(manipulator, *args, **kwargs)

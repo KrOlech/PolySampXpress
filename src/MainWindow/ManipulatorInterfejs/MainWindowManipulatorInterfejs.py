@@ -3,6 +3,7 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMessageBox, QPushButton, QLabel
 
 #todo move to separate classes
+from src.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
 from src.manipulator.DialogWindow.WaitDialoge import HomeAxisDialog
 from src.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
 from src.manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
@@ -126,21 +127,14 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
     def closeEvent(self, event):
 
+        ClosseWindow(self).exec_()
+
         if self.testEventClose:
             self.closeAction()
             event.accept()
             return
 
-        reply = QMessageBox.question(self, "mesage",
-                                     "Czy napewno chcesz zamknac program?",
-                                     QMessageBox.Yes | QMessageBox.No,
-                                     QMessageBox.Yes)
-
-        if reply == QMessageBox.Yes:
-            self.closeAction()
-            event.accept()
-        else:
-            event.ignore()
+        event.ignore()
 
     def closeAction(self):
         if self.manipulator:
