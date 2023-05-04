@@ -1,5 +1,5 @@
 from src.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
-from src.utilitis.JsonRead.JsonRead import loadOffsetsJson
+from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
 class ClikcCreateRoi(CreateRoiAbstract):
@@ -9,7 +9,7 @@ class ClikcCreateRoi(CreateRoiAbstract):
     manipulatorXFirstPresX = None
     manipulatorYFirstPresY = None
 
-    xOffset, yOffset = loadOffsetsJson()
+    xOffset, yOffset = JsonHandling.loadOffsetsJson()
 
     def __savePressLocation(self, e):
         if not (self.firstPress or self.secondPress):
