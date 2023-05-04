@@ -5,6 +5,27 @@ from src.utilitis.Logger.Logger import Loger
 
 
 class JsonHandling(Loger):
+    manipulatorMainFile = "ManipulatorFullConfig.json"
+
+    @staticmethod
+    def readManipulatorRange():
+        data = JsonHandling.readFile(JsonHandling.manipulatorMainFile)
+
+        border = data["0"]["borders"]
+
+        return border["x"], border["y"]
+
+    @staticmethod
+    def readManipulatorMax():
+        borderX, borderY = JsonHandling.readManipulatorRange()
+
+        return borderX["max"], borderY["max"]
+
+    @staticmethod
+    def readManipulatorMin():
+        borderX, borderY = JsonHandling.readManipulatorRange()
+
+        return borderX["min"], borderY["min"]
 
     @staticmethod
     def getFileLocation(file) -> str:
@@ -13,8 +34,9 @@ class JsonHandling(Loger):
         fullPath = fullPath[:fullPath.rfind('src') + 3]
         return fullPath + config + "\\" + file
 
-    def readFile(self, filePath) -> dict:
-        with open(self.getFileLocation(filePath), 'r') as file:
+    @staticmethod
+    def readFile(filePath) -> dict:
+        with open(JsonHandling.getFileLocation(filePath), 'r') as file:
             rowData = json.load(file)
 
         return rowData
