@@ -5,6 +5,7 @@ from PyQt5.QtCore import Qt
 class ROIList(QScrollArea):
     placeholder = "No marked ROI's"
     roiCount = 0
+    width = 300
 
     def __init__(self, mainWindow, *args, **kwargs):
         super(ROIList, self).__init__(*args, **kwargs)
@@ -25,11 +26,19 @@ class ROIList(QScrollArea):
 
         self.setWidget(self.widget)
 
-        self.setMaximumSize(300, 1200)  # TODO move tu Utility String
-        self.setMinimumSize(300, 1200)
+        self.hight = self.calculateHight()
+        self.setMaximumSize(self.width, self.hight)
+        self.setMinimumSize(self.width, self.hight)
 
         self.vbox.addWidget(self.defalcateLabel)
         self.setStyleSheet("background-color: rgba(255, 255, 255, 10);")
+
+    def calculateHight(self):
+        screenHight = self.mainWindow.windowSize.height()
+
+        hight = screenHight - 240  # approximated size of manipulator buttons
+
+        return hight
 
     def addROI(self, ROI):
         self.__delDefalautLable()
