@@ -16,10 +16,12 @@ class Camera(CommonNames, GetFrame, Configuration, MainCalibrate, Loger):
 
     WIDTH, HEIGHT, FPS = loadNativeCameraResolutionJson()
 
-    def __init__(self):
+    def __init__(self, windowSize):
         super().__init__()
 
         self.device = cv2.VideoCapture(0)
+
+        self.windowSize = windowSize
 
         self.testCameraCommunication()
 
