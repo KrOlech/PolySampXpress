@@ -9,7 +9,7 @@ from src.MainWindow.Main.Main import MainWindow
 from time import sleep
 
 
-def test_Main_Close():
+def Main_Close():
     app = QApplication(sys.argv)
 
     mainWindow = MainWindow(app.desktop().availableGeometry().size())
