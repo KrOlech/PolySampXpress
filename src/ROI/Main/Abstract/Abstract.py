@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from functools import cache
 
 from src.ROI.Label.ROILable import ROILabel
 from src.utilitis.Abstract import abstractmetod
@@ -20,13 +21,13 @@ class AbstractR(Loger):
         self.master.removeLable(self.label)
         self.label = None
 
-    # to do caszowanie metody w celu szybszej ewaluacji
+    @cache
     def calculateOffset(self, x, y):
         x0 = self.master.mainWindow.manipulator.x0
         y0 = self.master.mainWindow.manipulator.y0
         ox = int((x - x0) * self.xOffset)
         oy = int((y - y0) * self.yOffset)
-        # self.loger(f"offset x={ox}, offset y={oy}")
+        self.loger(f"offset x={ox}, offset y={oy}")
         return ox, oy
 
     @abstractmethod
@@ -45,3 +46,7 @@ class AbstractR(Loger):
     def __dict__(self) -> dict:
         abstractmetod(self)
         return {}
+
+    @abstractmethod
+    def centerOnMe(self):
+        abstractmetod(self)

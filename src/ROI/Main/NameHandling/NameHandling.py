@@ -21,6 +21,7 @@ class NameHandling(Loger):
 
     def setName(self, name):
         self.name = name
+        self.label.updateName(name)
 
     def rename(self):
         self.__textedit.show()
