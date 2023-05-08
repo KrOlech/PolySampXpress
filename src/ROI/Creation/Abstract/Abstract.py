@@ -3,9 +3,11 @@ from abc import ABCMeta, abstractmethod
 from PyQt5.QtWidgets import QLabel
 
 from src.ROI.Main.ROI.ROI import ROI
+from src.utilitis.Abstract import abstractmetod
+from src.utilitis.Logger.Logger import Loger
 
 
-class CreateRoiAbstract(QLabel):
+class CreateRoiAbstract(QLabel, Loger):
     __metaclass__ = ABCMeta
 
     roiNames = 0
@@ -16,28 +18,29 @@ class CreateRoiAbstract(QLabel):
 
     @abstractmethod
     def mousePressEvent(self, e):
-        pass
+        abstractmetod(self)
 
     @abstractmethod
     def mouseReleaseEvent(self, e):
-        pass
+        abstractmetod(self)
 
     @abstractmethod
     def mouseMoveEvent(self, e):
-        pass
+        abstractmetod(self)
 
     @abstractmethod
     def savePressLocation(self, e):
-        pass
+        abstractmetod(self)
 
     @abstractmethod
     def seveReliseLocation(self, e):
-        pass
+        abstractmetod(self)
 
-    def createAndAddROIToList(self):
+    def createAndAddROIToList(self, scatter=False):
+        self.loger("False")
         self.ROIList.append(
             ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
-                self.mainWindow.manipulator.y))
+                self.mainWindow.manipulator.y,scatter=scatter))
         self.roiNames += 1
 
         self.mainWindow.addROIToList()

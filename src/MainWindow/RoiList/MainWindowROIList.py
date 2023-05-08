@@ -1,3 +1,4 @@
+from src.MainWindow.RoiList.SaveRoiList import SaveRoiList
 from src.MainWindow.ManipulatorInterfejs.MainWindowManipulatorInterfejs import MainWindowManipulatorInterfejs
 from src.ROI.List.ROIList import ROIList
 from functools import cache
@@ -32,6 +33,9 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
 
     def removeROIFromList(self, lable):
         self.roiList.removeROI(lable)
+
+    def saveListOfROI(self):
+        SaveRoiList(self, self.cameraView.ROIList).save()
 
 
 if __name__ == '__main__':

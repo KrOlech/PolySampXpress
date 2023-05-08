@@ -14,6 +14,7 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.__point = self.qActionCreate("Point mode", self.__togglePointMode, checkable=True)
         self.__scatter = self.qActionCreate("Scatter mode", self.__toggleScatterMode, checkable=True)
         self.__fromClicks = self.qActionCreate("Click mode", self.__toggleClicksMode, checkable=True)
+        self.__fromScatterClicks = self.qActionCreate("Click Scatter mode", self.__toggleScatterClicksMode, checkable=True)
 
         self.__classic.setChecked(True)
 
@@ -23,6 +24,7 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         roi.addAction(self.__point)
         roi.addAction(self.__scatter)
         roi.addAction(self.__fromClicks)
+        roi.addAction(self.__fromScatterClicks)
 
     def __toggleClassicMode(self):
         self.__UncheckAll()
@@ -43,6 +45,11 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.__UncheckAll()
         self.__fromClicks.setChecked(True)
         self.mode = "Clicks"
+
+    def __toggleScatterClicksMode(self):
+        self.__UncheckAll()
+        self.__fromScatterClicks.setChecked(True)
+        self.mode = "Clicks Scatter"
 
     def __UncheckAll(self, State=False):
         self.__classic.setChecked(State)

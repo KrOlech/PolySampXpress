@@ -26,7 +26,7 @@ class AbstractR(Loger):
         y0 = self.master.mainWindow.manipulator.y0
         ox = int((x - x0) * self.xOffset)
         oy = int((y - y0) * self.yOffset)
-        #self.loger(f"offset x={ox}, offset y={oy}")
+        # self.loger(f"offset x={ox}, offset y={oy}")
         return ox, oy
 
     @abstractmethod
@@ -40,3 +40,8 @@ class AbstractR(Loger):
     @abstractmethod
     def getMarker(self, x, y):
         abstractmetod(self)
+
+    @abstractmethod
+    def __dict__(self) -> dict:
+        abstractmetod(self)
+        return {}

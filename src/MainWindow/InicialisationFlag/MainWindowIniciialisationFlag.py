@@ -1,7 +1,5 @@
 from PyQt5.QtWidgets import QDesktopWidget
 
-
-
 # todo podzielic do dwóch klas
 from src.MAP.Dialog.OwerideDialog import OwerideCurrentMapDialog
 from src.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
@@ -89,7 +87,6 @@ class MainWindowInicialisationFlag(MainWindowROIList):
             self.mapWindowObject = None
 
             self.createMap()
-
 
     def showMap(self):
         if self.mapWindowObject:

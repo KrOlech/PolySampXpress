@@ -2,12 +2,9 @@
 
 ***TO Do in Beta 0.5:***
 
-- zerowanie na pkcie znajdowanym softwrowo
-   - na start pkt wybierany recznie.
-- Full migration to JsonReadClass
-- end mesage info uses difrent taskbar
 
 ***Done in Beta 0.5:***
+- Full migration to JsonReadClass
 - auto Calibration Mode (Need testing)
 - Balans Bieli
 - logGenie
@@ -18,6 +15,9 @@
 - manipulator selection interfejs
 - manipulatr GoTo and HomeAxis interfejs
 - Automatic tests start no proper tests implemented
+- end mesage info uses difrent taskbar
+- Zapis Roi
+- auto mapwindow closing after program power off
 
 ***TO Do in Beta next:***
 
@@ -42,8 +42,6 @@
 - Utiliti Strig Using Python "Static"
 
 - position off the cursor on main screen
-
-- auto mapwindow coling after program power off
 
 - auto wykrywanie portu com manipulatora
 

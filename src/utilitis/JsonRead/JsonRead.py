@@ -58,7 +58,11 @@ class JsonHandling(Loger):
 
     @staticmethod
     def saveFile(filePath, dictionary: dict):
-        with open(JsonHandling.getFileLocation(filePath), 'w') as file:
+        JsonHandling.simpleSaveFile(JsonHandling.getFileLocation(filePath), dictionary)
+
+    @staticmethod
+    def simpleSaveFile(filePath, dictionary: dict):
+        with open(filePath, 'w') as file:
             json.dump(dictionary, file, indent=4)
 
     @staticmethod
