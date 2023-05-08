@@ -1,23 +1,18 @@
 ![Tests](https://github.com/KrOlech/Magisterka/actions/workflows/python-app.yml/badge.svg)
 
-***TO Do in Beta 0.5:***
+***TO Do in Beta 0.6:***
+- Main class Refactor
+  - Utiliti Strig Using Python "Static"
 
+- position off the cursor on main screen
 
-***Done in Beta 0.5:***
-- Full migration to JsonReadClass
-- auto Calibration Mode (Need testing)
-- Balans Bieli
-- logGenie
-- file with camera configuration
-- new Manipulator
-- botom info bar with current manipulator position
-- configure work Feald
-- manipulator selection interfejs
-- manipulatr GoTo and HomeAxis interfejs
-- Automatic tests start no proper tests implemented
-- end mesage info uses difrent taskbar
-- Zapis Roi
-- auto mapwindow closing after program power off
+- optymalisation
+
+- Rois in labels
+- Labels in save file
+
+***Done in Beta 0.6:***
+
 
 ***TO Do in Beta next:***
 
@@ -31,17 +26,7 @@
 - obsluga fokusu
   - autofokus
 
-- Bug fixing and searching
-
-- Main class Refactor
-
-- resolution for Map
-
 - Using CUDA for imiage resize (oneFX for radeon and so on)
-
-- Utiliti Strig Using Python "Static"
-
-- position off the cursor on main screen
 
 - auto wykrywanie portu com manipulatora
 
