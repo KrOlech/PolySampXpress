@@ -70,7 +70,7 @@ class StandaManipulatorInicialisation(Loger):
             self.device_id = self.lib.open_device(r"xi-com:\\\.\COM3".encode()) #todo test after conversion to row string
         except Exception as e:
             self.loger(e)
-            self.loger("error Trying opening new Manipulator")
+            self.loger("error Trying opening new master")
             return None
         else:
             self.__test_info()

@@ -3,10 +3,10 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QAction
 
 class AbstractManipulatorInterfejs(QWidget):
 
-    def __init__(self, ManipulatorObject, *args, **kwargs):
+    def __init__(self, master, *args, **kwargs):
         super(AbstractManipulatorInterfejs, self).__init__(*args, **kwargs)
 
-        self.Manipulator = ManipulatorObject
+        self.master = master
 
         self._layout = QGridLayout()
 
@@ -27,42 +27,42 @@ class AbstractManipulatorInterfejs(QWidget):
         self.setLayout(self._layout)
 
     def _key_up(self):
-        self.Manipulator.up()
+        self.master.manipulator.up()
 
     def _key_left(self):
-        self.Manipulator.left()
+        self.master.manipulator.left()
 
     def _key_right(self):
-        self.Manipulator.right()
+        self.master.manipulator.right()
 
     def _key_down(self):
-        self.Manipulator.down()
+        self.master.manipulator.down()
 
     def center(self, pos):
-        self.Manipulator.center(pos)
+        self.master.manipulator.center(pos)
 
     def moveUp(self):
-        self.Manipulator.up()
+        self.master.manipulator.up()
 
     def moveRight(self):
-        self.Manipulator.right()
+        self.master.manipulator.right()
 
     def moveDown(self):
-        self.Manipulator.down()
+        self.master.manipulator.down()
 
     def moveLeft(self):
-        self.Manipulator.left()
+        self.master.manipulator.left()
 
     def moveXY(self):
         x, y, speed = self.__getManipulatorParamiters()
-        self.Manipulator.goToCords(x=x + speed, y=y + speed)
+        self.master.manipulator.goToCords(x=x + speed, y=y + speed)
 
     def moveNegativeXY(self):
         x, y, speed = self.__getManipulatorParamiters()
-        self.Manipulator.goToCords(x=x - speed, y=y - speed)
+        self.master.manipulator.goToCords(x=x - speed, y=y - speed)
 
     def __getManipulatorParamiters(self):
-        return self.Manipulator.x, self.Manipulator.y, self.Manipulator.speed
+        return self.master.manipulator.x, self.master.manipulator.y, self.master.manipulator.speed
 
     def waitForTarget(self):
-        self.Manipulator.waitForTarget()
+        self.master.manipulator.waitForTarget()
