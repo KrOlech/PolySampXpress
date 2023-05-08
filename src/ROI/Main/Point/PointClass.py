@@ -20,3 +20,6 @@ class Point(PointEdit, NameHandling, Cursor):
         self.rect = self.createMarker()
 
         self.view = self.master.getFrame()
+
+    def __dict__(self) -> dict:
+        return {"x0": self.x0, "y0": self.y0}

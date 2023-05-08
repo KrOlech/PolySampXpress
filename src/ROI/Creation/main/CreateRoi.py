@@ -1,20 +1,23 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QEvent
 
+from src.ROI.Creation.ClickCreate.ClickCreateScatter import ClikcCreateScatter
+from src.ROI.Creation.SimpleCreate.SimpleCreateScatter import SimpleCreateScatter
 from src.ROI.Creation.ClickCreate.ClikcCreateRoi import ClikcCreateRoi
 from src.ROI.Creation.Edit.RoiEdit import RoiEdit
 from src.ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleCreateRoi
 from src.ROI.Main.Point.Point import RoiPoint
 
 
-class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi):
+class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreateScatter, ClikcCreateScatter):
     leftMouseButton = False
 
     supportedModes = {
         "Classic": "_SimpleCreateRoi",
         "Point": "_RoiPoint",
-        "Scatter": "_SimpleCreateRoi",
-        "Clicks": "_ClikcCreateRoi"
+        "Scatter": "_SimpleCreateScatter",
+        "Clicks": "_ClikcCreateRoi",
+        "Clicks Scatter": "_ClikcCreateScatter"
     }
 
     def eventFilter(self, source, event):

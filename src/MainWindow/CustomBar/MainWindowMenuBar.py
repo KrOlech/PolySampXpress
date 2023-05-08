@@ -17,8 +17,8 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
         self.windowSize = windowSize
 
         listROI = self.qActionCreate("List ROI", self.showROIListButton)
-        loadROI = self.qActionCreate("Save ROI List", self.loadListOfROI)
-        SaveROI = self.qActionCreate("Load ROI list", self.saveListOfROI)
+        loadROI = self.qActionCreate("Save ROI List", self.saveListOfROI)
+        SaveROI = self.qActionCreate("Load ROI list", self.loadListOfROI)
 
         fileMenu = self.menu.addMenu("&File")
         fileMenu.addAction(listROI)

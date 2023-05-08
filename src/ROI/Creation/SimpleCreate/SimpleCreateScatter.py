@@ -1,7 +1,11 @@
+from abc import ABCMeta
+
 from src.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
 
 
-class SimpleCreateRoi(CreateRoiAbstract):
+# toDo lern how to inhariet from SimpleCreateRoi private metods
+class SimpleCreateScatter(CreateRoiAbstract):
+    __metaclass__ = ABCMeta
 
     def __savePressLocation(self, e):
         self.x1 = e.x()
@@ -15,7 +19,7 @@ class SimpleCreateRoi(CreateRoiAbstract):
             self.x2 = e.x()
             self.y2 = e.y()
 
-            self.createAndAddROIToList()
+            self.createAndAddROIToList(True)
 
             self.pressed = False
 
