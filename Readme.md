@@ -10,9 +10,13 @@
 
 - Labels in save file
 
+- Rois in labels (fix)
+
+- Manipulator not resiving comands from interfejs corectli after centring or randomli during usage
+
 ***Done in Beta 0.6:***
 
-- Rois in labels (fix)
+- Center On ROI
 
 
 ***TO Do in Beta next:***
@@ -41,3 +45,4 @@
 - Strage Map creation need difrent offset than the roi
 - Last ROI stays during Map Creation (propabli residum from last created ROI)
 - dialog window not corectli resize (unse but mey need in future)
+- Manipulator not resiving comands from interfejs corectli after centring or randomli during usage

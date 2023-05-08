@@ -14,6 +14,7 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
     def __init__(self, screenSize, label, *args, **kwargs):
         super().__init__(screenSize, label, *args, **kwargs)
         self.dll = CDLL(r"C:\Windows\System32\ACSCL_x64.dll")
+        self.xOffset, self.yOffset = self.loadOffsetsJson()
 
     def init(self, handle, speed):
         self.setSpeed(speed)

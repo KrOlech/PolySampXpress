@@ -3,10 +3,10 @@ from abc import abstractmethod
 
 from src.utilitis.Abstract import abstractmetod
 from src.utilitis.CustomExceptions.Exceptions import InvalidSpeed
-from src.utilitis.Logger.Logger import Loger
+from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
-class AbstractManipulator(Loger):
+class AbstractManipulator(JsonHandling):
     __metaclass__ = ABCMeta
 
     speed = 0
@@ -89,9 +89,9 @@ class AbstractManipulator(Loger):
         self.gotoNotAsync()
 
     def center(self, x, y):
-
         self.x += (x - self.screenSize.width() // 2) / self.xOffset
         self.y += (y - self.screenSize.height() // 2) / self.yOffset
+
         self.gotoNotAsync()
 
     def setSpeed(self, speed):

@@ -47,3 +47,6 @@ class AbstractROI(AbstractR):
 
     def setNewBorders(self):
         self.__setBorders(self.x0, self.x1, self.y0, self.y1)
+
+    def foundCenter(self) -> (int, int):
+        return  self.x0 + (self.x1 - self.x0) // 2, self.y0 + (self.y1 - self.y0) // 2
