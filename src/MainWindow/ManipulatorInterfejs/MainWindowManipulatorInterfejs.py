@@ -29,7 +29,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         self.manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
-        self.manipulatorInterferes = ManipulatorInterfere(self.manipulator)
+        self.manipulatorInterferes = ManipulatorInterfere(self)
 
         self.__manipulatorButtons()
 
@@ -117,7 +117,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         myStatusBar.setFixedWidth(self.windowSize.width() // 8)
 
         myStatusBar.setStyleSheet("background-color: rgba(255, 255, 255, 75);")
-        myStatusBar.setText("Manipulator have not been connected yet")
+        myStatusBar.setText("master have not been connected yet")
         font = QFont()
         font.setPointSize(13)
         myStatusBar.setFont(font)
