@@ -18,8 +18,9 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
                   "manipulatorY": manipulatorY}
 
         ROIEdit.__init__(self, **kwargs)
-        AbstractROI.__init__(self, **kwargs)
         NameHandling.__init__(self, **kwargs)
+        AbstractROI.__init__(self, **kwargs)
+
 
         self.rect = self.createMarker()
 

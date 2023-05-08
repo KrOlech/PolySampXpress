@@ -23,14 +23,13 @@ class RightMenu(QMenu):
             menus.append(menu)
             edit = menu.addAction("Edit ROI")
             rename = menu.addAction("Rename")
+            centerOn = menu.addAction("Center On")
             delete = menu.addAction("delete ROI")
             edit.triggered.connect(roi.edit)
             delete.triggered.connect(roi.delete)
+            centerOn.triggered.connect(roi.centerOnMe)
             rename.triggered.connect(roi.rename)
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
         self.mainWindow.hideRightClickButtons()
         super(RightMenu, self).closeEvent(a0)
-
-
-

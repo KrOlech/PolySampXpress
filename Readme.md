@@ -8,10 +8,11 @@
 
 - optymalisation
 
-- Rois in labels
 - Labels in save file
 
 ***Done in Beta 0.6:***
+
+- Rois in labels (fix)
 
 
 ***TO Do in Beta next:***
