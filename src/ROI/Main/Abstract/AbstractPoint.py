@@ -31,3 +31,6 @@ class AbstractPoint(AbstractR):
     def getMarker(self, x, y):
         dx, dy = self.calculateOffset(x, y)
         return QRect(QPoint(self.x0 - dx, self.y0 - dy), QPoint(self.x0 - dx, self.y0 - dy))
+
+    def foundCenter(self) -> (int, int):
+        return self.x0, self.y0
