@@ -29,7 +29,7 @@ class GetFrame:
         result = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
         avg_a = average(result[:, :, 1])
         avg_b = average(result[:, :, 2])
-        result[:, :, 1] = result[:, :, 1] - ((avg_a - self._whiteBalance.value) * (result[:, :, 0] / 255.0) * 1.1)
-        result[:, :, 2] = result[:, :, 2] - ((avg_b - self._whiteBalance.value) * (result[:, :, 0] / 255.0) * 1.1)
+        result[:, :, 1] = result[:, :, 1] - ((avg_a - self.whiteBalance.value) * (result[:, :, 0] / 255.0) * 1.1)
+        result[:, :, 2] = result[:, :, 2] - ((avg_b - self.whiteBalance.value) * (result[:, :, 0] / 255.0) * 1.1)
         result = cv2.cvtColor(result, cv2.COLOR_LAB2BGR)
         return result

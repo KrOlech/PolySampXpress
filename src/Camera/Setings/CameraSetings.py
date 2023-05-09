@@ -14,7 +14,7 @@ class CameraSettingsWindow(QWidget):
 
         self.mainLayout = QVBoxLayout()
 
-        for cP in self.mainWindow.camera.COMMUNICATIONPOINTS:
+        for cP in self.mainWindow.camera.communicationPoints:
             self.simplyConfig = QHBoxLayout()
 
             self.simplyConfig.addWidget(Slider(self.mainWindow, cP))

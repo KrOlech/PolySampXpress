@@ -7,16 +7,16 @@ class Configuration:
         self.setBritnes(100)
 
     def setBritnes(self, value: int = 200) -> None:
-        self.__setValue(self._BRIGHTNESS.address, value)
+        self.__setValue(self.brightness.address, value)
 
     def setWidth(self, width: int) -> None:
-        self.__setValue(self._WIDTH.address, width)
+        self.__setValue(self.width.address, width)
 
     def setHight(self, height: int) -> None:
-        self.__setValue(self._HEIGHT.address, height)
+        self.__setValue(self.height.address, height)
 
     def setFps(self, fps: int) -> None:
-        self.__setValue(self._FPS.address, fps)
+        self.__setValue(self.fps.address, fps)
 
     def __setValue(self, propertyID: int, value: int) -> None:
         self.device.set(propertyID, value)

@@ -6,11 +6,10 @@ from src.Camera.ComonNames.ComonNames import CommonNames
 from src.Camera.Configuration.Configuration import Configuration
 from src.Camera.GetFrame.GetFrame import GetFrame
 from src.utilitis.JsonRead.JsonRead import JsonHandling
-from src.utilitis.Logger.Logger import Loger
 from src.utilitis.CustomExceptions.Exceptions import NoCammeraConected
 
 
-class Camera(CommonNames, GetFrame, Configuration, MainCalibrate, Loger):
+class Camera(CommonNames, GetFrame, Configuration, MainCalibrate):
     '''
     Class allowing communication with camera and adjusting her settings
     '''
@@ -34,7 +33,7 @@ class Camera(CommonNames, GetFrame, Configuration, MainCalibrate, Loger):
         self.readValues()
 
     def readValues(self) -> None:
-        [communicationPoint.setValue(self.device) for communicationPoint in self.COMMUNICATIONPOINTS]
+        [communicationPoint.setValue(self.device) for communicationPoint in self.communicationPoints]
 
     def testCameraCommunication(self) -> None:
         try:
