@@ -35,6 +35,8 @@
 
 - auto wykrywanie portu com manipulatora
 
+- Classs inhariting from qwidget with implementation of mybar for cleener look
+
 **Unsolved Errors**
 
 - No ROIs in labels

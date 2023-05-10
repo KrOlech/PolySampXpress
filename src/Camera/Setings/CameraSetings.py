@@ -7,18 +7,18 @@ from src.utilitis.Slider.Slider import Slider
 
 class CameraSettingsWindow(QWidget):
 
-    def __init__(self, mainWindow, *args, **kwargs) -> None:
+    def __init__(self, master, *args, **kwargs) -> None:
         super(CameraSettingsWindow, self).__init__(*args, **kwargs)
 
-        self.mainWindow = mainWindow
+        self.master = master
 
         self.mainLayout = QVBoxLayout()
 
-        for cP in self.mainWindow.camera.communicationPoints:
+        for communicationPoint in self.master.camera.communicationPoints:
             self.simplyConfig = QHBoxLayout()
 
-            self.simplyConfig.addWidget(Slider(self.mainWindow, cP))
-            self.simplyConfig.addWidget(QLabel(cP.name))
+            self.simplyConfig.addWidget(Slider(self.master, communicationPoint))
+            self.simplyConfig.addWidget(QLabel(communicationPoint.name))
 
             self.mainLayout.addLayout(self.simplyConfig)
 

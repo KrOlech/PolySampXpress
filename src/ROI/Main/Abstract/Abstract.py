@@ -14,7 +14,7 @@ class AbstractR(Loger):
 
     def __init__(self, *args, **kwargs):
         self.master = kwargs['master']
-        self.label = ROILabel(self, self.master.mainWindow.windowSize)
+        self.label = ROILabel(self, self.master.master.windowSize)
 
     def delete(self):
         self.master.ROIList.remove(self)
@@ -23,8 +23,8 @@ class AbstractR(Loger):
 
     @cache
     def calculateOffset(self, x, y):
-        x0 = self.master.mainWindow.manipulator.x0
-        y0 = self.master.mainWindow.manipulator.y0
+        x0 = self.master.master.manipulator.x0
+        y0 = self.master.master.manipulator.y0
         ox = int((x - x0) * self.xOffset)
         oy = int((y - y0) * self.yOffset)
         self.loger(f"offset x={ox}, offset y={oy}")
@@ -50,11 +50,11 @@ class AbstractR(Loger):
     @abstractmethod
     def centerOnMe(self):
         x, y = self.foundCenter()
-        x -= self.master.mainWindow.manipulator.screenSize.width() // 2
-        y -= self.master.mainWindow.manipulator.screenSize.height() // 2
+        x -= self.master.master.manipulator.screenSize.width() // 2
+        y -= self.master.master.manipulator.screenSize.height() // 2
         x, y = self.convertPixelsTomm(x, y)
         self.loger(x, y)
-        self.master.mainWindow.manipulator.goToCords(x=x, y=y)
+        self.master.master.manipulator.goToCords(x=x, y=y)
 
     def convertPixelsTomm(self, x, y):
         return x / self.xOffset, y / self.yOffset
