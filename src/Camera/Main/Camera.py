@@ -25,10 +25,7 @@ class Camera(CommonNames, GetFrame, Configuration, MainCalibrate):
 
         self.testCameraCommunication()
 
-        self.set(self.WIDTH, self.HEIGHT, self.FPS)
-
-        self.device.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
-        self.device.set(cv2.CAP_PROP_EXPOSURE, -2)
+        self.configurationSetUp(self.WIDTH, self.HEIGHT, self.FPS)
 
         self.readValues()
 
@@ -44,7 +41,7 @@ class Camera(CommonNames, GetFrame, Configuration, MainCalibrate):
 
             self.device = CameraSymulator()
 
-    def setNewValueForCommunicationPoint(self, communicationPoint):
+    def setNewValueForCommunicationPoint(self, communicationPoint) -> None:
         self.device.set(communicationPoint.address, communicationPoint.value)
         self.parametersDictionary[communicationPoint.name]["value"] = communicationPoint.value
         self.saveConfig()
