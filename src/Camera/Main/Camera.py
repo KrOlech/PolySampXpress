@@ -23,16 +23,16 @@ class Camera(CommonNames, GetFrame, Configuration, MainCalibrate):
 
         self.windowSize = windowSize
 
-        self.testCameraCommunication()
+        self.__testCameraCommunication()
 
         self.configurationSetUp(self.WIDTH, self.HEIGHT, self.FPS)
 
-        self.readValues()
+        self.__readValues()
 
-    def readValues(self) -> None:
+    def __readValues(self) -> None:
         [communicationPoint.setValue(self.device) for communicationPoint in self.communicationPoints]
 
-    def testCameraCommunication(self) -> None:
+    def __testCameraCommunication(self) -> None:
         try:
             ret, _ = self.device.read()
             if not ret:
