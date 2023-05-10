@@ -1,6 +1,6 @@
 import cv2
 
-from src.Camera.Symulator.CameraSymulator import CameraSymulator
+from src.Camera.Symulator.CameraSimulator import CameraSimulator
 from src.Camera.Calibration.Main import MainCalibrate
 from src.Camera.ComonNames.ComonNames import CommonNames
 from src.Camera.Configuration.Configuration import Configuration
@@ -39,7 +39,7 @@ class Camera(CommonNames, GetFrame, Configuration, MainCalibrate):
                 raise NoCammeraConected
         except NoCammeraConected:
 
-            self.device = CameraSymulator()
+            self.device = CameraSimulator()
 
     def setNewValueForCommunicationPoint(self, communicationPoint) -> None:
         self.device.set(communicationPoint.address, communicationPoint.value)
