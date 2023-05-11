@@ -1,6 +1,6 @@
-from src.Camera.Calibration.Calibration import Calibrate
+from src.Camera.Calibration.CalibrationFunctions.Calibration import Calibrate
 from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
-from src.Camera.Calibration.CalibrationResultWindow import CalibrationResultsDialog
+from src.Camera.Calibration.ResultWindow.CalibrationResultWindow import CalibrationResultsDialog
 
 class CalibrateAsync(Calibrate):
 

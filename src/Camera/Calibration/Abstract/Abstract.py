@@ -3,7 +3,7 @@ import cv2 as cv
 import numpy as np
 from numpy import mean
 
-from src.Camera.Calibration.Propertis import CalibrateProperty
+from src.Camera.Calibration.Propertis.Propertis import CalibrateProperty
 from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 

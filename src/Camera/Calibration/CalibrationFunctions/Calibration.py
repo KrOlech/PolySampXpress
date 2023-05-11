@@ -1,4 +1,4 @@
-from src.Camera.Calibration.Abstract import AbstractCalibrate
+from src.Camera.Calibration.Abstract.Abstract import AbstractCalibrate
 
 
 class Calibrate(AbstractCalibrate):

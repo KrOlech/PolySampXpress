@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import QLabel
 
+from src.Camera.Calibration.Propertis.Propertis import CalibrateProperty
 from src.manipulator.DialogWindow.AbstractM import AbstractDialogManipulator
-from src.Camera.Calibration.Propertis import CalibrateProperty
+
 from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
