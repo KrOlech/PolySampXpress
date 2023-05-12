@@ -37,6 +37,8 @@
 
 - Classs inhariting from qwidget with implementation of mybar for cleener look
 
+- remove support for TCIP manipulator
+
 **Unsolved Errors**
 
 - No ROIs in labels
