@@ -14,5 +14,5 @@ class SCIManipulatorSimulator(SCIManipulator):
         self.setZero()
         self.x = self.getPosition(1)
         self.y = self.getPosition(0)
-        self.x0, self.y0, self.z0 = self.getPosition(1), self.getPosition(0), 0
+        self.x0, self.y0 = self.getPosition(1), self.getPosition(0)
         self.upadteLable()
