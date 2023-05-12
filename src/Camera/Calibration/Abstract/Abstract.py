@@ -19,7 +19,7 @@ class AbstractCalibrate(JsonHandling, CalibrateProperty):
 
     def extractTemplate(self, frame):
         template = frame[self.templateLocationY:self.templateLocationY + self.templateSize,
-                   self.templateLocationX:self.templateLocationX + self.templateSize]
+                         self.templateLocationX:self.templateLocationX + self.templateSize]
         w, h = template.shape[::-1]
         return template, w, h
 
