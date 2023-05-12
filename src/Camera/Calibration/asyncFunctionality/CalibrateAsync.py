@@ -3,42 +3,50 @@ from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFun
 from Camera.Calibration.DialogWindow.ResultWindow.CalibrationResultWindow import CalibrationResultsDialog
 
 
-class CalibrateAsync(Calibrate):  # toDo correct private method cor Calibration Start and End
+class CalibrateAsync(Calibrate):
 
-    def CalibrateXStart(self):
+    def __startAsyncProcesCalibrationProces(self, startUpFun, EndFun):
+        workFunWorker(self, startUpFun, EndFun)
+
+    def startAsyncCalibration(self):
+        self.__startAsyncProcesCalibrationProces(self.calibrateXStartCall, self.calibrateXEndAndStartY)
+
+    def calibrateXStartCall(self):
         self.calibrateX(self.manipulatorInterferes)
 
-    def calibrateXEnd(self):
-        workFunWorker(self, self.CalibrateYStart, self.CalibrateYEnd)
+    def calibrateXEndAndStartY(self):
+        self.__startAsyncProcesCalibrationProces(self.calibrateYStartCall, self.calibrateYEndAndStartXY)
 
-    def CalibrateYStart(self):
+    def calibrateYStartCall(self):
         self.calibrateY(self.manipulatorInterferes)
 
-    def CalibrateYEnd(self):
-        workFunWorker(self, self.CalibrateXYStart, self.CalibrateXYEnd)
+    def calibrateYEndAndStartXY(self):
+        self.__startAsyncProcesCalibrationProces(self.calibrateXYStartCall, self.calibrateXYEndAndStartNegativeX)
 
-    def CalibrateXYStart(self):
+    def calibrateXYStartCall(self):
         self.calibrateXY(self.manipulatorInterferes, self.template0)
 
-    def CalibrateXYEnd(self):
-        workFunWorker(self, self.calibrateNegativeXStart, self.calibrateNegativeXEnd)
+    def calibrateXYEndAndStartNegativeX(self):
+        self.__startAsyncProcesCalibrationProces(self.calibrateNegativeXStartCall,
+                                                 self.calibrateNegativeXEndAndStartNegativeY)
 
-    def calibrateNegativeXStart(self):
+    def calibrateNegativeXStartCall(self):
         self.calibrateNegativeX(self.manipulatorInterferes)
 
-    def calibrateNegativeXEnd(self):
-        workFunWorker(self, self.calibrateNegativeYStart, self.calibrateNegativeYEnd)
+    def calibrateNegativeXEndAndStartNegativeY(self):
+        self.__startAsyncProcesCalibrationProces(self.calibrateNegativeYStartCall,
+                                                 self.calibrateNegativeYEndAndStartNegativeXY)
 
-    def calibrateNegativeYStart(self):
+    def calibrateNegativeYStartCall(self):
         self.calibrateNegativeY(self.manipulatorInterferes)
 
-    def calibrateNegativeYEnd(self):
-        workFunWorker(self, self.calibrateNegativeXYStart, self.calibrateNegativeXYEnd)
+    def calibrateNegativeYEndAndStartNegativeXY(self):
+        self.__startAsyncProcesCalibrationProces(self.calibrateNegativeXYStartCall, self.calibrateEndCall)
 
-    def calibrateNegativeXYStart(self):
+    def calibrateNegativeXYStartCall(self):
         self.calibrateNegativeXY(self.manipulatorInterferes, self.template0)
 
-    def calibrateNegativeXYEnd(self):
+    def calibrateEndCall(self):
         self.loger("Calibration End")
         self.calibrationDialog.end()
         CalibrationResultsDialog(self.manipulatorInterferes).exec_()

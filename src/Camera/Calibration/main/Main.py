@@ -12,6 +12,6 @@ class MainCalibrate(CalibrateAsync):
 
         self.calibrationDialog = CalibrationDialog(self)
 
-        workFunWorker(self, self.CalibrateXStart, self.calibrateXEnd)
+        self.startAsyncCalibration()
 
         self.calibrationDialog.exec_()
