@@ -16,7 +16,7 @@ class StandaManipulator(AbstractManipulator, StandaManipulatorInicialisation):
     def getCurrentPosition(self):
         return self.x, self.y, self.z
 
-    def center(self, pozycja, pozycja2):
+    def center(self, pozycja, pozycja2):  # toDo uncorect Functionality implemented for test purpuse
         self.lib.command_home(self.device_id)
 
     def validateSpeed(self, speed):
