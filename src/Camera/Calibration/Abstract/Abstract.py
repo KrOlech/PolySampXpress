@@ -28,7 +28,7 @@ class AbstractCalibrate(JsonHandling, CalibrateProperty):
         for threshold in np.arange(1, 0.7, -0.01):
             resultsForCurrentThreshold = np.where(results >= threshold)
             if len(resultsForCurrentThreshold[0]):
-                self.loger(f"Found maches for template with threshold {threshold}")
+                self.loger(f"Found matches for template with threshold {threshold}")
                 break
         else:
             self.logError("Can't Found template for threshold ")
@@ -46,29 +46,29 @@ class AbstractCalibrate(JsonHandling, CalibrateProperty):
 
     def findTemplates(self, loc, fileName):
 
-        delty = [[], []]
+        delta = [[], []]
 
         frame_ = self.getFrame()
 
         for pt in zip(*loc[::-1]):
-            delty[0].append(self.templateLocationX - pt[0])
-            delty[1].append(self.templateLocationY - pt[1])
+            delta[0].append(self.templateLocationX - pt[0])
+            delta[1].append(self.templateLocationY - pt[1])
             cv.rectangle(frame_, pt, (pt[0] + self.templateSize, pt[1] + self.templateSize), (0, 0, 255), 2)
 
         cv.imwrite(str(fileName) + 'e.png', frame_)
 
-        delty = (mean(delty[0]), mean(delty[1]))
+        delta = (mean(delta[0]), mean(delta[1]))
 
-        return delty
+        return delta
 
-    def saveCalibrationResults(self, delty, index):
+    def saveCalibrationResults(self, delta, index):
 
         data = self.readFile(self.configFile)
         try:
-            data["0"]["offsets"][self.indexLegend[index]] = int(delty[index])
+            data["0"]["offsets"][self.indexLegend[index]] = int(delta[index])
         except ValueError as e:
             self.logError(e)
         else:
-            self.loger(int(delty[index]))
+            self.loger(int(delta[index]))
 
             self.saveFile(self.configFile, data)

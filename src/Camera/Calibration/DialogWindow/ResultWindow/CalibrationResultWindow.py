@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import QLabel
 
+from src.Camera.Calibration.DialogWindow.AbstractWindow.AbstractWindow import AbstractWindow
 from src.Camera.Calibration.Propertis.Propertis import CalibrateProperty
-from src.manipulator.DialogWindow.AbstractM import AbstractDialogManipulator
 
 from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
-class CalibrationResultsDialog(AbstractDialogManipulator, JsonHandling, CalibrateProperty):
+class CalibrationResultsDialog(AbstractWindow, JsonHandling, CalibrateProperty):
 
     def __int__(self, manipulator, *args, **kwargs):
         super().__init__(manipulator, *args, **kwargs)

@@ -8,7 +8,8 @@ class Calibrate(AbstractCalibrate):
 
         frame_ = self.getFrame()
 
-        self.saveFrameWithTemplate(str(index) + movementFun.__name__ +'s.png', frame_, (self.templateLocationY, self.templateLocationX))
+        self.saveFrameWithTemplate(str(index) + movementFun.__name__ + 's.png', frame_,
+                                   (self.templateLocationY, self.templateLocationX))
 
         movementFun()
         manipulatorInterferes.waitForTarget()
@@ -21,16 +22,16 @@ class Calibrate(AbstractCalibrate):
             self.logWarning(f"No matched template")
             return
 
-        delty = self.findTemplates(loc, index)
+        delta = self.findTemplates(loc, index)
 
-        self.loger(f"Calculated different in template location {delty}")
+        self.loger(f"Calculated different in template location {delta}")
 
-        if delty[not index] > 5:
+        if delta[not index] > 5:
             self.logWarning("To math distortion in other axis")
             return
 
         if index is not None:
-            self.saveCalibrationResults(delty, index)
+            self.saveCalibrationResults(delta, index)
 
     def calibrateX(self, manipulatorInterferes):
         self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveRight, 0)

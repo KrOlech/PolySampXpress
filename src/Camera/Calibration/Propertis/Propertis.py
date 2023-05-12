@@ -6,7 +6,7 @@ class CalibrateProperty:
 
     @property
     def configFile(self):
-        return "test.json"  # TODo przełoczyc na poprawny plik konfiguracyjy
+        return "test.json"  # TODo Correct config File Name
 
     @property
     def templateLocationX(self):
