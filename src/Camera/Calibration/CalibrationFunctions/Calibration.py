@@ -3,7 +3,7 @@ from src.Camera.Calibration.Abstract.Abstract import AbstractCalibrate
 
 class Calibrate(AbstractCalibrate):
 
-    def __calibrate(self, manipulatorInterferes, movementFun, index, template=None):
+    def __calibrate(self, manipulatorInterferes, movementFun, index=None, template=None):
         template, _, _ = self.extractTemplate(self.getGrayFrame()) if template is None else template
 
         frame_ = self.getFrame()
@@ -46,7 +46,7 @@ class Calibrate(AbstractCalibrate):
         self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveDown, 1)
 
     def calibrateXY(self, manipulatorInterferes, template0):
-        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveNegativeXY, None, template0)
+        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveNegativeXY, template=template0)
 
     def calibrateNegativeXY(self, manipulatorInterferes, template0):
-        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveXY, None, template0)
+        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveXY, template=template0)
