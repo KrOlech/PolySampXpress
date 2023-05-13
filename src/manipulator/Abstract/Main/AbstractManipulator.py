@@ -54,6 +54,10 @@ class AbstractManipulator(JsonHandling):  # toDo test if beter resalts wit async
     def homeAxis(self):
         abstractmetod(self)
 
+    @abstractmethod
+    def stop(self):
+        abstractmetod(self)
+
     def upadteLable(self):
         self.label.setText(f"    X:{self.y:.4f}    Y:{self.x:.4f}")
 

@@ -40,6 +40,9 @@ class AbstractManipulatorInterfejs(QWidget):
     def __key_down(self):
         self.master.manipulator.down()
 
+    def __stop(self):
+        self.master.manipulator.stop()
+
     def center(self, pos):
         self.master.manipulator.center(pos)
 

@@ -111,7 +111,10 @@ class DllFunctions(Loger):
         for axisNr in range(self.getAxisCount()):
             self.dll.acsc_SetFPosition(self.handle, axisNr, 0, 0)
 
-    #toDo stop all Axis
+    def stopAllAxis(self):
+        #int _ACSCLIB_ WINAPI acsc_Halt(HANDLE Handle, int Axis, ACSC_WAITBLOCK* Wait);
+        for axisNr in range(self.getAxisCount()):
+            self.dll.acsc_Halt(self.handle, axisNr, 0)
 
 if __name__ == "__main__":
 
