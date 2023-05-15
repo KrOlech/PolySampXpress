@@ -5,7 +5,7 @@ from src.Camera.Calibration.DialogWindow.AbstractWindow.AbstractWindow import Ab
 
 class CalibrationResultWindowNoResults(AbstractWindow):
 
-    def __int__(self, manipulator, *args, **kwargs):
+    def __init__(self, manipulator, *args, **kwargs):
         super().__init__(manipulator, *args, **kwargs)
 
         self.form.addRow(QLabel("Calibration was Stoped befor end"))
