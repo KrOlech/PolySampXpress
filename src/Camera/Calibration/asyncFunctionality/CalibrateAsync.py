@@ -1,3 +1,5 @@
+from src.Camera.Calibration.DialogWindow.ResultWindow.CalibrationResultWindowNoResults import \
+    CalibrationResultWindowNoResults
 from src.Camera.Calibration.CalibrationFunctions.Calibration import Calibrate
 from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 from src.Camera.Calibration.DialogWindow.ResultWindow.CalibrationResultWindow import CalibrationResultsDialog
@@ -6,7 +8,10 @@ from src.Camera.Calibration.DialogWindow.ResultWindow.CalibrationResultWindow im
 class CalibrateAsync(Calibrate):
 
     def __startAsyncProcesCalibrationProces(self, startUpFun, EndFun):
-        workFunWorker(self, startUpFun, EndFun)
+        if self.calibrationOnGoing:
+            workFunWorker(self, startUpFun, EndFun)
+        else:
+            self.calibrateEndCallQuick()
 
     def startAsyncCalibration(self):
         self.__startAsyncProcesCalibrationProces(self.calibrateXStartCall, self.calibrateXEndAndStartY)
@@ -50,3 +55,8 @@ class CalibrateAsync(Calibrate):
         self.loger("Calibration End")
         self.calibrationDialog.end()
         CalibrationResultsDialog(self.manipulatorInterferes).exec_()
+
+    def calibrateEndCallQuick(self):
+        self.loger("Calibration End Quick")
+        self.calibrationDialog.end()
+        CalibrationResultWindowNoResults(self.manipulatorInterferes).exec_()
