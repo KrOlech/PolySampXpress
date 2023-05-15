@@ -3,7 +3,7 @@ import cv2
 from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
-class CameraSymulator:
+class CameraSimulator:
 
     def __init__(self):
         pass

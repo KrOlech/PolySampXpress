@@ -2,8 +2,11 @@ from functools import cache
 
 import cv2
 
-from src.Camera.Utilitis.ComonComunicationPoint.CommonCommunicationPoint import CommonCommunicationPoint as CCPoint
-from src.Camera.Utilitis.OpenCvComunicationPort.OpenCVComunicationPort import OpenCVCCommunicationPoint as OCCPoint
+from src.Camera.ComunicationPoint.ComonComunicationPoint.CommonCommunicationPoint import \
+    CommonCommunicationPoint as OCCPoint
+from src.Camera.ComunicationPoint.OpenCvComunicationPort.OpenCVComunicationPort import \
+    OpenCVCCommunicationPoint as CCPoint
+
 from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
@@ -55,7 +58,8 @@ class CommonNames(JsonHandling):
         WHITEBALANCE = "WHITE BALANCE"
         self.whiteBalance = CCPoint(WHITEBALANCE, self.parametersDictionary[WHITEBALANCE])
 
-        self.communicationPoints = [self.brightness, self.saturation, self.hue, self.sharpness, self.gamma, self.exposure, self.gain, self.whiteBalance]
+        self.communicationPoints = [self.brightness, self.saturation, self.hue, self.sharpness, self.gamma,
+                                    self.exposure, self.gain, self.whiteBalance]
 
     def saveConfig(self):
         self.saveFile(self.settingsFileName, self.parametersDictionary)

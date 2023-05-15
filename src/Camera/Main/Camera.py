@@ -1,7 +1,7 @@
 import cv2
 
-from src.Camera.Symulator.CameraSymulator import CameraSymulator
-from src.Camera.Calibration.Main import MainCalibrate
+from src.Camera.Symulator.CameraSimulator import CameraSimulator
+from Camera.Calibration.main.Main import MainCalibrate
 from src.Camera.ComonNames.ComonNames import CommonNames
 from src.Camera.Configuration.Configuration import Configuration
 from src.Camera.GetFrame.GetFrame import GetFrame
@@ -23,28 +23,25 @@ class Camera(CommonNames, GetFrame, Configuration, MainCalibrate):
 
         self.windowSize = windowSize
 
-        self.testCameraCommunication()
+        self.__testCameraCommunication()
 
-        self.set(self.WIDTH, self.HEIGHT, self.FPS)
+        self.configurationSetUp(self.WIDTH, self.HEIGHT, self.FPS)
 
-        self.device.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
-        self.device.set(cv2.CAP_PROP_EXPOSURE, -2)
+        self.__readValues()
 
-        self.readValues()
-
-    def readValues(self) -> None:
+    def __readValues(self) -> None:
         [communicationPoint.setValue(self.device) for communicationPoint in self.communicationPoints]
 
-    def testCameraCommunication(self) -> None:
+    def __testCameraCommunication(self) -> None:
         try:
             ret, _ = self.device.read()
             if not ret:
                 raise NoCammeraConected
         except NoCammeraConected:
 
-            self.device = CameraSymulator()
+            self.device = CameraSimulator()
 
-    def setNewValueForCommunicationPoint(self, communicationPoint):
+    def setNewValueForCommunicationPoint(self, communicationPoint) -> None:
         self.device.set(communicationPoint.address, communicationPoint.value)
         self.parametersDictionary[communicationPoint.name]["value"] = communicationPoint.value
         self.saveConfig()

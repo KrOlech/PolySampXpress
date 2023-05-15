@@ -1,5 +1,5 @@
-from src.Camera.Calibration.DialogWindow import CalibrationDialog
-from src.Camera.Calibration.CalibrateAsync import CalibrateAsync
+from Camera.Calibration.DialogWindow.waitWindow.DialogWindow import CalibrationDialog
+from src.Camera.Calibration.asyncFunctionality.CalibrateAsync import CalibrateAsync
 from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 
 
@@ -12,8 +12,6 @@ class MainCalibrate(CalibrateAsync):
 
         self.calibrationDialog = CalibrationDialog(self)
 
-        workFunWorker(self, self.CalibrateXStart, self.calibrateXEnd)
+        self.startAsyncCalibration()
 
         self.calibrationDialog.exec_()
-
-

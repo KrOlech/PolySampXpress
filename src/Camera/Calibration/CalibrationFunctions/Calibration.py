@@ -1,14 +1,15 @@
-from src.Camera.Calibration.Abstract import AbstractCalibrate
+from src.Camera.Calibration.Abstract.Abstract import AbstractCalibrate
 
 
 class Calibrate(AbstractCalibrate):
 
-    def __calibrate(self, manipulatorInterferes, movementFun, index, template=None):
+    def __calibrate(self, manipulatorInterferes, movementFun, index=None, template=None):
         template, _, _ = self.extractTemplate(self.getGrayFrame()) if template is None else template
 
         frame_ = self.getFrame()
 
-        self.saveFrameWithTemplate(str(index) + movementFun.__name__ +'s.png', frame_, (self.templateLocationY, self.templateLocationX))
+        self.saveFrameWithTemplate(str(index) + movementFun.__name__ + 's.png', frame_,
+                                   (self.templateLocationY, self.templateLocationX))
 
         movementFun()
         manipulatorInterferes.waitForTarget()
@@ -21,16 +22,16 @@ class Calibrate(AbstractCalibrate):
             self.logWarning(f"No matched template")
             return
 
-        delty = self.findTemplates(loc, index)
+        delta = self.findTemplates(loc, index)
 
-        self.loger(f"Calculated different in template location {delty}")
+        self.loger(f"Calculated different in template location {delta}")
 
-        if delty[not index] > 5:
+        if delta[not index] > 5:
             self.logWarning("To math distortion in other axis")
             return
 
         if index is not None:
-            self.saveCalibrationResults(delty, index)
+            self.saveCalibrationResults(delta, index)
 
     def calibrateX(self, manipulatorInterferes):
         self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveRight, 0)
@@ -45,7 +46,7 @@ class Calibrate(AbstractCalibrate):
         self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveDown, 1)
 
     def calibrateXY(self, manipulatorInterferes, template0):
-        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveNegativeXY, None, template0)
+        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveNegativeXY, template=template0)
 
     def calibrateNegativeXY(self, manipulatorInterferes, template0):
-        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveXY, None, template0)
+        self.__calibrate(manipulatorInterferes, manipulatorInterferes.moveXY, template=template0)
