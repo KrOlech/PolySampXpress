@@ -1,6 +1,6 @@
 from tests import AbstractMapWindow
 
-from tests import TCIPManipulator
+from tests import TCIPManipulator #depraceted support Drop
 from tests import loadOffsetsJson
 from numpy import ones
 import numpy as np
