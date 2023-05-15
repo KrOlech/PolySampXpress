@@ -1,7 +1,7 @@
 import cv2
 
 from src.Camera.Symulator.CameraSimulator import CameraSimulator
-from Camera.Calibration.main.Main import MainCalibrate
+from src.Camera.Calibration.main.Main import MainCalibrate
 from src.Camera.ComonNames.ComonNames import CommonNames
 from src.Camera.Configuration.Configuration import Configuration
 from src.Camera.GetFrame.GetFrame import GetFrame
