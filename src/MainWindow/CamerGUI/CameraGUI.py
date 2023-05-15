@@ -1,4 +1,3 @@
-
 from PyQt5 import QtWidgets, QtCore
 
 from src.Camera.Main.Camera import Camera
@@ -25,6 +24,7 @@ class CameraGUI(MainWindowMenuBar):
 
     def calibrate(self):
         self.camera.calibrate(self.manipulatorInterferes)
+
 
 if __name__ == '__main__':
     from PyQt5.QtWidgets import QApplication

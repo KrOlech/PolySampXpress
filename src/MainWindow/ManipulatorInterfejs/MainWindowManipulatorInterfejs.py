@@ -1,14 +1,14 @@
 from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QMessageBox, QPushButton, QLabel
+from PyQt5.QtWidgets import QPushButton, QLabel
 
-#todo move to separate classes
+# todo move to separate classes
 from src.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
-from src.manipulator.DialogWindow.WaitDialoge import HomeAxisDialog
 from src.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
 from src.manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 from src.manipulator.DialogWindow.SimpleDialogWindow import GoToCordsDialog
 from src.manipulator.DialogWindow.StepSizeDialog import SetStepSizeDialog
+from src.manipulator.DialogWindow.WaitDialoge import HomeAxisDialog
 from src.manipulator.Interfejs.ManipulatorInterfejs import ManipulatorInterfere
 from src.manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
 from src.manipulator.SCIIPPlus.Main.MainSymulator import SCIManipulatorSimulator
@@ -25,6 +25,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
 
         self.myStatusBar = self.configureStatusBar()
+        self.myStatusBarMouse = self.configureStatusBarMouse()
 
         self.manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
@@ -168,6 +169,23 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def hideRightClickButtons(self):
         [button.hide() for button in self.buttons]
         self.buttons = []
+
+    def configureStatusBarMouse(self):
+        myStatusBar = QLabel(self)
+
+        myStatusBar.setFixedWidth(self.windowSize.width() // 16)
+
+        myStatusBar.setStyleSheet("background-color: rgba(255, 255, 255, 75);")
+
+        font = QFont()
+        font.setPointSize(13)
+        myStatusBar.setFont(font)
+        myStatusBar.setText("test")
+        myStatusBar.move(
+            QPoint(self.windowSize.width() - (self.windowSize.width() // 16), self.windowSize.height() - 25))
+        myStatusBar.show()
+
+        return myStatusBar
 
 
 if __name__ == '__main__':
