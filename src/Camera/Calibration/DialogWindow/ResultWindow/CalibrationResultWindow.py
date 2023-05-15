@@ -8,7 +8,7 @@ from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 class CalibrationResultsDialog(AbstractWindow, JsonHandling, CalibrateProperty):
 
-    def __int__(self, manipulator, *args, **kwargs):
+    def __init__(self, manipulator, *args, **kwargs):
         super().__init__(manipulator, *args, **kwargs)
 
         data = self.readFile(self.configFile)
@@ -17,6 +17,7 @@ class CalibrationResultsDialog(AbstractWindow, JsonHandling, CalibrateProperty):
             legend = self.indexLegend[index]
             values = data["0"]["offsets"][legend]
 
-            self.form.addRow(QLabel(f"{legend}: "), str(values))
+            self.form.addRow(QLabel(f"{legend}: "), QLabel(str(values)))
 
         self.form.addRow(QLabel(""), self.okButton)
+
