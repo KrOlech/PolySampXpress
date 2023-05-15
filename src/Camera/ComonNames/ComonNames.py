@@ -3,9 +3,9 @@ from functools import cache
 import cv2
 
 from src.Camera.ComunicationPoint.ComonComunicationPoint.CommonCommunicationPoint import \
-    CommonCommunicationPoint as OCCPoint
+    CommonCommunicationPoint as CCPoint
 from src.Camera.ComunicationPoint.OpenCvComunicationPort.OpenCVComunicationPort import \
-    OpenCVCCommunicationPoint as CCPoint
+    OpenCVCCommunicationPoint as OCCPoint
 
 from src.utilitis.JsonRead.JsonRead import JsonHandling
 

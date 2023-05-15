@@ -6,4 +6,4 @@ from src.Camera.ComunicationPoint.Abstract.AbstractComunicationPort import Abstr
 class CommonCommunicationPoint(AbstractCommunicationPoint):
 
     def setValue(self, device: cv2.VideoCapture) -> None:
-        self.value = 90
+        pass

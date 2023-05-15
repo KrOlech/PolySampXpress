@@ -30,7 +30,7 @@
         "address": 22
     },
     "EXPOSURE": {
-        "value": 0.0,
+        "value": -6.33,
         "min": -15,
         "max": 0,
         "address": 15
@@ -42,7 +42,7 @@
         "address": 14
     },
     "WHITE BALANCE": {
-        "value": 111.69,
+        "value": 133.875,
         "min": 0,
         "max": 255,
         "address": 45
