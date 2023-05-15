@@ -52,6 +52,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
             getattr(self, self.supportedModes[self.mainWindow.mode] + "__seveReliseLocation")(e)
 
     def mouseMoveEvent(self, e):
+
         match self.leftMouseButton, self.editTribe, self.mainWindow.manipulator.inMotion:
             case False, False, _:
                 self.mainWindow.showROIList(e)
@@ -62,6 +63,8 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
             case True, False, False:
                 getattr(self, self.supportedModes[self.mainWindow.mode] + "__saveTemporaryLocation")(e)
                 self.mainWindow.showROIList(e)
+
+        self.mainWindow.myStatusBarMouse.setText(f" X: {e.x()}     Y: {e.y()}")
 
     def __isOkToProcesEvent(self):
         return self.mainWindow.manipulator.inMotion or not self.leftMouseButton
