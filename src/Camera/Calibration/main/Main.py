@@ -5,6 +5,8 @@ from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFun
 
 class MainCalibrate(CalibrateAsync):
 
+    calibrationOnGoing = True
+
     def calibrate(self, manipulatorInterferes):
         self.manipulatorInterferes = manipulatorInterferes
 
@@ -15,3 +17,6 @@ class MainCalibrate(CalibrateAsync):
         self.startAsyncCalibration()
 
         self.calibrationDialog.exec_()
+
+    def stopCalibrationProces(self):
+        self.calibrationOnGoing = False
