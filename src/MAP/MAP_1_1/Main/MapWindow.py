@@ -1,7 +1,7 @@
 import threading
 
 from tests import MapWindowInitialise
-from tests import TCIPManipulator
+from tests import TCIPManipulator  # depraceted support Drop
 
 
 class MapWindow(MapWindowInitialise):
@@ -14,7 +14,9 @@ class MapWindow(MapWindowInitialise):
 
     def takPhoto(self):
         crop = self.scalleFream(self.master.camera.getFrame())
-        self.map[:self.scaledCameraFrameSize[1], self.scaledCameraFrameSize[0]:] = crop[:, :self.map.shape[1] - self.scaledCameraFrameSize[0]]
+        self.map[:self.scaledCameraFrameSize[1], self.scaledCameraFrameSize[0]:] = crop[:, :self.map.shape[1] -
+                                                                                            self.scaledCameraFrameSize[
+                                                                                                0]]
         self.convertMap()
 
     def moveManipulator(self):
@@ -24,7 +26,7 @@ class MapWindow(MapWindowInitialise):
             self.manipulator.goToCords(y=self.movementMap[self.photoCount[0]][self.photoCount[1]][1])
 
     def mapCreate(self):
-        #print(self.photoCount, self._photoCount, self.mapDirection, self.mapEnd)
+        # print(self.photoCount, self._photoCount, self.mapDirection, self.mapEnd)
 
         if self.mapEnd:
             return True
@@ -113,8 +115,10 @@ class MapWindow(MapWindowInitialise):
         # print(f"full {self.photoCount}")
         crop = self.__takPhoto()
         try:
-            self.map[int(self.scaledCameraFrameSize[1] * self.photoCount[0]):int(self.scaledCameraFrameSize[1] * (self.photoCount[0] + 1)),
-            int(self.scaledCameraFrameSize[0] * self.photoCount[1]):int(self.scaledCameraFrameSize[0] * (self.photoCount[1] + 1))] = crop
+            self.map[int(self.scaledCameraFrameSize[1] * self.photoCount[0]):int(
+                self.scaledCameraFrameSize[1] * (self.photoCount[0] + 1)),
+            int(self.scaledCameraFrameSize[0] * self.photoCount[1]):int(
+                self.scaledCameraFrameSize[0] * (self.photoCount[1] + 1))] = crop
             self.convertMap()
         except ValueError as e:
             print(e)
@@ -175,7 +179,7 @@ class MapWindow(MapWindowInitialise):
         return photo[:, :-(m - n)]
 
     def chopLeft(self, photo):
-        #m = int((self.photoCount[1] * self.scaledCameraFrameSize[0]) - self.maxX)
+        # m = int((self.photoCount[1] * self.scaledCameraFrameSize[0]) - self.maxX)
         x = self.movementMap[self.photoCount[0]][self.photoCount[1]][0]
         xr = self.movementMap[self.photoCount[0]][self.photoCount[1]][4]
         n = int((xr - x) * self.xOffset)
@@ -196,4 +200,3 @@ class MapWindow(MapWindowInitialise):
             self.convertMap()
         except Exception as e:
             print(e)
-

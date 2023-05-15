@@ -13,7 +13,6 @@ from src.manipulator.Interfejs.ManipulatorInterfejs import ManipulatorInterfere
 from src.manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
 from src.manipulator.SCIIPPlus.Main.MainSymulator import SCIManipulatorSimulator
 from src.manipulator.Standa.StandaManipulator import StandaManipulator
-from src.manipulator.TCIP.TCIPManipulator import TCIPManipulator
 
 
 class MainWindowManipulatorInterfejs(CameraGUIExtension):
@@ -46,20 +45,17 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         manipulatorChoiceMenu = manipulatorMenu.addMenu("&Manipulator Type")
 
         self.abstractManipulatorAction = self.__createAction("AbstractManipulator", self.setAbstractManipulator)
-        self.tCIPManipulatorAction = self.__createAction("TCIPManipulator", self.setTCIPManipulator)
         self.standManipulatorAction = self.__createAction("StandManipulator", self.setStandManipulator)
         self.sCIManipulatorSimulatorAction = self.__createAction("SCISimulator", self.setSCIManipulatorSimulator)
         self.sCIManipulatorMainAction = self.__createAction("SCIManipulatorMain", self.setSCIManipulatorMain, )
 
         manipulatorChoiceMenu.addAction(self.abstractManipulatorAction)
-        manipulatorChoiceMenu.addAction(self.tCIPManipulatorAction)
         manipulatorChoiceMenu.addAction(self.standManipulatorAction)
         manipulatorChoiceMenu.addAction(self.sCIManipulatorSimulatorAction)
         manipulatorChoiceMenu.addAction(self.sCIManipulatorMainAction)
 
-        self.manipulatorActions = [self.abstractManipulatorAction, self.tCIPManipulatorAction,
-                                   self.standManipulatorAction, self.sCIManipulatorSimulatorAction,
-                                   self.sCIManipulatorMainAction]
+        self.manipulatorActions = [self.abstractManipulatorAction, self.standManipulatorAction,
+                                   self.sCIManipulatorSimulatorAction, self.sCIManipulatorMainAction]
 
         self.abstractManipulatorAction.setChecked(True)
 
@@ -71,12 +67,6 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         self.manipulator.close()
         self.abstractManipulatorAction.setChecked(True)
         self.manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
-
-    def setTCIPManipulator(self):
-        self.__UncheckAll()
-        self.manipulator.close()
-        self.tCIPManipulatorAction.setChecked(True)
-        self.manipulator = TCIPManipulator(self.windowSize, self.myStatusBar)
 
     def setStandManipulator(self):
         self.__UncheckAll()
