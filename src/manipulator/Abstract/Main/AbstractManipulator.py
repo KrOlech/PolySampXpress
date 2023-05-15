@@ -6,7 +6,7 @@ from src.utilitis.CustomExceptions.Exceptions import InvalidSpeed
 from src.utilitis.JsonRead.JsonRead import JsonHandling
 
 
-class AbstractManipulator(JsonHandling):
+class AbstractManipulator(JsonHandling):  # toDo test if beter resalts wit async movment
     __metaclass__ = ABCMeta
 
     speed = 0
@@ -42,9 +42,6 @@ class AbstractManipulator(JsonHandling):
     def gotoNotAsync(self):
         self.upadteLable()
 
-    def upadteLable(self):
-        self.label.setText(f"    X:{self.y:.4f}    Y:{self.x:.4f}")
-
     @abstractmethod
     def close(self):
         abstractmetod(self)
@@ -56,6 +53,9 @@ class AbstractManipulator(JsonHandling):
     @abstractmethod
     def homeAxis(self):
         abstractmetod(self)
+
+    def upadteLable(self):
+        self.label.setText(f"    X:{self.y:.4f}    Y:{self.x:.4f}")
 
     def up(self):
         self.y += self.speed

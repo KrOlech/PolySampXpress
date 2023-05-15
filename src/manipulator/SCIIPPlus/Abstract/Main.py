@@ -1,4 +1,3 @@
-import asyncio
 from abc import ABCMeta
 from ctypes import CDLL
 
@@ -13,7 +12,6 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
 
     def __init__(self, screenSize, label, *args, **kwargs):
         super().__init__(screenSize, label, *args, **kwargs)
-        self.dll = CDLL(r"C:\Windows\System32\ACSCL_x64.dll")
         self.xOffset, self.yOffset = self.loadOffsetsJson()
 
     def init(self, handle, speed):
@@ -21,13 +19,14 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
         self.handle = handle
         if self.handle == -1:
             self.logError("no master Connected Error during Connection")
+            return
         self.enableAllAxis()
 
     def getCurrentPosition(self):
         return self.x, self.y, self.z
 
     def validateSpeed(self, speed):
-        self.loger("to Implement")
+        # Not needed for now full readability on manipulator own speed
         return True
 
     async def goto(self):
@@ -46,7 +45,7 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
             self.y = self.getPosition(0)
             self.loger({1: self.x, 0: self.y})
         else:
-            self.loger("erorre")
+            self.logError("Manipulator in motion?")
 
         if self.checkAxisStateM():
             self.x = self.getPosition(1)

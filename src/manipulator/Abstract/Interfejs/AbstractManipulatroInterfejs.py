@@ -3,39 +3,42 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QAction
 
 class AbstractManipulatorInterfejs(QWidget):
 
+    @property
+    def buttonsNames(self):
+        return ["/\\", "<", ">", r'\/']
+
+    def __new__(cls, *args, **kwargs):
+        cls.fun = [cls.__key_down, cls.__key_left, cls.__key_right, cls.__key_up]
+
     def __init__(self, master, *args, **kwargs):
         super(AbstractManipulatorInterfejs, self).__init__(*args, **kwargs)
 
         self.master = master
 
-        self._layout = QGridLayout()
+        self.__layout = QGridLayout()
 
-        self.buttonsNames = ["/\\", "<", ">", r'\/']
+        self.__buttons = [QPushButton(name) for name in self.buttonsNames]
 
-        self.buttons = [QPushButton(name) for name in self.buttonsNames]
-
-        [self._layout.addWidget(value, i, j) for j, i, value in zip([2, 3, 3, 4], [3, 2, 4, 3], self.buttons)]
+        [self.__layout.addWidget(value, i, j) for j, i, value in zip([2, 3, 3, 4], [3, 2, 4, 3], self.__buttons)]
 
         self.actions = [QAction("&dw", self), QAction("&lf", self), QAction("&ri", self), QAction("&up", self)]
 
-        self.fun = [self._key_down, self._key_left, self._key_right, self._key_up]
-
         [a.triggered.connect(f) for a, f in zip(self.actions, self.fun)]
 
-        [button.released.connect(f) for f, button in zip(self.fun, self.buttons)]
+        [button.released.connect(f) for f, button in zip(self.fun, self.__buttons)]
 
-        self.setLayout(self._layout)
+        self.setLayout(self.__layout)
 
-    def _key_up(self):
+    def __key_up(self):
         self.master.manipulator.up()
 
-    def _key_left(self):
+    def __key_left(self):
         self.master.manipulator.left()
 
-    def _key_right(self):
+    def __key_right(self):
         self.master.manipulator.right()
 
-    def _key_down(self):
+    def __key_down(self):
         self.master.manipulator.down()
 
     def center(self, pos):

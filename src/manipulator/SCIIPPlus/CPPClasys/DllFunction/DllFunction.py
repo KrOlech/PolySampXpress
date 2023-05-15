@@ -1,23 +1,31 @@
 from ctypes import CDLL, c_double, byref, c_long, c_char_p, c_int
+from functools import cache
 
 from src.utilitis.Logger.Logger import Loger
 
 
 class DllFunctions(Loger):
 
+    @property
+    def IP(self) -> c_char_p:
+        return c_char_p(b"10.0.0.100")
+
     def __init__(self, *args, **kwargs):
-        self.dll = CDLL(r"C:\Windows\System32\ACSCL_x64.dll")
+        self.dll = CDLL(r"C:\Windows\System32\ACSCL_x64.dll")  # toDo Resolv DLL location
 
     def __enter__(self):
-        self.handle = self.dll.acsc_OpenCommEthernetTCP(c_char_p(b"10.0.0.100"), 701)
+        self.handle = self.dll.acsc_OpenCommEthernetTCP(self.IP, 701)
         return self
 
     def __exit__(self, type, value, traceback):
         self.dll.acsc_CloseSimulator()
 
+    @cache
     def getAxisCount(self):
-        buffer = c_double(-1)
+        buffer = c_double()
+
         self.dll.acsc_SysInfo(self.handle, 13, byref(buffer), 0)
+
         return int(buffer.value)
 
     def getMotorState(self, axis=0):
@@ -29,13 +37,14 @@ class DllFunctions(Loger):
 
     def getMotorStateM(self, axis):
         state = [self.getMotorState(ax) for ax in axis]
+
         return any(state)
 
     def getPosition(self, axis=0):
         buffer = c_double(0)
 
         self.dll.acsc_GetFPosition(self.handle, axis, byref(buffer), 0)
-        self.loger(f"Position axis {axis} is {buffer}")
+        self.loger(f"Position of axis {axis} is {buffer}")
 
         return buffer.value
 
@@ -69,10 +78,9 @@ class DllFunctions(Loger):
     def checkAxisStateM(self):
         return any([self.checkAxisState(axisNr) for axisNr in range(self.getAxisCount())])
 
-
     def checkAxisState(self, axisNr):
 
-        m_MotorFault = c_int(0)
+        m_MotorFault = c_int()
 
         self.dll.acsc_GetFault(self.handle, axisNr, byref(m_MotorFault), 0)
 
@@ -89,12 +97,13 @@ class DllFunctions(Loger):
             state = True
 
         return state
+
     def checkFaultMask(self, axisNr):
-        m_FaultMask = c_int(0)
+        m_FaultMask = c_int()
         self.dll.acsc_GetFaultMask(self.handle, axisNr, byref(m_FaultMask), 0)
         self.loger(f"GetFaultMask for axis {axisNr}: {m_FaultMask.value}")
 
-    def setPositions(self, position: dict):
+    def setPositions(self, position: dict): #ToDo check if works?
         for axisNr, axisPosition in position.items():
             self.dll.acsc_SetFPosition(self.handle, axisNr, axisPosition, 0)
 
@@ -102,6 +111,7 @@ class DllFunctions(Loger):
         for axisNr in range(self.getAxisCount()):
             self.dll.acsc_SetFPosition(self.handle, axisNr, 0, 0)
 
+    #toDo stop all Axis
 
 if __name__ == "__main__":
 

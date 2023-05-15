@@ -1,14 +1,14 @@
 from asyncio import sleep
 
 from src.manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
-from src.manipulator.Standa.InicialisationClass import StandaManipulatorInicialisation
+from src.manipulator.Standa.InicialisationClass import StandaManipulatorInitialisation
 
 
-class StandaManipulator(AbstractManipulator, StandaManipulatorInicialisation):
+class StandaManipulator(AbstractManipulator, StandaManipulatorInitialisation):
 
     def __init__(self, screenSize, *args, **kwargs):
         AbstractManipulator.__init__(self, screenSize, *args, **kwargs)
-        StandaManipulatorInicialisation.__init__(self)
+        StandaManipulatorInitialisation.__init__(self)
         self.lib.command_home(self.device_id)
         self.setSpeed(100)
         self.__x = 0
@@ -16,7 +16,7 @@ class StandaManipulator(AbstractManipulator, StandaManipulatorInicialisation):
     def getCurrentPosition(self):
         return self.x, self.y, self.z
 
-    def center(self, pozycja, pozycja2):
+    def center(self, pozycja, pozycja2):  # toDo uncorect Functionality implemented only for test purpuse
         self.lib.command_home(self.device_id)
 
     def validateSpeed(self, speed):

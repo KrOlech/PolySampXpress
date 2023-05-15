@@ -1,5 +1,4 @@
 import asyncio
-from ctypes import c_char_p
 
 from src.manipulator.SCIIPPlus.Abstract.Main import SCIManipulator
 from src.utilitis.JsonRead.JsonRead import JsonHandling
@@ -9,21 +8,20 @@ class SCIManipulatorMain(SCIManipulator, JsonHandling):
 
     def __init__(self, screenSize, label, *args, **kwargs):
         super().__init__(screenSize, label, *args, **kwargs)
-        self.init(self.dll.acsc_OpenCommEthernetTCP(c_char_p(b"10.0.0.100"), 701), 1)
-        self.x = self.getPosition(1)
-        self.y = self.getPosition(0)
-        self.x0, self.y0, self.z0 = self.getPosition(1), self.getPosition(0), 0
+        self.init(self.dll.acsc_OpenCommEthernetTCP(self.IP, 701), 1)
+        self.x0, self.y0 = self.getPosition(1), self.getPosition(0)
         self.upadteLable()
         self.__readPositionFromFile()
 
     def homeAxis(self):
-        self.x = -200
-        self.y = -200
+        self.x, self.y = -200, -200
+
         asyncio.run(self.goto())
+
         self.setZero()
-        self.x = self.getPosition(1)
-        self.y = self.getPosition(0)
-        self.x0, self.y0, self.z0 = self.getPosition(1), self.getPosition(0), 0
+
+        self.x0, self.y0 = self.getPosition(1), self.getPosition(0)
+
         self.upadteLable()
 
     def __readPositionFromFile(self):
@@ -32,4 +30,4 @@ class SCIManipulatorMain(SCIManipulator, JsonHandling):
         self.upadteLable()
 
     def close(self):
-        self.disableAllAxis()
+        self.disableAllAxis()  # toDo checck in producent code if its ok or I need to do more - works ok for now

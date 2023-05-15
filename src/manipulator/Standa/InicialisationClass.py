@@ -3,48 +3,14 @@ import platform
 import sys
 from ctypes import create_string_buffer, byref, string_at, c_uint, CDLL, WinDLL, cast, POINTER, c_int
 
+from src.manipulator.Standa.Abstract.AbstractStandaManipulator import AbstractStandaManipulator
 from src.manipulator.Standa.Filds.Calibration import Calibration
 from src.manipulator.Standa.Filds.DeviceInformation import DeviceInformation
 from src.manipulator.Standa.Filds.EngineSettings import EngineSettings
 from src.manipulator.Standa.Filds.Status import StatusFild
-from src.utilitis.Logger.Logger import Loger
 
 
-class StandaManipulatorInicialisation(Loger):
-    # Specifies the current directory.
-    cur_dir = os.path.abspath(os.path.dirname(__file__))
-
-    # Formation of the directory name with all dependencies.
-    ximc_dir = os.path.join(cur_dir, "..", "..", "..", "ximc")
-
-    # Formation of the directory name with python dependencies.
-    ximc_package_dir = os.path.join(ximc_dir, "crossplatform", "wrappers", "python")
-
-    # add pyximc.py wrapper to python path
-    sys.path.append(ximc_package_dir)
-
-    user_name = "root"
-    key_esc = "esc"
-
-    @property
-    def ok(self):
-        return 0
-
-    @property
-    def error(self):
-        return -1
-
-    @property
-    def not_implemented(self):
-        return -2
-
-    @property
-    def value_error(self):
-        return -3
-
-    @property
-    def no_device(self):
-        return -4
+class StandaManipulatorInitialisation(AbstractStandaManipulator):
 
     def __init__(self):
         self.__checkSystem()
@@ -67,14 +33,15 @@ class StandaManipulatorInicialisation(Loger):
 
     def enter(self):
         try:
-            self.device_id = self.lib.open_device(r"xi-com:\\\.\COM3".encode()) #todo test after conversion to row string
+            self.device_id = self.lib.open_device(
+                r"xi-com:\\\.\COM3".encode())  # todo test after conversion to row string
         except Exception as e:
             self.loger(e)
             self.loger("error Trying opening new master")
             return None
         else:
-            self.__test_info()
-            self.__test_serial(self.device_id)
+            self.__testInfo()
+            self.__testSerial(self.device_id)
 
             return self
 
@@ -87,7 +54,7 @@ class StandaManipulatorInicialisation(Loger):
 
     def __checkSystem(self):
         if platform.system() == "Windows":
-            libDir = r"C:\Users\user\KrzysztofOlech\Magisterkav2\Standa_Motor_Driver_Documentation\examples\test_Python\extendtest\..\..\..\ximc\win64"
+            libDir = r"C:\Users\user\KrzysztofOlech\Magisterkav2\Standa_Motor_Driver_Documentation\examples\test_Python\extendtest\..\..\..\ximc\win64"  # todo corect path
             if sys.version_info >= (3, 8):
                 os.add_dll_directory(libDir)
             else:
@@ -115,8 +82,8 @@ class StandaManipulatorInicialisation(Loger):
         else:
             return None
 
-    def __test_info(self):
-        self.loger("\nGet device info")
+    def __testInfo(self):
+        self.loger("Get device info")
         x_device_information = DeviceInformation()
 
         result = self.lib.get_device_information(self.device_id, byref(x_device_information))
@@ -127,7 +94,7 @@ class StandaManipulatorInicialisation(Loger):
             self.loger(" Hardware version: " + repr(x_device_information.Major) + "." + repr(
                 x_device_information.Minor) + "." + repr(x_device_information.Release))
 
-    def __test_status(self, device_id):
+    def __testStatus(self, device_id):
 
         """
         A function of reading status information from the device
@@ -138,7 +105,7 @@ class StandaManipulatorInicialisation(Loger):
         :param device_id:  device id.
         """
 
-        self.loger("\nGet status")
+        self.loger("Get status")
         x_status = StatusFild()
         result = self.lib.get_status(device_id, byref(x_status))
         self.loger("Result: " + repr(result))
@@ -148,7 +115,7 @@ class StandaManipulatorInicialisation(Loger):
             self.loger("Status.Iusb: " + repr(x_status.Iusb))
             self.loger("Status.Flags: " + repr(hex(x_status.Flags)))
 
-    def __test_serial(self, device_id):
+    def __testSerial(self, device_id):
         """
         Reading the device's serial number.
 

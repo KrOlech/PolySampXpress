@@ -14,6 +14,8 @@
 
 - Manipulator not resiving comands from interfejs corectli after centring or randomli during usage
 
+- test wyh manipulator not inicialise corefctli from saved position
+
 ***Done in Beta 0.6:***
 
 - Center On ROI
@@ -36,6 +38,10 @@
 - auto wykrywanie portu com manipulatora
 
 - Classs inhariting from qwidget with implementation of mybar for cleener look
+
+- remove support for TCIP manipulator
+
+- Ip seting for SCII manipulator - propably unnesesery but nice to have
 
 **Unsolved Errors**
 
