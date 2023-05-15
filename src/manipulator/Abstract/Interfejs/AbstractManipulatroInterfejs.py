@@ -7,9 +7,6 @@ class AbstractManipulatorInterfejs(QWidget):
     def buttonsNames(self):
         return ["/\\", "<", ">", r'\/']
 
-    def __new__(cls, *args, **kwargs):
-        #cls.fun = [cls.__key_down, cls.__key_left, cls.__key_right, cls.__key_up]
-
     def __init__(self, master, *args, **kwargs):
         super(AbstractManipulatorInterfejs, self).__init__(*args, **kwargs)
 
