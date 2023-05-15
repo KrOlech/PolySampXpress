@@ -8,10 +8,12 @@ class AbstractManipulatorInterfejs(QWidget):
         return ["/\\", "<", ">", r'\/']
 
     def __new__(cls, *args, **kwargs):
-        cls.fun = [cls.__key_down, cls.__key_left, cls.__key_right, cls.__key_up]
+        #cls.fun = [cls.__key_down, cls.__key_left, cls.__key_right, cls.__key_up]
 
     def __init__(self, master, *args, **kwargs):
         super(AbstractManipulatorInterfejs, self).__init__(*args, **kwargs)
+
+        self.fun = [self.__key_down, self.__key_left, self.__key_right, self.__key_up]
 
         self.master = master
 

@@ -14,7 +14,7 @@ class AbstractR(Loger):
 
     def __init__(self, *args, **kwargs):
         self.master = kwargs['master']
-        self.label = ROILabel(self, self.master.master.windowSize)
+        self.label = ROILabel(self, self.master.mainWindow.windowSize)
 
     def delete(self):
         self.master.ROIList.remove(self)
@@ -23,8 +23,8 @@ class AbstractR(Loger):
 
     @cache
     def calculateOffset(self, x, y):
-        x0 = self.master.master.manipulator.x0
-        y0 = self.master.master.manipulator.y0
+        x0 = self.master.mainWindow.manipulator.x0
+        y0 = self.master.mainWindow.manipulator.y0
         ox = int((x - x0) * self.xOffset)
         oy = int((y - y0) * self.yOffset)
         self.loger(f"offset x={ox}, offset y={oy}")
