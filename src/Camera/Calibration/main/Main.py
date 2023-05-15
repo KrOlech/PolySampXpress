@@ -1,4 +1,4 @@
-from Camera.Calibration.DialogWindow.waitWindow.DialogWindow import CalibrationDialog
+from src.Camera.Calibration.DialogWindow.waitWindow.DialogWindow import CalibrationDialog
 from src.Camera.Calibration.asyncFunctionality.CalibrateAsync import CalibrateAsync
 from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 
