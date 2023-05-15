@@ -4,10 +4,11 @@ from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFun
 
 
 class MainCalibrate(CalibrateAsync):
-
     calibrationOnGoing = True
 
     def calibrate(self, manipulatorInterferes):
+        self.calibrationOnGoing = True
+
         self.manipulatorInterferes = manipulatorInterferes
 
         self.template0 = self.extractTemplate(self.getGrayFrame())
