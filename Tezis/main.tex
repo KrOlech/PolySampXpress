@@ -54,7 +54,7 @@
     \sf{
         \begin{tabular}{ll}
             Autor:            & Krzysztof Olech      \\
-            Kierunek studiów: & Fizyka Techniczna   \\
+            Kierunek studiów: & Fizyka Techniczna    \\
             Opiekun pracy:    & dr inż. Paweł Wróbel \\
         \end{tabular}
     }\\[10mm]
@@ -71,12 +71,66 @@
 
 
     \section{Wstemp}
+    \hspace{1cm} W ramach Projketu Magisterskiego Wykonano rozwój oprogramowania umozliwiajacego wstempne przygotowanie próbek na pomiary na linie Polyx na synchrotronbie Solaris\\
 
+    \subsection{Solariis}
+    Nie wiem jak duzo tu pisac z uwagi na to zeby to nie bylopowtózenie z inzynierki
+    \hspace{1cm} Jest to jedyne centrum synchrotronowe w Polsce umozliwiajaca nie odpłątne pomiary Naukowca po wczesniejszym umówieniu oraz odpłatne pomiary firmom.\\
+
+    \subsection{Główne decyzje podjente w ramach rozwuju oprogramowania}
+    \hspace{1cm} Z uwagi na niskie doswiadczenie w tworzeniu applikacji oraz wiele razacych błedów wykonanych poodczas tworzenia applikacji. Konynuacje pracy nad rozwionzaniem softwerowym rozpoczato od stworenia całej aplikacji od nowa. Dzieki tej decyzji tworzona aplikacja stała sie znacznei bardziej dojrzała po znaczaco krutszym czasie ponad to dzieki wyciagnietym wnioska oraz doswiadczeniu aplikacja jest duzo bardziej stabilna i jakosc kodu jest znaczaco wysza. Dzieki wiekszej znajomosci systemu kontroli wersji jakim jest Git i jego integracja na GitHubie oprogramowanie zyskało dokladna historie developmentu oraz integracje z testami automatycznymi dzieki któym dalszy jej rozwój bedzie znaczaco prostszy.
+    \hspace{1cm} Z uwagi na ograniczony czass i koniecznosc wykonania bardzu wielu integracji oraz funkcionalnosci, Funkcionalnosci wymagajace olbrzymiego nakładu pracy i testów zostały przesuniente na ewentualna przyszłą implementacje.
+    \begin{itemize}
+        \item Przenoszenie ROI miedzy zoomami mikroskopu
+        \item oznaccanie ROI z widoku Mapy - Odrzucone równiez z uwagi na potecialnie duza ich niedokładnosc
+        \item wydaje mi sie ze cos jesce było ale nie pamientam co
+    \end{itemize}
+
+    \section{Uzyte Narzedzia}
+
+    \subsection{Pycharm}
+        \hspace{1cm} Jeden z najbardziej populanych srodowisk IDE do tworzenia oprogramowania w Pythonie. Umozliwia bardzo łatwe zarzadzanie zainstalowanymi pakietami dostarcza bardzo potezne narzedzie debugowania oraz umozliwia wymuszenie zasad nazywania funkcji klass i na bierzaco analizuje kod w poszukiwaniu razacych zaniedban podczas jego tworazenia. Niestety z uwagi na wykonywanie bardzo duzej ilosci analiz oraz jest on bardzo obciazajacy dla działania komputera pod wzgledem wykorzystania pamieci i obciazenia procesora. Niestety róneiz wersja comuniti - bezpłłatna nie dostacza natywnych narzedzi do analizy wydajnosci kodu.
+
+    \subsection{Git-Hub}
+        \hspace{1cm} Najpopularniejszy serwis implementujacy system kontroli wersji GIT. Umozliwia bardzo sprawne intergracje funkcionalnosci kontrole co zmienilismy w ramach kazdej integracji. Ponadto bezpieczne prezchowywanie kodu i łatwy jego przezkaz z urzadenia na urzadzenie.
 
     \section{Użyte Technologie}
 
+    \subsection{Python 3}
+    \hspace{1cm} Program został napisany w pythonie jako ze jest to obecnie jeden z najpopularniejszych jezyków programowania. Dzieki swojej wszechstronosci i łatwosci w pisaniu kodu.
+    (nie wiem czy kopiowac i przerabiac opis z inzynierki czy zrobic cos innego czy wystarczy tyle)
 
-    \section{Softwer}
+    \subsubsection{Itertools}
+    \hspace{1cm} Jednym z podstawowych pakietów pythona nie dostempnych cały czas lecz połączonych z podstawowoa instalacja jest pakiet itertools umozliwa on znaczaco bardziej rozbudowane wykonywanie pentli po obiektach. Takie jak pentle po dwóch róznych listach jednoczesnie lub wykonanie bardzo wydajnych permutacji.
+
+    \subsubsection{FunTools}
+    \hspace{1cm} Kolejnym Bardzo uzytecznym pakietem dostarczonym z podstawowa instalacja oprogramowania jest Pakiet FunTools umozliwiajacy znaczonco rozbudowac implementowane metody naprzykład w celu optymalizacji czasu wykonywania kosztem uzywanej przez program pamieci zapisac wyniki złozonych działan lub protych działan wykonywanych bardzo czesto dekotratorem casz(sprawdzic pisownie) (troche wiecej tu dopisac)
+
+    \subsubsection{ABC}
+    \hspace{1cm} Równiez połączony z bazowa instalacja pythona jest pakiet o zagadkowej nazwie ABC pochodzi ona od (nie pamientam dokładnei rozwiniecia). głównym zastosowaniem tego pakietu jest umozliwienie tworzenia klas i metod abstrakcyjnych. Jest to bardzo wazna funkcionalnosc zwłasca przy duzychprojektach z uwagi na to ze bez niej bardzo łatwo nadpisac w klasie dziedzicacej z klasy niewłasciwa metode lub nie zaimplementowac wsystkich koniecznych metod do poprawnego jej funkcionowania.
+
+    \subsubsection{Asynchio}
+    \hspace{1cm} Niestety Python nie jest natywnie bardzo wielo wontkowym jezykiem a tym bardziej wieloprocesorowym wiele pakietó zewnetrznych dostarcza ta funkcionalnosc poprzez wykonywanie pod spodem kodu w c++ lub innym jezyku z tym zwionzanym. W przyszchłych wersjach pythona planuja dodac duzo lepsza obsluhe wielowontkowosci mozliwosc natywnego odpalenia wielu instacji interpretera pythonowego na raz. Lecz narazie musimy sie posiłkowac innymi metodami. Niestety z uwagi na to wykonywanie kodów asynchronicznych nie jest tak proste jak w innych jezykach z uwagi na to został dodany do podstawoej instalacji jezyka pakiet asynchio umozliwiajacy proste tworzenie kodów asychronicnzych z mozliwoscia poprawnego ich debugowania.
+
+    \subsubsection{Ctypes}
+    \hspace{1cm} Z uwagi na to ze Python został napisany jako jezyk dziedzicacy po jezyku C bardzo prosto da sie wykorzystac kod z C w pythonie. W celu ujednoliczenia tego wykorzystania oraz nie obciozania i tak wysokiego zuzycia pamieci nie jest autoamatycznie dodawany pakiet to umozliwiajcy lecz trzeba go recznei zaimportowac. Pakiet ten umozliwia jawne pracowanie na zmiennych zapisywanych w pamieci systemowej dokładnie tak jak te zapisywane w C oraz obsluge bibliotek dynamicznych napisanych w c i c++
+
+    \subsection{Pyqt5}
+    \hspace{1cm} Jest to integracja QT dokladniej jego 5 wersji do pythona. Umozliwiajaca korzystanie z pełnych mozliwosci pakietu.
+    \subsubsubsection{QT}
+    \hspace{1cm} Jest to jeden z najbardziej rozwinientych pakietów do tworzenie srodowisk graficznych. Zostal napisany z mysla o aplikacjach okienkowych dla jezyka C++ ale z uwagi na swoja wszechsstronosc oraz stopien zawansowania powstaly jego porty na wiele róznych jezyków. Niestety nie jest opensorse dlatego sam program wykorzystujacy QT nie moze byc rozpowszechniany z a opłata ani sprzedwany. Lecz jako rozwionzanie OpenSorce moze byc resystrybuowany i uzywany bez ponoszenia kosztów. Pakiet QT jest bardzo rozbudowany olbrzymia bardzo wiele mozlisosci kustomizacji.
+
+    \subsection{OpenCV}
+    \hspace{1cm} Równiez jest to pakiet pisany z mysla o C++ lecz z uwagi na swoja uzytecznosc i wszechstronosc został sportowany na inne jezyki miedzy innymi do Pathona. Pakiet ten umozliwia pobieranie obrazów z wszelkich dostempnych zrudel i dokonywania ich manipulacji. W ramach integracji Pythonowej obrazy sa odczytywane jako tablice Numpy.
+
+    \subsection{Numpy}
+    \hspace{1cm} Jest to pakiet pisany dedykowanie dla Pythona umozliwiajacy duzo łatwiejsza prace z duzymi tablicami danych oraz złozonych działan matematyczncyh. Pakiet ten jest dosyc wydajny gdyz wiekszosc jego funkcji wykorzystuje skompilowane metody z c i c++ niestety nie wsystkie jego integracje z tego korzystaja i czasmi uzycie do obliczen normalnego pythona jest lepsze flagowym tego przypadkiem jest pierwiastowanie liczby. porónujac natywne pow ( liczba,1/2) z sqrt z cmatha i numpy natywne pow jest najszybsze porównywalnie szybkie jest sqrt z cmath a daleko za nimi sqrt z numpy, leccz w przypadku działania jakim jest mnorzenie dwuch maceirzy przez siebie wykonanie tego natywnie w pythonie jest znaczco wolniejsze od wykonania tego z uzyciem dedykowanej metody z numpy.
+
+
+    \section{Opis Oprogramowania}
+
+
+    \section{Opis tworzenia oprogramowania}
 
     \subsection{Beta 0.1}
 
@@ -150,18 +204,51 @@
             {\color{red} Schematy do tego i opisy co i jak.}
 
     \subsubsection{Manipulator Zoom'u}
+    \hspace{1cm} W ramach tej wersji opragromowania zostało wykonane Api do porozumiewania sie z manipulatorem który docelowo bedzie kontrolowac wysokosc mikroskopu nad mierzana próbka niestety z powodu tego ze obecne stanowisko testowe w zaden sposób tego nei obsluguje funkcionalnosc ta zostala zapoakowana w podłaczalny pakiet pythonowy ale obecnie zostawiona bez zadnego podpiecia do realnego oprogramowania. Docelowo Oprogramowanie zoomu bedzie wymagało duzo wiekszej pracy z ówagi na wykonanie kalibracji dla kazdego wybranego zoomu oraz przeliczenia pozycji oznaczonych ROI. Z uwagi na trudnosci z sprawnym wykonaniem tego i brak pełnego docelowego stanowiska w momecie wykonywania pracy, postanowiono ze Uzytkownik bedzie okreslac na poaczatku pracy na jakim zoomie bedzie pracowac do dzialania Mapy dodano wyznaczanie wartosci docelowej mapy w celu przekazania uzytkownikow czy wybrany przez niego zoom jest sensowny do danej wielkosci próbki ewentualnie zeby potecialna mape wykonał na zupełnie innym zoomie a same ROi'e oznaczał na wybranym. W docelowym programie mozliwe ze zostanei zaimplementowane przenosczenie ROI miedzy zoomami pod warunkiem ze nie zaistnieja problemy zwiazane z przesunieciami obserwowagego fragmentu podczas zmiany zooma któych nie uda sie stabilnie skalibrowac lub w inny sposub wprowadzic na nie korekte.
 
     \subsubsection{Usprawnienia oprogramowania}
+    \hspace{1cm} Podczas tworzenia Tej werwsji oprogramowania Nowo narzucone metody podziału i formatowamnia kodu okazały sie zbyt mało restrykcujne zeby główna klasa zachowała łatwa czytelnosc z uwagi na to nowe funkcionalnosci zostały dodane zgodnie z nowa zasada lecz z uwagi na zbyt duza złozonosc przełozenie dotychczasowych integracji na nowa forme zapisu kodu okazały sie duzo bardziej złozone niz mogło by sie wydawac na pierwszy rzut oka dlatego pełęn refaktor klasy głównej został przełozony na bete 0.6 która ma bć betą głównie skoncetrowana na popraieniu czytelnosci kodu oraz jego usprawnieniach.
+    \hspace{1cm} Analogiczne zasady tworzenia kodu zostały narzucone i wykorzystane podczas implementacji nowych metod oznaczania ROI
 
     \subsection{Beta 0.5}
 
-    \subsubsection{Auto fokus}
-
     \subsubsection{Auto kalibracja}
+    \hspace{1cm} Pierwsza rzecza z uwagi na problemy z stabilna kalibracja podczas koncowej fazy prac nad betoa 0.4 oraz rychłemu nadejsciu nowego manipulatora zeby sie przygotowac na jego pojawienie opracowano mechanizm autokalibracji pierwsza wersja wykonywała przemiescenie o 1mm i szukała korzystajac z dopasowania szablonu mierzyła przesuniecie obrazu w pixelach. Nastempnei w celu dokladniejszego pomiaru automat dokonywał ruchu (zdjecie z kształtem Ruchu) dokonywał ponad to sprawdzenia czy manipator wraca dokladnie do pktu startowego.
 
-    \subsubsection{Obsługa Zoom}
+    \subsection{Loger}
+    \hspace{1cm} W celu usprawnienia debugowania oprogramowania oraz znajndowania potecialnych problemów podczas jego wykonywania została napisana specialna klasa tworzoca spujne informacje co aktualnie wydarzyło sie pod spodem oprogramowania = informacja skłąda sie z nazwy klasy z której pochodzi zapytanei nazwy funkcji oraz samej informacji. Docelowo ta informacaja nie bedze wypisywana w terminalu lecz zapisywana do pliku i w wypadku wysypania sie oprogramowania zostanie zapisana i Uzytkowniek zostanie zapytany czy chce wysłac te dane w celu poprawienia jakosci oprogramowania.
+
+    \subsection{Balans Bieli}
+    \hspace{1cm} Z powodu braku mozliwosci sprawnego znalezienia na jaki kod kamera umozliwi manualna kontrole balansu Bieli została ona dodana softwerowo recznie.
 
     \subsubsection{Nowy manipulator}
+    \hspace{1cm} Główna funkcionalnoscia zaimplementowana w ramach tej wersji oprogramowanai była komunikacja z nowym Manipulatorem. Niestety z uwagi na to ze Nowy manipulator jest bardzo złozony (albo tutaj opis noweg- docelowego manipulatora lub wgl osobna sekcja z jego opisem nie jestem pewien) Api dostarczone przez producenta było bardzo zlozone i wymagało wiele pracy zeby umozliwic porozumiewanie sie z nim. Nasczescie producent dostarczył symulator hardweru umozliwiajacy sprawne testy oprogramowania bez koniecznosci cioglego połoczenia z hardwerem. Dokumentacja dostarczona przez producenta była bardzo szczegulowa oraz przykładowe wykorzystania w kodzie były dobrze opisane. Niestety sporo czasu zostało zmarnowane z uwagi na to ze niektóe biblioteki Dynamiczne posiadaja nowe appi i w dokumentacji producenta nie było nigdzie opisane czy to api jest czy nie a z uwagi na błedna interpretacje danych z jej dekompilacji pierwsze pruby wykonania funkcionalnosci opierału sie na wykorzystaniu nowego Api niestey całą z tym zwionzana praca musiała zostac usunieta z uwagi na to ze sama biblioteka nie wspierała takiej funkcionalnosci i nalezało ja obslugiwac korzystajac z starej metody nasczesci po poprawieniu tego bledu w rozumowaniu dalswza interpretacja poszła bardzo sprawnie.
+
+    Opis Manipulatora:\\
+    Nowy manipulator składa sie z 3 głównych czesci samych fizycznych stagy któe wykonuja ruch oraz korzystajac z enkoderów rotacyjnych melduja wzgledna pozycje manipulatora. Kontrolera silników który przyjmuje polecenia i przekazuje je silnikom oraz odbiera i interpretuje dane przesłane przez ecodery. Sterownika glównego któy to wydaje polecenia sterownikowi silników oraz przyjmuje polecenie po protokole TCIP i lub protocole coom. Niestey Producent wbrew zarzekaniu sie ze urzadenie moze pracowac w dowolnej sieci DHCP niestey nie mówił prawdy i urzadenie nie zameludje swojej obecnosci na sieci dla sieci innej niz siec o domenie fizycznej 10.0.0.0 adres zarezerwowany dla manipulaotra to 10.0.0.100.
+
+    \subsection{Problemy z Kalibracja}
+    \hspace{1cm} niestety podczas jednego z usprawnien dokonanych w becie 0.4 wkradłsie błąd który jako ze beta 0.4 została sfinalizowana bez posiadania hardweru uciekł nie postrzezenie w ramach usprawnionego tworzenia ROI wartosc kalibracji - przeliczniek ile pixeli przesuwa sie obraz przy przesunieciu o 1mm został wykorzystany nie w prost jak do tej pory tylko jako swoja odwrotnosc z uwagi na to i brak poprawnych testów znaleziono kilka prostych nie dopatrzen w algorytmie kalibracji oraz błedy w nowej wersji edycji ROI któe zostały naprawione w ramach pracy nad znalezioeniem problemów z kalibracja.
+
+    \subsection{Usprawnienia Interfejsu}
+    \hspace{1cm} Podczas pracy do tej pory sporo rzeczy było kontrolowanych wyłącznie z posiomu kodu takich jak wybrany manipulator mozliwosc jego wyzerowania lub przejscia do zadanych kordynatów. W celu finalizacji Oprogramowania do docelowego uzytkownika tego typu funkcionalnosci oraz czytelne komunikaty w postaci oczekiwania na dotarcie manipulatora do celu lub informacja ze aktualanie jest wkonywana mapa zostaly zaimplementowane. Równiez został dodany Status bar na dole głównego okna pokazujacy aktualna pozucje manipulatora.
+
+    \subsection{Testy Automatyczne}
+    \hspace{1cm} W celu przyszłosciowego unikniecia takich regresji jak ta zwionzana z zmiana ROI zostało do projektu dodane api umozliwiajace tworzenie i wykonywanie testów auomatycznych oraz proste testy sprawdajace spujnosc plików konfiguracyjnych oraz to czy program sie poprawnie wląca i wyłącza zostały zaimplementowane
+
+    \subsection{Usprawnienia i unifikacje}
+    \hspace{1cm} w celu poprawienia jakosci oprogramowania zostało wykonane wiele usprawnien w oprogramowaniu oraz poprawienie potecialnych błędó zwionzanych z wartosciami wpisanymi na stałe w kodzie a nie odczytanymi dla danej konfiguracji sprzetowej.
+
+    \subsection{Tworzenie Lambd w Pythonie}
+    \hspace{1cm} Podczas tworzenia Interfejsu do wyboru pola roboczego z uwagi na to ze w przyszłosci urzytkownik bedzie mugł wykonac swoje własne pola robocze oraz przełączac sie miedzy nimi w trakcie działania programu, kod musial zostac przygotowany na obsluzenie dynamicznej ilosci przycisków. Najprosciej jak dla kazdefo działania przycisku obsluzyc jego działanie to dynamicznie stworzyc odpowiadajaca mu funkcjie. Tego typu funkcjie zwłasca jak sa bardzo proste- maja zwracac jedna wartosc mozna stworzyc korzystajac z funkcji Lambda (funkcja deklarowana w momecie uzycia) [moze tu dac przukad skladni pythnowej jak to wyglonda]. W ramach programu funkcje te byłhy tworzone w pentli w zaleznsoci tego ile jest pul roboczych do obsluzenia. Niestety jesli stworzymy w pentli Lambde w postaci lambda e: fun(x) gdzei X to wartosc która chcemy zeby byłła zapisana w ramach lambdy zostanie ona nadpisana podczas nastemprej iteracji pentli (skrin lub ładnie sformatowany fragment kodu wyglondajacy na konsole pythonowa z przykladem jak to wyglonda)
+    Mimo ze kazda z tych lambd jak widac zajmuje inna lokacje w pamieci- sama funkcja nie jest nadpisywana. Jest to jak sie okazuje w ramach szukania czy nie jest to potecialny błąd w jezyku lecz cały czas nie udało mi sie ustalic czy błedem nie jest to ze garbageCollectrto mnie optymalizje tego dalej i nie nadpisuje wsystkich wywołan do zajmowania tylko 1 lokacji w pamieci zamiast przechowywania n kopi tego samego obiektu.\\
+    \hspace{1cm} Poprawna metoda w jaka nalezy zapisac w ramach poszcegulnych lambd tworzonych dynamicznie jest to zeby przekazac im argumenty o wartosci podstwowej czyli w naszym wypadku [Pewnie tez ładny duzy przykład] lambda x,y=wartosc_podstwowa: fun(y)
+
+    \subsubsection{Export Mapy}
+    \hspace{1cm} Obecnie została opracowana metoda zapisania mapy wyłącznie jako formy graficznej lecz docelowo bedzie stowarzyszoa z nia równiez specialny plik naglówkowy umozliwiajacy przyszłosciowe nalozenie danych spektralnych na sam obraz mapy.
+
+    \subsubsection{Export ROI}[WIP]
+    \hspace{1cm} W celu dokłądnego exportu oraz potecialnego importu ROI oraz mozliwe ze przeyszłego składania widokiu optycznego ROI z pomiarami na stanowisku sycnchrotronoym. Został opracowany format zapisu ROI oraz danych. Oraz została zaimplementowana metoda exportowania oznaczonych ROI oraz jej wczytania niestety obecznie z uwagi na niekoniecznie dostateczna powtarzalnosc samo wczytanie nie jest zalecane i jesli ktos chciałby tego wykorzystac zalecane jest skorygowanie pozycji wsytkich uwczesnie oznaczonych ROI
 
     \subsection{Beta 0.6}
 
@@ -172,17 +259,30 @@
     \subsection{Prerelease 1.0}
 
     \subsubsection{Metoda automatycznej aktualizacji}
+    \hspace{1cm} Z uwagi na to ze oprogramowanie ma działac i byc uzywane została zaimplementowana metoda sprawdzania czy na repozytorium Githuba została wydana nowa wersja i jesli tak to zapytanie uzytkownika czy chce ja pobrac z wyswietleniem zmian wykonancyh w tej wersji.  {\color{red} Nie wiem czy ten fragment bedzie bo nie wiem narazie jak dokladnei ronbi sie aktualizacje oprogramowania wiem jak sie wykonuje instalatory i techncnie wiem jak odinstalowac i z reinstalowac program z zachowaniem presetów uzytkownika ale raczej nie tak wyglonda poprawna akutalizacja}
 
     \subsubsection{Zbieranie informacji od użytkowników}
+
+    \subsubsection{Symulatory Hardweru}
+    \hspace{1cm} W celu ułatwienia przyszłego developmentu aplikacji oraz pracy nad nia podczas tego kiedy uzytkowniy juz moga uzywac porzednich wersji zostały napisane proste symulatory hardweru. Symulator kameery został wykonany w sposób podobny jak w poprzedniej wersji były wykonywane testy przed implementacja kamery. Symulator Manipulatora to jedynie delikatnie roszerzony symulator dostarczony przez producenta o mozliwosci potrzebdne dla symulatora kamery. Implementacja tyych Symulatoró umozliwi dalszy rozwuj oprogramowanai bez potrzeby testowania kazdej zmiany na hardwerze oraz roszerzenie automatycznych testów o pełne testowanie funkcionalnośći.
 
     \subsection{Release 1.0}
 
     \subsubsection{Testy}
+    \hspace{1cm} Zostały zaimplementowane podstawowe testy automatyczne testujace tworzenie ROI oraz ich edycje oraz sprawdajace czy mapa tworzy sie poprawnie w celiu unikniecia regresji w najbardziej podstawowych funkcionalnosciach oprogramowania.
 
     \subsubsection{stworzenie instalatora}
+    \hspace{1cm} Program zostal skompilowany korzystajac z Pyinstallera do pliku wykonawczego a nastempnie w celu ułatwienia uzycia go spakowany w plik instalacyjny.
 
 
     \newpage
+
+
+    \section{Róznice miedzy poprzednia wersja oprogramowania}
+
+    \hspace{1cm} Poza znaczaca wysza stabilnoscia oprogramowania oraz duzo łatwiejsza skalowalnoscia oprogramowania najwieksze zmiany zaszły w interfejsie uzytkowanika. Z uwagi na to ze poprzedni program był piewsza wieksza aplikacja okienkowa jaka wykonywałem posiadała wiele niedopatrzen w ramach tego jak uzytkownik mmuglby korzystac z tego oprogramowania. Np najbardziej flagowymi problemami było to ze potecialna edycja ROI wymagala znalezienia ROI na liscie najlepiej wycentrowaniu na nim porzejscia w tryb edycji wybrania trybu edycji. nowa wersja nie wymaga tak duzej klikologi (około 5 klikniec w celu wejscia w tryb edycji) obecna werwsja wymaga jedynie wybrania roi i włączenia trybu edycji i juz mozemy go edytowac lub znalezienia ROI na liscie wycentorwania na nim edycji. (max 3 kliknieccia idealnie 2) [ładniej to opisac stowarzyszone zdjecia].\\
+    \hspace{1cm} Kolejnym duzą poprawa jest znacznie bardziej czytelny interfejs. Poprzednia wersja wykorzysywała pomieszanie cały czas widocznych przycisków sprawiajacych ze sam podglad prubki i obszar na któym realnie uzytkownik bedzie pracowac jest znaczaco mniejszy niz mugłby byc. Nowa wersja Interfejsu obeccnie wykorzystuje kombinacje menu wyswietlanego w ramach prawego przycisniecia myszki, oraz menu wyswietlanego z docku u góry docelowa wersja bedzie najpewniej wykorzystywac howane wiązki z obcjami. [jakies grafiki jak jest obecnie jak było i jak chciałbym stworzyc docelowo[ostatnie raczej koncepcyjne bo nie zdoze ich w ten sposób zaimplementwoac]] Ponad to obcionalnie w zaleznosxci od feedbacku uzytkowników chicałbym dodac mozliwosc przeniesienia interfejsu na drugi ekran.
+    \hspace{1cm} Ostatnia wizualna glównie zmiana jest ukrycie Listy ROI w popprzedniej wersji oprogramowania Lista ROI była wyswietlana cały czas obecnie jest wyswietlana jedynie jesli uzytkownik zblizy cursor do prawej krawedzi ekranu lub wwybierze ta obcje z Docka.
 
 
     \section{Hardwer}
@@ -194,22 +294,25 @@
 
     \subsubsection{Nowa Kamera}
     %opis kamery nie pamientam firmy ani nic z czego była xD
+    Nowa kamera kupiona od ICMesurments(sprawdzic czy dobrze pamientam) to kamera korzystajaca z interfejsu usb 3.2 gen 1 bedaca w stanie przechywytwac obraz w rozdzielczosci 4k z czestotliwoscia 60hz. Posiada mocowanie na obiektyw o rozmiarze 3//4 cala. Niestety nie jest do konca natywna kamera usb przez co cześć funkcionalnosci z uwagi na nie compilowalnosc kodu producenta (zbyt stara wwersja projektu Wisual studio) duzo wartosci hardwerowo ustawianych w kamerze musiało byc znalezione metoda prub i błedów w ramachw wysłania kodu i analizy jaki parametr obrazu sie zmienia.
 
     \subsection{Stanowisko 0.9}
     %zdjecia
-    Stanowisko wykorzystuje docelowy manipulator.
+    Stanowisko wykorzystuje docelowy manipulator. Najwiekszym wyzwaniem podczas wykonywania tego stanowiska było zamocowanie starego mikroskopu tak rzeby szło go wyrkorzystac z nowym manipulatorem. W tym celu została wykorzystana platforma obrotowa któa wczesniej słuzyła do potrzymania detektora(chyba) a teraz z uwagi na swoja solidna konstrukcje umozliiwł zamocowanie mikroskopu. Jedym z ciekawych problemów podczas prubie pierwszego uruchomienia okzało sie ze kamera jest obrucona o 180stopni co powodowało bardzo wiele problemów z poprawnym działaniem programu. z uwagi na potrzebe szybszej stabilizacji oprogramowania oraz pracy nad własciwymi integracjami a nie rozwionzywaniem problemów które da sie rozwionzac obracajac fizycznie kamere.
     %nie wiem jesce co i jak znim bo w sumie nie udało sie go oporogramowac i dostac do niego zadnego poprawnego oprogramowania.
 
     \subsubsection{Nowy manipulator}
-    Manipulator składa się z wykonanych przez Stand'e 2 osiowego manipulatora do przemieszczania matrycy z próbkami. oraz dodatkowej osi umożliwiającej manipulacje położeniem mikroskopu w pionie. W przypadku osi obsługującej położenie mikroskopu sterownik silników krokowych został wykonany autorsko przez Stande i komunikują się z komputerem z pomocą interfejsu USB. Dla osi głównych sterownik został wykonany przez "insert nazwa firmy" i komunikuje się z komputerem za pośrednictwem sieci.
+    Manipulator składa się z wykonanych przez Stand'e 2 osiowego manipulatora do przemieszczania matrycy z próbkami. oraz dodatkowej osi umożliwiającej manipulacje położeniem mikroskopu w pionie. W przypadku osi obsługującej położenie mikroskopu sterownik silników krokowych został wykonany autorsko przez Stande i komunikują się z komputerem z pomocą interfejsu USB. Dla osi głównych sterownik został wykonany przez "insert nazwa firmy" i komunikuje się z komputerem za pośrednictwem sieci. [wyzej jest tego korekta musze wymysloic jak to ładnei zunifikowac jak tak mysle to chyba nejlepiej tu bedzie dac pelen opis a tam odnoscnik to gego fragmetnu pracy]
 
     \subsection{Stanowisko 1.0}
-    Docelowe stanowisko będzie umieszczone na synchrotronie Solaris. Względem stanowiska 0.9 będzie wykorzystywać nowszy mikroskop.
+    Docelowe stanowisko będzie umieszczone na synchrotronie Solaris. Względem stanowiska 0.9 będzie wykorzystywać nowszy mikroskop. Oraz bedzie zbudowane z specialnie zaprojektwoanych i wykonanych profili w celu zachowania wysokiej sztywnosci w celu utrzymania stabilbosci i powtarzalnosci ruchu. Ponad to stanowisko to bedzie wtedy przyjmowac zunifikowane
 
     \subsubsection{Nowy mikroskop}
     %opis mikroskopu
+    Jest to docelowy mikroskop stanowiska został wyprodukowany przez (nazwa firmy) o polu widzenia (parametry)
 
 
+    \section{Podsumowanie}
 
 
 \end{document}
