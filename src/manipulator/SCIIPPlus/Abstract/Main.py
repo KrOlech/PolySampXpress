@@ -56,3 +56,6 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
         while self.getMotorStateM([0, 1]):
             pass
         return None
+
+    def stop(self):
+        self.stopAllAxis()

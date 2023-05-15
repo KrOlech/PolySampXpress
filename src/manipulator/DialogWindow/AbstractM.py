@@ -10,3 +10,7 @@ class AbstractDialogManipulator(AbstractDialog):
         super().__init__(*args, **kwargs)
 
         self.manipulator = manipulator
+
+    def cancelPressed(self):
+        self.manipulator.stop()
+        self.accept()
