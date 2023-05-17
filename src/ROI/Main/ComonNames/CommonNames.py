@@ -1,6 +1,6 @@
 from abc import ABCMeta
 
-from src.utilitis.Logger.Logger import Loger
+from src.BaseClass.Logger.Logger import Loger
 
 
 class CommonNames(Loger):

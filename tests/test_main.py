@@ -2,7 +2,7 @@ import sys
 
 from PyQt5.QtWidgets import QApplication
 
-from src.utilitis.JsonRead.JsonRead import JsonHandling
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
 
 from src.MainWindow.Main.Main import MainWindow
 

@@ -1,8 +1,8 @@
 from PyQt5.QtCore import Qt
 
 from src.WorkFeald.GUI.Gui import WorkFilledGui
-from src.utilitis.JsonRead.JsonRead import JsonHandling
-from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
+from src.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 
 
 class ReadPoleRobocze:

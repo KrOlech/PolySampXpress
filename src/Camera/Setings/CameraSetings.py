@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QHBoxLayout, QWidget, QVBoxLayout, QLabel
 
 from src.MainWindow.Utilitis.WindowBar import MyBar
-from src.utilitis.Slider.Slider import Slider
+from src.Camera.Slider.Slider import Slider
 
 
 class CameraSettingsWindow(QWidget):

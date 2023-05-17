@@ -2,9 +2,9 @@ from abc import ABCMeta, abstractmethod
 from functools import cache
 
 from src.ROI.Label.ROILable import ROILabel
-from src.utilitis.Abstract import abstractmetod
-from src.utilitis.JsonRead.JsonRead import JsonHandling
-from src.utilitis.Logger.Logger import Loger
+from src.BaseClass.Abstract import abstractmetod
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
+from src.BaseClass.Logger.Logger import Loger
 
 
 class AbstractR(Loger):

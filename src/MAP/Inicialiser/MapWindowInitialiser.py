@@ -8,7 +8,7 @@ from numpy import ones
 from src.MAP.Abstract.AbstractMapWindow import AbstractMapWindow
 from src.MAP.Abstract.MapParams import MapParams
 from src.MAP.Label.MapLabel import MapLabel
-from src.utilitis.JsonRead.JsonRead import JsonHandling
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class MapWindowInitialise(AbstractMapWindow, JsonHandling):
@@ -17,10 +17,10 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
     # Pointer to Master object
     master = None
 
-    # Pointer to manipulator Object
+    # Pointer to Manipulator Object
     manipulator = None
 
-    # dictionary containing full manipulator config
+    # dictionary containing full Manipulator config
     manipulatorFullConfig = None
 
     # Pointer to Map Params object
@@ -76,7 +76,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
             if data[self.ZOOM] == self.master.selectedManipulatorZoom:
                 break
         else:
-            self.logWarning("There is no selected manipulator")
+            self.logWarning("There is no selected Manipulator")
             return -1
 
         return data

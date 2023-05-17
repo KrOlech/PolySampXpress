@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from src.utilitis.Abstract import abstractmetod
+from src.BaseClass.Abstract import abstractmetod
 
 
 class AbstractEdit:

@@ -1,4 +1,4 @@
-from src.utilitis.JsonRead.JsonRead import JsonHandling
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class MapParams(JsonHandling):

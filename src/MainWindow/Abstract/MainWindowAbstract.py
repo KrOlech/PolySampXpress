@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QAction
 
-from src.utilitis.Logger.Logger import Loger
+from src.BaseClass.Logger.Logger import Loger
 
 
 class MainWindowAbstract(QMainWindow, Loger):

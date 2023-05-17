@@ -4,8 +4,8 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel
 
 from src.ROI.RightMenu.ROIRightMenu import RoiRightMenu
 from src.ROI.LabelViue.ROILabelViue import ROILegendVue
-from src.utilitis.JsonRead.JsonRead import JsonHandling
-from src.utilitis.Logger.Logger import Loger
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
+from src.BaseClass.Logger.Logger import Loger
 
 
 class ROILabel(QWidget, Loger):

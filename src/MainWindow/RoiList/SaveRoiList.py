@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QFileDialog
 
-from src.utilitis.JsonRead.JsonRead import JsonHandling
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class SaveRoiList(JsonHandling):

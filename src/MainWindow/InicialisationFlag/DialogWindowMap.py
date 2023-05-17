@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QLabel
 
-from src.manipulator.DialogWindow.AbstractM import AbstractDialogManipulator
-from src.utilitis.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
+from src.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogManipulator
+from src.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 
 
 class DialogWindowMap(AbstractDialogManipulator):

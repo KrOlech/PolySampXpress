@@ -2,7 +2,7 @@ from abc import ABCMeta
 from functools import cache
 
 from src.ROI.RenameWindow.RenameWidnow import ReNameWindow
-from src.utilitis.Logger.Logger import Loger
+from src.BaseClass.Logger.Logger import Loger
 
 
 class NameHandling(Loger):
