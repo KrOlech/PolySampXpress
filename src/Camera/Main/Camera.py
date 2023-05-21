@@ -1,15 +1,14 @@
 import cv2
 
-from src.Camera.Symulator.CameraSimulator import CameraSimulator
-from src.Camera.Calibration.main.Main import MainCalibrate
+from src.Symulators.CameraSymulator import CameraSimulator
 from src.Camera.ComonNames.ComonNames import CommonNames
 from src.Camera.Configuration.Configuration import Configuration
 from src.Camera.GetFrame.GetFrame import GetFrame
-from src.utilitis.JsonRead.JsonRead import JsonHandling
-from src.utilitis.CustomExceptions.Exceptions import NoCammeraConected
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
+from src.ErrorHandling.CustomExceptions.Exceptions import NoCammeraConected
 
 
-class Camera(CommonNames, GetFrame, Configuration, MainCalibrate):
+class Camera(CommonNames, GetFrame, Configuration, ):
     '''
     Class allowing communication with camera and adjusting her settings
     '''

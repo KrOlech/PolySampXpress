@@ -2,12 +2,12 @@ from functools import cache
 
 import cv2
 
-from src.Camera.ComunicationPoint.ComonComunicationPoint.CommonCommunicationPoint import \
+from src.ComunicationPoint.ComonComunicationPoint import \
     CommonCommunicationPoint as CCPoint
-from src.Camera.ComunicationPoint.OpenCvComunicationPort.OpenCVComunicationPort import \
+from src.ComunicationPoint.OpenCvComunicationPort.OpenCVComunicationPort import \
     OpenCVCCommunicationPoint as OCCPoint
 
-from src.utilitis.JsonRead.JsonRead import JsonHandling
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class CommonNames(JsonHandling):

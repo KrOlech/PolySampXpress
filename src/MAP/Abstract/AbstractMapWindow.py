@@ -3,8 +3,8 @@ from abc import ABCMeta
 import cv2
 from PyQt5.QtGui import QImage, QPixmap
 
-from src.utilitis.Logger.Logger import Loger
-from src.utilitis.ThreadWorker.Sleeper.SleeperFun import workSleeperFun
+from src.BaseClass.Logger.Logger import Loger
+from src.ThreadWorker.Sleeper.SleeperFun import workSleeperFun
 
 
 class AbstractMapWindow(Loger):

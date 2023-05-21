@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QLabel
 
-from src.manipulator.DialogWindow.Abstract import AbstractDialog
+from src.Manipulator.Abstract.DialogWindow.Abstract import AbstractDialog
 
 
 class OwerideCurrentMapDialog(AbstractDialog):

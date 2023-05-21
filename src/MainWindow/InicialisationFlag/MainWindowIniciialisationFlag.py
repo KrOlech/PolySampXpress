@@ -1,13 +1,13 @@
 from PyQt5.QtWidgets import QDesktopWidget
 
 # todo podzielic do dwóch klas
+from src.BaseClass.Depracation.DepractionFactory import deprecated
 from src.MAP.Dialog.OwerideDialog import OwerideCurrentMapDialog
 from src.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
 from src.MAP.Main.MapWindow import MapWindow
 from src.MainWindow.RoiList.MainWindowROIList import MainWindowROIList
 from src.WorkFeald.Main.main import ReadPoleRobocze
-from src.utilitis.Depracation.DepractionFactory import deprecated
-from src.utilitis.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
+from src.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
 
 
 class MainWindowInicialisationFlag(MainWindowROIList):

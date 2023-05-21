@@ -1,5 +1,5 @@
 from src.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
-from src.utilitis.JsonRead.JsonRead import JsonHandling
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class ClikcCreateRoi(CreateRoiAbstract):

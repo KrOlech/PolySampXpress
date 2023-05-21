@@ -5,14 +5,14 @@ from PyQt5.QtWidgets import QPushButton, QLabel
 # todo move to separate classes
 from src.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
 from src.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
-from src.manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
-from src.manipulator.DialogWindow.SimpleDialogWindow import GoToCordsDialog
-from src.manipulator.DialogWindow.StepSizeDialog import SetStepSizeDialog
-from src.manipulator.DialogWindow.WaitDialoge import HomeAxisDialog
-from src.manipulator.Interfejs.ManipulatorInterfejs import ManipulatorInterfere
-from src.manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
-from src.manipulator.SCIIPPlus.Main.MainSymulator import SCIManipulatorSimulator
-from src.manipulator.Standa.StandaManipulator import StandaManipulator
+from src.Manipulator.Abstract.Main import AbstractManipulator
+from src.Manipulator.Abstract.DialogWindow.SimpleDialogWindow import GoToCordsDialog
+from src.Manipulator.Abstract.DialogWindow.StepSizeDialog import SetStepSizeDialog
+from src.Manipulator.Abstract.DialogWindow.WaitDialoge import HomeAxisDialog
+from src.Manipulator.Interfejs.ManipulatorInterfejs import ManipulatorInterfere
+from src.Manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
+from src.Manipulator.SCIIPPlus.Main.MainSymulator import SCIManipulatorSimulator
+from src.Manipulator.Standa import StandaManipulator
 
 
 class MainWindowManipulatorInterfejs(CameraGUIExtension):

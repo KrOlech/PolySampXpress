@@ -3,7 +3,8 @@ from PyQt5 import QtWidgets, QtCore
 from src.Camera.Main.Camera import Camera
 from src.Camera.Setings.CameraSetings import CameraSettingsWindow
 from src.MainWindow.CustomBar.MainWindowMenuBar import MainWindowMenuBar
-from src.utilitis.examples.View import SimpleView
+from src.Calibration.main.Main import MainCalibrate
+from examples.View import SimpleView
 
 
 class CameraGUI(MainWindowMenuBar):
@@ -23,7 +24,7 @@ class CameraGUI(MainWindowMenuBar):
         self.cameraSetingsWidget.show()
 
     def calibrate(self):
-        self.camera.calibrate(self.manipulatorInterferes)
+        MainCalibrate(self.camera).calibrate(self.manipulatorInterferes)
 
 
 if __name__ == '__main__':

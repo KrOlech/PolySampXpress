@@ -3,7 +3,7 @@ from abc import abstractmethod
 
 from src.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 from src.MainWindow.CustomBar.MainWindowCustomBar import MainWindowCustomBar
-from src.utilitis.Abstract import abstractmetod
+from src.BaseClass.Abstract import abstractmetod
 
 
 class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):

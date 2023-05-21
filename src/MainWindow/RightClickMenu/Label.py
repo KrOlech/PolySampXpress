@@ -4,7 +4,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel
 
 from src.MainWindow.RightClickMenu.RightClickMenu import RightMenu
-from src.utilitis.Abstract import abstractmetod
+from src.BaseClass.Abstract import abstractmetod
 
 
 class RightClickLabel(QLabel):
