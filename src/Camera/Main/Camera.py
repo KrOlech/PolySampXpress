@@ -1,6 +1,6 @@
 import cv2
 
-from src.Symulators.CameraSymulator import CameraSimulator
+from src.Symulators.CameraSymulator.CameraSimulator import CameraSimulator
 from src.Camera.ComonNames.ComonNames import CommonNames
 from src.Camera.Configuration.Configuration import Configuration
 from src.Camera.GetFrame.GetFrame import GetFrame

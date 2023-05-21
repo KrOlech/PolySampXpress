@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QPushButton, QLabel
 # todo move to separate classes
 from src.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
 from src.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
-from src.Manipulator.Abstract.Main import AbstractManipulator
+from src.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 from src.Manipulator.Abstract.DialogWindow.SimpleDialogWindow import GoToCordsDialog
 from src.Manipulator.Abstract.DialogWindow.StepSizeDialog import SetStepSizeDialog
 from src.Manipulator.Abstract.DialogWindow.WaitDialoge import HomeAxisDialog

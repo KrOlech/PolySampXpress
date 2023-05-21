@@ -2,7 +2,7 @@ from functools import cache
 
 import cv2
 
-from src.ComunicationPoint.ComonComunicationPoint import \
+from src.ComunicationPoint.ComonComunicationPoint.CommonCommunicationPoint import \
     CommonCommunicationPoint as CCPoint
 from src.ComunicationPoint.OpenCvComunicationPort.OpenCVComunicationPort import \
     OpenCVCCommunicationPoint as OCCPoint
