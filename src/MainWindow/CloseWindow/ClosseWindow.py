@@ -1,4 +1,4 @@
-from src.manipulator.Abstract.DialogWindow.Abstract import AbstractDialog
+from src.Manipulator.Abstract.DialogWindow.Abstract import AbstractDialog
 from PyQt5.QtWidgets import QLabel
 
 

@@ -5,7 +5,7 @@ from src.ROI.Main.NameHandling.NameHandling import NameHandling
 
 class Point(PointEdit, NameHandling, Cursor):
 
-    def __init__(self, master, x1, y1, name='1', manipulatotrX=25.0, manipulatorY=25.0):
+    def __init__(self, master, x1, y1, name, manipulatotrX, manipulatorY, pixelAbsolutValue):
         self.loger(f"x1 = {x1},  y1 = {y1}")
 
         kwargs = {"master": master,
@@ -21,5 +21,7 @@ class Point(PointEdit, NameHandling, Cursor):
 
         self.view = self.master.getFrame()
 
+        self.pixelAbsolutValue = pixelAbsolutValue
+
     def __dict__(self) -> dict:
-        return {"x0": self.x0, "y0": self.y0}
+        return {"x0": self.x0 - self.pixelAbsolutValue[0], "y0": self.y0 - self.pixelAbsolutValue[1]}

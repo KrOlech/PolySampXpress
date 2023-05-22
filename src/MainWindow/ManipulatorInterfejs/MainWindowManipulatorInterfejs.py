@@ -19,6 +19,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     offsets = [QPoint(100, 120), QPoint(150, 85), QPoint(50, 85), QPoint(100, 50)]
     buttons = None
     testEventClose = False
+    calibratePixelsMode = False
 
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
@@ -94,6 +95,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         homeAxis = HomeAxisDialog(self.manipulator)
         homeAxis.run()
         homeAxis.exec_()
+        self.calibratePixelsMode = True
 
     def goToCords(self):
         GoToCordsDialog(self.manipulator).exec_()

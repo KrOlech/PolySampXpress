@@ -23,11 +23,17 @@ class AbstractR(Loger):
 
     @cache
     def calculateOffset(self, x, y):
-        x0 = self.master.mainWindow.manipulator.x0
+        x0 = self.master.mainWindow.manipulator.x0  # powino to byc zawsze 0 obecnie z uwagi na blad z kalibracja
         y0 = self.master.mainWindow.manipulator.y0
-        ox = int((x - x0) * self.xOffset)
-        oy = int((y - y0) * self.yOffset)
-        self.loger(f"offset x={ox}, offset y={oy}")
+        ox, oy = self.calculateOffsetStatic(x, y, x0, y0)
+        self.loger(f"wynik x={ox}, offset y={oy}")
+        return ox, oy
+
+    @staticmethod
+    @cache
+    def calculateOffsetStatic(x, y, mx=0, my=0):
+        ox = int((x - mx) * AbstractR.xOffset)
+        oy = int((y - my) * AbstractR.yOffset)
         return ox, oy
 
     @abstractmethod
