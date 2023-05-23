@@ -6,9 +6,9 @@ from src.ROI.Main.NameHandling.NameHandling import NameHandling
 
 class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
-    def __init__(self, master, x1, y1, x2, y2, name='1', manipulatotrX=25.0, manipulatorY=25.0, scatter=False):
+    def __init__(self, master, x1, y1, x2, y2, name, manipulatotrX, manipulatorY, pixelAbsolutValue, scatter=False):
         self.loger(
-            f"x1 = {x1}, x2 = {x2}, y1 = {y1}, y2 = {y2}, manipulatotrX = {manipulatotrX}, manipulatorY = {manipulatorY}")
+            f"x1 = {x1}, x2 = {x2}, y1 = {y1}, y2 = {y2}, manipulatotrX = {manipulatotrX}, manipulatorY = {manipulatorY}, absolutePixelValue = {pixelAbsolutValue}")
 
         kwargs = {"master": master,
                   "name": name,
@@ -21,12 +21,15 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
         NameHandling.__init__(self, **kwargs)
         AbstractROI.__init__(self, **kwargs)
 
-
         self.rect = self.createMarker()
 
         self.view = self.master.getFrame()
 
         self.scatter = scatter
 
+        self.pixelAbsolutValue = pixelAbsolutValue
+
     def __dict__(self) -> dict:
-        return {"x0": self.x0, "x1": self.x1, "y0": self.y0, "y1": self.y1, "scatter": self.scatter}
+        return {"x0": self.x0 - self.pixelAbsolutValue[0], "x1": self.x1 - self.pixelAbsolutValue[0],
+                "y0": self.y0 - self.pixelAbsolutValue[1], "y1": self.y1 - self.pixelAbsolutValue[1],
+                "scatter": self.scatter}

@@ -1,13 +1,13 @@
 from abc import ABCMeta
 import cv2 as cv
-import numpy as np
 from numpy import mean
 
+from src.Calibration.Abstract.TemplateMatching import TemplateMatching
 from src.Calibration.Propertis.Propertis import CalibrateProperty
 from src.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
-class AbstractCalibrate(JsonHandling, CalibrateProperty):
+class AbstractCalibrate(JsonHandling, CalibrateProperty, TemplateMatching):
     __metaclass__ = ABCMeta
 
     manipulatorInterferes = None
@@ -25,22 +25,6 @@ class AbstractCalibrate(JsonHandling, CalibrateProperty):
                          self.templateLocationX:self.templateLocationX + self.templateSize]
         w, h = template.shape[::-1]
         return template, w, h
-
-    def __lowestThreshold(self, results):
-
-        for threshold in np.arange(1, 0.7, -0.01):
-            resultsForCurrentThreshold = np.where(results >= threshold)
-            if len(resultsForCurrentThreshold[0]):
-                self.loger(f"Found matches for template with threshold {threshold}")
-                break
-        else:
-            self.logError("Can't Found template for threshold ")
-            return None
-
-        return resultsForCurrentThreshold
-
-    def matchTemplate(self, template):
-        return self.__lowestThreshold(cv.matchTemplate(self.getGrayFrame(), template, cv.TM_CCOEFF_NORMED))
 
     def saveFrameWithTemplate(self, fileName, frame, Location):
         cv.rectangle(frame, Location, (Location[0] + self.templateSize, Location[1] + self.templateSize), (0, 0, 255),

@@ -1,10 +1,13 @@
 import json
+from abc import ABCMeta
 from os.path import abspath
 
 from src.BaseClass.Logger.Logger import Loger
 
 
 class JsonHandling(Loger):
+    __metaclass__ = ABCMeta
+
     manipulatorMainFile = "ManipulatorFullConfig.json"
 
     roiConfigFile = "RoiConfig.json"

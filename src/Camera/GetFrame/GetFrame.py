@@ -1,12 +1,18 @@
 import cv2
 from numpy import ndarray, average
 
+from src.BaseClass.Logger.Logger import Loger
 
-class GetFrame:
+
+class GetFrame(Loger):
 
     def getFrame(self) -> ndarray:  # todo Optimalisation
+        # [self.loger(cc.name, cc.value) for cc in self.communicationPoints]
         ret, newFrame = self.device.read()
         return self.__white_balance(self.__resize(newFrame, self.windowSize.width(), self.windowSize.height()))
+
+    def getGrayFrame(self):
+        return cv2.cvtColor(self.getFrame(), cv2.COLOR_BGR2GRAY)
 
     @staticmethod
     def __resize(newFrame, width, height):
