@@ -4,7 +4,7 @@ from src.Camera.Main.Camera import Camera
 from src.Camera.Setings.CameraSetings import CameraSettingsWindow
 from src.MainWindow.CustomBar.MainWindowMenuBar import MainWindowMenuBar
 from src.Calibration.main.Main import MainCalibrate
-from examples.View import SimpleView
+from src.Camera.SimpleViue.View import SimpleView
 
 
 class CameraGUI(MainWindowMenuBar):

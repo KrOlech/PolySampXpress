@@ -1,7 +1,7 @@
 import cv2
 from numpy import ndarray, average
 
-from BaseClass.Logger.Logger import Loger
+from src.BaseClass.Logger.Logger import Loger
 
 
 class GetFrame(Loger):
