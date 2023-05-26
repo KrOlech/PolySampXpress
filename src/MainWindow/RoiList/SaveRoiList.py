@@ -10,7 +10,7 @@ class SaveRoiList(JsonHandling):
         self.roiList = roiList
 
     def save(self):
-        data = {roi.name: roi.__dict__() for roi in self.roiList}
+        data = {roi.name: roi.fileDict for roi in self.roiList}
         folderPath, _ = QFileDialog.getSaveFileName(self.master, "Select Location to save Roi List", "",
                                                     "Json Files (*.json)")
         self.loger(folderPath)
