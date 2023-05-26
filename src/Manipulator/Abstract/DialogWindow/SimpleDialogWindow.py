@@ -18,6 +18,7 @@ class GoToCordsDialog(AbstractDialogManipulator):
         self.form.addRow('Y:', self.valueY)
 
         self.finaliseOutput()
+        self.setFixedWidth(180)
 
     def okPressed(self):
         self.createWaitingLabel()

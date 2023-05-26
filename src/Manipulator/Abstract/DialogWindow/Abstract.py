@@ -60,4 +60,4 @@ class AbstractDialog(QDialog):
         return spinBox
 
     def createWaitingLabel(self):
-        self.form.addRow(QLabel("Waiting for Manipulator to reach position"))
+        self.form.addRow(QLabel("Waiting for Manipulator"))
