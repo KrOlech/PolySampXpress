@@ -28,8 +28,8 @@ class ROILegendVue(QLabel):
         qp.drawRect(self.rectangle)
 
     def __convertRectagle(self):
-        return QRect(QPoint(self.roi.x0 // self.scalaX, self.roi.y0 // self.scalaY),
-                     QPoint(self.roi.x1 // self.scalaX, self.roi.y1 // self.scalaY))
+        return QRect(QPoint(self.roi.x0Label // self.scalaX, self.roi.y0Label // self.scalaY),
+                     QPoint(self.roi.x1Label // self.scalaX, self.roi.y1Label // self.scalaY))
 
     def update(self):
         self.rectangle = self.__convertRectagle()

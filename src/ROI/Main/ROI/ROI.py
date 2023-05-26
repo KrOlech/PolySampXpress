@@ -10,6 +10,8 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
         self.loger(
             f"x1 = {x1}, x2 = {x2}, y1 = {y1}, y2 = {y2}, manipulatotrX = {manipulatotrX}, manipulatorY = {manipulatorY}, absolutePixelValue = {pixelAbsolutValue}")
 
+        self.x0Label, self.x1Label, self.y0Label, self.y1Label = x1, x2, y1, y2
+
         kwargs = {"master": master,
                   "name": name,
                   "x1": x1, "y1": y1,
