@@ -16,6 +16,7 @@ class MapWindow(MapWindowInitialise):
             self.waitForManipulator()
 
         self.master.isMapReadi = True
+        self.master.creatingMap = False
 
     def addFrame(self, frame):
 

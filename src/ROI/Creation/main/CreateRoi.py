@@ -68,8 +68,9 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
 
     def mouseMoveEvent(self, e):
 
-        if self.mainWindow.calibratePixelsMode:
+        if self.mainWindow.calibratePixelsMode or self.mainWindow.creatingMap:
             return
+
         else:
             match self.leftMouseButton, self.editTribe, self.mainWindow.manipulator.inMotion:
                 case False, False, _:
@@ -85,10 +86,10 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
         self.mainWindow.myStatusBarMouse.setText(f" X: {e.x()}     Y: {e.y()}")
 
     def __isOkToProcesEvent(self):
-        return self.mainWindow.manipulator.inMotion or not self.leftMouseButton
+        return self.mainWindow.manipulator.inMotion or not self.leftMouseButton or self.mainWindow.creatingMap
 
     def __setAbsolutZeroPositionForPixels(self, e):
         if self.leftMouseButton and not self.mainWindow.manipulator.inMotion:
-            ofsetX, ofsetY = AbstractR.calculateOffsetStatic(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
+            ofsetX, ofsetY = AbstractR.calculateOffsetStatic(self.mainWindow.manipulator.x,
+                                                             self.mainWindow.manipulator.y)
             self.pixelAbsolutValue = (e.x() + ofsetX, e.y() + ofsetY)
-
