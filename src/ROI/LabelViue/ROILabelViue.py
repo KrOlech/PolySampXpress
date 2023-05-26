@@ -25,11 +25,13 @@ class ROILegendVue(QLabel):
 
         qp.setBrush(QBrush(QColor(200, 10, 10, 200)))
 
-        qp.drawRect(self.rectangle)
+        if isinstance(self.rectangle, QRect):
+            qp.drawRect(self.rectangle)
+        else:
+            qp.drawLines(self.rectangle)
 
     def __convertRectagle(self):
-        return QRect(QPoint(self.roi.x0Label // self.scalaX, self.roi.y0Label // self.scalaY),
-                     QPoint(self.roi.x1Label // self.scalaX, self.roi.y1Label // self.scalaY))
+        return self.roi.createLabelMarker(self.scalaX, self.scalaY)
 
     def update(self):
         self.rectangle = self.__convertRectagle()

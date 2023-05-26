@@ -54,6 +54,11 @@ class AbstractR(Loger):
         return {}
 
     @abstractmethod
+    def createLabelMarker(self, scalaX, scalaY):
+        abstractmetod(self)
+        return
+
+    @abstractmethod
     def centerOnMe(self):
         x, y = self.foundCenter()
         x -= self.master.master.manipulator.screenSize.width() // 2
