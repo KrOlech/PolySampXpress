@@ -165,7 +165,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def configureStatusBarMouse(self):
         myStatusBar = QLabel(self)
 
-        myStatusBar.setFixedWidth(self.windowSize.width() // 16)
+        myStatusBar.setFixedWidth(self.windowSize.width() // 8)
 
         myStatusBar.setStyleSheet("background-color: rgba(255, 255, 255, 75);")
 
@@ -174,7 +174,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         myStatusBar.setFont(font)
         myStatusBar.setText("test")
         myStatusBar.move(
-            QPoint(self.windowSize.width() - (self.windowSize.width() // 16), self.windowSize.height() - 25))
+            QPoint(self.windowSize.width() - (self.windowSize.width() // 8), self.windowSize.height() - 25))
         myStatusBar.show()
 
         return myStatusBar
