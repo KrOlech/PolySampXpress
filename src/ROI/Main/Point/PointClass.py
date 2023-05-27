@@ -8,7 +8,7 @@ from src.ROI.Main.NameHandling.NameHandling import NameHandling
 
 class Point(PointEdit, NameHandling, Cursor):
 
-    def __init__(self, master, x1, y1, name, manipulatotrX, manipulatorY, pixelAbsolutValue):
+    def __init__(self, master, x1, y1, name, manipulatotrX, manipulatorY, pixelAbsolutValue, viue=None):
         self.loger(f"x1 = {x1},  y1 = {y1}")
 
         self.x0Label, self.y0Label = x1, y1
@@ -24,7 +24,7 @@ class Point(PointEdit, NameHandling, Cursor):
 
         self.rect = self.createMarker()
 
-        self.view = self.master.getFrame()
+        self.view = self.master.getFrame() if viue is None else viue
 
         self.fileDict = self.__createFileDict(pixelAbsolutValue)
 
