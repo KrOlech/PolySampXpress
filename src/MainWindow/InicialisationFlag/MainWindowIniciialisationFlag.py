@@ -16,6 +16,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     mapWindowObject = None
     isMapReadi = None
     owerideMap = False
+    creatingMap = False
 
     def __init__(self, *args, **kwargs):
         super(MainWindowInicialisationFlag, self).__init__(*args, **kwargs)
@@ -66,6 +67,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
             self.mapWindowObject.addFrame(self.camera.getFrame())
 
     def createMap(self):
+        self.creatingMap = True
         if not self.mapWindowObject:
             self.mapWindowObject = self.crateMapObject()
             dialogWindowMap = DialogWindowMap(self)
@@ -78,6 +80,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
             if not self.owerideMap:
                 self.loger("no I don't wont to owe ride created Map?")
+                self.creatingMap = False
                 return
 
             self.loger("Yes I wont to owe ride created Map?")

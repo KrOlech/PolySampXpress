@@ -70,7 +70,7 @@ class QlabelROI(RightClickLabel, CreateRoi):
             for rectagle in self.ROIList:
                 qp.drawRect(rectagle.getMarker(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y))
 
-        if self.pressed:
+        if self.pressed and not self.mainWindow.creatingMap:
             qp.drawRect(QRect(QPoint(self.x1, self.y1), QPoint(self.x2, self.y2)))
 
     @abstractmethod
