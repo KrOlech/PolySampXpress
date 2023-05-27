@@ -9,7 +9,9 @@ class Point(PointEdit, NameHandling, Cursor):
 
     def __init__(self, master, x1, y1, name, manipulatotrX, manipulatorY, pixelAbsolutValue):
         self.loger(f"x1 = {x1},  y1 = {y1}")
+
         self.x0Label, self.y0Label = x1, y1
+
         kwargs = {"master": master,
                   "name": name,
                   "x1": x1, "y1": y1,
@@ -23,10 +25,17 @@ class Point(PointEdit, NameHandling, Cursor):
 
         self.view = self.master.getFrame()
 
-        self.pixelAbsolutValue = pixelAbsolutValue
+        self.fileDict = self.__createFileDict(pixelAbsolutValue)
 
-    def __dict__(self) -> dict:
-        return {"x0": self.x0 - self.pixelAbsolutValue[0], "y0": self.y0 - self.pixelAbsolutValue[1]}
+    def __createFileDict(self, pixelAbsolutValue) -> dict:
+        x0 = self.x0 - pixelAbsolutValue[0]
+        y0 = self.y0 - pixelAbsolutValue[1]
+
+        return {"absolute Pixell Values": {"x0": x0,
+                                           "y0": y0},
+                "absolute mm Values": {"x0": x0 / self.xOffset,
+                                       "y0": y0 / self.yOffset}
+                }
 
     def createLabelMarker(self, scalaX, scalaY):
         xlabel = self.x0Label // scalaX

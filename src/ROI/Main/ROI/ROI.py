@@ -1,5 +1,3 @@
-from PyQt5.QtCore import QRect, QPoint
-
 from src.ROI.Main.Abstract.AbstractROI import AbstractROI
 from src.ROI.Main.Cursor.Cursor import Cursor
 from src.ROI.Main.Edit.ROIEdit import ROIEdit
@@ -31,12 +29,24 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
         self.scatter = scatter
 
-        self.pixelAbsolutValue = pixelAbsolutValue
+        self.fileDict = self.__createFileDict(pixelAbsolutValue)
 
-    def __dict__(self) -> dict:
-        return {"x0": self.x0 - self.pixelAbsolutValue[0], "x1": self.x1 - self.pixelAbsolutValue[0],
-                "y0": self.y0 - self.pixelAbsolutValue[1], "y1": self.y1 - self.pixelAbsolutValue[1],
-                "scatter": self.scatter}
+    def __createFileDict(self, pixelAbsolutValue) -> dict:
+        x0 = self.x0 - pixelAbsolutValue[0]
+        x1 = self.x1 - pixelAbsolutValue[0]
+        y0 = self.y0 - pixelAbsolutValue[1]
+        y1 = self.y1 - pixelAbsolutValue[1]
+
+        return {"absolute Pixell Values": {"x0": x0,
+                                           "x1": x1,
+                                           "y0": y0,
+                                           "y1": y1},
+                "absolute mm Values": {"x0": x0 / self.xOffset,
+                                       "x1": x1 / self.xOffset,
+                                       "y0": y0 / self.yOffset,
+                                       "y1": y1 / self.yOffset},
+                "scatter": self.scatter
+                }
 
     def createLabelMarker(self, scalaX, scalaY):
         return QRect(QPoint(self.x0Label // scalaX, self.y0Label // scalaY),
