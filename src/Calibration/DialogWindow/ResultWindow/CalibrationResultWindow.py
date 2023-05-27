@@ -8,8 +8,8 @@ from src.BaseClass.JsonRead.JsonRead import JsonHandling
 
 class CalibrationResultsDialog(AbstractWindow, JsonHandling, CalibrateProperty):
 
-    def __init__(self, manipulator, *args, **kwargs):
-        super().__init__(manipulator, *args, **kwargs)
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
 
         data = self.readFile(self.configFile)
 

@@ -5,8 +5,8 @@ from src.Calibration.DialogWindow.AbstractWindow.AbstractWindow import AbstractW
 
 class CalibrationDialog(AbstractWindow):
 
-    def __init__(self, manipulator, *args, **kwargs):
-        super().__init__(manipulator, *args, **kwargs)
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
 
         self.form.addRow(QLabel("Calibration On Going"))
         self.form.addRow(QLabel(""), self.cancelButton)
@@ -15,5 +15,5 @@ class CalibrationDialog(AbstractWindow):
         self.accept()
 
     def cancelPressed(self):
-        self.manipulator.stopCalibrationProces()
+        self.master.stopCalibrationProces()
         self.accept()
