@@ -3,10 +3,11 @@ from abc import ABCMeta, abstractmethod
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import QDialog, QFormLayout, QPushButton, QDoubleSpinBox, QLabel
 
+from src.BaseClass.Logger.Logger import Loger
 from src.MainWindow.Utilitis.WindowBar import MyBar
 
 
-class AbstractDialog(QDialog):
+class AbstractDialog(QDialog, Loger):
     __metaclass__ = ABCMeta
 
     accepted = pyqtSignal(dict)
