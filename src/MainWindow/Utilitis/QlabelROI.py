@@ -3,9 +3,11 @@ from abc import abstractmethod
 
 import cv2
 from PyQt5 import QtGui
-from PyQt5.QtCore import QRect, QPoint
+from PyQt5.QtCore import QRect, QPoint, QLine
 from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor
 
+from src.ROI.Main.Point.PointClass import Point
+from src.ROI.Main.ROI.ROI import ROI
 from src.MainWindow.RightClickMenu.Label import RightClickLabel
 from src.MainWindow.RightClickMenu.RightClickMenu import RightMenu
 from src.ROI.Creation.main.CreateRoi import CreateRoi
@@ -68,9 +70,16 @@ class QlabelROI(RightClickLabel, CreateRoi):
 
         if not self.mainWindow.manipulator.inMotion:
             for rectagle in self.ROIList:
-                qp.drawRect(rectagle.getMarker(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y))
+                if isinstance(rectagle, ROI):
+                    qp.drawRect(rectagle.getMarker(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y))
+                elif isinstance(rectagle, Point):
+                    qp.drawLines(rectagle.getMarker(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y))
 
         if self.pressed and not self.mainWindow.creatingMap:
+            if self.mainWindow.mode == "Point":
+                l1 = QLine(QPoint(self.x1 + 10, self.y1), QPoint(self.x1 - 10, self.y1))
+                l2 = QLine(QPoint(self.x1, self.y1 + 10), QPoint(self.x1, self.y1 - 10))
+                qp.drawLines([l1, l2])
             qp.drawRect(QRect(QPoint(self.x1, self.y1), QPoint(self.x2, self.y2)))
 
     @abstractmethod

@@ -1,6 +1,6 @@
 from abc import ABCMeta
 
-from PyQt5.QtCore import QRect, QPoint
+from PyQt5.QtCore import QRect, QPoint, QLine
 
 from src.ROI.Main.Abstract.Abstract import AbstractR
 
@@ -30,7 +30,9 @@ class AbstractPoint(AbstractR):
 
     def getMarker(self, x, y):
         dx, dy = self.calculateOffset(x, y)
-        return QRect(QPoint(self.x0 - dx, self.y0 - dy), QPoint(self.x0 - dx, self.y0 - dy))
+        l1 = QLine(QPoint(self.x0 + dx + 10, self.y0 + dx), QPoint(self.x0 + dx - 10, self.y0 + dx))
+        l2 = QLine(QPoint(self.x0 + dx, self.y0 + dx + 10), QPoint(self.x0 + dx, self.y0 + dx - 10))
+        return [l1, l2]
 
     def foundCenter(self) -> (int, int):
         return self.x0, self.y0
