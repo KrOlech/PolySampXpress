@@ -17,7 +17,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
 
     leftMouseButton = False
 
-    pixelAbsolutValue = [0, 0]
+    pixelAbsolutValue = [0,0]
 
     supportedModes = {
         "Classic": "_SimpleCreateRoi",

@@ -4,7 +4,7 @@ from abc import abstractmethod
 import cv2
 from PyQt5 import QtGui
 from PyQt5.QtCore import QRect, QPoint, QLine
-from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor
+from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor, QFont
 
 from src.ROI.Main.Point.PointClass import Point
 from src.ROI.Main.ROI.ROI import ROI
@@ -45,14 +45,6 @@ class QlabelROI(RightClickLabel, CreateRoi):
     def getFrame(self) -> QPixmap:
         cvBGBImg = self.mainWindow.camera.getFrame()
 
-        for i, rectangle in enumerate(self.ROIList):
-            rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
-
-            if not self.mainWindow.manipulator.inMotion:
-                cv2.putText(cvBGBImg, str(rectangle.name),
-                            (rx, ry), cv2.FONT_HERSHEY_SIMPLEX,
-                            1, (255, 0, 0), 2)
-
         qImg = QImage(cvBGBImg.data, cvBGBImg.shape[1], cvBGBImg.shape[0], QImage.Format_BGR888)
 
         frame = QPixmap.fromImage(qImg)
@@ -64,16 +56,24 @@ class QlabelROI(RightClickLabel, CreateRoi):
 
         qp.drawPixmap(self.rect(), frame := self.getFrame())
 
+        qp.setFont(QFont("Arial", 24))
+
+        pen = qp.pen()
+        pen.setColor(QColor("blue"))
+        qp.setPen(pen)
+
         qp.setBrush(QBrush(QColor(200, 10, 10, 200)))
 
         self.setPixmap(frame)
 
         if not self.mainWindow.manipulator.inMotion:
-            for rectagle in self.ROIList:
-                if isinstance(rectagle, ROI):
-                    qp.drawRect(rectagle.getMarker(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y))
-                elif isinstance(rectagle, Point):
-                    qp.drawLines(rectagle.getMarker(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y))
+            for i, rectangle in enumerate(self.ROIList):
+                rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
+                qp.drawText(rx, ry, str(rectangle.name))
+                if isinstance(rectangle, ROI):
+                    qp.drawRect(rectangle.getMarker(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y))
+                elif isinstance(rectangle, Point):
+                    qp.drawLines(rectangle.getMarker(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y))
 
         if self.pressed and not self.mainWindow.creatingMap:
             if self.mainWindow.mode == "Point":

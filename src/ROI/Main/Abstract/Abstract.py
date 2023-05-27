@@ -1,6 +1,11 @@
 from abc import ABCMeta, abstractmethod
 from functools import cache
 
+import cv2
+import numpy as np
+from PyQt5.QtGui import QImage, QPixmap
+from numpy import frombuffer
+
 from src.ROI.Label.ROILable import ROILabel
 from src.BaseClass.Abstract import abstractmetod
 from src.BaseClass.JsonRead.JsonRead import JsonHandling
@@ -74,3 +79,27 @@ class AbstractR(Loger):
     def foundCenter(self) -> (int, int):
         abstractmetod(self)
         return 0, 0
+
+    @abstractmethod
+    def saveViue(self, path):
+        abstractmetod(self)
+
+    @staticmethod
+    def convertQimageToQpixmap(qimage):
+        return QPixmap.fromImage(qimage)
+
+    @staticmethod
+    def convertQpixmapToOpenCV(Qpixmap):
+        image_array = Qpixmap.toImage().convertToFormat(QImage.Format_RGB888)
+        width = image_array.width()
+        height = image_array.height()
+        buffer = image_array.bits().asstring(width * height * 3)
+
+        opencv_image = frombuffer(buffer, dtype=np.uint8).reshape((height, width, 3))
+        opencv_image = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2RGB)
+
+        return opencv_image
+
+    @staticmethod
+    def convertQimageToOpenCV(qimage):
+        return AbstractR.convertQpixmapToOpenCV(AbstractR.convertQimageToQpixmap(qimage))
