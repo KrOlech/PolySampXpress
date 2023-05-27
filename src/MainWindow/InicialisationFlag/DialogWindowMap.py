@@ -1,18 +1,18 @@
 from PyQt5.QtWidgets import QLabel
 
-from src.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogManipulator
+from src.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 from src.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 
 
-class DialogWindowMap(AbstractDialogManipulator):
+class DialogWindowMap(AbstractDialogMaster):
 
-    def __init__(self, manipulator, *args, **kwargs):
-        super().__init__(manipulator, *args, **kwargs)
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
 
         self.form.addRow(QLabel("Creating Map"))
 
     def isMapReadi(self):
-        while not self.manipulator.isMapReadi:
+        while not self.master.isMapReadi:
             pass
         return
 

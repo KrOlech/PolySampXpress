@@ -1,8 +1,8 @@
 from abc import ABCMeta
-from src.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogManipulator
+from src.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 
 
-class AbstractWindow(AbstractDialogManipulator):
+class AbstractWindow(AbstractDialogMaster):
     __metaclass__ = ABCMeta
 
     @property

@@ -3,14 +3,14 @@ from abc import ABCMeta
 from src.Manipulator.Abstract.DialogWindow.Abstract import AbstractDialog
 
 
-class AbstractDialogManipulator(AbstractDialog):
+class AbstractDialogMaster(AbstractDialog):
     __metaclass__ = ABCMeta
 
-    def __init__(self, manipulator, *args, **kwargs):
+    def __init__(self, master, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.manipulator = manipulator
+        self.master = master
 
     def cancelPressed(self):
-        self.manipulator.stop()
+        self.master.stop()
         self.accept()
