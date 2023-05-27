@@ -11,6 +11,7 @@ class AbstractROI(AbstractR):
     rect = None
 
     x0, x1, y0, y1 = 0, 0, 0, 0
+    x0Label, x1Label, y0Label, y1Label = 0, 0, 0, 0
 
     minX, minY = 0, 0
     maxX, maxY = 0, 0
@@ -49,4 +50,4 @@ class AbstractROI(AbstractR):
         self.__setBorders(self.x0, self.x1, self.y0, self.y1)
 
     def foundCenter(self) -> (int, int):
-        return  self.x0 + (self.x1 - self.x0) // 2, self.y0 + (self.y1 - self.y0) // 2
+        return self.x0 + (self.x1 - self.x0) // 2, self.y0 + (self.y1 - self.y0) // 2
