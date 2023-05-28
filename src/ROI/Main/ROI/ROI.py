@@ -1,3 +1,4 @@
+import cv2
 from PyQt5.QtCore import QRect, QPoint
 
 from src.ROI.Main.Abstract.AbstractROI import AbstractROI
@@ -53,3 +54,10 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
     def createLabelMarker(self, scalaX, scalaY):
         return QRect(QPoint(self.x0Label // scalaX, self.y0Label // scalaY),
                      QPoint(self.x1Label // scalaX, self.y1Label // scalaY))
+
+    def saveViue(self, path):
+        image = self.convertQpixmapToOpenCV(self.view)
+
+        cv2.rectangle(image, [self.x0Label, self.y0Label], [self.x1Label, self.y1Label], (0, 0, 255), 2)
+
+        cv2.imwrite(path + str(self.name) + ".png", image)

@@ -1,3 +1,4 @@
+import cv2
 from PyQt5.QtCore import QPoint, QLine
 
 from src.ROI.Main.Cursor.Cursor import Cursor
@@ -45,3 +46,11 @@ class Point(PointEdit, NameHandling, Cursor):
         l2 = QLine(QPoint(xlabel, ylabel + 5),
                    QPoint(xlabel, ylabel - 5))
         return [l1, l2]
+
+    def saveViue(self, path):
+        image = self.convertQpixmapToOpenCV(self.view)
+
+        cv2.line(image, (self.x0Label + 5, self.y0Label), (self.x0Label - 5, self.y0Label), (0, 0, 255), 2)
+        cv2.line(image, (self.x0Label, self.y0Label + 5), (self.x0Label, self.y0Label - 5), (0, 0, 255), 2)
+
+        cv2.imwrite(path + str(self.name) + ".png", image)
