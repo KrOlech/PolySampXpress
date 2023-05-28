@@ -1,3 +1,7 @@
+from PyQt5.QtCore import QPoint, Qt
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QLabel
+
 from src.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 
 
@@ -14,7 +18,8 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.__point = self.qActionCreate("Point mode", self.__togglePointMode, checkable=True)
         self.__scatter = self.qActionCreate("Scatter mode", self.__toggleScatterMode, checkable=True)
         self.__fromClicks = self.qActionCreate("Click mode", self.__toggleClicksMode, checkable=True)
-        self.__fromScatterClicks = self.qActionCreate("Click Scatter mode", self.__toggleScatterClicksMode, checkable=True)
+        self.__fromScatterClicks = self.qActionCreate("Click Scatter mode", self.__toggleScatterClicksMode,
+                                                      checkable=True)
 
         self.__classic.setChecked(True)
 
@@ -25,6 +30,8 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         roi.addAction(self.__scatter)
         roi.addAction(self.__fromClicks)
         roi.addAction(self.__fromScatterClicks)
+
+        self.myStatusBarClick = self.clickCreateStatus()
 
     def __toggleClassicMode(self):
         self.__UncheckAll()
@@ -45,14 +52,35 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.__UncheckAll()
         self.__fromClicks.setChecked(True)
         self.mode = "Clicks"
+        self.myStatusBarClick.setText("Click Mode")
 
     def __toggleScatterClicksMode(self):
         self.__UncheckAll()
         self.__fromScatterClicks.setChecked(True)
         self.mode = "Clicks Scatter"
+        self.myStatusBarClick.setText("Click Mode")
 
     def __UncheckAll(self, State=False):
         self.__classic.setChecked(State)
         self.__point.setChecked(State)
         self.__scatter.setChecked(State)
         self.__fromClicks.setChecked(State)
+        self.myStatusBarClick.setText("")
+
+    def clickCreateStatus(self):
+        myStatusBar = QLabel(self)
+
+        myStatusBar.setFixedWidth(self.windowSize.width() // 8)
+
+        myStatusBar.setStyleSheet("background-color: rgba(255, 255, 255, 75);")
+
+        font = QFont()
+        font.setPointSize(13)
+
+        myStatusBar.setAlignment(Qt.AlignCenter)
+        myStatusBar.setFont(font)
+        myStatusBar.move(
+            QPoint(self.windowSize.width() // 2 - self.windowSize.width() // 16, self.windowSize.height() - 25))
+        myStatusBar.show()
+
+        return myStatusBar

@@ -1,50 +1,17 @@
-from src.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
-from src.BaseClass.JsonRead.JsonRead import JsonHandling
+from src.ROI.Creation.ClickCreate.ClickCreateAbstract import ClickCreateAbstract
 
 
-class ClikcCreateRoi(CreateRoiAbstract):
-    firstPress = False
-    secondPress = False
-    manipulatorXFP = None
-    manipulatorXFirstPresX = None
-    manipulatorYFirstPresY = None
+class ClikcCreateRoi(ClickCreateAbstract):
 
-    xOffset, yOffset = JsonHandling.loadOffsetsJson()
+    @property
+    def scatter(self):
+        return False
 
     def __savePressLocation(self, e):
-        if not (self.firstPress or self.secondPress):
-            self.manipulatorXFirstPresX = self.mainWindow.manipulator.x
-            self.manipulatorYFirstPresY = self.mainWindow.manipulator.y
-            self.x1 = e.x()
-            self.y1 = e.y()
-            self.x2 = e.x()
-            self.y2 = e.y()
-            self.firstPress = True
-            self.pressed = True
-        elif self.firstPress and not self.secondPress:
-            self.x2 = e.x()
-            self.y2 = e.y()
-            self.firstPress = False
-            self.secondPress = True
-
-    def calculateOffset(self):
-        return int((self.manipulatorXFirstPresX - self.mainWindow.manipulator.x) * self.xOffset), int(
-            (self.manipulatorYFirstPresY - self.mainWindow.manipulator.y) * self.yOffset)
+        self.savePressLocation(e)
 
     def __seveReliseLocation(self, e):
-        if self.secondPress:
-            self.x2 = e.x()
-            self.y2 = e.y()
-            dx, dy = self.calculateOffset()
-            self.x1 += dx
-            self.y1 += dy
-
-            self.createAndAddROIToList()
-
-            self.pressed = False
-            self.secondPress = False
-            self.firstPress = False
+        self.seveReliseLocation(e)
 
     def __saveTemporaryLocation(self, e):
-        self.x2 = e.x()
-        self.y2 = e.y()
+        self.saveTemporaryLocation(e)
