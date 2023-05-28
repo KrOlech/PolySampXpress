@@ -1,3 +1,5 @@
+from PyQt5.QtCore import QRect, QPoint
+
 from src.ROI.Main.Abstract.AbstractROI import AbstractROI
 from src.ROI.Main.Cursor.Cursor import Cursor
 from src.ROI.Main.Edit.ROIEdit import ROIEdit

@@ -80,12 +80,13 @@ class QlabelROI(RightClickLabel, CreateRoi):
                 l1 = QLine(QPoint(self.x1 + 10, self.y1), QPoint(self.x1 - 10, self.y1))
                 l2 = QLine(QPoint(self.x1, self.y1 + 10), QPoint(self.x1, self.y1 - 10))
                 qp.drawLines([l1, l2])
-            elif self.mainWindow.mode == "Clicks" or self.mainWindow.mode == "Clicks Scatter":
-                dx, dy = self.calculateOffset()
-                x1, y1 = self.x1 + dx, self.y1 + dy
             else:
-                x1, y1 = self.x1, self.y1
-            qp.drawRect(QRect(QPoint(x1, y1), QPoint(self.x2, self.y2)))
+                if self.mainWindow.mode == "Clicks" or self.mainWindow.mode == "Clicks Scatter":
+                    dx, dy = self.calculateOffset()
+                    x1, y1 = self.x1 + dx, self.y1 + dy
+                else:
+                    x1, y1 = self.x1, self.y1
+                qp.drawRect(QRect(QPoint(x1, y1), QPoint(self.x2, self.y2)))
 
     @abstractmethod
     def right_menu(self, pos):
