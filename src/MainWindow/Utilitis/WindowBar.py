@@ -6,7 +6,7 @@ from PyQt5.QtGui import QPalette
 class MyBar(QWidget):
     clickPos = None
 
-    def __init__(self, parent, name="ROI Maper beta-0.6"):
+    def __init__(self, parent, name="PolySampXpress beta-0.6"):
         super(MyBar, self).__init__(parent)
         self.setAutoFillBackground(True)
 
@@ -16,8 +16,8 @@ class MyBar(QWidget):
         layout.setContentsMargins(1, 1, 1, 1)
         layout.addStretch()
 
-        self.title = QLabel(name, self, alignment=Qt.AlignCenter)
-
+        self.title = QLabel(name, self)
+        self.title.setMinimumWidth(180)
         self.title.setForegroundRole(QPalette.Light)
 
         style = self.style()
