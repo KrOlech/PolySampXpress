@@ -1,42 +1,20 @@
 from abc import ABCMeta
 
-from src.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
+from src.ROI.Creation.ClickCreate.ClickCreateAbstract import ClickCreateAbstract
 
 
-# toDo lern how to inhariet from ClikcCreateRoi private metods
-class ClikcCreateScatter(CreateRoiAbstract):
+class ClikcCreateScatter(ClickCreateAbstract):
     __metaclass__ = ABCMeta
 
+    @property
+    def scatter(self):
+        return True
+
     def __savePressLocation(self, e):
-        if not (self.firstPress or self.secondPress):
-            self.manipulatorXFirstPresX = self.mainWindow.manipulator.x
-            self.manipulatorYFirstPresY = self.mainWindow.manipulator.y
-            self.x1 = e.x()
-            self.y1 = e.y()
-            self.x2 = e.x()
-            self.y2 = e.y()
-            self.firstPress = True
-            self.pressed = True
-        elif self.firstPress and not self.secondPress:
-            self.x2 = e.x()
-            self.y2 = e.y()
-            self.firstPress = False
-            self.secondPress = True
+        self.savePressLocation(e)
 
     def __seveReliseLocation(self, e):
-        if self.secondPress:
-            self.x2 = e.x()
-            self.y2 = e.y()
-            dx, dy = self.calculateOffset()
-            self.x1 += dx
-            self.y1 += dy
-
-            self.createAndAddROIToList(True)
-
-            self.pressed = False
-            self.secondPress = False
-            self.firstPress = False
+        self.seveReliseLocation(e)
 
     def __saveTemporaryLocation(self, e):
-        self.x2 = e.x()
-        self.y2 = e.y()
+        self.saveTemporaryLocation(e)
