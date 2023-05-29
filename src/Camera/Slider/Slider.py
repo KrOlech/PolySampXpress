@@ -48,11 +48,12 @@ class Slider(_Slider):
         self.communicationPoint = cP
         super(Slider, self).__init__(mainWindow, cP.min, cP.max, cP.value, *args, **kwargs)
 
+        self.setFixedWidth(150)
+
     def change(self, value) -> None:
         self.value = self.conversion(value)
         self.communicationPoint.value = self.value
         self.mainWindow.camera.setNewValueForCommunicationPoint(self.communicationPoint)
-
 
 
 if __name__ == '__main__':

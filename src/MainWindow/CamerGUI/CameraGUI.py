@@ -18,10 +18,10 @@ class CameraGUI(MainWindowMenuBar):
 
         self.setCentralWidget(self.view)
 
-        self.cameraSetingsWidget = CameraSettingsWindow(self)
+        self.cameraSettingsWidget = CameraSettingsWindow(self)
 
     def showAllCameraSettings(self) -> None:
-        self.cameraSetingsWidget.show()
+        self.cameraSettingsWidget.show()
 
     def calibrate(self):
         MainCalibrate(self.camera).calibrate(self.manipulatorInterferes)
