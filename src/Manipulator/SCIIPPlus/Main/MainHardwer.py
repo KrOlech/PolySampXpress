@@ -21,6 +21,7 @@ class SCIManipulatorMain(SCIManipulator, JsonHandling):
         self.setZero()
 
         self.x0, self.y0 = self.getPosition(1), self.getPosition(0)
+        self.x, self.y = self.getPosition(1), self.getPosition(0)
 
         self.upadteLable()
 
