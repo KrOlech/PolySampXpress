@@ -67,6 +67,7 @@ class QlabelROI(RightClickLabel, CreateRoi):
         self.setPixmap(frame)
 
         if not self.mainWindow.manipulator.inMotion:
+
             for i, rectangle in enumerate(self.ROIList):
                 rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
                 qp.drawText(rx, ry, str(rectangle.name))

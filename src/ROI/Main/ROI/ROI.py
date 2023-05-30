@@ -9,7 +9,8 @@ from src.ROI.Main.NameHandling.NameHandling import NameHandling
 
 class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
-    def __init__(self, master, x1, y1, x2, y2, name, manipulatotrX, manipulatorY, pixelAbsolutValue, scatter=False):
+    def __init__(self, master, x1, y1, x2, y2, name, manipulatotrX, manipulatorY, pixelAbsolutValue, scatter=False,
+                 viue=None):
         self.loger(
             f"x1 = {x1}, x2 = {x2}, y1 = {y1}, y2 = {y2}, manipulatotrX = {manipulatotrX}, manipulatorY = {manipulatorY}, absolutePixelValue = {pixelAbsolutValue}")
 
@@ -28,7 +29,7 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
         self.rect = self.createMarker()
 
-        self.view = self.master.getFrame()
+        self.view = self.master.getFrame() if viue is None else viue
 
         self.scatter = scatter
 

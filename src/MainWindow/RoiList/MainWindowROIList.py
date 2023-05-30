@@ -1,3 +1,4 @@
+from src.MainWindow.RoiList.LoadRoiList import LoadRoiList
 from src.MainWindow.RoiList.SaveRoiList import SaveRoiList
 from src.MainWindow.ManipulatorInterfejs.MainWindowManipulatorInterfejs import MainWindowManipulatorInterfejs
 from src.ROI.List.ROIList import ROIList
@@ -37,6 +38,8 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
     def saveListOfROI(self):
         SaveRoiList(self, self.cameraView.ROIList).save()
 
+    def loadListOfROI(self):
+        LoadRoiList(self).load()
 
 if __name__ == '__main__':
     import faulthandler

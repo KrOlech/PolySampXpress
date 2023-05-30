@@ -54,7 +54,11 @@ class JsonHandling(Loger):
 
     @staticmethod
     def readFile(filePath) -> dict:
-        with open(JsonHandling.getFileLocation(filePath), 'r') as file:
+        return JsonHandling.readFileRow(JsonHandling.getFileLocation(filePath))
+
+    @staticmethod
+    def readFileRow(filePath)-> dict:
+        with open(filePath, 'r') as file:
             rowData = json.load(file)
 
         return rowData

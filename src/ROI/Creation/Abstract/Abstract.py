@@ -37,7 +37,6 @@ class CreateRoiAbstract(QLabel, Loger):
         abstractmetod(self)
 
     def createAndAddROIToList(self, scatter=False):
-        self.loger("False")
         self.ROIList.append(
             ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
                 self.mainWindow.manipulator.y,self.pixelAbsolutValue,scatter=scatter))
