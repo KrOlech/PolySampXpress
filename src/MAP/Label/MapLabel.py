@@ -40,9 +40,10 @@ class MapLabel(QLabel):
         self.titleBar.resize(self.width(), self.titleBar.height())
 
     def paintEvent(self, QPaintEvent):
-        qp = QPainter(self)
-        qp.drawPixmap(self.rect(), self.master.mapPx)
-        qp.setBrush(QBrush(QColor(200, 10, 10, 200)))
+        if self.master.mapPx is not None:
+            qp = QPainter(self)
+            qp.drawPixmap(self.rect(), self.master.mapPx)
+            qp.setBrush(QBrush(QColor(200, 10, 10, 200)))
 
     def setAspectRatio(self, aspectRatio):
         self._aspectRatio = aspectRatio

@@ -11,6 +11,8 @@ class DialogWindowMap(AbstractDialogMaster):
 
         self.form.addRow(QLabel("Creating Map"))
 
+        self.form.addRow(self.cancelButton)
+
     def isMapReadi(self):
         while not self.master.isMapReadi:
             pass
@@ -21,3 +23,10 @@ class DialogWindowMap(AbstractDialogMaster):
 
     def end(self):
         self.accept()
+
+    def cancelPressed(self):
+        self.loger("Map Creation Stopped")
+        self.master.manipulator.stop()
+        self.master.mapWindowObject.mapEnd = True
+        self.master.isMapReadi = True
+        self.master.creatingMap = False

@@ -109,3 +109,4 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     def saveMap(self):
         if self.mapWindowObject:
             self.mapWindowObject.saveMapToFile()
+            self.manipulator.stop()
