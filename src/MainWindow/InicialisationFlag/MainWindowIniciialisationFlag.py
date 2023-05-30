@@ -69,11 +69,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     def createMap(self):
         self.creatingMap = True
         if not self.mapWindowObject:
-            self.mapWindowObject = self.crateMapObject()
-            dialogWindowMap = DialogWindowMap(self)
-            dialogWindowMap.run()
-            workFunWorkerAsync(self, self.mapWindowObject.mapCreate)
-            dialogWindowMap.exec_()
+            self.__createMap()
         else:
             self.loger("do you wont to owe ride created Map?")
             OwerideCurrentMapDialog(self).exec_()
@@ -88,8 +84,16 @@ class MainWindowInicialisationFlag(MainWindowROIList):
             self.owerideMap = False
             self.mapWindowObject.mapWidget.close()
             self.mapWindowObject = None
+            self.isMapReadi = False
 
-            self.createMap()
+            self.__createMap()
+
+    def __createMap(self):
+        self.mapWindowObject = self.crateMapObject()
+        dialogWindowMap = DialogWindowMap(self)
+        dialogWindowMap.run()
+        workFunWorkerAsync(self, self.mapWindowObject.mapCreate)
+        dialogWindowMap.exec_()
 
     def showMap(self):
         if self.mapWindowObject:
