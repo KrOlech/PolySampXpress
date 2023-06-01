@@ -18,20 +18,22 @@ class SaveRoiList(JsonHandling):
                                                     "Json Files (*.json)")
         self.loger(folderPath)
 
-        fileName = folderPath[folderPath.rfind(r"/") + 1:]
+        if folderPath:
 
-        folderPath = folderPath[:folderPath.rfind(r"/")]
+            fileName = folderPath[folderPath.rfind(r"/") + 1:]
 
-        chdir(folderPath)
+            folderPath = folderPath[:folderPath.rfind(r"/")]
 
-        now = datetime.now()
+            chdir(folderPath)
 
-        directoryName = f"{str(now.date())}-{str(now.hour)}.{str(now.minute)}.{str(now.second)}"
+            now = datetime.now()
 
-        mkdir(directoryName)
+            directoryName = f"{str(now.date())}-{str(now.hour)}.{str(now.minute)}.{str(now.second)}"
 
-        self.simpleSaveFile(folderPath + r"/" + directoryName + r"/" + fileName, data)
+            mkdir(directoryName)
 
-        [roi.saveViue(folderPath + r"/" + directoryName + r"/") for roi in self.roiList]
+            self.simpleSaveFile(folderPath + r"/" + directoryName + r"/" + fileName, data)
 
-        chdir(curentDirectory)
+            [roi.saveViue(folderPath + r"/" + directoryName + r"/") for roi in self.roiList]
+
+            chdir(curentDirectory)
