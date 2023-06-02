@@ -1,5 +1,6 @@
 import cv2
 
+from src.Camera.FromProducent.Main import GetFrameFromProducent
 from src.Symulators.CameraSymulator.CameraSimulator import CameraSimulator
 from src.Camera.ComonNames.ComonNames import CommonNames
 from src.Camera.Configuration.Configuration import Configuration
@@ -8,7 +9,7 @@ from src.BaseClass.JsonRead.JsonRead import JsonHandling
 from src.ErrorHandling.CustomExceptions.Exceptions import NoCammeraConected
 
 
-class Camera(CommonNames, GetFrame, Configuration, ):
+class Camera(CommonNames, Configuration, GetFrameFromProducent):
     '''
     Class allowing communication with camera and adjusting her settings
     '''
@@ -16,6 +17,7 @@ class Camera(CommonNames, GetFrame, Configuration, ):
     WIDTH, HEIGHT, FPS = JsonHandling.loadNativeCameraResolutionJson()
 
     def __init__(self, windowSize):
+        GetFrameFromProducent.__init__(self)
         super().__init__()
 
         self.device = cv2.VideoCapture(0)

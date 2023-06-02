@@ -315,7 +315,7 @@ class TIS_CAM(object):
         BildDaten = self.GetImageDescription()[:3]
         lWidth = BildDaten[0]
         lHeight = BildDaten[1]
-        iBitsPerPixel = BildDaten[2] / 8
+        iBitsPerPixel = BildDaten[2] // 8
 
         buffer_size = lWidth * lHeight * iBitsPerPixel * C.sizeof(C.c_uint8)
         img_ptr = self.GetImagePtr()
@@ -362,23 +362,24 @@ test.InitLibrary()
 Kamera_Namen = test.Kamera_finden()
 test2 = test.Kamera_verbinden(b'DFK 37BUX178 44121122')
 a = test2.open()
-# b = test2.get_video_format_width()
-# c = test2.get_video_format_height()
-# d = test2.GetVideoFormats()
-# e = test2.GetInputChannels()
-# f = test2.GetVideoNormCount()
-g = test2.StartLive()
-# h=test2.SnapImage()
-print(test2.GetImageDescription())
+#b = test2.get_video_format_width()
+#c = test2.get_video_format_height()
+#d = test2.GetVideoFormats()
+#e = test2.GetInputChannels()
+#f = test2.GetVideoNormCount()
+#g = test2.StartLive()
+TIS_GrabberDLL.tisgrabber.IC_PrepareLive(test2._handle)
+h=test2.SnapImage()
+print(h)
+#print(test2.GetImageDescription())
 j = test2.GetImagePtr()
-# k=test2.GetImage()
+print(test2.GetImage())
 
 
 # test_1=k[:,:,0]
 # test_2=k[:,:,1]
 # test_3=k[:,:,2]
 
-for x in range(100000):
-    ...  # == pass
+
 
 x = test2.StopLive()

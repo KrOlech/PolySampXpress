@@ -1,6 +1,6 @@
 {
     "BRIGHTNESS": {
-        "value": 804.0,
+        "value": 0.0,
         "min": 0,
         "max": 4000,
         "address": 10
@@ -12,31 +12,31 @@
         "address": 12
     },
     "HUE": {
-        "value": -14.994,
+        "value": -112.0,
         "min": -112,
         "max": 175,
         "address": 13
     },
     "SHARPNESS": {
-        "value": 14.0,
+        "value": 1.0,
         "min": 1,
         "max": 14,
         "address": 20
     },
     "GAMMA": {
-        "value": 100.5,
+        "value": 0.0,
         "min": 0,
         "max": 500,
         "address": 22
     },
     "EXPOSURE": {
-        "value": -8.775,
+        "value": -15.0,
         "min": -15,
         "max": 0,
         "address": 15
     },
     "GAIN": {
-        "value": 169.0,
+        "value": 0.0,
         "min": 0,
         "max": 500,
         "address": 14

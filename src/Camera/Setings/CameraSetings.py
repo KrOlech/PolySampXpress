@@ -37,6 +37,7 @@ class CameraSettingsWindow(QWidget, CameraSettingsFromProducent):
         self.titleBar.resize(self.width(), self.titleBar.height())
 
     def show(self):
-        for communicationPoint in self.master.camera.communicationPoints:
-            communicationPoint.setValue(self.master.camera.device)
-        super().show()
+        self.showProducentSettings()
+        #for communicationPoint in self.master.camera.communicationPoints:
+        #    communicationPoint.setValue(self.master.camera.device)
+        #super().show()
