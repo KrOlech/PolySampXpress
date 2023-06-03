@@ -66,11 +66,11 @@ class AbstractR(Loger):
     @abstractmethod
     def centerOnMe(self):
         x, y = self.foundCenter()
-        x -= self.master.master.manipulator.screenSize.width() // 2
-        y -= self.master.master.manipulator.screenSize.height() // 2
+        x -= self.master.mainWindow.windowSize.width() // 2
+        y -= self.master.mainWindow.windowSize.height() // 2
         x, y = self.convertPixelsTomm(x, y)
         self.loger(x, y)
-        self.master.master.manipulator.goToCords(x=x, y=y)
+        self.master.mainWindow.manipulator.goToCords(x=x, y=y)
 
     def convertPixelsTomm(self, x, y):
         return x / self.xOffset, y / self.yOffset
