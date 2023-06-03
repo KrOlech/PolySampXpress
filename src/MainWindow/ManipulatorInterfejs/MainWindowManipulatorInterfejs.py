@@ -148,7 +148,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def __manipulatorButtons(self):
         self.manipulatorButtons = self.__createManipulatorButtons()
 
-        self.positions = [self.geometry().bottomRight() - button.geometry().bottomRight() - offset for button, offset in
+        self.positions = [self.geometry().bottomRight() - button.geometry().bottomRight() - offset - QPoint(0, 30) for button, offset in
                           zip(self.manipulatorButtons, self.offsets)]
 
         [button.move(pos) for button, pos in zip(self.manipulatorButtons, self.positions)]
