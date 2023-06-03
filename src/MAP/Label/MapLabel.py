@@ -15,7 +15,7 @@ class MapLabel(QLabel):
 
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
 
-        self.titleBar = MyBar(self, "Map")
+        self.titleBar = MyBar(self, "Mozaik")
         self.setContentsMargins(0, self.titleBar.height(), 0, 0)
 
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
