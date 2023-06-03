@@ -101,6 +101,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
     def setZeroPoint(self):
         self.calibratePixelsMode = True
+        self.myStatusBarClick.setText("Select Zero Point")
 
     def goToCords(self):
         GoToCordsDialog(self.manipulator).exec_()
