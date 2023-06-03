@@ -32,6 +32,7 @@ class AbstractMapWindow(Loger):
 
     def showMap(self):
         self.mapWidget.show()
+        self.mapWidget.activateWindow()
 
     __ZOOM = "zoom"
 
