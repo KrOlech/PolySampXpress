@@ -2,6 +2,7 @@ from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 
+from src.MainWindow.RoiCreation.ScatterConfigureWindow import ScatterConfigureWindow
 from src.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 
 
@@ -12,6 +13,7 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
     __point = None
     __scatter = None
     __fromClicks = None
+    __fromScatterClicks = None
 
     def createRoiModsMenu(self):
         self.__classic = self.qActionCreate("Classic mode", self.__toggleClassicMode, checkable=True)
@@ -47,6 +49,7 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.__UncheckAll()
         self.__scatter.setChecked(True)
         self.mode = "Scatter"
+        ScatterConfigureWindow(self).exec_()
 
     def __toggleClicksMode(self):
         self.__UncheckAll()
@@ -59,6 +62,7 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.__fromScatterClicks.setChecked(True)
         self.mode = "Clicks Scatter"
         self.myStatusBarClick.setText("Click Mode")
+        ScatterConfigureWindow(self).exec_()
 
     def __UncheckAll(self, State=False):
         self.__classic.setChecked(State)

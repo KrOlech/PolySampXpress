@@ -54,10 +54,10 @@ class AbstractDialog(QDialog, Loger):
         self.accept()
 
     @staticmethod
-    def createQSpinBox(value):
+    def createQSpinBox(value, min = 0, max = 200):
         spinBox = QDoubleSpinBox()
         spinBox.setValue(value)
-        spinBox.setRange(0, 200)
+        spinBox.setRange(min, max)
         return spinBox
 
     def createWaitingLabel(self):
