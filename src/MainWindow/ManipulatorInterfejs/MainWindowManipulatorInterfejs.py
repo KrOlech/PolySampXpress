@@ -38,10 +38,12 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         homeAxis = self.qActionCreate("Home All Axis", self.homeAxis)
         goToCords = self.qActionCreate("Go To Cords", self.goToCords)
         setStepSize = self.qActionCreate("Set Step Size", self.setStepSize)
+        setZeroPoint = self.qActionCreate("Set Zero Point", self.setZeroPoint)
 
         manipulatorMenu.addAction(homeAxis)
         manipulatorMenu.addAction(goToCords)
         manipulatorMenu.addAction(setStepSize)
+        manipulatorMenu.addAction(setZeroPoint)
 
         manipulatorChoiceMenu = manipulatorMenu.addMenu("&Manipulator Type")
 
@@ -95,6 +97,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         homeAxis = HomeAxisDialog(self.manipulator)
         homeAxis.run()
         homeAxis.exec_()
+
+
+    def setZeroPoint(self):
         self.calibratePixelsMode = True
 
     def goToCords(self):
