@@ -55,11 +55,19 @@ class CommonNames(JsonHandling):
         GAIN = "GAIN"
         self.gain = OCCPoint(GAIN, self.parametersDictionary[GAIN])
 
-        WHITEBALANCE = "WHITE BALANCE"
-        self.whiteBalance = CCPoint(WHITEBALANCE, self.parametersDictionary[WHITEBALANCE])
+        WHITEBALANCEBLUE = "WHITE BALANCE BLUE"
+        self.whiteBalanceBlue = CCPoint(WHITEBALANCEBLUE, self.parametersDictionary[WHITEBALANCEBLUE])
+
+        WHITEBALANCEGREEN = "WHITE BALANCE GREEN"
+        self.whiteBalanceGreen = CCPoint(WHITEBALANCEGREEN, self.parametersDictionary[WHITEBALANCEGREEN])
+
+        WHITEBALANCERED = "WHITE BALANCE RED"
+        self.whiteBalanceRed = CCPoint(WHITEBALANCERED, self.parametersDictionary[WHITEBALANCERED])
 
         self.communicationPoints = [self.brightness, self.saturation, self.hue, self.sharpness, self.gamma,
-                                    self.exposure, self.gain, self.whiteBalance]
+                                    self.exposure, self.gain]
+        # self.whiteBalanceBlue, self.whiteBalanceGreen,
+        #                            self.whiteBalanceRed]
 
     def saveConfig(self):
         self.saveFile(self.settingsFileName, self.parametersDictionary)

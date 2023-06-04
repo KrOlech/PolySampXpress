@@ -23,7 +23,7 @@ def Main_Close():
     mainWindow.TestClose()
 
 
-def test_JsonRead():
+def JsonRead():
     jsonHandler = JsonHandling()
 
     print(jsonHandler.getFileLocation("test"))

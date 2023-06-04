@@ -7,10 +7,6 @@ class Configuration:
         self.setWidth(width)
         self.setHight(height)
         self.setFps(fps)
-        self.setBritnes(100)
-
-        self.device.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
-        self.device.set(cv2.CAP_PROP_EXPOSURE, -2)
 
     def setBritnes(self, value: int = 200) -> None:
         self.__setValue(self.brightness.address, value)
