@@ -19,7 +19,7 @@ class SimpleCreateScatter(CreateRoiAbstract):
             self.x2 = e.x()
             self.y2 = e.y()
 
-            self.createAndAddROIToList(True)
+            self.createAndAddROIToList(self.mainWindow.scatterConfig)
 
             self.pressed = False
 
