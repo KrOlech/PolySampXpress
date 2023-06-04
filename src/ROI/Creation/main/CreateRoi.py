@@ -3,6 +3,7 @@ from abc import ABCMeta
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QEvent
 
+from src.ROI.Main.Point.PointClass import Point
 from src.ROI.Main.Abstract.Abstract import AbstractR
 from src.ROI.Creation.ClickCreate.ClickCreateScatter import ClikcCreateScatter
 from src.ROI.Creation.SimpleCreate.SimpleCreateScatter import SimpleCreateScatter
@@ -17,7 +18,9 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
 
     leftMouseButton = False
 
-    pixelAbsolutValue = [0,0]
+    pixelAbsolutValue = [0, 0]
+
+    __absolutZeroPoint = None
 
     supportedModes = {
         "Classic": "_SimpleCreateRoi",
@@ -92,4 +95,18 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
         if self.leftMouseButton and not self.mainWindow.manipulator.inMotion:
             ofsetX, ofsetY = AbstractR.calculateOffsetStatic(self.mainWindow.manipulator.x,
                                                              self.mainWindow.manipulator.y)
+
             self.pixelAbsolutValue = (e.x() + ofsetX, e.y() + ofsetY)
+
+            if self.__absolutZeroPoint is not None:
+                self.__absolutZeroPoint.delete()
+                self.__absolutZeroPoint = None
+
+            self.__absolutZeroPoint = Point(self, self.pixelAbsolutValue[0], self.pixelAbsolutValue[1], "PX 0 0",
+                                            self.mainWindow.manipulator.x,
+                                            self.mainWindow.manipulator.y, self.pixelAbsolutValue)
+
+            self.ROIList.append(self.__absolutZeroPoint)
+            self.mainWindow.addROIToList()
+
+            self.mainWindow.myStatusBarClick.setText("")
