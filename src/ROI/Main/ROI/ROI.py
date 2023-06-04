@@ -16,6 +16,8 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
         self.x0Label, self.x1Label, self.y0Label, self.y1Label = x1, x2, y1, y2
 
+        self.pixelAbsolutValue = pixelAbsolutValue
+
         kwargs = {"master": master,
                   "name": name,
                   "x1": x1, "y1": y1,
@@ -33,13 +35,13 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
         self.scatter = scatter
 
-        self.fileDict = self.__createFileDict(pixelAbsolutValue)
+        self.fileDict = self.__createFileDict()
 
-    def __createFileDict(self, pixelAbsolutValue) -> dict:
-        x0 = self.x0 - pixelAbsolutValue[0]
-        x1 = self.x1 - pixelAbsolutValue[0]
-        y0 = self.y0 - pixelAbsolutValue[1]
-        y1 = self.y1 - pixelAbsolutValue[1]
+    def __createFileDict(self) -> dict:
+        x0 = self.x0 - self.pixelAbsolutValue[0]
+        x1 = self.x1 - self.pixelAbsolutValue[0]
+        y0 = self.y0 - self.pixelAbsolutValue[1]
+        y1 = self.y1 - self.pixelAbsolutValue[1]
 
         return {"absolute Pixell Values": {"x0": x0,
                                            "x1": x1,

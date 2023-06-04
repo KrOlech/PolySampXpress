@@ -1,4 +1,5 @@
 from abc import ABCMeta
+from functools import cache
 
 from PyQt5.QtCore import QRect, QPoint, QLine
 
@@ -32,6 +33,33 @@ class AbstractPoint(AbstractR):
         dx, dy = self.calculateOffset(x, y)
         l1 = QLine(QPoint(self.x0 + dx + 10, self.y0 + dx), QPoint(self.x0 + dx - 10, self.y0 + dx))
         l2 = QLine(QPoint(self.x0 + dx, self.y0 + dx + 10), QPoint(self.x0 + dx, self.y0 + dx - 10))
+        return [l1, l2]
+
+    @cache
+    def getMarkerMap(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale):
+        x0 = self.x0 - self.pixelAbsolutValue[0]
+        y0 = self.y0 - self.pixelAbsolutValue[1]
+
+        x0mm = x0 / self.xOffset
+        y0mm = y0 / self.yOffset
+
+        x0mm -= mapX0
+        y0mm -= mapY0
+
+        x0mm /= mapWidth
+        y0mm /= mapHeight
+
+        x0mm *= screenheight
+        y0mm *= screenWidth
+
+        x0mm /= scale
+        y0mm /= scale
+
+        x0mm = int(x0mm)
+        y0mm = int(y0mm)
+
+        l1 = QLine(QPoint(x0mm + 10, y0mm), QPoint(x0mm - 10, y0mm))
+        l2 = QLine(QPoint(x0mm, y0mm + 10), QPoint(x0mm, y0mm - 10))
         return [l1, l2]
 
     def foundCenter(self) -> (int, int):

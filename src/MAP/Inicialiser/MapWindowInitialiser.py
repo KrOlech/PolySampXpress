@@ -66,8 +66,8 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         mapWidget = MapLabel(self)
 
         mapWidget.resize(self.ScaledMapSizeIn_px[0], self.ScaledMapSizeIn_px[1])
-        mapWidget.setMaximumSize(self.windowSize)
-        mapWidget.setAspectRatio(self.ScaledMapSizeIn_px[0] // self.ScaledMapSizeIn_px[1])
+
+        mapWidget.setAspectRatio(self.ScaledMapSizeIn_px[0] / self.ScaledMapSizeIn_px[1])
         return mapWidget
 
     def __loadManipulatorFullMovement(self):

@@ -54,6 +54,10 @@ class AbstractR(Loger):
         abstractmetod(self)
 
     @abstractmethod
+    def getMarkerMap(self, x, y):
+        abstractmetod(self)
+
+    @abstractmethod
     def __dict__(self) -> dict:
         abstractmetod(self)
         return {}
