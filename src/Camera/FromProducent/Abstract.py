@@ -1,9 +1,11 @@
 from ctypes import c_int, Structure, c_char_p, c_void_p, POINTER, c_long, c_ubyte, cast, windll, sizeof, c_uint8
 
+from BaseClass.JsonRead.JsonRead import JsonHandling
+
 
 class AbstractCameraFromProducent:
-    tisgrabber = windll.LoadLibrary(
-        r"C:\Users\Administrator\PycharmProjects\MagisterkaV2\Documentation\Camera\tisgrabber_x64.dll")
+
+    tisgrabber = windll.LoadLibrary(JsonHandling.getFileLocation(r"CameraDLL\tisgrabber_x64.dll"))
 
     class GrabberHandle(Structure):
         pass
