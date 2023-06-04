@@ -23,7 +23,7 @@ class AbstractDialog(QDialog, Loger):
 
     @property
     def CancelName(self):
-        return "Cancel"
+        return "Sttop"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
