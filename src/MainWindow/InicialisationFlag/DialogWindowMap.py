@@ -9,7 +9,7 @@ class DialogWindowMap(AbstractDialogMaster):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
-        self.form.addRow(QLabel("Creating Map"))
+        self.form.addRow(QLabel("Creating Mozaik"))
 
         self.form.addRow(self.cancelButton)
 
@@ -25,7 +25,7 @@ class DialogWindowMap(AbstractDialogMaster):
         self.accept()
 
     def cancelPressed(self):
-        self.loger("Map Creation Stopped")
+        self.loger("Mozaik Creation Stopped")
         self.master.manipulator.stop()
         self.master.mapWindowObject.mapEnd = True
         self.master.isMapReadi = True

@@ -24,7 +24,7 @@ class MapWindow(MapWindowInitialise):
         m = self.photoCount[1] * self.scaledCameraFrameSize[0]
 
         photoShape = frame.shape
-        self.loger(f"map Fragment shape {self.mapNumpy[n: n + photoShape[0], m:m + photoShape[1]].shape}")
+        self.loger(f"Mozaik Fragment shape {self.mapNumpy[n: n + photoShape[0], m:m + photoShape[1]].shape}")
         self.loger(f"photo shape {photoShape}")
 
         try:

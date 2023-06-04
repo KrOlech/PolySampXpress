@@ -7,14 +7,14 @@ class OwerideCurrentMapDialog(AbstractDialog):
 
     @property
     def windowName(self):
-        return "Oweride Map"
+        return "Oweride Mozaik"
 
     def __init__(self, master):
         super(OwerideCurrentMapDialog, self).__init__()
 
         self.master = master
 
-        self.form.addRow(QLabel("Oweride Current Map Data?"))
+        self.form.addRow(QLabel("Oweride Current Mozaik Data?"))
 
         self.finaliseOutput()
 
