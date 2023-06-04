@@ -37,9 +37,12 @@ class CreateRoiAbstract(QLabel, Loger):
         abstractmetod(self)
 
     def createAndAddROIToList(self, scatter=False):
+        if abs(self.x1 - self.x2) < 10 and abs(self.y1 - self.y2) < 10:
+            return
+
         self.ROIList.append(
             ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
-                self.mainWindow.manipulator.y,self.pixelAbsolutValue,scatter=scatter))
+                self.mainWindow.manipulator.y, self.pixelAbsolutValue, scatter=scatter))
         self.roiNames += 1
 
         self.mainWindow.addROIToList()
