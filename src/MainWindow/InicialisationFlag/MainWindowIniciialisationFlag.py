@@ -37,7 +37,8 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         self.workFildActions = []
 
         for i, field in enumerate(self.readWorkFieldWindow.workFields):
-            action = self.qActionCreate(str(field[-1]), lambda checked, nr=i: self.togle(nr), checkable=True)
+            name = f"X:{field[0]}_{field[1]}; Y:{field[2]}_{field[3]}"
+            action = self.qActionCreate(name, lambda checked, nr=i: self.togle(nr), checkable=True)
             self.workFildMenu.addAction(action)
             self.workFildActions.append(action)
 
