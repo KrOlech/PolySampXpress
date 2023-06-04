@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QDesktopWidget
 
 # todo podzielic do dwóch klas
+from src.MainWindow.InicialisationFlag.WindowCreateWorkFeald import WindowCreateWorkFeald
 from src.BaseClass.Depracation.DepractionFactory import deprecated
 from src.MAP.Dialog.OwerideDialog import OwerideCurrentMapDialog
 from src.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
@@ -33,6 +34,8 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         self.readWorkFieldWindow = ReadPoleRobocze(self, self.windowSize)
 
         self.workFildMenu = self.menu.addMenu("&Work Field")
+        createWorkFiled = self.qActionCreate("Create Work Field", self.createWorkField)
+        self.workFildMenu.addAction(createWorkFiled)
 
         self.workFildActions = []
 
@@ -115,3 +118,6 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         if self.mapWindowObject:
             self.mapWindowObject.saveMapToFile()
             self.manipulator.stop()
+
+    def createWorkField(self):
+        WindowCreateWorkFeald(self).exec_()
