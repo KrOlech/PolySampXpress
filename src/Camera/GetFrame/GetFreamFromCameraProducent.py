@@ -1,7 +1,7 @@
-from ctypes import c_int, Structure, c_char_p, c_void_p, POINTER, c_long, c_ubyte, cast, windll, sizeof, c_uint8
+from ctypes import c_int, POINTER, c_long, c_ubyte, cast, sizeof, c_uint8
 
-import numpy as np
-import pygetwindow as gw
+from pygetwindow import getWindowsWithTitle
+from numpy import ndarray, uint8
 
 from src.Camera.FromProducent.Abstract import AbstractCameraFromProducent
 from src.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
@@ -10,10 +10,10 @@ from src.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
 class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
 
     def __init__(self):
-        super().__init__()
-        #self.PrepareLive()
-        self.StartLive()
+        if not self.isConnectionEstablished:
+            self.establishConnection()
 
+        self.StartLive()
 
         self.lWidth, self.lHeight, self.iBitsPerPixel, _ = self.GetImageDescription()
 
@@ -37,16 +37,19 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
     def getImagePointer(self):
         return self.GetImagePtr(self.handle)
 
-    def getFrame(self):
+    def getFrameProducent(self):
         self.SnapImage()
         imagePointer = self.getImagePointer()
 
         Bild = cast(imagePointer, POINTER(c_ubyte * self.bufferSize))
 
-        img = np.ndarray(buffer=Bild.contents,
-                         dtype=np.uint8,
-                         shape=self.shape)
+        img = ndarray(buffer=Bild.contents,
+                      dtype=uint8,
+                      shape=self.shape)
         return img
+
+    def getFrame(self) -> ndarray:
+        return self.getFrameProducent()
 
     def StopLive(self):
         Error = self.tisgrabber.IC_StopLive(self.handle)
@@ -63,7 +66,7 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
 
     def StartLive(self):
         Error = self.tisgrabber.IC_StartLive(self.handle, 1)
-        win = gw.getWindowsWithTitle('ActiveMovie Window')[0]
+        win = getWindowsWithTitle('ActiveMovie Window')[0]
         win.close()
 
         return Error
@@ -75,9 +78,9 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
 if __name__ == "__main__":
     t = GetFrameFromProducent()
 
-    #t.PrepareLive()
+    # t.PrepareLive()
 
-    #t.StartLive()
+    # t.StartLive()
 
     for x in range(100000):
         print(t.getFrame())

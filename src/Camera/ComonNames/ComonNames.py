@@ -65,9 +65,8 @@ class CommonNames(JsonHandling):
         self.whiteBalanceRed = CCPoint(WHITEBALANCERED, self.parametersDictionary[WHITEBALANCERED])
 
         self.communicationPoints = [self.brightness, self.saturation, self.hue, self.sharpness, self.gamma,
-                                    self.exposure, self.gain]
-        # self.whiteBalanceBlue, self.whiteBalanceGreen,
-        #                            self.whiteBalanceRed]
+                                    self.exposure, self.gain, self.whiteBalanceBlue, self.whiteBalanceGreen,
+                                    self.whiteBalanceRed]
 
     def saveConfig(self):
         self.saveFile(self.settingsFileName, self.parametersDictionary)

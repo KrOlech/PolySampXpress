@@ -4,9 +4,9 @@ from PyQt5.QtWidgets import QWidget, QLabel, QFormLayout, QPushButton
 from src.Camera.Setings.CameraSetingsFromProducent import CameraSettingsFromProducent
 from src.Camera.Slider.Slider import Slider
 from src.MainWindow.Utilitis.WindowBar import MyBar
+from src.BaseClass.Logger.Logger import Loger
 
-
-class CameraSettingsWindow(QWidget, CameraSettingsFromProducent):
+class CameraSettingsWindow(QWidget, CameraSettingsFromProducent, Loger):
 
     def __init__(self, master, *args, **kwargs) -> None:
         super(CameraSettingsWindow, self).__init__(*args, **kwargs)
@@ -15,29 +15,23 @@ class CameraSettingsWindow(QWidget, CameraSettingsFromProducent):
 
         self.form = QFormLayout(self)
 
-        for communicationPoint in self.master.camera.communicationPoints:
-            self.form.addRow(QLabel(communicationPoint.name), Slider(self.master, communicationPoint))
-
-        self.button = QPushButton(self)
-        self.button.released.connect(self.hide)
-        self.button.released.connect(self.showProducentSettings)
-        self.button.setText("Producent Settings")
-        self.form.addRow(QLabel(""), self.button)
-
-        self.setLayout(self.form)
-
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
 
         self.titleBar = MyBar(self, "Camera Settings")
         self.setContentsMargins(0, self.titleBar.height(), 0, 0)
 
-        self.setWhiteBalanceAuto()
-
     def resizeEvent(self, event):
         self.titleBar.resize(self.width(), self.titleBar.height())
 
     def show(self):
-        self.showProducentSettings()
-        #for communicationPoint in self.master.camera.communicationPoints:
-        #    communicationPoint.setValue(self.master.camera.device)
-        #super().show()
+        try:
+            if self.master.camera.isConnectionEstablished:
+                self.showProducentSettings()
+            elif self.master.camera.device is not None:
+                for communicationPoint in self.master.camera.communicationPoints:
+                    self.form.addRow(QLabel(communicationPoint.name), Slider(self.master, communicationPoint))
+
+                self.setLayout(self.form)
+                super().show()
+        except AttributeError as e:
+            self.logError(e)
