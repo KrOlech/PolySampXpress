@@ -1,10 +1,10 @@
 import os
 import sys
 
-from src.BaseClass.Logger.Logger import Loger
+from src.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 
 
-class AbstractStandaManipulator(Loger):
+class AbstractStandaManipulator(AbstractManipulator):
 
     # Specifies the current directory.
     cur_dir = os.path.abspath(os.path.dirname(__file__))

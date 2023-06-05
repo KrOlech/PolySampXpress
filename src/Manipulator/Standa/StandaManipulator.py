@@ -1,14 +1,12 @@
 from asyncio import sleep
 
-from src.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 from src.Manipulator.Standa.InicialisationClass import StandaManipulatorInitialisation
 
 
-class StandaManipulator(AbstractManipulator, StandaManipulatorInitialisation):
+class StandaManipulator(StandaManipulatorInitialisation):
 
     def __init__(self, screenSize, *args, **kwargs):
-        AbstractManipulator.__init__(self, screenSize, *args, **kwargs)
-        StandaManipulatorInitialisation.__init__(self)
+        super().__init__(self, screenSize, *args, **kwargs)
         self.lib.command_home(self.device_id)
         self.setSpeed(100)
         self.__x = 0
