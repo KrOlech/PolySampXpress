@@ -4,7 +4,6 @@ from BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class AbstractCameraFromProducent:
-
     tisgrabber = windll.LoadLibrary(JsonHandling.getFileLocation(r"CameraDLL\tisgrabber_x64.dll"))
 
     class GrabberHandle(Structure):
@@ -40,9 +39,15 @@ class AbstractCameraFromProducent:
                                      POINTER(c_int),
                                      POINTER(c_int),)
 
-    def __init__(self):
+    __isConnectionEstablished = None
+
+    def establishConnection(self):
         self.tisgrabber.IC_InitLibrary(None)
 
         self.handle = self.create_grabber()
 
-        self.open_device_by_unique_name(self.handle, b'DFK 37BUX178 44121122')
+        self.__isConnectionEstablished = self.open_device_by_unique_name(self.handle, b'DFK 37BUX178 44121122')
+
+    @property
+    def isConnectionEstablished(self):
+        return self.__isConnectionEstablished
