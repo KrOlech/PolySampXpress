@@ -1,4 +1,5 @@
 from abc import ABCMeta
+from functools import cache
 
 from PyQt5.QtCore import QRect, QPoint
 
@@ -35,6 +36,45 @@ class AbstractROI(AbstractR):
         dx, dy = self.calculateOffset(x, y)
         # self.loger(f"x1 = {self.x0}, x2 = {self.x1}, y1 = {self.y0}, y2 = {self.y1}, manipulatotrX = {x}, manipulatorY = {y} deltaX = {dx} deltaY = {dy}")
         return QRect(QPoint(self.x0 - dx, self.y0 - dy), QPoint(self.x1 - dx, self.y1 - dy))
+
+    @cache
+    def getMarkerMap(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale):
+        x0 = self.x0 - self.pixelAbsolutValue[0]
+        x1 = self.x1 - self.pixelAbsolutValue[0]
+        y0 = self.y0 - self.pixelAbsolutValue[1]
+        y1 = self.y1 - self.pixelAbsolutValue[1]
+
+        x0mm = x0 / self.xOffset
+        x1mm = x1 / self.xOffset
+        y0mm = y0 / self.yOffset
+        y1mm = y1 / self.yOffset
+
+        x0mm -= mapX0
+        x1mm -= mapX0
+        y0mm -= mapY0
+        y1mm -= mapY0
+
+        x0mm /= mapWidth
+        x1mm /= mapWidth
+        y0mm /= mapHeight
+        y1mm /= mapHeight
+
+        x0mm *= screenheight
+        x1mm *= screenheight
+        y0mm *= screenWidth
+        y1mm *= screenWidth
+
+        x0mm /= scale
+        x1mm /= scale
+        y0mm /= scale
+        y1mm /= scale
+
+        x0mm = int(x0mm)
+        x1mm = int(x1mm)
+        y0mm = int(y0mm)
+        y1mm = int(y1mm)
+
+        return QRect(QPoint(x0mm, y0mm), QPoint(x1mm, y1mm))
 
     def __setBorders(self, x1, x2, y1, y2):
         self.minX = min(x1, x2)

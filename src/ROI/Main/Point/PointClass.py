@@ -13,6 +13,8 @@ class Point(PointEdit, NameHandling, Cursor):
 
         self.x0Label, self.y0Label = x1, y1
 
+        self.pixelAbsolutValue = pixelAbsolutValue
+
         kwargs = {"master": master,
                   "name": name,
                   "x1": x1, "y1": y1,
@@ -26,11 +28,11 @@ class Point(PointEdit, NameHandling, Cursor):
 
         self.view = self.master.getFrame() if viue is None else viue
 
-        self.fileDict = self.__createFileDict(pixelAbsolutValue)
+        self.fileDict = self.__createFileDict()
 
-    def __createFileDict(self, pixelAbsolutValue) -> dict:
-        x0 = self.x0 - pixelAbsolutValue[0]
-        y0 = self.y0 - pixelAbsolutValue[1]
+    def __createFileDict(self) -> dict:
+        x0 = self.x0 - self.pixelAbsolutValue[0]
+        y0 = self.y0 - self.pixelAbsolutValue[1]
 
         return {"absolute Pixell Values": {"x0": x0,
                                            "y0": y0},
