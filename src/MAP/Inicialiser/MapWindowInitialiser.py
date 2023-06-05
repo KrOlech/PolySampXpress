@@ -31,6 +31,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
     def __init__(self, master, windowSize, manipulator):
         self.master = master
         self.manipulator = manipulator
+        self.windowSize = windowSize
 
         self.mapParams = self.__mapParams()
 
@@ -49,9 +50,9 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
         self.lock = threading.Lock()
 
-        self.mapWidget = self.__createMapLabel(windowSize)
+        self.mapWidget = self.__createMapLabel()
 
-    async def __gotoMapStart(self):
+    async def __gotoMapStart(self):  # toDO old implementation need redo propably not useed
         if self.manipulator.conn:
             self.manipulator.goToCords(x=self.master.fildParams[0])
             await sleep(60)
@@ -61,11 +62,11 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
     def __calculateScaledCameraFrameSize(self):
         return [int(size // self.scale) for size in JsonHandling.loadCameraResolutionJson()[::-1]]
 
-    def __createMapLabel(self, windowSize):
+    def __createMapLabel(self):
         mapWidget = MapLabel(self)
 
         mapWidget.resize(self.ScaledMapSizeIn_px[0], self.ScaledMapSizeIn_px[1])
-        mapWidget.setMaximumSize(windowSize)
+        mapWidget.setMaximumSize(self.windowSize)
         mapWidget.setAspectRatio(self.ScaledMapSizeIn_px[0] // self.ScaledMapSizeIn_px[1])
         return mapWidget
 

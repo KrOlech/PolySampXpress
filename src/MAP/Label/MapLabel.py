@@ -1,7 +1,10 @@
+from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QPainter, QBrush, QColor
 from PyQt5.QtWidgets import QLabel, QSizePolicy, QSizeGrip
 
+from src.MAP.Label.WaitWindow import WaitWindow
+from src.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 from src.MainWindow.Utilitis.WindowBar import MyBar
 
 
@@ -55,3 +58,31 @@ class MapLabel(QLabel):
 
     def widthForHeight(self, height):
         return int(height * self._aspectRatio)
+
+    def mousePressEvent(self, event):
+        if event.button() == QtCore.Qt.LeftButton:
+            waitWindow = WaitWindow(self)
+            waitWindow.run(event)
+            waitWindow.exec_()
+
+    def threadFun(self, event):
+        x, y = event.x(), event.y()
+
+        xMin = self.master.master.fildParams[0]
+        xMax = self.master.master.fildParams[1]
+
+        yMin = self.master.master.fildParams[2]
+        yMax = self.master.master.fildParams[3]
+
+        self.master.manipulator.goToCords(x=self.calculateCords(x, self.master.windowSize.width(), xMin, xMax),
+                                          y=self.calculateCords(y, self.master.windowSize.height(), yMin, yMax))
+
+    @staticmethod
+    def calculateCords(clickPosytion, windowSize, mapMinimulPosytion, mapMaximumPosytion):
+        return (clickPosytion * (mapMaximumPosytion - mapMinimulPosytion)) / windowSize + mapMinimulPosytion
+
+    def mouseMoveEvent(self, event):
+        ...
+
+    def mouseReleaseEvent(self, event):
+        ...
