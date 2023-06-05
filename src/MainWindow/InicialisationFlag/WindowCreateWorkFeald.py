@@ -1,7 +1,8 @@
+from src.MainWindow.InicialisationFlag.AbstractCreateWorkFild import AbstractCreateWorkFild
 from src.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 
 
-class WindowCreateWorkFeald(AbstractDialogMaster):
+class WindowCreateWorkFeald(AbstractDialogMaster, AbstractCreateWorkFild):
 
     @property
     def okName(self):
@@ -27,18 +28,8 @@ class WindowCreateWorkFeald(AbstractDialogMaster):
         self.finaliseOutput()
 
     def okPressed(self):
-        nrWorkFields = len(self.master.workFildActions)
-
         field = [self.x0.value(), self.x1.value(), self.y0.value(), self.y1.value(), "new"]
 
-        name = f"X:{field[0]}_{field[1]}; Y:{field[2]}_{field[3]}"
-
-        action = self.master.qActionCreate(name, lambda checked, nr=nrWorkFields: self.master.togle(nr), checkable=True)
-
-        self.master.workFildMenu.addAction(action)
-        self.master.workFildActions.append(action)
-        self.master.readWorkFieldWindow.workFields.append(field)
-
-        self.master.togle(nrWorkFields)
+        self.createWorkFild(field)
 
         super().okPressed()

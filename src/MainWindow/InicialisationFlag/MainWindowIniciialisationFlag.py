@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QDesktopWidget
 
 # todo podzielic do dwóch klas
+from src.MainWindow.InicialisationFlag.MapFromHearWindow import MapFromHearWindow
 from src.MainWindow.InicialisationFlag.WindowCreateWorkFeald import WindowCreateWorkFeald
 from src.BaseClass.Depracation.DepractionFactory import deprecated
 from src.MAP.Dialog.OwerideDialog import OwerideCurrentMapDialog
@@ -22,11 +23,12 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     def __init__(self, *args, **kwargs):
         super(MainWindowInicialisationFlag, self).__init__(*args, **kwargs)
 
-        showMap = self.qActionCreate("Show Map", self.showMap)
-        createMapAction = self.qActionCreate("Create Map", self.createMap)
-        saveMapAction = self.qActionCreate("Save Map", self.saveMap)
+        showMap = self.qActionCreate("Show Mozaik", self.showMap)
+        createMapAction = self.qActionCreate("Create Mozaik", self.createMap)
+        saveMapAction = self.qActionCreate("Save Mozaik", self.saveMap)
+        saveMapAction = self.qActionCreate("Create Mozaik From Hear", self.createMapFromHear)
 
-        mapMenu = self.menu.addMenu("&MAP")
+        mapMenu = self.menu.addMenu("&Mozaik")
         mapMenu.addAction(showMap)
         mapMenu.addAction(createMapAction)
         mapMenu.addAction(saveMapAction)
@@ -98,6 +100,9 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         dialogWindowMap.run()
         workFunWorkerAsync(self, self.mapWindowObject.mapCreate)
         dialogWindowMap.exec_()
+
+    def createMapFromHear(self):
+        MapFromHearWindow(self).exec_()
 
     def showMap(self):
         if self.mapWindowObject:
