@@ -1,13 +1,19 @@
+from abc import abstractmethod, ABCMeta
+
 from PyQt5.QtWidgets import QSlider
 from PyQt5.QtCore import Qt
 
+from src.BaseClass.Abstract import abstractmetod
 
-class _Slider(QSlider):
+
+class Slider(QSlider):
+    __metaclass__ = ABCMeta
+
     maxSlider = 1000
 
-    def __init__(self, mainWindow, minV, maxV, value=int(25), *args, **kwargs):
-        super(_Slider, self).__init__(Qt.Horizontal, *args, **kwargs)
-        self.mainWindow = mainWindow
+    def __init__(self, master, minV, maxV, value=int(25), orientation=Qt.Horizontal, widget=None, *args, **kwargs):
+        super(Slider, self).__init__(orientation, widget, *args, **kwargs)
+        self.master = master
 
         self.max, self.min, self.value = maxV, minV, value
 
@@ -33,31 +39,17 @@ class _Slider(QSlider):
         value *= self.maxSlider
         return int(value)
 
+    @abstractmethod
     def change(self, value):
         self.value = self.conversion(value)
-        self.mainWindow.manipulaor.przesun_x(self.conversion(value))
+        abstractmetod(self)
 
     def set_min_max(self, minV, maxV):
         self.max, self.min = int(maxV), int(minV)
         self.setValue(self.reconversion(self.value))
 
 
-class Slider(_Slider):
-
-    def __init__(self, mainWindow, cP, *args, **kwargs):
-        self.communicationPoint = cP
-        super(Slider, self).__init__(mainWindow, cP.min, cP.max, cP.value, *args, **kwargs)
-
-        self.setFixedWidth(150)
-
-    def change(self, value) -> None:
-        self.value = self.conversion(value)
-        self.communicationPoint.value = self.value
-        self.mainWindow.camera.setNewValueForCommunicationPoint(self.communicationPoint)
-
-
 if __name__ == '__main__':
-    # test nie aktualny testuje klase _Slider nie Slider
     from PyQt5.QtWidgets import QMainWindow, QApplication
     import sys as sys
 
@@ -78,7 +70,7 @@ if __name__ == '__main__':
 
     okno = MainWindow()
 
-    okno.setCentralWidget(_Slider(okno, -1, 1))
+    okno.setCentralWidget(Slider(okno, -1, 1))
 
     okno.show()
 

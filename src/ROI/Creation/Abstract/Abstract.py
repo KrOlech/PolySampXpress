@@ -41,8 +41,8 @@ class CreateRoiAbstract(QLabel, Loger):
             return
 
         self.ROIList.append(
-            ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
-                self.mainWindow.manipulator.y, self.pixelAbsolutValue, scatter=scatter))
+            ROI(self, self.x1, self.y1, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulatorInterferes.x,
+                self.mainWindow.manipulatorInterferes.y, self.pixelAbsolutValue, scatter=scatter))
         self.roiNames += 1
 
         self.mainWindow.addROIToList()

@@ -20,7 +20,7 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
         self.handle = handle
         if self.handle == -1:
             self.logError("no master Connected Error during Connection")
-            return
+            return -1
         self.enableAllAxis()
 
     def getCurrentPosition(self):

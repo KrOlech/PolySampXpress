@@ -8,10 +8,11 @@ class SCIManipulatorMain(SCIManipulator, JsonHandling):
 
     def __init__(self, screenSize, label, *args, **kwargs):
         super().__init__(screenSize, label, *args, **kwargs)
-        self.init(self.dll.acsc_OpenCommEthernetTCP(self.IP, 701), 1)
+        self.initState = self.init(self.dll.acsc_OpenCommEthernetTCP(self.IP, 701), 1) != -1
         self.x0, self.y0 = self.getPosition(1), self.getPosition(0)
         self.upadteLable()
         self.__readPositionFromFile()
+
 
     def homeAxis(self):
         self.x, self.y = -200, -200

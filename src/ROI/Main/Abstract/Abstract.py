@@ -28,8 +28,8 @@ class AbstractR(Loger):
 
     @cache
     def calculateOffset(self, x, y):
-        x0 = self.master.mainWindow.manipulator.x0  # powino to byc zawsze 0 obecnie z uwagi na blad z kalibracja
-        y0 = self.master.mainWindow.manipulator.y0
+        x0 = self.master.mainWindow.manipulatorInterferes.x0
+        y0 = self.master.mainWindow.manipulatorInterferes.y0
         ox, oy = self.calculateOffsetStatic(x, y, x0, y0)
         self.loger(f"wynik x={ox}, offset y={oy}")
         return ox, oy
@@ -74,7 +74,7 @@ class AbstractR(Loger):
         y -= self.master.mainWindow.windowSize.height() // 2
         x, y = self.convertPixelsTomm(x, y)
         self.loger(x, y)
-        self.master.mainWindow.manipulator.goToCords(x=x, y=y)
+        self.master.mainWindow.manipulatorInterferes.goToCords(x=x, y=y)
 
     def convertPixelsTomm(self, x, y):
         return x / self.xOffset, y / self.yOffset

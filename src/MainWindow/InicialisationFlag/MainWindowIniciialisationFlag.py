@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QDesktopWidget
 # todo podzielic do dwóch klas
 from src.MainWindow.InicialisationFlag.MapFromHearWindow import MapFromHearWindow
 from src.MainWindow.InicialisationFlag.WindowCreateWorkFeald import WindowCreateWorkFeald
-from src.BaseClass.Depracation.DepractionFactory import deprecated
 from src.MAP.Dialog.OwerideDialog import OwerideCurrentMapDialog
 from src.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
 from src.MAP.Main.MapWindow import MapWindow
@@ -26,12 +25,13 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         showMap = self.qActionCreate("Show Mozaik", self.showMap)
         createMapAction = self.qActionCreate("Create Mozaik", self.createMap)
         saveMapAction = self.qActionCreate("Save Mozaik", self.saveMap)
-        saveMapAction = self.qActionCreate("Create Mozaik From Hear", self.createMapFromHear)
+        createMapFromHearAction = self.qActionCreate("Create Mozaik From Hear", self.createMapFromHear)
 
         mapMenu = self.menu.addMenu("&Mozaik")
         mapMenu.addAction(showMap)
         mapMenu.addAction(createMapAction)
         mapMenu.addAction(saveMapAction)
+        mapMenu.addAction(createMapFromHearAction)
 
         self.readWorkFieldWindow = ReadPoleRobocze(self, self.windowSize)
 
@@ -62,15 +62,6 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     def __UncheckAll(self, State=False):
         for workFildAction in self.workFildActions:
             workFildAction.setChecked(State)
-
-    @deprecated("old Map cration manual")
-    def createMapManual(self):
-        if not self.mapWindowObject:
-            self.mapWindowObject = self.crateMapObject()
-        else:
-            x = self.manipulator.x
-            y = self.manipulator.y
-            self.mapWindowObject.addFrame(self.camera.getFrame())
 
     def createMap(self):
         self.creatingMap = True
@@ -117,12 +108,12 @@ class MainWindowInicialisationFlag(MainWindowROIList):
                 break
 
     def crateMapObject(self):
-        return MapWindow(self, self.windowSize, self.manipulator)
+        return MapWindow(self, self.windowSize, self.manipulatorInterferes)
 
     def saveMap(self):
         if self.mapWindowObject:
             self.mapWindowObject.saveMapToFile()
-            self.manipulator.stop()
+            self.manipulatorInterferes.stop()
 
     def createWorkField(self):
         WindowCreateWorkFeald(self).exec_()

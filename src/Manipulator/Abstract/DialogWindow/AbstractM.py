@@ -12,5 +12,14 @@ class AbstractDialogMaster(AbstractDialog):
         self.master = master
 
     def cancelPressed(self):
-        self.master.stop()
+        try:
+            self.master.stop()
+        except AttributeError as e:
+            self.logError(e)
+
+        try:
+            self.master.manipulatorInterferes.stop()
+        except AttributeError as e:
+            self.logError(e)
+
         self.accept()

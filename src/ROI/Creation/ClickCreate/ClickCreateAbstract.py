@@ -22,8 +22,8 @@ class ClickCreateAbstract(CreateRoiAbstract):
 
     def savePressLocation(self, e):
         if not (self.firstPress or self.secondPress):
-            self.manipulatorXFirstPresX = self.mainWindow.manipulator.x
-            self.manipulatorYFirstPresY = self.mainWindow.manipulator.y
+            self.manipulatorXFirstPresX = self.mainWindow.manipulatorInterferes.x
+            self.manipulatorYFirstPresY = self.mainWindow.manipulatorInterferes.y
             self.x1 = e.x()
             self.y1 = e.y()
             self.x2 = e.x()
@@ -57,5 +57,5 @@ class ClickCreateAbstract(CreateRoiAbstract):
         self.y2 = e.y()
 
     def calculateOffset(self):
-        return int((self.manipulatorXFirstPresX - self.mainWindow.manipulator.x) * self.xOffset), int(
-            (self.manipulatorYFirstPresY - self.mainWindow.manipulator.y) * self.yOffset)
+        return int((self.manipulatorXFirstPresX - self.mainWindow.manipulatorInterferes.x) * self.xOffset), int(
+            (self.manipulatorYFirstPresY - self.mainWindow.manipulatorInterferes.y) * self.yOffset)

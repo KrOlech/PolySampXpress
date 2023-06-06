@@ -28,4 +28,4 @@ class GoToCordsDialog(AbstractDialogMaster):
         self.master.goToCords(x=self.valueX.value(), y=self.valueY.value())
 
     def endThread(self):
-        super(GoToCordsDialog, self).okPressed()
+        self.accept()

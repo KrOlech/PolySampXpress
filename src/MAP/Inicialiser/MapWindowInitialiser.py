@@ -28,9 +28,9 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
     cameraFrameSizeX, cameraFrameSizeY = JsonHandling.loadCameraResolutionJson()  # 2560, 1440
 
-    def __init__(self, master, windowSize, manipulator):
+    def __init__(self, master, windowSize, manipulatorInterferes):
         self.master = master
-        self.manipulator = manipulator
+        self.manipulator = manipulatorInterferes #TO DO check
         self.windowSize = windowSize
 
         self.mapParams = self.__mapParams()
@@ -119,7 +119,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         return scale, ScaledMapSizeIn_px
 
     def __workFilledMovementMap(self):
-        xOffset, yOffset = 131, 111  # loadOffsetsJson()
+        xOffset, yOffset = 790, 650  # loadOffsetsJson()
         xMaxManipulator, yMaxanipulator = self.readManipulatorMax()
         dy = self.cameraFrameSizeX / xOffset
         dx = self.cameraFrameSizeY / yOffset

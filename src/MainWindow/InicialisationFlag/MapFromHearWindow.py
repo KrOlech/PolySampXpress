@@ -36,8 +36,8 @@ class MapFromHearWindow(AbstractDialogMaster, AbstractCreateWorkFild):
         self.finaliseOutput()
 
     def okPressed(self):
-        manipulatorX = self.master.manipulator.x
-        manipulatorY = self.master.manipulator.y
+        manipulatorX = self.master.manipulatorInterferes.x
+        manipulatorY = self.master.manipulatorInterferes.y
 
         if self.fromHear.isChecked():
             field = [manipulatorX, manipulatorX + self.x0.value(), manipulatorY, manipulatorY + self.y0.value(), "new"]
