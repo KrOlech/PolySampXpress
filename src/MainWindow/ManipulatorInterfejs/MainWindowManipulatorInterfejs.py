@@ -12,7 +12,7 @@ from src.Manipulator.Abstract.DialogWindow.WaitDialoge import HomeAxisDialog
 from src.Manipulator.Interfejs.ManipulatorInterfejs import ManipulatorInterfere
 from src.Manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
 from src.Manipulator.SCIIPPlus.Main.MainSymulator import SCIManipulatorSimulator
-from src.Manipulator.Standa import StandaManipulator
+from src.Manipulator.Standa.StandaManipulator import StandaManipulator
 
 
 class MainWindowManipulatorInterfejs(CameraGUIExtension):

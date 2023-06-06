@@ -3,6 +3,7 @@ import platform
 import sys
 from ctypes import create_string_buffer, byref, string_at, c_uint, CDLL, WinDLL, cast, POINTER, c_int
 
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
 from src.Manipulator.Standa.Filds.DeviceInformation import DeviceInformation
 from src.Manipulator.Standa.Filds.Status import StatusFild
 from src.Manipulator.Standa.Abstract.AbstractStandaManipulator import AbstractStandaManipulator
@@ -11,10 +12,10 @@ from src.Manipulator.Standa.Filds.Calibration import Calibration
 from src.Manipulator.Standa.Filds.EngineSettings import EngineSettings
 
 
-
 class StandaManipulatorInitialisation(AbstractStandaManipulator):
 
-    def __init__(self):
+    def __init__(self,screenSize, *args, **kwargs):
+        super().__init__(screenSize, *args, **kwargs)
         self.__checkSystem()
 
         self.eng = EngineSettings()
@@ -35,8 +36,8 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
 
     def enter(self):
         try:
-            self.device_id = self.lib.open_device(
-                r"xi-com:\\\.\COM3".encode())  # todo test after conversion to row string
+            self.device_id = self.lib.open_device("xi-com:\\\.\COM3".encode())
+            self.loger(f"Device ID {self.device_id}")
         except Exception as e:
             self.loger(e)
             self.loger("error Trying opening new master")
@@ -56,7 +57,7 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
 
     def __checkSystem(self):
         if platform.system() == "Windows":
-            libDir = r"C:\Users\user\KrzysztofOlech\Magisterkav2\Standa_Motor_Driver_Documentation\examples\test_Python\extendtest\..\..\..\ximc\win64"  # todo corect path
+            libDir = JsonHandling.getFileLocation("win64-Standa")
             if sys.version_info >= (3, 8):
                 os.add_dll_directory(libDir)
             else:
@@ -85,9 +86,7 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
             return None
 
     def __testInfo(self):
-        self.loger("Get device info")
         x_device_information = DeviceInformation()
-
         result = self.lib.get_device_information(self.device_id, byref(x_device_information))
         self.loger("Result: " + repr(result))
         if result == self.ok:
