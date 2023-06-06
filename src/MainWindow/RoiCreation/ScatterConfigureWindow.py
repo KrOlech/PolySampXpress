@@ -4,16 +4,18 @@ from src.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 
 
 class ScatterConfigureWindow(AbstractDialogMaster):
+    FULRANDOM = "Full Random"
+    RANDOMMGRID = "random To Grid"
 
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
         self.gridSize = self.createQSpinBox(1, min=10, max=100)
 
-        self.fullRandom = QRadioButton("Full Random")
-        self.fullRandom.toggled.connect(self.fullRandowFun)
+        self.fullRandom = QRadioButton(self.FULRANDOM)
+        self.randomToGrid = QRadioButton(self.RANDOMMGRID)
 
-        self.randomToGrid = QRadioButton("random To Grid")
+        self.fullRandom.toggled.connect(self.fullRandowFun)
         self.randomToGrid.toggled.connect(self.randomToGridFun)
 
         self.form.addRow(self.fullRandom, self.randomToGrid)
@@ -34,5 +36,9 @@ class ScatterConfigureWindow(AbstractDialogMaster):
         self.gridSize.setEnabled(True)
 
     def okPressed(self):
-        # toDo save selected configuration
+        if self.fullRandom.isChecked():
+            self.master.scatterConfig = self.FULRANDOM
+        elif self.randomToGrid.isChecked():
+            self.master.scatterConfig = self.RANDOMMGRID + str(self.gridSize.value())
+
         super().okPressed()
