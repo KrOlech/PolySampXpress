@@ -1,7 +1,6 @@
 from abc import ABCMeta
 from abc import abstractmethod
 
-import cv2
 from PyQt5 import QtGui
 from PyQt5.QtCore import QRect, QPoint, QLine
 from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor, QFont
@@ -69,12 +68,15 @@ class QlabelROI(RightClickLabel, CreateRoi):
         if not self.mainWindow.manipulatorInterferes.inMotion:
 
             for i, rectangle in enumerate(self.ROIList):
-                rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulatorInterferes.x, self.mainWindow.manipulatorInterferes.y)
+                rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulatorInterferes.x,
+                                                   self.mainWindow.manipulatorInterferes.y)
                 qp.drawText(rx, ry, str(rectangle.name))
                 if isinstance(rectangle, ROI):
-                    qp.drawRect(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x, self.mainWindow.manipulatorInterferes.y))
+                    qp.drawRect(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
+                                                    self.mainWindow.manipulatorInterferes.y))
                 elif isinstance(rectangle, Point):
-                    qp.drawLines(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x, self.mainWindow.manipulatorInterferes.y))
+                    qp.drawLines(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
+                                                     self.mainWindow.manipulatorInterferes.y))
 
         if self.pressed and not self.mainWindow.creatingMap:
             if self.mainWindow.mode == "Point":
@@ -110,7 +112,8 @@ class QlabelROI(RightClickLabel, CreateRoi):
     def checkIfInROI(self):
         rois = []
         for roi in self.ROIList:
-            if roi.inROI(self.rightClickPos, self.mainWindow.manipulatorInterferes.x, self.mainWindow.manipulatorInterferes.y):
+            if roi.inROI(self.rightClickPos, self.mainWindow.manipulatorInterferes.x,
+                         self.mainWindow.manipulatorInterferes.y):
                 rois.append(roi)
         return rois
 
