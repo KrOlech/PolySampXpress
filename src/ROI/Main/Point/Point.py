@@ -19,8 +19,8 @@ class RoiPoint(CreateRoiAbstract):
             self.y2 = e.y()
 
             self.ROIList.append(
-                Point(self, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulator.x,
-                      self.mainWindow.manipulator.y, self.pixelAbsolutValue))
+                Point(self, self.x2, self.y2, self.roiNames + 1, self.mainWindow.manipulatorInterferes.x,
+                      self.mainWindow.manipulatorInterferes.y, self.pixelAbsolutValue))
             self.roiNames += 1
 
             self.pressed = False

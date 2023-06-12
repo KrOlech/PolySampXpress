@@ -65,7 +65,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
             return
 
         if self.editTribe:
-            self.editedROI.mouseRelease(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
+            self.editedROI.mouseRelease(e, self.mainWindow.manipulatorInterferes.x, self.mainWindow.manipulatorInterferes.y)
         else:
             getattr(self, self.supportedModes[self.mainWindow.mode] + "__seveReliseLocation")(e)
 
@@ -75,13 +75,13 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
             return
 
         else:
-            match self.leftMouseButton, self.editTribe, self.mainWindow.manipulator.inMotion:
+            match self.leftMouseButton, self.editTribe, self.mainWindow.manipulatorInterferes.inMotion:
                 case False, False, _:
                     self.mainWindow.showROIList(e)
                 case False, True, False:
-                    self.editedROI.cursorEdit(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
+                    self.editedROI.cursorEdit(e, self.mainWindow.manipulatorInterferes.x, self.mainWindow.manipulatorInterferes.y)
                 case True, True, False:
-                    self.editedROI.mouseMove(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
+                    self.editedROI.mouseMove(e, self.mainWindow.manipulatorInterferes.x, self.mainWindow.manipulatorInterferes.y)
                 case True, False, False:
                     getattr(self, self.supportedModes[self.mainWindow.mode] + "__saveTemporaryLocation")(e)
                     self.mainWindow.showROIList(e)
@@ -89,12 +89,12 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
         self.mainWindow.myStatusBarMouse.setText(f" X: {e.x()}     Y: {e.y()}")
 
     def __isOkToProcesEvent(self):
-        return self.mainWindow.manipulator.inMotion or not self.leftMouseButton or self.mainWindow.creatingMap
+        return self.mainWindow.manipulatorInterferes.inMotion or not self.leftMouseButton or self.mainWindow.creatingMap
 
     def __setAbsolutZeroPositionForPixels(self, e):
-        if self.leftMouseButton and not self.mainWindow.manipulator.inMotion:
-            ofsetX, ofsetY = AbstractR.calculateOffsetStatic(self.mainWindow.manipulator.x,
-                                                             self.mainWindow.manipulator.y)
+        if self.leftMouseButton and not self.mainWindow.manipulatorInterferes.inMotion:
+            ofsetX, ofsetY = AbstractR.calculateOffsetStatic(self.mainWindow.manipulatorInterferes.x,
+                                                             self.mainWindow.manipulatorInterferes.y)
 
             self.pixelAbsolutValue = (e.x() + ofsetX, e.y() + ofsetY)
 
@@ -103,8 +103,8 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
                 self.__absolutZeroPoint = None
 
             self.__absolutZeroPoint = Point(self, self.pixelAbsolutValue[0], self.pixelAbsolutValue[1], "PX 0 0",
-                                            self.mainWindow.manipulator.x,
-                                            self.mainWindow.manipulator.y, self.pixelAbsolutValue)
+                                            self.mainWindow.manipulatorInterferes.x,
+                                            self.mainWindow.manipulatorInterferes.y, self.pixelAbsolutValue)
 
             self.ROIList.append(self.__absolutZeroPoint)
             self.mainWindow.addROIToList()

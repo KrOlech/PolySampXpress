@@ -14,4 +14,4 @@ class RoiEdit(CreateRoiAbstract):
         self.editTribe = False
 
     def mousePressEventEdit(self, e):
-        self.editedROI.mousePress(e, self.mainWindow.manipulator.x, self.mainWindow.manipulator.y)
+        self.editedROI.mousePress(e, self.mainWindow.manipulatorInterferes.x, self.mainWindow.manipulatorInterferes.y)

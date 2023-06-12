@@ -1,18 +1,13 @@
 from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QPushButton, QLabel
+from PyQt5.QtWidgets import QLabel
 
-# todo move to separate classes
 from src.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
 from src.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
-from src.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 from src.Manipulator.Abstract.DialogWindow.SimpleDialogWindow import GoToCordsDialog
 from src.Manipulator.Abstract.DialogWindow.StepSizeDialog import SetStepSizeDialog
 from src.Manipulator.Abstract.DialogWindow.WaitDialoge import HomeAxisDialog
-from src.Manipulator.Interfejs.ManipulatorInterfejs import ManipulatorInterfere
-from src.Manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
-from src.Manipulator.SCIIPPlus.Main.MainSymulator import SCIManipulatorSimulator
-from src.Manipulator.Standa.StandaManipulator import StandaManipulator
+from src.ManipulatorInterfejs.Main.ManipulatorInterfejs import ManipulatorInterfere
 
 
 class MainWindowManipulatorInterfejs(CameraGUIExtension):
@@ -24,91 +19,44 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
 
-        self.myStatusBar = self.configureStatusBar()
+        self.myStatusBar = self.__configureStatusBar()
         self.myStatusBarMouse = self.configureStatusBarMouse()
 
-        self.manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
-
-        self.manipulatorInterferes = ManipulatorInterfere(self)
+        self.manipulatorInterferes = ManipulatorInterfere(self, self.windowSize, self.myStatusBar)
 
         self.__manipulatorButtons()
 
         manipulatorMenu = self.menu.addMenu("&Manipulator")
 
-        homeAxis = self.qActionCreate("Home All Axis", self.homeAxis)
-        goToCords = self.qActionCreate("Go To Cords", self.goToCords)
-        setStepSize = self.qActionCreate("Set Step Size", self.setStepSize)
-        setZeroPoint = self.qActionCreate("Set Zero Point", self.setZeroPoint)
+        homeAxis = self.qActionCreate("Home All Axis", self.__homeAxis)
+        goToCords = self.qActionCreate("Go To Cords", self.__goToCords)
+        setStepSize = self.qActionCreate("Set Step Size", self.__setStepSize)
+        setZeroPoint = self.qActionCreate("Set Zero Point", self.__setZeroPoint)
 
         manipulatorMenu.addAction(homeAxis)
         manipulatorMenu.addAction(goToCords)
         manipulatorMenu.addAction(setStepSize)
         manipulatorMenu.addAction(setZeroPoint)
 
-        manipulatorChoiceMenu = manipulatorMenu.addMenu("&Manipulator Type")
-
-        self.abstractManipulatorAction = self.__createAction("AbstractManipulator", self.setAbstractManipulator)
-        self.standManipulatorAction = self.__createAction("StandManipulator", self.setStandManipulator)
-        self.sCIManipulatorSimulatorAction = self.__createAction("SCISimulator", self.setSCIManipulatorSimulator)
-        self.sCIManipulatorMainAction = self.__createAction("SCIManipulatorMain", self.setSCIManipulatorMain, )
-
-        manipulatorChoiceMenu.addAction(self.abstractManipulatorAction)
-        manipulatorChoiceMenu.addAction(self.standManipulatorAction)
-        manipulatorChoiceMenu.addAction(self.sCIManipulatorSimulatorAction)
-        manipulatorChoiceMenu.addAction(self.sCIManipulatorMainAction)
-
-        self.manipulatorActions = [self.abstractManipulatorAction, self.standManipulatorAction,
-                                   self.sCIManipulatorSimulatorAction, self.sCIManipulatorMainAction]
-
-        self.abstractManipulatorAction.setChecked(True)
-
     def __createAction(self, name, manipulatorSeFun):
         return self.qActionCreate(name, manipulatorSeFun, checkable=True)
 
-    def setAbstractManipulator(self):
-        self.__UncheckAll()
-        self.manipulator.close()
-        self.abstractManipulatorAction.setChecked(True)
-        self.manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
-
-    def setStandManipulator(self):
-        self.__UncheckAll()
-        self.manipulator.close()
-        self.standManipulatorAction.setChecked(True)
-        self.manipulator = StandaManipulator(self.windowSize, self.myStatusBar)
-
-    def setSCIManipulatorSimulator(self):
-        self.__UncheckAll()
-        self.manipulator.close()
-        self.sCIManipulatorSimulatorAction.setChecked(True)
-        self.manipulator = SCIManipulatorSimulator(self.windowSize, self.myStatusBar)
-
-    def setSCIManipulatorMain(self):
-        self.__UncheckAll()
-        self.manipulator.close()
-        self.sCIManipulatorMainAction.setChecked(True)
-        self.manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
-
-    def __UncheckAll(self, State=False):
-        for manipulatorAction in self.manipulatorActions:
-            manipulatorAction.setChecked(State)
-
-    def homeAxis(self):
-        homeAxis = HomeAxisDialog(self.manipulator)
+    def __homeAxis(self):
+        homeAxis = HomeAxisDialog(self.manipulatorInterferes)
         homeAxis.run()
         homeAxis.exec_()
 
-    def setZeroPoint(self):
+    def __setZeroPoint(self):
         self.calibratePixelsMode = True
         self.myStatusBarClick.setText("Select Zero Point")
 
-    def goToCords(self):
-        GoToCordsDialog(self.manipulator).exec_()
+    def __goToCords(self):
+        GoToCordsDialog(self.manipulatorInterferes).exec_()
 
-    def setStepSize(self):
-        SetStepSizeDialog(self.manipulator).exec_()
+    def __setStepSize(self):
+        SetStepSizeDialog(self.manipulatorInterferes).exec_()
 
-    def configureStatusBar(self):
+    def __configureStatusBar(self):
         myStatusBar = QLabel(self)
 
         myStatusBar.setFixedWidth(self.windowSize.width() // 8)
@@ -124,7 +72,6 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         return myStatusBar
 
     def closeEvent(self, event):
-
         ClosseWindow(self).exec_()
 
         if self.testEventClose:
@@ -135,28 +82,23 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         event.ignore()
 
     def closeAction(self):
-        if self.manipulator:
-            self.manipulator.close()
-
-    def __createManipulatorButtons(self):
-        buttons = [QPushButton(name, self.widget) for name in self.manipulatorInterferes.buttonsNames]
-        [button.released.connect(f) for f, button in zip(self.manipulatorInterferes.fun, buttons)]
-        [button.setStyleSheet("background-color: rgba(255, 255, 255, 10);") for button in buttons]
-        return buttons
+        self.manipulatorInterferes.closeAction()
 
     def __manipulatorButtons(self):
-        self.manipulatorButtons = self.__createManipulatorButtons()
+        self.manipulatorButtons = self.manipulatorInterferes.createButtons()
 
-        self.positions = [self.geometry().bottomRight() - button.geometry().bottomRight() - offset - QPoint(0, 30) for
-                          button, offset in
-                          zip(self.manipulatorButtons, self.offsets)]
+        positions = [self.geometry().bottomRight() - button.geometry().bottomRight() - offset - QPoint(0, 30) for
+                     button, offset in zip(self.manipulatorButtons, self.offsets)]
 
-        [button.move(pos) for button, pos in zip(self.manipulatorButtons, self.positions)]
+        [button.move(pos) for button, pos in zip(self.manipulatorButtons, positions)]
+
+        self.focusSlider = self.manipulatorInterferes.createFocusSlider()
+
+        self.focusSlider.move(self.geometry().bottomRight() - QPoint(300, self.focusSlider.height() + 5) - QPoint(
+            self.focusSlider.width() + 5, 0))
 
     def rightMenu(self, pos):
-        self.buttons = self.__createManipulatorButtons()
-
-        [button.setStyleSheet("background-color: rgba(255, 255, 255,100);") for button in self.buttons]
+        self.buttons = self.manipulatorInterferes.createButtons(100)
 
         positions = [pos + button.geometry().bottomRight() - offset - QPoint(0, 20) for button, offset in
                      zip(self.buttons, self.offsets)]
@@ -168,7 +110,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         [button.hide() for button in self.buttons]
         self.buttons = []
 
-    def configureStatusBarMouse(self):
+    def configureStatusBarMouse(self):  # toDO why hear?
         myStatusBar = QLabel(self)
 
         myStatusBar.setFixedWidth(self.windowSize.width() // 8)

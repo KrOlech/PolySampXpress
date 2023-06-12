@@ -11,6 +11,15 @@ class AbstractDialogMaster(AbstractDialog):
 
         self.master = master
 
-    def cancelPressed(self):
-        self.master.stop()
+    def cancelPressed(self): #TODO may be Uncorect not allweys master is manipulator and master have a manipulator to stop is ok handled but need beter implementation
+        try:
+            self.master.stop()
+        except AttributeError as e:
+            self.logError(e)
+
+        try:
+            self.master.manipulatorInterferes.stop()
+        except AttributeError as e:
+            self.logError(e)
+
         self.accept()

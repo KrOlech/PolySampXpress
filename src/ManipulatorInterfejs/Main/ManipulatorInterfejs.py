@@ -1,12 +1,13 @@
 from PyQt5.QtCore import Qt
 
-from src.Manipulator.Interfejs.AbstractManipulatroInterfejs import AbstractManipulatorInterfejs
+from src.ManipulatorInterfejs.Abstract.AbstractManipulatroInterfejs import AbstractManipulatorInterferes
+from src.ManipulatorInterfejs.Selection.Select import SelectManipulator
 
 
-class ManipulatorInterfere(AbstractManipulatorInterfejs):
+class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
 
-    def __init__(self, master, *args, **kwargs):
-        super(ManipulatorInterfere, self).__init__(master, *args, **kwargs)
+    def __init__(self, master, windowSize, myStatusBar, *args, **kwargs):
+        super(ManipulatorInterfere, self).__init__(master, windowSize, myStatusBar, *args, **kwargs)
 
         # toDo no simple two shortcut for single action
         # keyboard = [Qt.Key_W, Qt.Key_A, Qt.Key_D, Qt.Key_S]

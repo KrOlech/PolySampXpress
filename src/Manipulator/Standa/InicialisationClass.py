@@ -13,8 +13,9 @@ from src.Manipulator.Standa.Filds.EngineSettings import EngineSettings
 
 
 class StandaManipulatorInitialisation(AbstractStandaManipulator):
+    manipulatorConected = False
 
-    def __init__(self,screenSize, *args, **kwargs):
+    def __init__(self, screenSize, *args, **kwargs):
         super().__init__(screenSize, *args, **kwargs)
         self.__checkSystem()
 
@@ -50,10 +51,12 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
 
     def close(self):
         if self.device_id:
+            self.saveFile("StandaPosition.json", {"x": self.x, "y": self.y, "z": self.z})
             self.lib.close_device(byref(cast(self.device_id, POINTER(c_int))))
-            self.loger("Done")
+            self.manipulatorConected = False
+            self.loger("Done Closing Standa")
         else:
-            self.logError("Erore alredi Closed")
+            self.logError("Erore Closing Standa")
 
     def __checkSystem(self):
         if platform.system() == "Windows":
@@ -94,6 +97,7 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
             self.loger(" Manufacturer: " + repr(string_at(x_device_information.Manufacturer).decode()))
             self.loger(" Hardware version: " + repr(x_device_information.Major) + "." + repr(
                 x_device_information.Minor) + "." + repr(x_device_information.Release))
+            self.manipulatorConected = True
 
     def __testStatus(self, device_id):
 

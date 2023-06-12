@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QLabel, QFormLayout, QPushButton
 
 from src.Camera.Setings.CameraSetingsFromProducent import CameraSettingsFromProducent
-from src.Camera.Slider.Slider import Slider
+from src.Camera.Slider.SliderCommunicationPoint import SliderCommunicationPoint
 from src.MainWindow.Utilitis.WindowBar import MyBar
 from src.BaseClass.Logger.Logger import Loger
 
@@ -29,7 +29,7 @@ class CameraSettingsWindow(QWidget, CameraSettingsFromProducent, Loger):
                 self.showProducentSettings()
             elif self.master.camera.device is not None:
                 for communicationPoint in self.master.camera.communicationPoints:
-                    self.form.addRow(QLabel(communicationPoint.name), Slider(self.master, communicationPoint))
+                    self.form.addRow(QLabel(communicationPoint.name), SliderCommunicationPoint(self.master, communicationPoint))
 
                 self.setLayout(self.form)
                 super().show()
