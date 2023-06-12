@@ -6,7 +6,7 @@ from PyQt5.QtGui import QPalette
 class MyBar(QWidget):
     clickPos = None
 
-    def __init__(self, parent, name="PolySampXpress beta-0.6.1"):
+    def __init__(self, parent, name="PolySampXpress beta-0.7"):
         super(MyBar, self).__init__(parent)
         self.setAutoFillBackground(True)
 
