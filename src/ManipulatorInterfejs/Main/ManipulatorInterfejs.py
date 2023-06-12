@@ -46,5 +46,7 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
 
             self.loger(treshold, newTreshold)
 
-            if round(newTreshold, 1) == 103.2:
+            if round(newTreshold - treshold, 2) == 0:
                 break
+            else:
+                treshold = newTreshold
