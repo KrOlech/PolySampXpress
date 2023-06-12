@@ -1,3 +1,4 @@
+import cv2
 from PyQt5.QtCore import Qt
 
 from src.ManipulatorInterfejs.Abstract.AbstractManipulatroInterfejs import AbstractManipulatorInterferes
@@ -19,3 +20,31 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
         [a.setShortcutContext(Qt.WindowShortcut) for a in self.actions]
 
         [self.master.addAction(a) for a in self.actions]
+
+        self.autoFokus()
+
+    def __calcucateFokus(self):
+        image = self.master.camera.getFrame()
+        return cv2.Laplacian(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), cv2.CV_64F).var()
+
+    def autoFokus(self):
+
+        treshold = self.__calcucateFokus()
+        self._focusManipulator.x -= 1
+        self._focusManipulator.gotoNotAsync()
+
+        while True:
+            focusMetric = self.__calcucateFokus()
+
+            if focusMetric < treshold:
+                self._focusManipulator.x -= 1
+            if focusMetric > treshold:
+                self._focusManipulator.x += 1
+            self._focusManipulator.gotoNotAsync()
+
+            newTreshold = self.__calcucateFokus()
+
+            self.loger(treshold, newTreshold)
+
+            if round(newTreshold, 1) == 103.2:
+                break
