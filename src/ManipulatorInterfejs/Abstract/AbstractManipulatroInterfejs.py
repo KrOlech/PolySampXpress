@@ -1,10 +1,11 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QAction
 from PyQt5.QtCore import Qt
 
+from src.BaseClass.Logger.Logger import Loger
 from src.ManipulatorInterfejs.ManipulatorSlider.ManipulatorSlider import ManipulatorSlider
 
 
-class AbstractManipulatorInterferes(QWidget):
+class AbstractManipulatorInterferes(QWidget, Loger):
     _focusManipulator = None
     _manipulator = None
 
