@@ -21,9 +21,9 @@ class MapWindow(MapWindowInitialise):
 
     def moveManipulator(self):
         if self.manipulator.x != self.movementMap[self.photoCount[0]][self.photoCount[1]][0]:
-            self.manipulator.__goToCords()
+            self.manipulator.goToCords(x=self.movementMap[self.photoCount[0]][self.photoCount[1]][0])
         elif self.manipulator.y != self.movementMap[self.photoCount[0]][self.photoCount[1]][1]:
-            self.manipulator.__goToCords()
+            self.manipulator.goToCords(y=self.movementMap[self.photoCount[0]][self.photoCount[1]][1])
 
     def mapCreate(self):
         # print(self.photoCount, self._photoCount, self.mapDirection, self.mapEnd)
