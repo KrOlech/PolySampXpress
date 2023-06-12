@@ -3,6 +3,7 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QPainter, QBrush, QColor, QFont
 from PyQt5.QtWidgets import QLabel, QSizePolicy, QSizeGrip
 
+from src.BaseClass.Logger.Logger import Loger
 from src.ROI.Main.Point.PointClass import Point
 from src.ROI.Main.ROI.ROI import ROI
 from src.MAP.Label.WaitWindow import WaitWindow
@@ -10,7 +11,7 @@ from src.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 from src.MainWindow.Utilitis.WindowBar import MyBar
 
 
-class MapLabel(QLabel):
+class MapLabel(QLabel, Loger):
     _aspectRatio = 4 / 3
 
     def __init__(self, master, *args, **kwargs):
@@ -45,7 +46,6 @@ class MapLabel(QLabel):
         self.grips[1].move(rect.right() - self.gripSize, 0)
         self.grips[2].move(rect.right() - self.gripSize, rect.bottom() - self.gripSize)
         self.grips[3].move(0, rect.bottom() - self.gripSize)
-
 
         if abs(event.size().width() - self.width()) > abs(event.size().height() - self.height()):
             height = event.size().width() // self._aspectRatio
@@ -115,9 +115,13 @@ class MapLabel(QLabel):
     def threadFun(self, event):
         x, y = event.x(), event.y()
 
+        self.loger("Map window width", self.width())
+        self.loger("Map window height", self.height())
+        self.loger(f"Map press position x:{x}, y:{y}")
+
         self.master.manipulator.goToCords(
-            x=self.calculateCords(x, self.master.windowSize.width(), self.xMin, self.xMax),
-            y=self.calculateCords(y, self.master.windowSize.height(), self.yMin, self.yMax))
+            x=self.calculateCords(x, self.width(), self.xMin, self.xMax),
+            y=self.calculateCords(y, self.height(), self.yMin, self.yMax))
 
     @staticmethod
     def calculateCords(clickPosytion, windowSize, mapMinimulPosytion, mapMaximumPosytion):
