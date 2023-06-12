@@ -52,14 +52,16 @@ class AbstractPoint(AbstractR):
         x0mm *= screenheight
         y0mm *= screenWidth
 
-        x0mm /= scale
-        y0mm /= scale
+        #x0mm /= scale
+        #y0mm /= scale
 
         x0mm = int(x0mm)
         y0mm = int(y0mm)
 
         l1 = QLine(QPoint(x0mm + 10, y0mm), QPoint(x0mm - 10, y0mm))
         l2 = QLine(QPoint(x0mm, y0mm + 10), QPoint(x0mm, y0mm - 10))
+
+        self.loger(x0mm, y0mm)
         return [l1, l2]
 
     def foundCenter(self) -> (int, int):

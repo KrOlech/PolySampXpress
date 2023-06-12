@@ -36,8 +36,8 @@ class NameHandling(Loger):
         x0mm *= screenheight
         y0mm *= screenWidth
 
-        x0mm /= scale
-        y0mm /= scale
+        #x0mm /= scale
+        #y0mm /= scale
 
         x0mm = int(x0mm)
         y0mm = int(y0mm)

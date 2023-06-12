@@ -64,15 +64,17 @@ class AbstractROI(AbstractR):
         y0mm *= screenWidth
         y1mm *= screenWidth
 
-        x0mm /= scale
-        x1mm /= scale
-        y0mm /= scale
-        y1mm /= scale
+        #x0mm /= scale
+        #x1mm /= scale
+        #y0mm /= scale
+        #y1mm /= scale
 
         x0mm = int(x0mm)
         x1mm = int(x1mm)
         y0mm = int(y0mm)
         y1mm = int(y1mm)
+
+        self.loger(x0mm, y0mm, x1mm, y1mm)
 
         return QRect(QPoint(x0mm, y0mm), QPoint(x1mm, y1mm))
 
