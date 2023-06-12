@@ -94,7 +94,8 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         self.focusSlider = self.manipulatorInterferes.createFocusSlider()
 
-        self.focusSlider.move(100,100)
+        self.focusSlider.move(self.geometry().bottomRight() - QPoint(300, self.focusSlider.height() + 5) - QPoint(
+            self.focusSlider.width() + 5, 0))
 
     def rightMenu(self, pos):
         self.buttons = self.manipulatorInterferes.createButtons(100)
