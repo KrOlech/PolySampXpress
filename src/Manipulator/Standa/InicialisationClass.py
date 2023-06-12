@@ -51,11 +51,12 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
 
     def close(self):
         if self.device_id:
+            self.saveFile("StandaPosition.json", {"x": self.x, "y": self.y, "z": self.z})
             self.lib.close_device(byref(cast(self.device_id, POINTER(c_int))))
             self.manipulatorConected = False
-            self.loger("Done")
+            self.loger("Done Closing Standa")
         else:
-            self.logError("Erore alredi Closed")
+            self.logError("Erore Closing Standa")
 
     def __checkSystem(self):
         if platform.system() == "Windows":

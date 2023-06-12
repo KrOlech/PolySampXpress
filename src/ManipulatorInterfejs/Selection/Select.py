@@ -11,7 +11,7 @@ class SelectManipulator:
     def resolveManipulator(self):
         self._manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
         if not self._manipulator.initState:
-            self._manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
+            self._manipulator = SCIManipulatorSimulator(self.windowSize, self.myStatusBar)
             # todo in the futuer SCIManipulatorSimulator
 
         self._focusManipulator = StandaManipulator(self.windowSize, self.myStatusBar)
@@ -19,7 +19,7 @@ class SelectManipulator:
             self._focusManipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
             # todo in the futuer Corect Standa Symulator
 
-    def close(self):
+    def closeAction(self):
         if self._manipulator:
             self._manipulator.close()
 

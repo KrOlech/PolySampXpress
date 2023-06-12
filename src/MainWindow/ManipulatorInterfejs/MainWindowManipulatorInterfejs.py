@@ -82,7 +82,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         event.ignore()
 
     def closeAction(self):
-        self.manipulatorInterferes.close()
+        self.manipulatorInterferes.closeAction()
 
     def __manipulatorButtons(self):
         self.manipulatorButtons = self.manipulatorInterferes.createButtons()
