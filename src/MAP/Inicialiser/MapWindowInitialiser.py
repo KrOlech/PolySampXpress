@@ -97,11 +97,11 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         sizeIn_px = [(wal * offset) + cam for wal, offset, cam in
                      zip(sizeIn_mm, self.mapParams.offsets, JsonHandling.loadCameraResolutionJson())]
 
-        realSizeIn_mm = [(wal / offset) for wal, offset in
+        self.realSizeIn_mm = [(wal / offset) for wal, offset in
                          zip(sizeIn_px, self.mapParams.offsets)]
 
         self.loger(f"work filld size in mm {sizeIn_mm}")
-        self.loger(f"real map size in mm {realSizeIn_mm}")
+        self.loger(f"real map size in mm {self.realSizeIn_mm}")
         self.loger(f"real map size in px {sizeIn_px}")
 
         pixelCount = sizeIn_px[0] * sizeIn_px[1]
@@ -119,7 +119,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         return scale, ScaledMapSizeIn_px
 
     def __workFilledMovementMap(self):
-        xOffset, yOffset = 790, 650  # loadOffsetsJson()
+        xOffset, yOffset = 790-300, 485  # loadOffsetsJson()
         xMaxManipulator, yMaxanipulator = self.readManipulatorMax()
         dy = self.cameraFrameSizeX / xOffset
         dx = self.cameraFrameSizeY / yOffset

@@ -37,11 +37,11 @@ class MapLabel(QLabel, Loger):
             self.grips.append(grip)
 
         self.xMin = self.master.master.fildParams[0]
-        self.xMax = self.master.master.fildParams[1]
+        self.xMax = self.master.master.fildParams[0] + self.master.realSizeIn_mm[0]
         self.mapWidth = self.xMax - self.xMin
 
         self.yMin = self.master.master.fildParams[2]
-        self.yMax = self.master.master.fildParams[3]
+        self.yMax = self.master.master.fildParams[2] + self.master.realSizeIn_mm[1]
         self.mapHeight = self.yMax - self.yMin
 
     def resizeEvent(self, event):
