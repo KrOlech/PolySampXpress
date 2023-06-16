@@ -1,6 +1,8 @@
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QHBoxLayout, QDialog
 
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
 from src.MainWindow.Utilitis.WindowBar import MyBar
 from src.WorkFeald.Label.Label import WorkFaldLabel
 
@@ -21,6 +23,9 @@ class WorkFilledGui(QDialog):
 
         self.titleBar = MyBar(self, "Work Fild")
         self.setContentsMargins(0, self.titleBar.height(), 0, 0)
+
+        icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
+        self.setWindowIcon(icon)
 
     def resizeEvent(self, event):
         self.titleBar.resize(self.width(), self.titleBar.height())
