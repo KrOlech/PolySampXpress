@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QAction
-from PyQt5.QtCore import Qt
 
 from src.BaseClass.Logger.Logger import Loger
 from src.ManipulatorInterfejs.ManipulatorSlider.ManipulatorSlider import ManipulatorSlider
@@ -109,13 +108,11 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         [button.setStyleSheet(f"background-color: rgba(255, 255, 255, {transparency});") for button in buttons]
         return buttons
 
-    def createFocusSlider(self, transparency=10):
-        slider = ManipulatorSlider(self._focusManipulator, -10000, 10000,
+    def createFocusSlider(self):
+        slider = ManipulatorSlider(self._focusManipulator,
                                    value=self._focusManipulator.x,
-                                   orientation=Qt.Vertical, widget=self.master)
+                                   widget=self.master)
 
-        slider.setFixedWidth(20)
-        slider.setFixedHeight(200)
         return slider
 
     def stop(self):
@@ -133,3 +130,7 @@ class AbstractManipulatorInterferes(QWidget, Loger):
 
     def center(self, x, y):
         self._manipulator.center(x, y)
+
+    def zoomManipulatorChange(self, cords):
+        self._focusManipulator.y = cords
+        self._focusManipulator.gotoNotAsync()

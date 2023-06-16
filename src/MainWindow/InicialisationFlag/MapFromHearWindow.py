@@ -33,7 +33,7 @@ class MapFromHearWindow(AbstractDialogMaster, AbstractCreateWorkFild):
 
         self.form.addRow(self.around, self.fromHear)
 
-        self.finaliseOutput()
+        self.finaliseGUI()
 
     def okPressed(self):
         manipulatorX = self.master.manipulatorInterferes.x

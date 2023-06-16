@@ -4,6 +4,7 @@ from src.BaseClass.Logger.Logger import Loger
 
 
 class MainWindowAbstract(QMainWindow, Loger):
+    zoomInterface = None
 
     def qActionCreate(self, name: str, triggerFun, checkable=False) -> QAction:
         qAction = QAction(name, self)

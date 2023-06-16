@@ -14,7 +14,7 @@ class SetStepSizeDialog(AbstractDialogMaster):
 
         self.form.addRow('Enter Step Size:', self.valueX)
 
-        self.finaliseOutput()
+        self.finaliseGUI()
 
     def okPressed(self):
         self.master.setSpeed(self.valueX.value())

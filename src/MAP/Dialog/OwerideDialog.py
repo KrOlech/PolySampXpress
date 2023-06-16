@@ -16,7 +16,7 @@ class OwerideCurrentMapDialog(AbstractDialog):
 
         self.form.addRow(QLabel("Oweride Current Mozaik Data?"))
 
-        self.finaliseOutput()
+        self.finaliseGUI()
 
     def okPressed(self):
         self.master.owerideMap = True

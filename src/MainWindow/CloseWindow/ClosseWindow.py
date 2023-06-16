@@ -30,7 +30,7 @@ class ClosseWindow(AbstractDialog):
 
         self.form.addRow(QLabel("Czy napewno chcesz zamknac program?"))
 
-        self.finaliseOutput()
+        self.finaliseGUI()
 
     def resizeEvent(self, event):
         self.titleBar.resize(self.width(), self.titleBar.height())

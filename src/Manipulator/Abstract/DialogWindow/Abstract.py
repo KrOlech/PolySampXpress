@@ -44,17 +44,19 @@ class AbstractDialog(QDialog, Loger):
     def resizeEvent(self, event):
         self.titleBar.resize(self.width(), self.titleBar.height())
 
-    def finaliseOutput(self):
+    def finaliseGUI(self):
         self.form.addRow(self.okButton, self.cancelButton)
 
+    @abstractmethod
     def okPressed(self):
         self.accept()
 
+    @abstractmethod
     def cancelPressed(self):
         self.accept()
 
     @staticmethod
-    def createQSpinBox(value, min = 0, max = 200):
+    def createQSpinBox(value, min=0, max=200):
         spinBox = QDoubleSpinBox()
         spinBox.setValue(value)
         spinBox.setRange(min, max)

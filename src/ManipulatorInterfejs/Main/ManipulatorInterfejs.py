@@ -21,7 +21,7 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
 
         [self.master.addAction(a) for a in self.actions]
 
-        self.autoFokus()
+        #self.autoFokus()
 
     def __calcucateFokus(self):
         image = self.master.camera.getFrame()
