@@ -29,3 +29,4 @@ class ZoomSlider(Slider):
         else:
             super().change(value)
             self.master.zoomManipulator.zoomManipulatorChange(self.value)
+            self.master.zoomLabel.setText(str(self.value))

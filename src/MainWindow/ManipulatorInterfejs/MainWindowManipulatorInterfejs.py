@@ -123,7 +123,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         myStatusBar.setFont(font)
         myStatusBar.setText("test")
         myStatusBar.move(
-            QPoint(self.windowSize.width() - (self.windowSize.width() // 8), self.windowSize.height() - 25))
+            QPoint((self.windowSize.width() // 8), self.windowSize.height() - 25))
         myStatusBar.show()
 
         return myStatusBar

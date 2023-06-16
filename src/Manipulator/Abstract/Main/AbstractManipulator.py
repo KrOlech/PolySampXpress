@@ -59,7 +59,7 @@ class AbstractManipulator(JsonHandling):  # toDo test if beter resalts wit async
         abstractmetod(self)
 
     def upadteLable(self):
-        self.label.setText(f"    X:{self.y:.4f}    Y:{self.x:.4f}")
+        self.label.setText(f"Manipulator  X:{self.y:.4f}    Y:{self.x:.4f}")
 
     def up(self):
         self.y += self.speed
