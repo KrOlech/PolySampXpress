@@ -42,7 +42,6 @@ class Slider(QSlider):
     @abstractmethod
     def change(self, value):
         self.value = self.conversion(value)
-        abstractmetod(self)
 
     def set_min_max(self, minV, maxV):
         self.max, self.min = int(maxV), int(minV)

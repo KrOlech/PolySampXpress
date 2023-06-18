@@ -17,7 +17,7 @@ class GoToCordsDialog(AbstractDialogMaster):
         self.form.addRow('X:', self.valueX)
         self.form.addRow('Y:', self.valueY)
 
-        self.finaliseOutput()
+        self.finaliseGUI()
         self.setFixedWidth(180)
 
     def okPressed(self):

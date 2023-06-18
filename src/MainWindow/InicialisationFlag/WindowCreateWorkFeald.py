@@ -25,7 +25,7 @@ class WindowCreateWorkFeald(AbstractDialogMaster, AbstractCreateWorkFild):
         self.form.addRow("y0:", self.y0)
         self.form.addRow("y1:", self.y1)
 
-        self.finaliseOutput()
+        self.finaliseGUI()
 
     def okPressed(self):
         field = [self.x0.value(), self.x1.value(), self.y0.value(), self.y1.value(), "new"]

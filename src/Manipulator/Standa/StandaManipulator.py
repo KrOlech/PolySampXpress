@@ -30,6 +30,7 @@ class StandaManipulator(StandaManipulatorInitialisation):
             self.logError(e)
         except KeyError as e:
             self.logError(e)
+
     def getCurrentPosition(self):
         return self.x, self.y, self.z
 
@@ -41,11 +42,11 @@ class StandaManipulator(StandaManipulatorInitialisation):
 
     async def goto(self):
         self.loger(self.x, self.y, self.z)
-        self.lib.command_move(self.device_id, self.x, 0)
+        self.lib.command_move(self.device_id, self.x, 0)  # todo move for Y as zoom
 
     def gotoNotAsync(self):
         self.loger(self.x, self.y, self.z)
-        self.lib.command_move(self.device_id, int(self.x), 0)
+        self.lib.command_move(self.device_id, int(self.x), 0)  # todo move for Y as zoom
 
     def homeAxis(self):
         pass  # toDo
