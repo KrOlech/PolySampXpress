@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel, QToolButton, QStyle
 from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QPalette
+from PyQt5.QtGui import QPalette, QIcon
+
+from BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class MyBar(QWidget):
@@ -54,6 +56,8 @@ class MyBar(QWidget):
             btn.clicked.connect(signal)
 
             setattr(self, target + 'Button', btn)
+
+            self.setWindowIcon(QIcon(JsonHandling.getFileLocation("smallLogo.png")))
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:

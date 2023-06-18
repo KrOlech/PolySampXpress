@@ -1,8 +1,9 @@
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QPainter, QBrush, QColor, QFont
+from PyQt5.QtGui import QPainter, QBrush, QColor, QFont, QIcon
 from PyQt5.QtWidgets import QLabel, QSizePolicy, QSizeGrip
 
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
 from src.BaseClass.Logger.Logger import Loger
 from src.ROI.Main.Point.PointClass import Point
 from src.ROI.Main.ROI.ROI import ROI
@@ -23,6 +24,9 @@ class MapLabel(QLabel, Loger):
 
         self.titleBar = MyBar(self, "Mozaik")
         self.setContentsMargins(0, self.titleBar.height(), 0, 0)
+
+        icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
+        self.setWindowIcon(icon)
 
         self.gripSize = 16
         self.grips = []

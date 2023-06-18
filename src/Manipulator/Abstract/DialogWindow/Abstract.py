@@ -1,8 +1,10 @@
 from abc import ABCMeta, abstractmethod
 
 from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialog, QFormLayout, QPushButton, QDoubleSpinBox, QLabel
 
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
 from src.BaseClass.Logger.Logger import Loger
 from src.MainWindow.Utilitis.WindowBar import MyBar
 
@@ -29,6 +31,9 @@ class AbstractDialog(QDialog, Loger):
         super().__init__(*args, **kwargs)
 
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+
+        icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
+        self.setWindowIcon(icon)
 
         self.titleBar = MyBar(self, self.windowName)
         self.setContentsMargins(0, self.titleBar.height(), 0, 0)

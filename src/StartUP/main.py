@@ -1,14 +1,23 @@
 import sys
 
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 
+from src.BaseClass.JsonRead.JsonRead import JsonHandling
 from src.MainWindow.Main.Main import MainWindow
 
 
 def main():
     app = QApplication(sys.argv)
 
+    app.setApplicationDisplayName("PolySampXpress beta-0.7")
+
+    icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
+
+    app.setWindowIcon(icon)
+
     mainWindow = MainWindow(app.desktop().availableGeometry().size())
+    mainWindow.setWindowIcon(icon)
 
     mainWindow.show()
 
