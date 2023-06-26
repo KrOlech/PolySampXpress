@@ -54,7 +54,7 @@ class AbstractR(Loger):
         abstractmetod(self)
 
     @abstractmethod
-    def getMarkerMap(self, x, y):
+    def getMarkerMap(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale):
         abstractmetod(self)
 
     @abstractmethod

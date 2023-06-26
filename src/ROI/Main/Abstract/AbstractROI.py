@@ -38,7 +38,7 @@ class AbstractROI(AbstractR):
         return QRect(QPoint(self.x0 - dx, self.y0 - dy), QPoint(self.x1 - dx, self.y1 - dy))
 
     @cache
-    def getMarkerMap(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale):
+    def getMarkerMap(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale, MapLabel):
         x0 = self.x0 - self.pixelAbsolutValue[0]
         x1 = self.x1 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
@@ -49,32 +49,14 @@ class AbstractROI(AbstractR):
         y0mm = y0 / self.yOffset
         y1mm = y1 / self.yOffset
 
-        x0mm -= mapX0
-        x1mm -= mapX0
-        y0mm -= mapY0
-        y1mm -= mapY0
+        self.loger("milimetry", x0mm, y0mm, x1mm, y1mm)
 
-        x0mm /= mapWidth
-        x1mm /= mapWidth
-        y0mm /= mapHeight
-        y1mm /= mapHeight
+        x0mm = int(MapLabel.calculatePixels(x0mm, screenWidth, mapX0, mapX0 + mapWidth))
+        y0mm = int(MapLabel.calculatePixels(y0mm, screenheight, mapY0, mapY0 + mapHeight))
+        x1mm = int(MapLabel.calculatePixels(x1mm, screenWidth, mapX0, mapX0 + mapWidth))
+        y1mm = int(MapLabel.calculatePixels(y1mm, screenheight, mapY0, mapY0 + mapHeight))
 
-        x0mm *= screenheight
-        x1mm *= screenheight
-        y0mm *= screenWidth
-        y1mm *= screenWidth
-
-        #x0mm /= scale
-        #x1mm /= scale
-        #y0mm /= scale
-        #y1mm /= scale
-
-        x0mm = int(x0mm)
-        x1mm = int(x1mm)
-        y0mm = int(y0mm)
-        y1mm = int(y1mm)
-
-        self.loger(x0mm, y0mm, x1mm, y1mm)
+        self.loger("pixele", x0mm, y0mm, x1mm, y1mm)
 
         return QRect(QPoint(x0mm, y0mm), QPoint(x1mm, y1mm))
 

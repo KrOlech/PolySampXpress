@@ -36,27 +36,15 @@ class AbstractPoint(AbstractR):
         return [l1, l2]
 
     @cache
-    def getMarkerMap(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale):
+    def getMarkerMap(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale, MapLabel):
         x0 = self.x0 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
 
         x0mm = x0 / self.xOffset
         y0mm = y0 / self.yOffset
 
-        x0mm -= mapX0
-        y0mm -= mapY0
-
-        x0mm /= mapWidth
-        y0mm /= mapHeight
-
-        x0mm *= screenheight
-        y0mm *= screenWidth
-
-        #x0mm /= scale
-        #y0mm /= scale
-
-        x0mm = int(x0mm)
-        y0mm = int(y0mm)
+        x0mm = int(MapLabel.calculatePixels(x0mm, screenWidth, mapX0, mapX0 + mapWidth))
+        y0mm = int(MapLabel.calculatePixels(y0mm, screenheight, mapY0, mapY0 + mapHeight))
 
         l1 = QLine(QPoint(x0mm + 10, y0mm), QPoint(x0mm - 10, y0mm))
         l2 = QLine(QPoint(x0mm, y0mm + 10), QPoint(x0mm, y0mm - 10))

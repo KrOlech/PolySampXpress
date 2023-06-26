@@ -30,7 +30,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
     def __init__(self, master, windowSize, manipulatorInterferes):
         self.master = master
-        self.manipulator = manipulatorInterferes #TO DO check
+        self.manipulator = manipulatorInterferes
         self.windowSize = windowSize
 
         self.mapParams = self.__mapParams()
@@ -60,7 +60,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
             await sleep(60)
 
     def __calculateScaledCameraFrameSize(self):
-        return [int(size // self.scale) for size in JsonHandling.loadCameraResolutionJson()[::-1]]
+        return [int(size // self.scale) for size in JsonHandling.loadCameraResolutionJson()]
 
     def __createMapLabel(self):
         mapWidget = MapLabel(self)
@@ -98,7 +98,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
                      zip(sizeIn_mm, self.mapParams.offsets, JsonHandling.loadCameraResolutionJson())]
 
         self.realSizeIn_mm = [(wal / offset) for wal, offset in
-                         zip(sizeIn_px, self.mapParams.offsets)]
+                              zip(sizeIn_px, self.mapParams.offsets)]
 
         self.loger(f"work filld size in mm {sizeIn_mm}")
         self.loger(f"real map size in mm {self.realSizeIn_mm}")
@@ -119,13 +119,15 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         return scale, ScaledMapSizeIn_px
 
     def __workFilledMovementMap(self):
-        xOffset, yOffset = 790-300, 485  # loadOffsetsJson()
+        # xOffset, yOffset = 900-30, 485-140-25  # loadOffsetsJson()
+        xOffset, yOffset = 590, 490
         xMaxManipulator, yMaxanipulator = self.readManipulatorMax()
         dy = self.cameraFrameSizeX / xOffset
         dx = self.cameraFrameSizeY / yOffset
         self.loger(f"cameraX: {self.cameraFrameSizeX} offsetx: {xOffset}")
         self.loger(f"cameraY: {self.cameraFrameSizeY} offsety: {yOffset}")
         self.loger(f"krok po Y {dx} krok po X {dy}")
+        self.loger(f"Fild Params {self.master.fildParams}")
 
         movementMap = []
         x = self.master.fildParams[0]
@@ -140,6 +142,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         if movementMap is []:
             movementMap = [[]]
 
+        self.loger("Movement Map:")
         self.loger([row for row in movementMap])
         return movementMap
 
