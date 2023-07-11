@@ -1,0 +1,125 @@
+=========================================================================================================		
+
+              Distributing SPiiPlus C/C++, COM, and .NET Libraries and other auxiliary files.
+
+=========================================================================================================
+
+
+To distribute the application, which uses SPiiPlus C/C++ Library, you should redistribute
+the following files:
+     - ACSCL_x86.DLL               - ACS Motion Control(C) SPiiPlus C/C++ 32-bit Library
+     - ACSCL_x64.DLL               - ACS Motion Control(C) SPiiPlus C/C++ 64-bit Library
+     - ACS.Service.exe             - ACS Motion Control(C) Communication Service
+     - ACSCSRV.EXE                 - ACS Motion Control(C) SPiiPlus User Mode Driver
+     - ACS.EStop.exe               - ACS Motion Control(C) SPiiPlus Emergency Stop
+     - mfc100.dll                  - Microsoft Foundation Classes DLL
+     - msvcr100.dll                - Microsoft C Runtime Library DLL
+
+The following Microsoft(C) Windows platforms are supported:
+     - Windows 8.1 (x86 and x64)
+     - Windows 10 (x86 and x64)
+     - Windows 11 (x64)
+     - Windows Server 2012 R2 (x64)
+     - Windows Server 2016 R2 (x64)
+     - Windows Server 2019 (x64)
+     - Windows Server 2022 (x64)
+
+NOTE - Windows XP, Windows 8, Windows Server 2003, and Windows Server 2008 are no
+longer supported
+
+To distribute the application, which uses SPiiPlus COM Library, you should redistribute
+the following files (in addition to the SPiiPlus C/C++ Library files):
+     - SPiiPlusCOM660_x86.dll      - ACS Motion Control(C) SPiiPlus COM 32-bit Library
+     - SPiiPlusCOM660_x64.dll      - ACS Motion Control(C) SPiiPlus COM 64-bit Library
+     - ACS.AutoCOMRegistration.exe - ACS Motion Control(C) SPiiPlus COM Library AutoRegistrator
+
+To distribute the application, which uses the SPiiPlus .NET Library, you should redistribute
+the one of the following files (in addition to the SPiiPlus C/C++ Library files):
+	- ACS.SPiiPlusNET.dll                       - ACS Motion Control(C) SPiiPlus .NET Library (.NET Framework 4.8)
+	- ACS.SPiiPlusNET.StrongSigned.dll          - ACS Motion Control(C) SPiiPlus .NET Library (.NET Framework 4.8)
+	- ACS.SPiiPlusNET6.dll                      - ACS Motion Control(C) SPiiPlus .NET Library (.NET Framework 6.0)
+	- ACS.SPiiPlusNET6.StrongSigned.dll         - ACS Motion Control(C) SPiiPlus .NET Library (.NET Framework 6.0)
+	- ACS.SPiiPlusNETStandard.dll               - ACS Motion Control(C) SPiiPlus .NET Library (.NET Standard  2.1)
+	- ACS.SPiiPlusNETStandard.StrongSigned.dll  - ACS Motion Control(C) SPiiPlus .NET Library (.NET Standard  2.1)
+	- ACS.SPiiPlusNETLinux.dll                  - ACS Motion Control(C) SPiiPlus .NET Library (.NET Framework 6.0)
+
+
+"Microsoft Visual C++ 2010 Service Pack 1 Redistributable Package" is required for running
+ACS Communication Service. This package is installed by SPiiPlus Runtime Kit or can be downloaded
+separately from Microsoft web site - https://www.microsoft.com/en-us/download/details.aspx?id=26999
+
+
+=========================================================================================================
+                                  ACS Communication Service installation
+=========================================================================================================
+
+Place these files to the following directories on the target machine:
+	
+   Windows 8.1/10 x86 (32-bit):
+   	ACSCL_x86.DLL to C:\WINDOWS\SYSTEM32
+   Windows 8.1/10/11/Server2012 R2/Server2016 R2/Server2019 x64/Server2022 x64 (64-bit):
+   	ACSCL_x86.DLL to C:\WINDOWS\SYSWOW64
+   	ACSCL_x64.DLL to C:\WINDOWS\SYSTEM32
+
+ACS.Service.exe, ACSCSRV.EXE, ACS.EStop.exe and all Microsoft (R) C/C++ Runtime Libraries (MFC100.dll,
+MSVCR100.dll) should be taken from corresponding folder (x86 or x64) and placed at any well-defined
+location on the target machine.
+
+NOTE - ACS Communication Service should be running in order to maintain any communication between the
+target machine and the controller - that's why it is recommended to configure ACS Communication Service
+to start automatically at boot.
+
+
+To install ACS Communication Service from command prompt, type the following command:
+C:\>sc create "ACS Communication Service" binPath=
+"C:\Program Files (x86)\ACS Motion Control\SPiiPlus Runtime Kit\User Mode Driver\ACS.Service.exe"
+
+To start ACS Communication Service from command prompt, type the following command:
+C:\>sc start "ACS Communication Service"
+
+To configure ACS Communication Service to start automatically at boot from command prompt, type the
+following command:
+C:\>sc config "ACS Communication Service" start=auto
+
+To stop ACS Communication Service from command prompt, type the following command:
+C:\>sc stop "ACS Communication Service"
+
+To uninstall ACS Communication Service from command prompt, type the following command:
+C:\>sc delete "ACS Communication Service"
+
+To verify whether ACS Communication Service is running, type the following command:
+net start | find "ACS Communication Service"
+If ACS Communication Service is running the response for this command will be : ACS Communication Service.
+
+
+=========================================================================================================
+                         SPiiPlus User Mode Driver (UMD) installation (optional)
+=========================================================================================================
+
+SPiiPlus User Mode Driver is not required anymore to run at startup, it should be used for
+diagnostics and debugging purposes only.
+
+In order to configure SPiiPlus User Mode Driver to run at startup, the ACSCSRV.EXE exact destination
+should be put in registry at:
+
+   Windows 8.1/10 x86 (32-bit):
+	[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+	"SPiiPlus User-Mode Driver"="...The exact destination...\\ACSCSRV.EXE"
+   Windows 8.1/10/11/Server2012 R2/Server2016 R2/Server2019 x64/Server2022 x64 (64-bit):
+	[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Run]
+	"SPiiPlus User-Mode Driver"="...The exact destination...\\ACSCSRV.EXE"
+
+
+=========================================================================================================
+                                   SPiiPlus COM Library installation
+=========================================================================================================
+
+If you want to install the SPiiPlus COM Library on 32-bit operating system, the SPiiPlusCOM660_x86.dll
+and ACS.AutoCOMRegistration.exe files should be taken from "x86" folder and placed at any well-defined
+location on the target machine.
+Then ACS.AutoCOMRegistration.exe should be run from the same location on the target machine.
+
+If you want to install the SPiiPlus COM Library on 64-bit operating system, the SPiiPlusCOM660_x86.dll
+file should be taken from "x86" folder, SPiiPlusCOM660_x64.dll and ACS.AutoCOMRegistration.exe files
+should be taken from "x64" folder and placed at any well-defined location on the target machine.
+Then ACS.AutoCOMRegistration.exe should be run from the same location on the target machine.
