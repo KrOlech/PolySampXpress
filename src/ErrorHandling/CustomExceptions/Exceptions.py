@@ -13,6 +13,12 @@ class NoCammeraConected(Exception, Loger):
             "Error During camera initialisation check it connection or if any other software is using it.")
 
 
+class NoPlaceToAddFreame(Exception):
+
+    def __init__(self):
+        super().__init__("[WARNING] - No place to add frame")
+
+
 if __name__ == '__main__':
     try:
         raise InvalidSpeed()

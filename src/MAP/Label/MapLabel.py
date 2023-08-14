@@ -1,5 +1,5 @@
 from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QSize
+from PyQt5.QtCore import Qt, QSize, QLine, QPoint
 from PyQt5.QtGui import QPainter, QBrush, QColor, QFont, QIcon
 from PyQt5.QtWidgets import QLabel, QSizePolicy, QSizeGrip
 
@@ -8,7 +8,6 @@ from src.BaseClass.Logger.Logger import Loger
 from src.ROI.Main.Point.PointClass import Point
 from src.ROI.Main.ROI.ROI import ROI
 from src.MAP.Label.WaitWindow import WaitWindow
-from src.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 from src.MainWindow.Utilitis.WindowBar import MyBar
 
 
@@ -75,13 +74,16 @@ class MapLabel(QLabel, Loger):
             pen.setColor(QColor("blue"))
             qp.setPen(pen)
 
+            qp.drawLines(self.manipulatorLines())
+
             for i, rectangle in enumerate(self.master.master.cameraView.ROIList):
                 rx, ry = rectangle.GetTextLocationMap(self.width(),
                                                       self.height(),
                                                       self.mapWidth,
                                                       self.mapHeight,
                                                       self.xMin, self.yMin,
-                                                      self.master.scale)
+                                                      self.master.scale,
+                                                      self)
                 qp.drawText(rx, ry, str(rectangle.name))
 
                 if isinstance(rectangle, ROI):
@@ -90,18 +92,30 @@ class MapLabel(QLabel, Loger):
                                                        self.mapWidth,
                                                        self.mapHeight,
                                                        self.xMin, self.yMin,
-                                                       self.master.scale))
+                                                       self.master.scale,
+                                                       self))
                 elif isinstance(rectangle, Point):
                     qp.drawLines(rectangle.getMarkerMap(self.width(),
                                                         self.height(),
                                                         self.mapWidth,
                                                         self.mapHeight,
                                                         self.xMin, self.yMin,
-                                                        self.master.scale))
+                                                        self.master.scale,
+                                                        self))
 
     def setAspectRatio(self, aspectRatio):
         self._aspectRatio = aspectRatio
         self.updateGeometry()
+
+    def manipulatorLines(self):
+
+        x = int(self.calculatePixels(self.master.manipulator.x, self.width(), self.xMin, self.xMax))
+        y = int(self.calculatePixels(self.master.manipulator.y, self.height(), self.yMin, self.yMax))
+
+        l1 = QLine(QPoint(x + 10, y), QPoint(x - 10, y))
+        l2 = QLine(QPoint(x, y + 10), QPoint(x, y - 10))
+
+        return [l1, l2]
 
     def sizeHint(self):
         width = self.widthForHeight(self.height())
@@ -128,8 +142,12 @@ class MapLabel(QLabel, Loger):
             y=self.calculateCords(y, self.height(), self.yMin, self.yMax))
 
     @staticmethod
-    def calculateCords(clickPosytion, windowSize, mapMinimulPosytion, mapMaximumPosytion):
-        return (clickPosytion * (mapMaximumPosytion - mapMinimulPosytion)) / windowSize + mapMinimulPosytion
+    def calculateCords(clickPosition, windowSize, mapMinimumPosition, mapMaximumPosition):
+        return (clickPosition * (mapMaximumPosition - mapMinimumPosition)) / windowSize + mapMinimumPosition
+
+    @staticmethod
+    def calculatePixels(manipulatorPosition, windowSize, mapMinimumPosition, mapMaximumPosition):
+        return ((manipulatorPosition - mapMinimumPosition) * windowSize) / (mapMaximumPosition - mapMinimumPosition)
 
     def mouseMoveEvent(self, event):
         ...

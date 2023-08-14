@@ -27,6 +27,8 @@ class AbstractMapWindow(Loger):
 
     scaledCameraFrameSize = None
 
+    missedFrames = 0
+
     def move(self, geometry):
         self.mapWidget.move(geometry)
 

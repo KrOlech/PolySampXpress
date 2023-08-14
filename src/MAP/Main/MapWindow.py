@@ -1,11 +1,17 @@
+import numpy as np
+
+from src.ErrorHandling.CustomExceptions.Exceptions import NoPlaceToAddFreame
 from src.MAP.Inicialiser.MapWindowInitialiser import MapWindowInitialise
 from PyQt5.QtWidgets import QFileDialog
+from numpy import ones
 import cv2 as cv
 
 
 class MapWindow(MapWindowInitialise):
 
     async def mapCreate(self):
+        self.missedFrames = 0
+
         self.moveManipulator()
         self.waitForManipulator()
         while not self.mapEnd:
@@ -14,6 +20,8 @@ class MapWindow(MapWindowInitialise):
             self.calculateNextManipulatorPosition()
             self.moveManipulator()
             self.waitForManipulator()
+
+        self.loger(f"During Camera Creating {self.missedFrames} was missed")
 
         self.master.isMapReadi = True
         self.master.creatingMap = False
@@ -24,23 +32,42 @@ class MapWindow(MapWindowInitialise):
         m = self.photoCount[1] * self.scaledCameraFrameSize[0]
 
         photoShape = frame.shape
-        self.loger(f"Mozaik Fragment shape {self.mapNumpy[n: n + photoShape[0], m:m + photoShape[1]].shape}")
+        mozaikPieceShape = self.mapNumpy[n: n + photoShape[0], m:m + photoShape[1]].shape
+        self.loger(f"Mozaik Fragment shape {mozaikPieceShape}")
         self.loger(f"photo shape {photoShape}")
 
         try:
-            self.mapNumpy[n: n + photoShape[0], m:m + photoShape[1]] = frame
+            if all(mozaikPieceShape):
+                self.mapNumpy[n: n + photoShape[0], m:m + photoShape[1]] = frame
+            else:
+                raise NoPlaceToAddFreame()
 
-        except Exception as e:
+            if self.isDebuggerActive():
+                self.drewDebugLines(n, m, photoShape)
+
+        except NoPlaceToAddFreame as e:
+            self.loger(e)
+            self.missedFrames += 1
+
+        except ValueError as e:
             eStr = str(e)
             if eStr.find("could not broadcast input array from shape") == 0:
                 self.loger("Frame need chopping")
                 x, y, z = self.decodeEroreMesage(eStr)
-                self.loger(f"{x}, {y}, {z}")
+                self.loger(f"Decoded frame size {x}, {y}, {z}")
                 self.addFrame(frame[:x, :y])
             else:
                 self.loger(e)
 
         self.convertMap()
+
+    def drewDebugLines(self, n, m, photoShape):
+        self.mapNumpy[n: n + photoShape[0], m - 1:m, :] = np.ones((photoShape[0], 1, 3), dtype=np.uint8) * 255
+        self.mapNumpy[n: n + photoShape[0], m + photoShape[1] - 1:m + photoShape[1], :] = np.ones((photoShape[0], 1, 3),
+                                                                                                  dtype=np.uint8) * 255
+        self.mapNumpy[n - 1:n, m:m + photoShape[1], :] = np.ones((1, photoShape[1], 3), dtype=np.uint8) * 255
+        self.mapNumpy[n + photoShape[0] - 1:n + photoShape[0], m:m + photoShape[1], :] = np.ones((1, photoShape[1], 3),
+                                                                                                 dtype=np.uint8) * 255
 
     def decodeEroreMesage(self, mesage):
         cropMesage = mesage[mesage.find("into shape"):]
