@@ -44,6 +44,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         self.__isZoomWaliable()
 
         self.mapNumpy = self.__mapContainer()
+        self.mapNumpyBorders = self.__mapContainer()
 
         self.scaledCameraFrameSize = self.__calculateScaledCameraFrameSize()
         self.loger(f"scaledCameraFrameSize {self.scaledCameraFrameSize}")

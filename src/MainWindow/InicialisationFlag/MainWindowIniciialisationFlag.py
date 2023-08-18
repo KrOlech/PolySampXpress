@@ -26,12 +26,16 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         createMapAction = self.qActionCreate("Create Mozaik", self.createMap)
         saveMapAction = self.qActionCreate("Save Mozaik", self.saveMap)
         createMapFromHearAction = self.qActionCreate("Create Mozaik From Hear", self.createMapFromHear)
+        self.mozaikBorders = self.qActionCreate("Show Border Lines", lambda _: _, checkable=True)
+
+        self.mozaikBorders.setChecked(True)
 
         mapMenu = self.menu.addMenu("&Mozaik")
         mapMenu.addAction(showMap)
         mapMenu.addAction(createMapAction)
         mapMenu.addAction(saveMapAction)
         mapMenu.addAction(createMapFromHearAction)
+        mapMenu.addAction(self.mozaikBorders)
 
         self.readWorkFieldWindow = ReadPoleRobocze(self, self.windowSize)
 

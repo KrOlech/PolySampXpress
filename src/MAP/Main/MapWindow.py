@@ -39,11 +39,11 @@ class MapWindow(MapWindowInitialise):
         try:
             if all(mozaikPieceShape):
                 self.mapNumpy[n: n + photoShape[0], m:m + photoShape[1]] = frame
+                self.mapNumpyBorders[n: n + photoShape[0], m:m + photoShape[1]] = frame
             else:
                 raise NoPlaceToAddFreame()
 
-            if self.isDebuggerActive():
-                self.drewDebugLines(n, m, photoShape)
+            self.drewLines(n, m, photoShape)
 
         except NoPlaceToAddFreame as e:
             self.loger(e)
@@ -59,15 +59,15 @@ class MapWindow(MapWindowInitialise):
             else:
                 self.loger(e)
 
-        self.convertMap()
-
-    def drewDebugLines(self, n, m, photoShape):
-        self.mapNumpy[n: n + photoShape[0], m - 1:m, :] = np.ones((photoShape[0], 1, 3), dtype=np.uint8) * 255
-        self.mapNumpy[n: n + photoShape[0], m + photoShape[1] - 1:m + photoShape[1], :] = np.ones((photoShape[0], 1, 3),
-                                                                                                  dtype=np.uint8) * 255
-        self.mapNumpy[n - 1:n, m:m + photoShape[1], :] = np.ones((1, photoShape[1], 3), dtype=np.uint8) * 255
-        self.mapNumpy[n + photoShape[0] - 1:n + photoShape[0], m:m + photoShape[1], :] = np.ones((1, photoShape[1], 3),
-                                                                                                 dtype=np.uint8) * 255
+    def drewLines(self, n, m, photoShape):
+        self.mapNumpyBorders[n: n + photoShape[0], m - 1:m, :] = np.ones((photoShape[0], 1, 3), dtype=np.uint8) * 255
+        self.mapNumpyBorders[n: n + photoShape[0], m + photoShape[1] - 1:m + photoShape[1], :] = np.ones(
+            (photoShape[0], 1, 3),
+            dtype=np.uint8) * 255
+        self.mapNumpyBorders[n - 1:n, m:m + photoShape[1], :] = np.ones((1, photoShape[1], 3), dtype=np.uint8) * 255
+        self.mapNumpyBorders[n + photoShape[0] - 1:n + photoShape[0], m:m + photoShape[1], :] = np.ones(
+            (1, photoShape[1], 3),
+            dtype=np.uint8) * 255
 
     def decodeEroreMesage(self, mesage):
         cropMesage = mesage[mesage.find("into shape"):]
