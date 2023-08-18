@@ -21,6 +21,7 @@ class AbstractMapWindow(Loger):
 
     # map container Numpy
     mapNumpy = None
+    mapNumpyBorders = None
 
     # map container Pixmap
     mapPx = None
@@ -29,10 +30,17 @@ class AbstractMapWindow(Loger):
 
     missedFrames = 0
 
+    master = None
+
     def move(self, geometry):
         self.mapWidget.move(geometry)
 
     def showMap(self):
+        if self.master.mozaikBorders.isChecked():
+            self.mapPx = self.convertMap(self.mapNumpyBorders)
+        else:
+            self.mapPx = self.convertMap(self.mapNumpy)
+
         self.mapWidget.show()
         self.mapWidget.activateWindow()
 
@@ -48,10 +56,11 @@ class AbstractMapWindow(Loger):
     def MANIPULATOR_FULL_MOVEMENT_FILEPATH(self) -> str:
         return type(self).__MANIPULATOR_FULL_MOVEMENT_FILEPATH
 
-    def convertMap(self):
-        qImage = QImage(self.mapNumpy.data, self.mapNumpy.shape[1], self.mapNumpy.shape[0], self.mapNumpy.shape[1] * 3,
+    @staticmethod
+    def convertMap(mozaikData):
+        qImage = QImage(mozaikData.data, mozaikData.shape[1], mozaikData.shape[0], mozaikData.shape[1] * 3,
                         QImage.Format_BGR888)
-        self.mapPx = QPixmap.fromImage(qImage)
+        return QPixmap.fromImage(qImage)
 
     def takePhoto(self):
         return self.scalleFream(self.master.camera.getFrame())
@@ -61,4 +70,3 @@ class AbstractMapWindow(Loger):
 
     def wait(self, time=30, fun=None):
         workSleeperFun(self, time, fun)
-
