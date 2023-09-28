@@ -13,12 +13,20 @@ class MapWindow(MapWindowInitialise):
 
         self.moveManipulator()
         self.waitForManipulator()
+
+        i = 0
+
+        maxFrameCount = self._photoCount[0] * self._photoCount[0]
+
         while not self.mapEnd:
             self.loger(f"{self.photoCount}, {self._photoCount}")
             self.addFrame(self.takePhoto())
             self.calculateNextManipulatorPosition()
             self.moveManipulator()
             self.waitForManipulator()
+
+            i += 1
+            self.master.dialogWindowMap.pbar.setValue(int(i / maxFrameCount * 100))
 
         self.loger(f"During Camera Creating {self.missedFrames} was missed")
 

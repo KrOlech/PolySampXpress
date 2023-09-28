@@ -91,10 +91,10 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
     def __createMap(self):
         self.mapWindowObject = self.crateMapObject()
-        dialogWindowMap = DialogWindowMap(self)
-        dialogWindowMap.run()
+        self.dialogWindowMap = DialogWindowMap(self)
+        self.dialogWindowMap.run()
         workFunWorkerAsync(self, self.mapWindowObject.mapCreate)
-        dialogWindowMap.exec_()
+        self.dialogWindowMap.exec_()
 
     def createMapFromHear(self):
         MapFromHearWindow(self).exec_()
