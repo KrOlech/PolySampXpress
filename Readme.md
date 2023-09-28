@@ -1,44 +1,7 @@
 ![Tests](https://github.com/KrOlech/Magisterka/actions/workflows/python-app.yml/badge.svg)
 
--Trello Bord for Tracking Bugs and progres and TODO
-https://trello.com/b/4QUIAVAb/magisterka
+PolySampXpress is an open-source software designed to streamline the measurement processes on the PolyX line at the Solaris Synchrotron. Initially developed as a master's thesis project, it will continue to be enhanced and maintained throughout a PhD program. This software is distributed under the GPL license, ensuring its availability to the scientific community. Moreover, it is being prepared for seamless implementation on other synchrotron's, making it a versatile tool for synchrotron research and data acquisition.
 
+The software allows for conducting preliminary measurements of sample trays at a station located outside the main beam line. This software is designed to facilitate the initial assessment and calibration of samples before they are brought into main measurements. It enables researchers to efficiently prepare and optimize their experiments, ensuring that the samples are ready for precise measurements once inside the synchrotron beamline. This capability can significantly improve the overall efficiency and quality of experiments conducted at the synchrotron facility.
 
-***TO Do in Beta 0.6:***
-
-- Main class Refactor
-
-- position off the cursor on main screen
-
-- optymalisation
-
-- Labels in save file
-
-- Rois in labels (fix)
-
-***Done in Beta 0.6:***
-
-- Center On ROI
-- Manipulator not resiving comands from interfejs corectli after centring or randomli during usage
-
-***TO Do in Beta next:***
-
-- test in code
-
-- Debug Mode
-
-- zoom handling
-    - Kamera ma ciagły zoom jakies pressety
-
-- obsluga fokusu
-    - autofokus
-
-- Using CUDA for imiage resize (oneFX for radeon and so on)
-
-- auto wykrywanie portu com manipulatora
-
-- Classs inhariting from qwidget with implementation of mybar for cleener look
-
-- remove support for TCIP manipulator
-
-- Ip seting for SCII manipulator - propably unnesesery but nice to have
+The software is designed to interface with a station located outside the main synchrotron line, featuring a two-axis manipulator and a microscope equipped with a camera. The software provides control over the manipulator's movements, enabling accurate positioning of the samples under the microscope. Additionally, it offers functionality for zooming in and out and adjusting focus on the microscope's camera, ensuring detailed and clear sample visualization. This comprehensive control and automation facilitate efficient pre-measurements and sample preparation before they are introduced to the synchrotron beamline for more advanced analysis.
