@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QLabel, QProgressBar
 
 from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 from src.Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
@@ -10,6 +10,23 @@ class DialogWindowMap(AbstractDialogMaster):
         super().__init__(master, *args, **kwargs)
 
         self.form.addRow(QLabel("Creating Mozaik"))
+
+        self.pbar = QProgressBar(self)
+
+        self.pbar.setTextVisible(False)
+
+        self.pbar.setStyleSheet("QProgressBar"
+                          "{"
+                          "border: solid grey;"
+                          "border-radius: 15px;"
+                          " color: black; "
+                          "}"
+                          "QProgressBar::chunk "
+                          "{background-color: # 05B8CC;"
+                          "border-radius :15px;"
+                          "}")
+
+        self.form.addRow(self.pbar)
 
         self.form.addRow(self.cancelButton)
 
