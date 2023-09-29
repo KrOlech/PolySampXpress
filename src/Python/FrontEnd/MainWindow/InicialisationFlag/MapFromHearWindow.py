@@ -17,8 +17,8 @@ class MapFromHearWindow(AbstractDialogMaster, AbstractCreateWorkFild):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
-        self.x0 = self.createQSpinBox(0)
-        self.y0 = self.createQSpinBox(0)
+        self.x0 = self.createQSpinBox(master.mapFromHearX)
+        self.y0 = self.createQSpinBox(master.mapFromHearY)
 
         self.form.addRow("X size [mm]", self.x0)
         self.form.addRow("Y size [mm]", self.y0)
@@ -35,16 +35,20 @@ class MapFromHearWindow(AbstractDialogMaster, AbstractCreateWorkFild):
 
         self.finaliseGUI()
 
+        self.master = master
+
     def okPressed(self):
-        manipulatorX = self.master.manipulatorInterferes.x
-        manipulatorY = self.master.manipulatorInterferes.y
+        self.master.mapFromHearX = self.master.manipulatorInterferes.x
+        self.master.mapFromHearY = self.master.manipulatorInterferes.y
 
         if self.fromHear.isChecked():
-            field = [manipulatorX, manipulatorX + self.x0.value(), manipulatorY, manipulatorY + self.y0.value(), "new"]
+            field = [self.master.mapFromHearX, self.master.mapFromHearX + self.x0.value(), self.master.mapFromHearY,
+                     self.master.mapFromHearY + self.y0.value(), "new"]
         elif self.around.isChecked():
             xHalf = self.x0.value() / 2
             yHalf = self.y0.value() / 2
-            field = [manipulatorX - xHalf, manipulatorX + xHalf, manipulatorY - yHalf, manipulatorY + yHalf, "new"]
+            field = [self.master.mapFromHearX - xHalf, self.master.mapFromHearX + xHalf,
+                     self.master.mapFromHearY - yHalf, self.master.mapFromHearY + yHalf, "new"]
         else:
             return
 
