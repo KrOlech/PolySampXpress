@@ -2,14 +2,14 @@ import sys
 
 from PyQt5.QtWidgets import QApplication
 
-from src.BaseClass.JsonRead.JsonRead import JsonHandling
+from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
-from src.MainWindow.Main.Main import MainWindow
+from src.Python.FrontEnd.MainWindow.Main.Main import MainWindow
 
 from time import sleep
 
 
-def Main_Close():
+def test_Main_Close():
     app = QApplication(sys.argv)
 
     mainWindow = MainWindow(app.desktop().availableGeometry().size())
