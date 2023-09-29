@@ -3,6 +3,7 @@ from abc import ABCMeta
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QEvent
 
+from src.Python.BackEnd.ROI.Creation.ClickCreate.PointerMode import PointerMode
 from src.Python.BackEnd.ROI.Main.Point.PointClass import Point
 from src.Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
 from src.Python.BackEnd.ROI.Creation.ClickCreate.ClickCreateScatter import ClikcCreateScatter
@@ -13,7 +14,7 @@ from src.Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleC
 from src.Python.BackEnd.ROI.Main.Point.Point import RoiPoint
 
 
-class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreateScatter, ClikcCreateScatter):
+class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreateScatter, ClikcCreateScatter, PointerMode):
     __metaclass__ = ABCMeta
 
     leftMouseButton = False
@@ -27,7 +28,8 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
         "Point": "_RoiPoint",
         "Scatter": "_SimpleCreateScatter",
         "Clicks": "_ClikcCreateRoi",
-        "Clicks Scatter": "_ClikcCreateScatter"
+        "Clicks Scatter": "_ClikcCreateScatter",
+        "Pointer": "_PointerMode"
     }
 
     def eventFilter(self, source, event):
@@ -65,7 +67,8 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
             return
 
         if self.editTribe:
-            self.editedROI.mouseRelease(e, self.mainWindow.manipulatorInterferes.x, self.mainWindow.manipulatorInterferes.y)
+            self.editedROI.mouseRelease(e, self.mainWindow.manipulatorInterferes.x,
+                                        self.mainWindow.manipulatorInterferes.y)
         else:
             getattr(self, self.supportedModes[self.mainWindow.mode] + "__seveReliseLocation")(e)
 
@@ -79,9 +82,11 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
                 case False, False, _:
                     self.mainWindow.showROIList(e)
                 case False, True, False:
-                    self.editedROI.cursorEdit(e, self.mainWindow.manipulatorInterferes.x, self.mainWindow.manipulatorInterferes.y)
+                    self.editedROI.cursorEdit(e, self.mainWindow.manipulatorInterferes.x,
+                                              self.mainWindow.manipulatorInterferes.y)
                 case True, True, False:
-                    self.editedROI.mouseMove(e, self.mainWindow.manipulatorInterferes.x, self.mainWindow.manipulatorInterferes.y)
+                    self.editedROI.mouseMove(e, self.mainWindow.manipulatorInterferes.x,
+                                             self.mainWindow.manipulatorInterferes.y)
                 case True, False, False:
                     getattr(self, self.supportedModes[self.mainWindow.mode] + "__saveTemporaryLocation")(e)
                     self.mainWindow.showROIList(e)
