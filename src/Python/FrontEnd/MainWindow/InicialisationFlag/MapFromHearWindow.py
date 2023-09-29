@@ -8,7 +8,7 @@ class MapFromHearWindow(AbstractDialogMaster, AbstractCreateWorkFild):
 
     @property
     def okName(self):
-        return "Save and select"
+        return "Save and Create"
 
     @property
     def CancelName(self):
