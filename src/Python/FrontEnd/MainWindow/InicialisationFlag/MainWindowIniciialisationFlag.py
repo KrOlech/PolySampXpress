@@ -18,6 +18,8 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     isMapReadi = None
     owerideMap = False
     creatingMap = False
+    mapFromHearX = 5
+    mapFromHearY = 5
 
     def __init__(self, *args, **kwargs):
         super(MainWindowInicialisationFlag, self).__init__(*args, **kwargs)
