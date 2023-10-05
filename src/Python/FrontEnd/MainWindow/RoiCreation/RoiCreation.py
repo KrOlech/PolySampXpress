@@ -18,6 +18,8 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
     scatterConfig = None
 
     def createRoiModsMenu(self):
+        self.__pointer = self.qActionCreate("Pointer Mode", self.__togglePointerMode,
+                                            checkable=True)
         self.__classic = self.qActionCreate("Classic mode", self.__toggleClassicMode, checkable=True)
         self.__point = self.qActionCreate("Point mode", self.__togglePointMode, checkable=True)
         self.__scatter = self.qActionCreate("Scatter mode", self.__toggleScatterMode, checkable=True)
@@ -29,6 +31,7 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
 
         roi = self.menu.addMenu("&ROI")
 
+        roi.addAction(self.__pointer)
         roi.addAction(self.__classic)
         roi.addAction(self.__point)
         roi.addAction(self.__scatter)
@@ -66,11 +69,18 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.myStatusBarClick.setText("Click Mode")
         ScatterConfigureWindow(self).exec_()
 
+    def __togglePointerMode(self):
+        self.__UncheckAll()
+        self.__pointer.setChecked(True)
+        self.mode = "Pointer"
+        self.myStatusBarClick.setText("Pointer Mode")
+
     def __UncheckAll(self, State=False):
         self.__classic.setChecked(State)
         self.__point.setChecked(State)
         self.__scatter.setChecked(State)
         self.__fromClicks.setChecked(State)
+        self.__pointer.setChecked(State)
         self.myStatusBarClick.setText("")
 
     def clickCreateStatus(self):
