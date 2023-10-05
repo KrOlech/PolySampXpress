@@ -13,13 +13,10 @@ class NameHandling(Loger):
         self.name = kwargs['name']
         self.__textedit = ReNameWindow(self, text=str(self.name))
 
-    @cache
     def GetTextLocation(self, x, y):
         dx, dy = self.calculateOffset(x, y)
-        self.loger(f"TextLocation {self.x0 - 15 - dx} i {self.y0 - 15 - dy}")
         return self.x0 - 15 - dx, self.y0 - 15 - dy
 
-    @cache
     def GetTextLocationMap(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale, MapLabel):
         x0 = self.x0 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
@@ -33,7 +30,6 @@ class NameHandling(Loger):
         x0mm -= 15
         y0mm -= 15
 
-        self.loger(f"TextLocation {x0mm} i {y0mm}")
         return int(x0mm), int(y0mm)
 
     def setName(self, name):

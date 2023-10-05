@@ -5,7 +5,6 @@ from src.Python.BackEnd.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
 
 
 class RoiEdit(CreateRoiAbstract):
-
     editTribe = False
     editedROI = None
 
