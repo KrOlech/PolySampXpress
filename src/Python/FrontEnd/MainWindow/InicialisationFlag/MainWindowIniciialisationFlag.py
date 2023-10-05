@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QDesktopWidget
 
+from Python.BackEnd.MAP.Dialog.NoMapDialog import NoMapDialog
 # todo podzielic do dwóch klas
 from src.Python.FrontEnd.MainWindow.InicialisationFlag.MapFromHearWindow import MapFromHearWindow
 from src.Python.FrontEnd.MainWindow.InicialisationFlag.WindowCreateWorkFeald import WindowCreateWorkFeald
@@ -105,6 +106,8 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         if self.mapWindowObject:
             self.mapWindowObject.move(QDesktopWidget().availableGeometry().topLeft())
             self.mapWindowObject.showMap()
+        else:
+            NoMapDialog(self).exec_()
 
     def setPoleRobocze(self, fildParams):
         self.fildParams = fildParams
