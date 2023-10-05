@@ -28,6 +28,10 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     def y0(self):  # toDO powino to byc zawsze 0 obecnie z uwagi na blad z kalibracja
         return self._manipulator.y0
 
+    @property
+    def speed(self):
+        return self._manipulator.speed
+
     def conn(self):  # toDO old implementation need redo propably not useed
         return self._manipulator.conn
 
@@ -134,3 +138,6 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     def zoomManipulatorChange(self, cords):
         self._focusManipulator.y = cords
         self._focusManipulator.gotoNotAsync()
+
+    def setSpeed(self, newSpeed):
+        self._manipulator.speed = newSpeed
