@@ -81,6 +81,7 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.__scatter.setChecked(State)
         self.__fromClicks.setChecked(State)
         self.__pointer.setChecked(State)
+        self.__fromScatterClicks.setChecked(State)
         self.myStatusBarClick.setText("")
 
     def clickCreateStatus(self):
