@@ -98,6 +98,7 @@ class ROIEdit(AbstractROI, AbstractEdit):
             self.x0 = self.px1
         elif self.top:
             self.y0 = self.py1
+        self.setNewBorders()
 
     def __move(self):
         dx, dy = self.px1 - self.px0, self.py1 - self.py0
@@ -105,3 +106,4 @@ class ROIEdit(AbstractROI, AbstractEdit):
         self.x1 += dx
         self.y0 += dy
         self.y1 += dy
+        self.setNewBorders()
