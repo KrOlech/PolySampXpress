@@ -1,19 +1,26 @@
 from PyQt5.QtCore import Qt
 
-from src.Python.BaseClass.Slider.Slider import Slider
+from src.Python.BaseClass.Slider.LabeledSlider import LabeledSlider
 
 
-class ZoomSlider(Slider):
+class ZoomSlider(LabeledSlider):
     minV = 0
-    maxV = 1
+    maxV = 10
 
     __change = False
 
-    def __init__(self, master, *args, **kwargs):
-        super().__init__(master, self.minV, self.maxV, *args, orientation=Qt.Vertical, **kwargs)
+    labels = (0.8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    labelsDictionary = {0: 0.85, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10}
 
-        self.setFixedWidth(20)
-        self.setFixedHeight(150)
+    def __init__(self, master, widget):
+        super().__init__(self.minV, self.maxV, orientation=Qt.Vertical, parent=widget, labels=self.labels)
+
+        self.master = master
+
+        self.sl.valueChanged[int].connect(self.change)
+
+        self.setFixedWidth(50)
+        self.setFixedHeight(200)
 
     def change(self, value):
 
@@ -23,10 +30,11 @@ class ZoomSlider(Slider):
 
         if not self.master.zoomChange:
             self.master.zoomValueChange()
-        elif not self.master.zoomChange:
+
+        if not self.master.zoomChange:
             self.__change = True
-            self.setValue(self.value)
+            self.sl.setValue(0)
         else:
-            super().change(value)
-            self.master.zoomManipulator.zoomManipulatorChange(self.value)
-            self.master.zoomLabel.setText(str(self.value))
+            self.sl.setValue(value)
+            self.master.zoomManipulator.zoomManipulatorChange(value)
+            self.master.zoomLabel.setText(str(self.labelsDictionary[value]))

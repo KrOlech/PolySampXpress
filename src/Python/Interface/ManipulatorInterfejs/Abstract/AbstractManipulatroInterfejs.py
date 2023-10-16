@@ -6,6 +6,7 @@ from src.Python.Interface.ManipulatorInterfejs.ManipulatorSlider.ManipulatorSlid
 
 class AbstractManipulatorInterferes(QWidget, Loger):
     _focusManipulator = None
+    _zoomManipulator = None
     _manipulator = None
 
     @property
@@ -106,7 +107,7 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     def waitForTarget(self):
         self._manipulator.waitForTarget()
 
-    def createButtons(self, transparency=10):
+    def createButtons(self, transparency=40):
         buttons = [QPushButton(name, self.master.widget) for name in self.buttonsNames]
         [button.released.connect(f) for f, button in zip(self.fun, buttons)]
         [button.setStyleSheet(f"background-color: rgba(255, 255, 255, {transparency});") for button in buttons]
@@ -136,7 +137,10 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         self._manipulator.center(x, y)
 
     def zoomManipulatorChange(self, cords):
-        self._focusManipulator.y = cords
+        self._zoomManipulator.x = self._zoomManipulator.ZoomStepsMap[cords]
+        self._zoomManipulator.gotoNotAsync()
+
+    def fokusManipulatorChange(self):
         self._focusManipulator.gotoNotAsync()
 
     def setSpeed(self, newSpeed):

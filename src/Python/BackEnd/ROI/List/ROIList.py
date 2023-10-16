@@ -36,7 +36,7 @@ class ROIList(QScrollArea):
     def calculateHight(self):
         screenHight = self.mainWindow.windowSize.height()
 
-        hight = screenHight - 240  # approximated size of Manipulator buttons
+        hight = screenHight - 290  #TODO calculate insted of approximated size of Manipulator buttons
 
         return hight
 
