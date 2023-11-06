@@ -3,7 +3,6 @@ from abc import abstractmethod, ABCMeta
 import cv2
 from numpy import ndarray, zeros_like, uint8
 
-from src.Python.BaseClass.Abstract import abstractmetod
 from src.Python.BaseClass.Logger.Logger import Loger
 
 
@@ -11,7 +10,7 @@ class AbstractGetFrame(Loger):
     __metaclass__ = ABCMeta
     @abstractmethod
     def getFrame(self) -> ndarray:
-        abstractmetod(self)
+        self.abstractmetod()
         return zeros_like([640, 480, 3], dtype=uint8)
 
     def getGrayFrame(self):

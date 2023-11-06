@@ -1,7 +1,6 @@
 from abc import ABCMeta
 from abc import abstractmethod
 
-from src.Python.BaseClass.Abstract import abstractmetod
 from src.Python.ErrorHandling.CustomExceptions.Exceptions import InvalidSpeed
 from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
@@ -26,12 +25,12 @@ class AbstractManipulator(JsonHandling):  # toDo test if beter resalts wit async
 
     @abstractmethod
     def getCurrentPosition(self):
-        abstractmetod(self)
+        self.abstractmetod()
         return 0, 0, 0
 
     @abstractmethod
     def validateSpeed(self, speed):
-        abstractmetod(self)
+        self.abstractmetod()
         return True
 
     @abstractmethod
@@ -44,19 +43,19 @@ class AbstractManipulator(JsonHandling):  # toDo test if beter resalts wit async
 
     @abstractmethod
     def close(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def waitForTarget(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def homeAxis(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def stop(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     def upadteLable(self):
         self.label.setText(f"Manipulator  X:{self.y:.4f}    Y:{self.x:.4f}")

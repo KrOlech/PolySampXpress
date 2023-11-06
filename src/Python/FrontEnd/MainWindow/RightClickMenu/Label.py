@@ -3,11 +3,11 @@ from abc import ABCMeta, abstractmethod
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel
 
+from src.Python.BaseClass.Logger.Logger import Loger
 from src.Python.FrontEnd.MainWindow.RightClickMenu.RightClickMenu import RightMenu
-from src.Python.BaseClass.Abstract import abstractmetod
 
 
-class RightClickLabel(QLabel):
+class RightClickLabel(QLabel, Loger):
     __metaclass__ = ABCMeta
 
     def __init__(self, *args, **kwargs) -> None:
@@ -24,16 +24,16 @@ class RightClickLabel(QLabel):
 
     @abstractmethod
     def newROI(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def editROI(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def center(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def deleteROI(self):
-        abstractmetod(self)
+        self.abstractmetod()

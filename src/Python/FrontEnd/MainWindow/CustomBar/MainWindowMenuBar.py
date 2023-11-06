@@ -3,7 +3,6 @@ from abc import abstractmethod
 
 from src.Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 from src.Python.FrontEnd.MainWindow.CustomBar.MainWindowCustomBar import MainWindowCustomBar
-from src.Python.BaseClass.Abstract import abstractmetod
 
 
 class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
@@ -40,30 +39,30 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
 
     @abstractmethod
     def showAllCameraSettings(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def calibrate(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def showListOfROI(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def loadListOfROI(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def saveListOfROI(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     def WIP(self):
         pass
 
     @abstractmethod
     def showROIListButton(self, e):
-        abstractmetod(self)
+        self.abstractmetod()
 
 
 if __name__ == '__main__':
