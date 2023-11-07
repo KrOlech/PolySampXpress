@@ -10,7 +10,8 @@ class CameraSimulator:
 
     @staticmethod
     def read():
-        fileName = JsonHandling.getFileLocation("sym.png")
+        #fileName = JsonHandling.getFileLocation("sym.png")
+        fileName = JsonHandling.getFileLocation('crosv2.png')
         return True, cv2.imread(fileName)
 
     def set(self, *param):

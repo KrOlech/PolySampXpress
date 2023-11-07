@@ -1,4 +1,4 @@
-from src.Python.BackEnd.Calibration.LocateCrossAutomatic.DataBase.DataBaseReader import DataBaseReader
+from src.Python.BackEnd.Calibration.LocateCrossAutomatic_1_0.DataBase.DataBaseReader import DataBaseReader
 
 
 class CalibrationPointDataBase(DataBaseReader):

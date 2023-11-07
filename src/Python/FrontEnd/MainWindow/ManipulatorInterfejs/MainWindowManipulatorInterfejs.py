@@ -2,6 +2,7 @@ from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 
+from src.Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
 from src.Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
 from src.Python.FrontEnd.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
 from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.SimpleDialogWindow import GoToCordsDialog
@@ -32,11 +33,13 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         goToCords = self.qActionCreate("Go To Cords", self.__goToCords)
         setStepSize = self.qActionCreate("Set Step Size", self.__setStepSize)
         setZeroPoint = self.qActionCreate("Set Zero Point", self.__setZeroPoint)
+        setZeroPointManual = self.qActionCreate("Set Zero Point Manual", self.__setZeroPointManual)
 
         manipulatorMenu.addAction(homeAxis)
         manipulatorMenu.addAction(goToCords)
         manipulatorMenu.addAction(setStepSize)
         manipulatorMenu.addAction(setZeroPoint)
+        manipulatorMenu.addAction(setZeroPointManual)
 
     def __createAction(self, name, manipulatorSeFun):
         return self.qActionCreate(name, manipulatorSeFun, checkable=True)
@@ -47,6 +50,10 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         homeAxis.exec_()
 
     def __setZeroPoint(self):
+        x, y = LocateCross(self, "00Location").locateCross()
+        self.cameraView.setAbsolutZeroPositionForPixels(y, x)
+
+    def __setZeroPointManual(self):
         self.calibratePixelsMode = True
         self.myStatusBarClick.setText("Select Zero Point")
 

@@ -3,6 +3,7 @@ from abc import ABCMeta
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QEvent
 
+from src.Python.BaseClass.Depracation.DepractionFactory import deprecated
 from src.Python.BackEnd.ROI.Creation.ClickCreate.PointerMode import PointerMode
 from src.Python.BackEnd.ROI.Main.Point.PointClass import Point
 from src.Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
@@ -49,6 +50,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
             return
 
         if self.mainWindow.calibratePixelsMode:
+            self.logWarning("Deprecated Method of Zero Positioning")
             self.__setAbsolutZeroPositionForPixels(e)
             return
 
@@ -63,6 +65,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
             return
 
         if self.mainWindow.calibratePixelsMode:
+            self.logWarning("Deprecated Method of Zero Positioning")
             self.mainWindow.calibratePixelsMode = False
             return
 
@@ -74,7 +77,11 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
 
     def mouseMoveEvent(self, e):
 
-        if self.mainWindow.calibratePixelsMode or self.mainWindow.creatingMap:
+        if self.mainWindow.creatingMap:
+            return
+
+        if self.mainWindow.calibratePixelsMode:
+            self.logWarning("Deprecated Method of Zero Positioning")
             return
 
         else:
@@ -96,22 +103,38 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
     def __isOkToProcesEvent(self):
         return self.mainWindow.manipulatorInterferes.inMotion or not self.leftMouseButton or self.mainWindow.creatingMap
 
+    def __removeZeroPoint(self):
+        if self.__absolutZeroPoint is not None:
+            self.__absolutZeroPoint.delete()
+            self.__absolutZeroPoint = None
+
+    def __newZeroPoint(self):
+        return Point(self, self.pixelAbsolutValue[0], self.pixelAbsolutValue[1], "PX 0 0",
+                     self.mainWindow.manipulatorInterferes.x,
+                     self.mainWindow.manipulatorInterferes.y, self.pixelAbsolutValue)
+
+    def __resolvePixelAbsolutValue(self, x, y):
+        ofsetX, ofsetY = AbstractR.calculateOffsetStatic(self.mainWindow.manipulatorInterferes.x,
+                                                         self.mainWindow.manipulatorInterferes.y)
+        return x + ofsetX, y + ofsetY
+
+    def __createAndSaveZeroPoint(self, x, y):
+        self.pixelAbsolutValue = self.__resolvePixelAbsolutValue(x(), y())
+
+        self.__removeZeropPoint()
+
+        self.__absolutZeroPoint = self.__newZeroPoint()
+
+        self.ROIList.append(self.__absolutZeroPoint)
+        self.mainWindow.addROIToList()
+
+    @deprecated("old manual metode")
     def __setAbsolutZeroPositionForPixels(self, e):
         if self.leftMouseButton and not self.mainWindow.manipulatorInterferes.inMotion:
-            ofsetX, ofsetY = AbstractR.calculateOffsetStatic(self.mainWindow.manipulatorInterferes.x,
-                                                             self.mainWindow.manipulatorInterferes.y)
-
-            self.pixelAbsolutValue = (e.x() + ofsetX, e.y() + ofsetY)
-
-            if self.__absolutZeroPoint is not None:
-                self.__absolutZeroPoint.delete()
-                self.__absolutZeroPoint = None
-
-            self.__absolutZeroPoint = Point(self, self.pixelAbsolutValue[0], self.pixelAbsolutValue[1], "PX 0 0",
-                                            self.mainWindow.manipulatorInterferes.x,
-                                            self.mainWindow.manipulatorInterferes.y, self.pixelAbsolutValue)
-
-            self.ROIList.append(self.__absolutZeroPoint)
-            self.mainWindow.addROIToList()
+            self.__createAndSaveZeroPoint(e.x(), e.y())
 
             self.mainWindow.myStatusBarClick.setText("")
+
+    def setAbsolutZeroPositionForPixels(self, x, y):
+        if not self.mainWindow.manipulatorInterferes.inMotion:
+            self.__createAndSaveZeroPoint(x, y)
