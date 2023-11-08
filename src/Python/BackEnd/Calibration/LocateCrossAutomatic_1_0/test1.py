@@ -1,7 +1,7 @@
 import numpy as np
 from numpy import ones
 
-from src.Python.BackEnd.Calibration.LocateCrossAutomatic.DataBase.CalibrationPointDataBase import CalibrationPointDataBase
+from src.Python.BackEnd.Calibration.LocateCrossAutomatic_1_0.DataBase.CalibrationPointDataBase import CalibrationPointDataBase
 from src.Python.BackEnd.Calibration.Abstract.TemplateMatching import TemplateMatching
 
 
