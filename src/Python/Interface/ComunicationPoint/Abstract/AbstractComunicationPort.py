@@ -2,10 +2,10 @@ from abc import abstractmethod
 
 import cv2
 
-from src.Python.BaseClass.Abstract import abstractmetod
+from src.Python.BaseClass.Logger.Logger import Loger
 
 
-class AbstractCommunicationPoint:
+class AbstractCommunicationPoint(Loger):
 
     def __init__(self, name, CommunicationPointDTO=None) -> None:
         if isinstance(CommunicationPointDTO, dict):
@@ -22,4 +22,4 @@ class AbstractCommunicationPoint:
 
     @abstractmethod
     def setValue(self, device: cv2.VideoCapture) -> None:
-        abstractmetod(self)
+        self.abstractmetod()

@@ -1,17 +1,26 @@
-import inspect
+from inspect import stack
 import sys
+from datetime import datetime
 
 
 class Loger:
 
     def loger(self, *message):
-        print(f"[{type(self).__name__}] - [{inspect.stack()[1].function}] {[mes for mes in message]}")
+        self.__log(*message, state="log")
 
     def logError(self, message):
-        print(f"[{type(self).__name__}] - [{inspect.stack()[1].function}] [ERROR] {message}")
+        self.__log(*message, state="ERROR")
+        self.__log(stack(), state="ERROR")
 
     def logWarning(self, message):
-        print(f"[{type(self).__name__}] - [{inspect.stack()[1].function}] [Warning] {message}")
+        self.__log(*message, state="Warning")
+
+    def abstractmetod(self):
+        self.__log("Abstract Methode", state="Warning")
+
+    def __log(self, *message, state="log"):
+        print(
+            f"[{datetime.now()}] - [{type(self).__name__}] - [{stack()[2].function}] [{state}] [{[mes for mes in message]}]")
 
     @staticmethod
     def isDebuggerActive() -> bool:

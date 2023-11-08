@@ -7,7 +7,6 @@ from PyQt5.QtGui import QImage, QPixmap
 from numpy import frombuffer
 
 from src.Python.BackEnd.ROI.Label.ROILable import ROILabel
-from src.Python.BaseClass.Abstract import abstractmetod
 from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from src.Python.BaseClass.Logger.Logger import Loger
 
@@ -43,28 +42,28 @@ class AbstractR(Loger):
 
     @abstractmethod
     def createMarker(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def inROI(self, pos, x, y):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def getMarker(self, x, y):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def getMarkerMap(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def __dict__(self) -> dict:
-        abstractmetod(self)
+        self.abstractmetod()
         return {}
 
     @abstractmethod
     def createLabelMarker(self, scalaX, scalaY):
-        abstractmetod(self)
+        self.abstractmetod()
         return
 
     @abstractmethod
@@ -81,12 +80,12 @@ class AbstractR(Loger):
 
     @abstractmethod
     def foundCenter(self) -> (int, int):
-        abstractmetod(self)
+        self.abstractmetod()
         return 0, 0
 
     @abstractmethod
     def saveViue(self, path):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @staticmethod
     def convertQimageToQpixmap(qimage):

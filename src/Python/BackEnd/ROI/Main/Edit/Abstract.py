@@ -1,9 +1,9 @@
 from abc import ABCMeta, abstractmethod
 
-from src.Python.BaseClass.Abstract import abstractmetod
+from src.Python.BaseClass.Logger.Logger import Loger
 
 
-class AbstractEdit:
+class AbstractEdit(Loger):
     __metaclass__ = ABCMeta
 
     def updateViue(self):
@@ -24,11 +24,11 @@ class AbstractEdit:
 
     @abstractmethod
     def mousePositionCheck(self, event, xManipulatorPosition, yManipulatorPosition):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def createMarker(self):
-        abstractmetod(self)
+        self.abstractmetod()
 
     @abstractmethod
     def mouseMove(self, event, xManipulatorPosition, yManipulatorPosition):
