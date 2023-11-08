@@ -19,8 +19,12 @@ class Loger:
         self.__log("Abstract Methode", state="Warning")
 
     def __log(self, *message, state="log"):
-        print(
-            f"[{datetime.now()}] - [{type(self).__name__}] - [{stack()[2].function}] [{state}] [{[mes for mes in message]}]")
+        info = f"[{datetime.now()}] - [{type(self).__name__}] - [{stack()[2].function}] [{state}] [{[mes for mes in message]}]"
+
+        print(info)
+
+        with open(f"{datetime.now().day}-{datetime.now().year}-{datetime.now().month}.log","a") as file:
+            file.write(info+"\n")
 
     @staticmethod
     def isDebuggerActive() -> bool:
