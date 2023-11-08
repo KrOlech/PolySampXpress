@@ -13,7 +13,7 @@ class ZoomInterface:
         self.zoomLabel = ZoomLabel(self.master, 0)
 
     def createZoomSlider(self):
-        return ZoomSlider(self, widget=self.master, value=0)  # self.zoomManipulator.x)
+        return ZoomSlider(self, widget=self.master)  # self.zoomManipulator.x)
 
     def zoomValueChange(self):
         ZoomChangeDialogWindow(self).exec_()

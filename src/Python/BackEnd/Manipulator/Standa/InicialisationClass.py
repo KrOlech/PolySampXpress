@@ -13,9 +13,13 @@ from src.Python.BackEnd.Manipulator.Standa.Filds.EngineSettings import EngineSet
 
 
 class StandaManipulatorInitialisation(AbstractStandaManipulator):
-    manipulatorConected = False
+    manipulatorConnected = False
 
-    def __init__(self, screenSize, *args, **kwargs):
+    @property
+    def ZoomStepsMap(self):
+        return {0: 0.85, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10}
+
+    def __init__(self, device_id_Address, screenSize, *args, **kwargs):
         super().__init__(screenSize, *args, **kwargs)
         self.__checkSystem()
 
@@ -27,7 +31,7 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
 
         self.lib = self.__readSharedLib()
 
-        self.enter()
+        self.device_id = self.enter(device_id_Address)
 
     def getLibVer(self):
         sbuf = create_string_buffer(64)
@@ -35,26 +39,26 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
         self.loger("library version: " + sbuf.raw.decode().rstrip("\0"))
         return sbuf.raw.decode().rstrip("\0")
 
-    def enter(self):
+    def enter(self, encodedComPort):
         try:
-            self.device_id = self.lib.open_device("xi-com:\\\.\COM3".encode())
-            self.loger(f"Device ID {self.device_id}")
+            device_id = self.lib.open_device(encodedComPort)
+            self.loger(f"Device ID {device_id}")
+            self.__testInfo(device_id)
+            self.__testSerial(device_id)
+            return device_id
         except Exception as e:
             self.loger(e)
-            self.loger("error Trying opening new master")
-            return None
-        else:
-            self.__testInfo()
-            self.__testSerial(self.device_id)
-
-            return self
+            self.loger(f"error Trying opening device: {encodedComPort.decode()}")
 
     def close(self):
-        if self.device_id:
-            self.saveFile("StandaPosition.json", {"x": self.x, "y": self.y, "z": self.z})
-            self.lib.close_device(byref(cast(self.device_id, POINTER(c_int))))
-            self.manipulatorConected = False
-            self.loger("Done Closing Standa")
+        self.saveFile(f"StandaPosition_{self.device_id}.json", {"x": self.x, "y": self.y, "z": self.z}) #TODO corect File Nametrta
+        self.closeDevice(self.device_id)
+        self.loger("Done Closing Standa")
+
+    def closeDevice(self, device_id):
+        if device_id:
+            self.lib.close_device(byref(cast(device_id, POINTER(c_int))))
+            self.manipulatorConnected = False
         else:
             self.logError("Erore Closing Standa")
 
@@ -88,16 +92,16 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
         else:
             return None
 
-    def __testInfo(self):
+    def __testInfo(self, device_id):
         x_device_information = DeviceInformation()
-        result = self.lib.get_device_information(self.device_id, byref(x_device_information))
+        result = self.lib.get_device_information(device_id, byref(x_device_information))
         self.loger("Result: " + repr(result))
         if result == self.ok:
             self.loger("Device information:")
             self.loger(" Manufacturer: " + repr(string_at(x_device_information.Manufacturer).decode()))
             self.loger(" Hardware version: " + repr(x_device_information.Major) + "." + repr(
                 x_device_information.Minor) + "." + repr(x_device_information.Release))
-            self.manipulatorConected = True
+            self.manipulatorConnected = True
 
     def __testStatus(self, device_id):
 

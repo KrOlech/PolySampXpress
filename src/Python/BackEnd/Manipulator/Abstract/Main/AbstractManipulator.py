@@ -23,6 +23,11 @@ class AbstractManipulator(JsonHandling):  # toDo test if beter resalts wit async
         self.screenSize = screenSize
         self.x, self.y, self.z = self.getCurrentPosition()
 
+    @property
+    @abstractmethod
+    def ZoomStepsMap(self):
+        return {0: 0.85, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10}
+
     @abstractmethod
     def getCurrentPosition(self):
         self.abstractmetod()

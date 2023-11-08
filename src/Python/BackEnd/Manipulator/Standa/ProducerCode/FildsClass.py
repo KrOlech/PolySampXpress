@@ -621,3 +621,10 @@ class globally_unique_identifier_t(Structure):
         ("UniqueID2", c_uint),
         ("UniqueID3", c_uint),
     ]
+
+class get_position_t(Structure):
+    _fields_ = [
+        ("Position", c_int),
+        ("uPosition", c_int),
+        ("EncPosition", c_longlong),
+    ]

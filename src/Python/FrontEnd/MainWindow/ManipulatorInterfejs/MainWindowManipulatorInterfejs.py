@@ -92,13 +92,13 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         self.manipulatorInterferes.closeAction()
 
     def __manipulatorButtons(self):
-        self.manipulatorButtons = self.manipulatorInterferes.createButtons()
+        self.manipulatorButtons = self.manipulatorInterferes.createButtons(70)
         self.focusSlider = self.manipulatorInterferes.createFocusSlider()
 
         positions = [self.geometry().bottomRight() - button.geometry().bottomRight() - offset for
                      button, offset in zip(self.manipulatorButtons, self.offsets)]
 
-        [button.move(pos - QPoint(self.focusSlider.width(), 55)) for button, pos in
+        [button.move(pos - QPoint(self.focusSlider.width(), 80)) for button, pos in
          zip(self.manipulatorButtons, positions)]
 
         self.focusSlider.move(self.geometry().bottomRight() -
