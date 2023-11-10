@@ -19,8 +19,8 @@ class InaccuracyDialog(AbstractDialogMaster):
         self.center = QRadioButton("Center")
         self.fromCords = QRadioButton("From Coords:")
 
-        self.center.toggle().connect(self.centerToggle)
-        self.fromCords.toggle().connect(self.fromCordsToggle)
+        self.center.toggled.connect(self.centerToggle)
+        self.fromCords.toggled.connect(self.fromCordsToggle)
 
         self.center.setChecked(True)
 
@@ -38,14 +38,14 @@ class InaccuracyDialog(AbstractDialogMaster):
     def centerToggle(self):
         self.fromCords.setChecked(False)
 
-        self.valueX.setDisabled()
-        self.valueY.setDisabled()
+        self.valueX.setDisabled(True)
+        self.valueY.setDisabled(True)
 
     def fromCordsToggle(self):
         self.center.setChecked(False)
 
-        self.valueX.setEnabled()
-        self.valueY.setEnabled()
+        self.valueX.setEnabled(True)
+        self.valueY.setEnabled(True)
 
     def okPressed(self):
         self.master.referencePoint = self.__CENTER if self.center.isChecked() \
@@ -53,6 +53,6 @@ class InaccuracyDialog(AbstractDialogMaster):
 
         self.master.movementCount = self.randomMovementCount.value()
 
-        self.master.proceed()
+        #self.master.proceed()
 
         self.accept()
