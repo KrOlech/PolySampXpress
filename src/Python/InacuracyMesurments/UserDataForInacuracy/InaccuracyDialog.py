@@ -14,7 +14,7 @@ class InaccuracyDialog(AbstractDialogMaster):
         super().__init__(master, *args, **kwargs)
 
         self.valueX = self.createQSpinBox(self.__CENTER[0])
-        self.valueY = self.createQSpinBox(self.__CENTER[0])
+        self.valueY = self.createQSpinBox(self.__CENTER[1])
 
         self.center = QRadioButton("Center")
         self.fromCords = QRadioButton("From Coords:")
