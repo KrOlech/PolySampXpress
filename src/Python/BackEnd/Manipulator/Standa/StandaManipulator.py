@@ -6,8 +6,8 @@ from src.Python.BackEnd.Manipulator.Standa.ProducerCode.FildsClass import get_po
 
 class StandaManipulator(StandaManipulatorInitialisation):
 
-    def __init__(self, screenSize, *args, **kwargs):
-        super().__init__(self, screenSize, *args, **kwargs)
+    def __init__(self, device_id_Address, screenSize, *args, **kwargs):
+        super().__init__(device_id_Address, screenSize, *args, **kwargs)
 
         self.setSpeed(100)
 
