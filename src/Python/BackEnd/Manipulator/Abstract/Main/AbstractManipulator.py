@@ -1,3 +1,4 @@
+import asyncio
 from abc import ABCMeta
 from abc import abstractmethod
 
@@ -95,6 +96,13 @@ class AbstractManipulator(JsonHandling):  # toDo test if beter resalts wit async
         self.z = z if z is not None else self.z
 
         self.gotoNotAsync()
+
+    def goToCordsAsync(self, x=None, y=None, z=None):
+        self.x = x if x is not None else self.x
+        self.y = y if y is not None else self.y
+        self.z = z if z is not None else self.z
+
+        asyncio.run(self.goto())
 
     def center(self, x, y):
         self.x += (x - self.screenSize.width() // 2) / self.xOffset

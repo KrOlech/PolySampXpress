@@ -27,7 +27,7 @@ class Calibrate(AbstractCalibrate):
         self.loger(f"Calculated different in template location {delta}")
 
         if delta[not index] > 5:
-            self.logWarning("To math distortion in other axis")
+            self.logWarning(f"To math distortion in other axis")
             return
 
         if index is not None:
