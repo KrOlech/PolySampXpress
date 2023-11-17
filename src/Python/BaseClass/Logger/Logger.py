@@ -8,11 +8,11 @@ class Loger:
     def loger(self, *message):
         self.__log(*message, state="log")
 
-    def logError(self, message):
+    def logError(self, *message):
         self.__log(*message, state="ERROR")
         self.__log(stack(), state="ERROR")
 
-    def logWarning(self, message):
+    def logWarning(self, *message):
         self.__log(*message, state="Warning")
 
     def abstractmetod(self):
