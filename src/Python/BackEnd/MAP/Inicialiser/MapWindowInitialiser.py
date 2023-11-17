@@ -107,7 +107,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
         pixelCount = sizeIn_px[0] * sizeIn_px[1]
 
-        mapRes_x, mapRes_y, _ = self.loadResolution("1080P")
+        mapRes_x, mapRes_y, _ = self.loadResolution("1080P") #todo configuration in GUI
 
         mapPixelCount = mapRes_x * mapRes_y
 
@@ -121,7 +121,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
     def __workFilledMovementMap(self):
         # xOffset, yOffset = 900-30, 485-140-25  # loadOffsetsJson()
-        xOffset, yOffset = 590, 490
+        xOffset, yOffset = 590, 490 #toDo from file
         xMaxManipulator, yMaxanipulator = self.readManipulatorMax()
         dy = self.cameraFrameSizeX / xOffset
         dx = self.cameraFrameSizeY / yOffset
@@ -151,7 +151,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         x, y = JsonHandling.loadCameraResolutionJson()
         if self.scale < 1:
             self.logWarning("Zoom to low desire map resolution exits row resolution")
-        elif self.scale > (x * y * 0.000005):
+        elif self.scale > (x * y * 0.000005): #todo Corect calcilation
             self.logWarning("Zoom to high to mach pixels for desire map")
 
     def __photoCount(self):

@@ -93,7 +93,7 @@ class MapWindow(MapWindowInitialise):
         self.manipulator.goToCords(x=self.movementMap[self.photoCount[0]][self.photoCount[1]][1],
                                    y=self.movementMap[self.photoCount[0]][self.photoCount[1]][0])
 
-    def calculateNextManipulatorPosition(self):
+    def calculateNextManipulatorPosition(self): #todo Optymalisation
         if self.photoCount[1] == 0 and self.mapDirection == "L":
             if self.photoCount[0] == self._photoCount[0]:
                 self.mapEnd = True

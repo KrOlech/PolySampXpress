@@ -99,7 +99,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
                     getattr(self, self.supportedModes[self.mainWindow.mode] + "__saveTemporaryLocation")(e)
                     self.mainWindow.showROIList(e)
 
-        self.mainWindow.myStatusBarMouse.setText(f"     Cursor X: {e.x()}     Y: {e.y()}")
+        self.mainWindow.myStatusBarMouse.setText(f"     Cursor X: {e.x()}     Y: {e.y()}") #todo wspułrzxedne w mm na próbce
 
     def __isOkToProcesEvent(self):
         return self.mainWindow.manipulatorInterferes.inMotion or not self.leftMouseButton or self.mainWindow.creatingMap
