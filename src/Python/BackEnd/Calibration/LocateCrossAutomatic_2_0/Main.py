@@ -43,8 +43,8 @@ class LocateCross(Loger):
         return rowValue.index(min(rowValue)), [v / mValue for v in rowValue]
 
     def markSpot(self, photo):
-        for i in range(self.x - 6, self.x + 5):
-            for j in range(self.y - 6, self.y + 5):
+        for i in range(max(0, self.x - 6), min(self.x + 5, len(photo))):
+            for j in range(max(0, self.y - 6), min(self.y + 5, len(photo[0]))):
                 photo[i][j] = [1., 0., 0.]
         return photo
 

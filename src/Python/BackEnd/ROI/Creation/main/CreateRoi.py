@@ -15,7 +15,8 @@ from src.Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleC
 from src.Python.BackEnd.ROI.Main.Point.Point import RoiPoint
 
 
-class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreateScatter, ClikcCreateScatter, PointerMode):
+class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreateScatter, ClikcCreateScatter,
+                PointerMode):
     __metaclass__ = ABCMeta
 
     leftMouseButton = False
@@ -119,9 +120,9 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
         return x + ofsetX, y + ofsetY
 
     def __createAndSaveZeroPoint(self, x, y):
-        self.pixelAbsolutValue = self.__resolvePixelAbsolutValue(x(), y())
+        self.pixelAbsolutValue = self.__resolvePixelAbsolutValue(x, y)
 
-        self.__removeZeropPoint()
+        self.__removeZeroPoint()
 
         self.__absolutZeroPoint = self.__newZeroPoint()
 
