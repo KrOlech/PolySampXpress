@@ -35,7 +35,7 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
         self.scatter = scatter
 
-        self.fileDict = self.__createFileDict()
+        self.fileDict = self.__createFileDict() #todo check for remove null
 
     def __createFileDict(self) -> dict:
         x0 = self.x0 - self.pixelAbsolutValue[0]
