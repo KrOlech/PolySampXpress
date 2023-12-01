@@ -10,7 +10,7 @@ class InaccuracyDialog(AbstractDialogMaster):
     def windowName(self):
         return "Inaccuracy"
 
-    def __init__(self, master, *args, **kwargs):
+    def __init__(self, master, main, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
         self.valueX = self.createQSpinBox(self.__CENTER[0])
@@ -35,6 +35,8 @@ class InaccuracyDialog(AbstractDialogMaster):
 
         self.finaliseGUI()
 
+        self.main = main
+
     def centerToggle(self):
         self.fromCords.setChecked(False)
 
@@ -48,11 +50,9 @@ class InaccuracyDialog(AbstractDialogMaster):
         self.valueY.setEnabled(True)
 
     def okPressed(self):
-        self.master.referencePoint = self.__CENTER if self.center.isChecked() \
-            else self.valueX.value(), self.valueY.value()
-
-        self.master.movementCount = self.randomMovementCount.value()
-
-        #self.master.proceed()
-
         self.accept()
+        self.main.acceptEvent()
+
+    def cancelPressed(self):
+        self.accept()
+        self.main.cancelEvent()

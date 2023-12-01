@@ -1,3 +1,5 @@
+from PyQt5.QtWidgets import QLabel
+
 from src.Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 from src.Python.FrontEnd.Utilitis.ProgresBar import ProgresBar
 from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
@@ -13,9 +15,15 @@ class InaccuracyEnforcementsWindow(AbstractDialogMaster):
 
         self.main = main
 
+        self.form.addRow(QLabel("Inaccuracy mesurment on going"))
+
         self.pbar = ProgresBar(self)
 
+        self.form.addRow(self.pbar)
+
         self.form.addRow(self.cancelButton)
+
+        self.cancelled = False
 
     def isCalibrationReadi(self):
         while self.main.InaccuracyMeasurementOnGoing:
@@ -26,7 +34,9 @@ class InaccuracyEnforcementsWindow(AbstractDialogMaster):
         workFunWorker(self, self.isCalibrationReadi, self.end)
 
     def end(self):
+        self.cancelled = True
         self.accept()
 
     def cancelPressed(self):
+        self.cancelled = True
         self.loger("Inaccuracy measurement Stopped")
