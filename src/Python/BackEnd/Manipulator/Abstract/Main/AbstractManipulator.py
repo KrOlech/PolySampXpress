@@ -6,7 +6,7 @@ from src.Python.ErrorHandling.CustomExceptions.Exceptions import InvalidSpeed
 from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
-class AbstractManipulator(JsonHandling):  # toDo test if beter resalts wit async movment
+class AbstractManipulator(JsonHandling):
     __metaclass__ = ABCMeta
 
     speed = 0

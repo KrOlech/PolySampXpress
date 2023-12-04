@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QDesktopWidget
 
 from Python.BackEnd.MAP.Dialog.NoMapDialog import NoMapDialog
-# todo podzielic do dwóch klas
 from src.Python.FrontEnd.MainWindow.InicialisationFlag.MapFromHearWindow import MapFromHearWindow
 from src.Python.FrontEnd.MainWindow.InicialisationFlag.WindowCreateWorkFeald import WindowCreateWorkFeald
 from src.Python.BackEnd.MAP.Dialog.OwerideDialog import OwerideCurrentMapDialog

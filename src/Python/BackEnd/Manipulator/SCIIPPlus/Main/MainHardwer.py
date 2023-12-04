@@ -32,4 +32,4 @@ class SCIManipulatorMain(SCIManipulator, JsonHandling):
         self.upadteLable()
 
     def close(self):
-        self.disableAllAxis()  # toDo checck in producent code if its ok or I need to do more - works ok for now
+        self.disableAllAxis()

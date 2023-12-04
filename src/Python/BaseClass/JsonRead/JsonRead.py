@@ -46,7 +46,7 @@ class JsonHandling(Loger):
         return borderX["min"], borderY["min"]
 
     @staticmethod
-    def getFileLocation(file) -> str:
+    def getFileLocation(file) -> str: #todo Corection for compilation
         config = r"\Config"
         fullPath = abspath(__file__)
         fullPath = fullPath[:fullPath.rfind('src')]

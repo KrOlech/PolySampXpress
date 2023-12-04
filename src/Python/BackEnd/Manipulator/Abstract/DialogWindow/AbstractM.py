@@ -11,7 +11,7 @@ class AbstractDialogMaster(AbstractDialog):
 
         self.master = master
 
-    def cancelPressed(self): #TODO may be Uncorect not allweys master is manipulator and master have a manipulator to stop is ok handled but need beter implementation
+    def cancelPressed(self):
         try:
             self.master.stop()
         except AttributeError as e:

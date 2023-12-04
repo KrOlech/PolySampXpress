@@ -124,7 +124,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         [button.hide() for button in self.buttons]
         self.buttons = []
 
-    def configureStatusBarMouse(self):  # toDO why hear?
+    def configureStatusBarMouse(self):
         myStatusBar = QLabel(self)
 
         myStatusBar.setFixedWidth(self.windowSize.width() // 8)
