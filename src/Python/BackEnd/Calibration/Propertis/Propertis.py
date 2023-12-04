@@ -6,7 +6,7 @@ class CalibrateProperty:
 
     @property
     def configFile(self):
-        return "test.json"  # TODo Correct config File Name
+        return "ManipulatorFullConfig.json"
 
     @property
     def templateLocationX(self):
