@@ -1,7 +1,8 @@
 import cv2
 from PyQt5.QtCore import Qt
 
-from src.Python.Interface.ManipulatorInterfejs.Abstract.AbstractManipulatroInterfejs import AbstractManipulatorInterferes
+from src.Python.Interface.ManipulatorInterfejs.Abstract.AbstractManipulatroInterfejs import \
+    AbstractManipulatorInterferes
 from src.Python.Interface.ManipulatorInterfejs.Selection.Select import SelectManipulator
 
 
@@ -10,7 +11,6 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
     def __init__(self, master, windowSize, myStatusBar, *args, **kwargs):
         super(ManipulatorInterfere, self).__init__(master, windowSize, myStatusBar, *args, **kwargs)
 
-        # toDo no simple two shortcut for single action
         # keyboard = [Qt.Key_W, Qt.Key_A, Qt.Key_D, Qt.Key_S]
         keyboard2 = [Qt.Key_Up, Qt.Key_Left, Qt.Key_Right, Qt.Key_Down]
 
@@ -21,7 +21,7 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
 
         [self.master.addAction(a) for a in self.actions]
 
-        #self.autoFokus()
+        # self.autoFokus()
 
     def __calcucateFokus(self):
         image = self.master.camera.getFrame()

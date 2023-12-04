@@ -3,6 +3,7 @@ from abc import ABCMeta
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QEvent
 
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from src.Python.BaseClass.Depracation.DepractionFactory import deprecated
 from src.Python.BackEnd.ROI.Creation.ClickCreate.PointerMode import PointerMode
 from src.Python.BackEnd.ROI.Main.Point.PointClass import Point
@@ -99,7 +100,9 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
                     getattr(self, self.supportedModes[self.mainWindow.mode] + "__saveTemporaryLocation")(e)
                     self.mainWindow.showROIList(e)
 
-        self.mainWindow.myStatusBarMouse.setText(f"     Cursor X: {e.x()}     Y: {e.y()}") #todo wspułrzxedne w mm na próbce
+        #xOffset, yOffset = JsonHandling.loadOffsetsJson() #{self.x / xOffset} mm, {self.y / yOffset} mm, prawie ok brakuje wspułrzednych pkt 00
+
+        self.mainWindow.myStatusBarMouse.setText(f"     Cursor X: {e.x()}     Y: {e.y()}")
 
     def __isOkToProcesEvent(self):
         return self.mainWindow.manipulatorInterferes.inMotion or not self.leftMouseButton or self.mainWindow.creatingMap

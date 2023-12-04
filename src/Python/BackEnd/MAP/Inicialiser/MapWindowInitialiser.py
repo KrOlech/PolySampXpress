@@ -120,8 +120,11 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         return scale, ScaledMapSizeIn_px
 
     def __workFilledMovementMap(self):
-        # xOffset, yOffset = 900-30, 485-140-25  # loadOffsetsJson()
-        xOffset, yOffset = 590, 490 #toDo from file
+        # xOffset, yOffset = 900-30, 485-140-25  #
+        # xOffset, yOffset = 590, 490
+
+        xOffset, yOffset = self.loadOffsetsJson()
+
         xMaxManipulator, yMaxanipulator = self.readManipulatorMax()
         dy = self.cameraFrameSizeX / xOffset
         dx = self.cameraFrameSizeY / yOffset

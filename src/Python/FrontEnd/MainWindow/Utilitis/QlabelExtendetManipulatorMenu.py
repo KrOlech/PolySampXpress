@@ -4,7 +4,7 @@ from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
 from src.Python.FrontEnd.MainWindow.Utilitis.QlabelROI import QlabelROI
 
-#toDo move to two files + beter names
+
 class Worker(QObject):
     finished = pyqtSignal()
 

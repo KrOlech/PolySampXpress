@@ -46,7 +46,7 @@ class JsonHandling(Loger):
         return borderX["min"], borderY["min"]
 
     @staticmethod
-    def getFileLocation(file) -> str: #todo Corection for compilation
+    def getFileLocation(file) -> str:  # todo Corection for compilation
         config = r"\Config"
         fullPath = abspath(__file__)
         fullPath = fullPath[:fullPath.rfind('src')]
@@ -57,7 +57,7 @@ class JsonHandling(Loger):
         return JsonHandling.readFileRow(JsonHandling.getFileLocation(filePath))
 
     @staticmethod
-    def readFileRow(filePath)-> dict:
+    def readFileRow(filePath) -> dict:
         with open(filePath, 'r') as file:
             rowData = json.load(file)
 

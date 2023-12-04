@@ -22,18 +22,18 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         return self._manipulator.y
 
     @property
-    def x0(self):  # toDO powino to byc zawsze 0 obecnie z uwagi na blad z kalibracja
+    def x0(self):
         return self._manipulator.x0
 
     @property
-    def y0(self):  # toDO powino to byc zawsze 0 obecnie z uwagi na blad z kalibracja
+    def y0(self):
         return self._manipulator.y0
 
     @property
     def speed(self):
         return self._manipulator.speed
 
-    def conn(self):  # toDO old implementation need redo propably not useed
+    def conn(self):
         return self._manipulator.conn
 
     def __init__(self, master, windowSize, myStatusBar, *args, **kwargs):
