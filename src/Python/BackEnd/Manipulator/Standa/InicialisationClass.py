@@ -51,7 +51,8 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
             self.loger(f"error Trying opening device: {encodedComPort.decode()}")
 
     def close(self):
-        self.saveFile(f"StandaPosition_{self.device_id}.json", {"x": self.x, "y": self.y, "z": self.z}) #TODO corect File Nametrta
+        self.saveFile(f"StandaPosition_{self.device_id}.json",
+                      {"x": self.x, "y": self.y, "z": self.z})  # TODO corect File Nametrta
         self.closeDevice(self.device_id)
         self.loger("Done Closing Standa")
 

@@ -2,6 +2,7 @@ from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 
+from src.Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from src.Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
 from src.Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
 from src.Python.FrontEnd.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
@@ -34,12 +35,14 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         setStepSize = self.qActionCreate("Set Step Size", self.__setStepSize)
         setZeroPoint = self.qActionCreate("Set Zero Point", self.__setZeroPoint)
         setZeroPointManual = self.qActionCreate("Set Zero Point Manual", self.__setZeroPointManual)
+        calculateInaccuracy = self.qActionCreate("Calculate Inaccuracy", self.__calculateInaccuracy)
 
         manipulatorMenu.addAction(homeAxis)
         manipulatorMenu.addAction(goToCords)
         manipulatorMenu.addAction(setStepSize)
         manipulatorMenu.addAction(setZeroPoint)
         manipulatorMenu.addAction(setZeroPointManual)
+        manipulatorMenu.addAction(calculateInaccuracy)
 
     def __createAction(self, name, manipulatorSeFun):
         return self.qActionCreate(name, manipulatorSeFun, checkable=True)
@@ -62,6 +65,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
     def __setStepSize(self):
         SetStepSizeDialog(self.manipulatorInterferes).exec_()
+
+    def __calculateInaccuracy(self):
+        InaccuracyMeasurements(self).runScript()
 
     def __configureStatusBar(self):
         myStatusBar = QLabel(self)
