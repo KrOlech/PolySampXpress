@@ -10,7 +10,10 @@ class Loger:
 
     def logError(self, *message):
         self.__log(*message, state="ERROR")
-        self.__log(stack(), state="ERROR")
+        msg = []
+        for fun in stack():
+            msg.append(fun.function)
+        self.__log(msg, state="ERROR")
 
     def logWarning(self, *message):
         self.__log(*message, state="Warning")

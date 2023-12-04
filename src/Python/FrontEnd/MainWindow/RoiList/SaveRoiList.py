@@ -1,3 +1,5 @@
+import os
+
 from PyQt5.QtWidgets import QFileDialog
 
 from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
@@ -37,3 +39,25 @@ class SaveRoiList(JsonHandling):
             [roi.saveViue(folderPath + r"/" + directoryName + r"/") for roi in self.roiList]
 
             chdir(curentDirectory)
+
+
+    def emergancySave(self):
+        folderPath = os.curdir
+
+        fileName = folderPath[folderPath.rfind(r"/") + 1:]
+
+        folderPath = folderPath[:folderPath.rfind(r"/")]
+
+        chdir(folderPath)
+
+        now = datetime.now()
+
+        directoryName = f"{str(now.date())}-{str(now.hour)}.{str(now.minute)}.{str(now.second)}"
+
+        mkdir(directoryName)
+
+        self.simpleSaveFile(folderPath + r"/" + directoryName + r"/" + fileName, data)
+
+        [roi.saveViue(folderPath + r"/" + directoryName + r"/") for roi in self.roiList]
+
+        chdir(curentDirectory)
