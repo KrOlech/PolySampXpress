@@ -29,11 +29,11 @@ class StandaManipulator(StandaManipulatorInitialisation):
     def getCurrentPosition(self):
         return self.x, self.y, self.z
 
-    def center(self, pozycja, pozycja2):  # toDo uncorect Functionality implemented only for test purpuse
+    def center(self, pozycja, pozycja2):
         self.lib.command_home(self.device_id)
 
     def validateSpeed(self, speed):
-        return True  # TODO
+        return True
 
     async def goto(self):
         self.__goto()
@@ -46,4 +46,4 @@ class StandaManipulator(StandaManipulatorInitialisation):
         self.lib.command_move(self.device_id, int(self.x), 0)
 
     def homeAxis(self):
-        pass  # toDo
+        pass

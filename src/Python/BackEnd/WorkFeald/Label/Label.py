@@ -4,7 +4,7 @@ from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class WorkFaldLabel(QWidget):
-    scalaX, scalaY = JsonHandling.readRoiLabelScalles()  # todo check if from correct value tipe it is read
+    scalaX, scalaY = JsonHandling.readRoiLabelScalles()
 
     def __init__(self, workFildParams, gui, screenSize, *args, **kwargs):
         super(WorkFaldLabel, self).__init__(*args, **kwargs)

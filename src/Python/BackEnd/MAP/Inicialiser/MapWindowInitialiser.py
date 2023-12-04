@@ -53,7 +53,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
         self.mapWidget = self.__createMapLabel()
 
-    async def __gotoMapStart(self):  # toDO old implementation need redo propably not useed
+    async def __gotoMapStart(self):
         if self.manipulator.conn:
             self.manipulator.goToCords(x=self.master.fildParams[0])
             await sleep(60)
@@ -107,7 +107,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
         pixelCount = sizeIn_px[0] * sizeIn_px[1]
 
-        mapRes_x, mapRes_y, _ = self.loadResolution("1080P") #todo configuration in GUI
+        mapRes_x, mapRes_y, _ = self.loadResolution("1080P")
 
         mapPixelCount = mapRes_x * mapRes_y
 
@@ -151,7 +151,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         x, y = JsonHandling.loadCameraResolutionJson()
         if self.scale < 1:
             self.logWarning("Zoom to low desire map resolution exits row resolution")
-        elif self.scale > (x * y * 0.000005): #todo Corect calcilation
+        elif self.scale > (x * y * 0.000005):
             self.logWarning("Zoom to high to mach pixels for desire map")
 
     def __photoCount(self):

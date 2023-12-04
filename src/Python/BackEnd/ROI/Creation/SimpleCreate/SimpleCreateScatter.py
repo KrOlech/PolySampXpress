@@ -3,7 +3,6 @@ from abc import ABCMeta
 from src.Python.BackEnd.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
 
 
-# toDo lern how to inhariet from SimpleCreateRoi private metods
 class SimpleCreateScatter(CreateRoiAbstract):
     __metaclass__ = ABCMeta
 
