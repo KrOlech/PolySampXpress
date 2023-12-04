@@ -24,12 +24,6 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
         fileMenu.addAction(loadROI)
         fileMenu.addAction(SaveROI)
 
-        undo = self.qActionCreate("Undo", self.WIP)
-        redo = self.qActionCreate("Redo", self.WIP)
-        editMenu = self.menu.addMenu("&Edit")
-        editMenu.addAction(undo)
-        editMenu.addAction(redo)
-
         cameraSettings = self.qActionCreate("&All settings", self.showAllCameraSettings)
         cameraMenu = self.menu.addMenu("&Camera settings")
         cameraMenu.addAction(cameraSettings)
