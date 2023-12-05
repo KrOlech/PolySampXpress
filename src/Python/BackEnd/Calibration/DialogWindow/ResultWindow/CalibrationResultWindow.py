@@ -17,7 +17,7 @@ class CalibrationResultsDialog(AbstractWindow, JsonHandling, CalibrateProperty):
             legend = self.indexLegend[index]
             values = data["0"]["offsets"][legend]
 
-            self.form.addRow(QLabel(f"{legend}: "), QLabel(str(values)))
+            self.form.addRow(QLabel(f"{legend}: "), QLabel(str(abs(values))))
 
         self.form.addRow(QLabel(""), self.okButton)
 

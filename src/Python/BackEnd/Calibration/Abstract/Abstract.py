@@ -52,7 +52,7 @@ class AbstractCalibrate(JsonHandling, CalibrateProperty, TemplateMatching):
 
         data = self.readFile(self.configFile)
         try:
-            data["0"]["offsets"][self.indexLegend[index]] = int(delta[index])
+            data["0"]["offsets"][self.indexLegend[index]] = int(delta[index]/2)
         except ValueError as e:
             self.logError(e)
         else:
