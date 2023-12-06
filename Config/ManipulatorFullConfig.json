@@ -1,23 +1,23 @@
 {
-  "0": {
-    "zoom": 1,
-    "offsets": {
-      "x": 600,
-      "y": 600
-    },
-    "borders": {
-      "x": {
-        "min": 0,
-        "max": 200
-      },
-      "y": {
-        "min": 0,
-        "max": 200
-      }
-    },
-    "CurrentPosition": {
-      "x": 0,
-      "y": 0
+    "0": {
+        "zoom": 1,
+        "offsets": {
+            "x": 297,
+            "y": 245
+        },
+        "borders": {
+            "x": {
+                "min": 0,
+                "max": 200
+            },
+            "y": {
+                "min": 0,
+                "max": 200
+            }
+        },
+        "CurrentPosition": {
+            "x": 0,
+            "y": 0
+        }
     }
-  }
 }

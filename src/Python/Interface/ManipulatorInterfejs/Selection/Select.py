@@ -17,11 +17,11 @@ class SelectManipulator:
             self._manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
         self._focusManipulator = StandaManipulator(self.FOCUS_MANIPULATOR_ADDRESS, self.windowSize, self.myStatusBar)
-        if not self._focusManipulator.manipulatorConected:
+        if not self._focusManipulator.manipulatorConnected:
             self._focusManipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
         self._zoomManipulator = StandaManipulator(self.ZOOM_MANIPULATOR_ADDRESS, self.windowSize, self.myStatusBar)
-        if not self._zoomManipulator.manipulatorConected:
+        if not self._zoomManipulator.manipulatorConnected:
             self._zoomManipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
     def closeAction(self):

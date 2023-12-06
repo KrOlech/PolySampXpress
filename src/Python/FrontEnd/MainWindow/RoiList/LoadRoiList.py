@@ -1,6 +1,6 @@
 import cv2
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from os import chdir, curdir
 
 from src.Python.BackEnd.ROI.Main.Point.Point import Point
@@ -55,6 +55,15 @@ class LoadRoiList(JsonHandling):
         except KeyError as e:
             self.logError(e)
             self.logError("Incorect Fille for Roi List Recreation")
-            # toDo proper errore as a mesageWindow
+
+            msg = QMessageBox()
+            msg.setWindowTitle("Incorect Fille for Roi List Recreation")
+            msg.setText("Incorect Fille for Roi List Recreation")
+            msg.setIcon(QMessageBox.Critical)
+            msg.setStandardButtons(QMessageBox.Cancel)
+
+            msg.exec_()
+
+
         finally:
             chdir(curentDirectory)
