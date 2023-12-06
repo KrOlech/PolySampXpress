@@ -17,7 +17,7 @@ class m(Loger):
     def mainNoTryCahch(self):
         self.app = QApplication(sys.argv)
 
-        self.app.setApplicationDisplayName("PolySampXpress beta-0.7")
+        self.app.setApplicationDisplayName("PolySampXpress 0.7")
 
         self.icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
 
