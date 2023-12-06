@@ -2,10 +2,10 @@ from abc import ABCMeta
 
 import cv2
 from numpy import ndarray, average, mean, clip, uint8
-from src.Python.ErrorHandling.CustomExceptions.Exceptions import NoCammeraConected
-from src.Python.BackEnd.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
-from src.Python.Symulators.CameraSymulator.CameraSimulator import CameraSimulator
-from src.Python.BackEnd.Camera.Configuration.Configuration import Configuration
+from Python.ErrorHandling.CustomExceptions.Exceptions import NoCammeraConected
+from Python.BackEnd.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
+from Python.Symulators.CameraSymulator.CameraSimulator import CameraSimulator
+from Python.BackEnd.Camera.Configuration.Configuration import Configuration
 
 
 class GetFrameUSB(AbstractGetFrame, Configuration):

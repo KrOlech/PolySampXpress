@@ -1,8 +1,8 @@
 from abc import ABCMeta
 from abc import abstractmethod
 
-from src.Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
-from src.Python.FrontEnd.MainWindow.CustomBar.MainWindowCustomBar import MainWindowCustomBar
+from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
+from Python.FrontEnd.MainWindow.CustomBar.MainWindowCustomBar import MainWindowCustomBar
 
 
 class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):

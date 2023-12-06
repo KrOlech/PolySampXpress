@@ -1,14 +1,14 @@
 from PyQt5.QtWidgets import QDesktopWidget
 
 from Python.BackEnd.MAP.Dialog.NoMapDialog import NoMapDialog
-from src.Python.FrontEnd.MainWindow.InicialisationFlag.MapFromHearWindow import MapFromHearWindow
-from src.Python.FrontEnd.MainWindow.InicialisationFlag.WindowCreateWorkFeald import WindowCreateWorkFeald
-from src.Python.BackEnd.MAP.Dialog.OwerideDialog import OwerideCurrentMapDialog
-from src.Python.FrontEnd.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
-from src.Python.BackEnd.MAP.Main.MapWindow import MapWindow
-from src.Python.FrontEnd.MainWindow.RoiList.MainWindowROIList import MainWindowROIList
-from src.Python.BackEnd.WorkFeald.Main.main import ReadPoleRobocze
-from src.Python.BackEnd.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
+from Python.FrontEnd.MainWindow.InicialisationFlag.MapFromHearWindow import MapFromHearWindow
+from Python.FrontEnd.MainWindow.InicialisationFlag.WindowCreateWorkFeald import WindowCreateWorkFeald
+from Python.BackEnd.MAP.Dialog.OwerideDialog import OwerideCurrentMapDialog
+from Python.FrontEnd.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
+from Python.BackEnd.MAP.Main.MapWindow import MapWindow
+from Python.FrontEnd.MainWindow.RoiList.MainWindowROIList import MainWindowROIList
+from Python.BackEnd.WorkFeald.Main.main import ReadPoleRobocze
+from Python.BackEnd.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
 
 
 class MainWindowInicialisationFlag(MainWindowROIList):

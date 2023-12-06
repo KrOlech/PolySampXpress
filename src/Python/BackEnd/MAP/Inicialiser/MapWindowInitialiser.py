@@ -5,10 +5,10 @@ from asyncio import sleep
 import numpy as np
 from numpy import ones
 
-from src.Python.BackEnd.MAP.Abstract.AbstractMapWindow import AbstractMapWindow
-from src.Python.BackEnd.MAP.Abstract.MapParams import MapParams
-from src.Python.BackEnd.MAP.Label.MapLabel import MapLabel
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BackEnd.MAP.Abstract.AbstractMapWindow import AbstractMapWindow
+from Python.BackEnd.MAP.Abstract.MapParams import MapParams
+from Python.BackEnd.MAP.Label.MapLabel import MapLabel
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class MapWindowInitialise(AbstractMapWindow, JsonHandling):

@@ -2,14 +2,14 @@ from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 
-from src.Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
-from src.Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
-from src.Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
-from src.Python.FrontEnd.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.SimpleDialogWindow import GoToCordsDialog
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.StepSizeDialog import SetStepSizeDialog
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.WaitDialoge import HomeAxisDialog
-from src.Python.Interface.ManipulatorInterfejs.Main.ManipulatorInterfejs import ManipulatorInterfere
+from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
+from Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
+from Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
+from Python.FrontEnd.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.SimpleDialogWindow import GoToCordsDialog
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.StepSizeDialog import SetStepSizeDialog
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.WaitDialoge import HomeAxisDialog
+from Python.Interface.ManipulatorInterfejs.Main.ManipulatorInterfejs import ManipulatorInterfere
 
 
 class MainWindowManipulatorInterfejs(CameraGUIExtension):

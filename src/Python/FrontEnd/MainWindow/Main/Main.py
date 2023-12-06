@@ -1,6 +1,6 @@
-from src.Python.FrontEnd.MainWindow.Zoom.MainWindowZoom import MainWindowZoom
-from src.Python.FrontEnd.MainWindow.InicialisationFlag.MainWindowIniciialisationFlag import MainWindowInicialisationFlag
-from src.Python.FrontEnd.MainWindow.RoiCreation.RoiCreation import MainWindowRoiCreationInterferes
+from Python.FrontEnd.MainWindow.Zoom.MainWindowZoom import MainWindowZoom
+from Python.FrontEnd.MainWindow.InicialisationFlag.MainWindowIniciialisationFlag import MainWindowInicialisationFlag
+from Python.FrontEnd.MainWindow.RoiCreation.RoiCreation import MainWindowRoiCreationInterferes
 
 
 class MainWindow(MainWindowInicialisationFlag,

@@ -2,7 +2,7 @@ import os
 
 from PyQt5.QtWidgets import QFileDialog
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from datetime import datetime
 from os import mkdir, chdir, curdir
 

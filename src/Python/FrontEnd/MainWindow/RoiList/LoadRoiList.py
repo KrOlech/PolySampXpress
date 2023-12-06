@@ -3,9 +3,9 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from os import chdir, curdir
 
-from src.Python.BackEnd.ROI.Main.Point.Point import Point
-from src.Python.BackEnd.ROI.Main.ROI.ROI import ROI
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BackEnd.ROI.Main.Point.Point import Point
+from Python.BackEnd.ROI.Main.ROI.ROI import ROI
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class LoadRoiList(JsonHandling):

@@ -1,8 +1,8 @@
-from src.Python.FrontEnd.MainWindow.RoiList.LoadRoiList import LoadRoiList
-from src.Python.FrontEnd.MainWindow.RoiList.SaveRoiList import SaveRoiList
-from src.Python.FrontEnd.MainWindow.ManipulatorInterfejs.MainWindowManipulatorInterfejs import \
+from Python.FrontEnd.MainWindow.RoiList.LoadRoiList import LoadRoiList
+from Python.FrontEnd.MainWindow.RoiList.SaveRoiList import SaveRoiList
+from Python.FrontEnd.MainWindow.ManipulatorInterfejs.MainWindowManipulatorInterfejs import \
     MainWindowManipulatorInterfejs
-from src.Python.BackEnd.ROI.List.ROIList import ROIList
+from Python.BackEnd.ROI.List.ROIList import ROIList
 from functools import cache
 
 

@@ -1,6 +1,6 @@
 from ctypes import c_int, Structure, c_char_p, c_void_p, POINTER, c_long, windll
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class AbstractCameraFromProducent:

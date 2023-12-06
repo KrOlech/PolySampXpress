@@ -1,8 +1,8 @@
-from src.Python.BackEnd.Calibration.DialogWindow.ResultWindow.CalibrationResultWindowNoResults import \
+from Python.BackEnd.Calibration.DialogWindow.ResultWindow.CalibrationResultWindowNoResults import \
     CalibrationResultWindowNoResults
-from src.Python.BackEnd.Calibration.CalibrationFunctions.Calibration import Calibrate
-from src.Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
-from src.Python.BackEnd.Calibration.DialogWindow.ResultWindow.CalibrationResultWindow import CalibrationResultsDialog
+from Python.BackEnd.Calibration.CalibrationFunctions.Calibration import Calibrate
+from Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
+from Python.BackEnd.Calibration.DialogWindow.ResultWindow.CalibrationResultWindow import CalibrationResultsDialog
 
 
 class CalibrateAsync(Calibrate):

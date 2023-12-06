@@ -1,6 +1,6 @@
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class WorkFaldLabel(QWidget):

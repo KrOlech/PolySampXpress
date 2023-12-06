@@ -2,7 +2,7 @@ import json
 from abc import ABCMeta
 from os.path import abspath
 
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class JsonHandling(Loger):
@@ -46,11 +46,9 @@ class JsonHandling(Loger):
         return borderX["min"], borderY["min"]
 
     @staticmethod
-    def getFileLocation(file) -> str: #todo Corection for compilation
-        config = r"\Config"
-        fullPath = abspath(__file__)
-        fullPath = fullPath[:fullPath.rfind('src')]
-        return fullPath + config + "\\" + file
+    def getFileLocation(file) -> str:
+        expectedLocation = r"C:\Program Files\PollsampleX\Config"
+        return expectedLocation + "\\" + file
 
     @staticmethod
     def readFile(filePath) -> dict:

@@ -1,8 +1,8 @@
 from abc import ABCMeta
 from functools import cache
 
-from src.Python.BackEnd.ROI.RenameWindow.RenameWidnow import ReNameWindow
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BackEnd.ROI.RenameWindow.RenameWidnow import ReNameWindow
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class NameHandling(Loger):

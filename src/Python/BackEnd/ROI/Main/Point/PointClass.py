@@ -1,9 +1,9 @@
 import cv2
 from PyQt5.QtCore import QPoint, QLine
 
-from src.Python.BackEnd.ROI.Main.Cursor.Cursor import Cursor
-from src.Python.BackEnd.ROI.Main.Edit.PointEdit import PointEdit
-from src.Python.BackEnd.ROI.Main.NameHandling.NameHandling import NameHandling
+from Python.BackEnd.ROI.Main.Cursor.Cursor import Cursor
+from Python.BackEnd.ROI.Main.Edit.PointEdit import PointEdit
+from Python.BackEnd.ROI.Main.NameHandling.NameHandling import NameHandling
 
 
 class Point(PointEdit, NameHandling, Cursor):

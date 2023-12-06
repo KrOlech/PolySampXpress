@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import QLabel
 
-from src.Python.BackEnd.Calibration.DialogWindow.AbstractWindow.AbstractWindow import AbstractWindow
-from src.Python.BackEnd.Calibration.Propertis.Propertis import CalibrateProperty
+from Python.BackEnd.Calibration.DialogWindow.AbstractWindow.AbstractWindow import AbstractWindow
+from Python.BackEnd.Calibration.Propertis.Propertis import CalibrateProperty
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class CalibrationResultsDialog(AbstractWindow, JsonHandling, CalibrateProperty):

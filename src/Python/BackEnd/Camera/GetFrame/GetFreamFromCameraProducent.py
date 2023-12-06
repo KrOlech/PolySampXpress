@@ -3,8 +3,8 @@ from ctypes import c_int, POINTER, c_long, c_ubyte, cast, sizeof, c_uint8
 from pygetwindow import getWindowsWithTitle
 from numpy import ndarray, uint8
 
-from src.Python.BackEnd.Camera.FromProducent.Abstract import AbstractCameraFromProducent
-from src.Python.BackEnd.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
+from Python.BackEnd.Camera.FromProducent.Abstract import AbstractCameraFromProducent
+from Python.BackEnd.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
 
 
 class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):

@@ -1,6 +1,6 @@
-from src.Python.Zoom.FrontEnd.ZoomLabel import ZoomLabel
-from src.Python.Zoom.FrontEnd.ZoomSlider import ZoomSlider
-from src.Python.Zoom.Interface.DialogWindow import ZoomChangeDialogWindow
+from Python.Zoom.FrontEnd.ZoomLabel import ZoomLabel
+from Python.Zoom.FrontEnd.ZoomSlider import ZoomSlider
+from Python.Zoom.Interface.DialogWindow import ZoomChangeDialogWindow
 
 
 class ZoomInterface:

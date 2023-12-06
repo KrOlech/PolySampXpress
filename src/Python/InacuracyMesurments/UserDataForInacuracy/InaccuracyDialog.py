@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QRadioButton, QLabel
 
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 
 
 class InaccuracyDialog(AbstractDialogMaster):

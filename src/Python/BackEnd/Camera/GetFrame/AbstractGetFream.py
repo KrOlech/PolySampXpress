@@ -3,7 +3,7 @@ from abc import abstractmethod, ABCMeta
 import cv2
 from numpy import ndarray, zeros_like, uint8
 
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class AbstractGetFrame(Loger):

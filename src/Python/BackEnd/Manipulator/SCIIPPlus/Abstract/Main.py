@@ -1,8 +1,8 @@
 from abc import ABCMeta
 from ctypes import CDLL
 
-from src.Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
-from src.Python.BackEnd.Manipulator.SCIIPPlus.CPPClasys.DllFunction.DllFunction import DllFunctions
+from Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
+from Python.BackEnd.Manipulator.SCIIPPlus.CPPClasys.DllFunction.DllFunction import DllFunctions
 
 
 class SCIManipulator(AbstractManipulator, DllFunctions):

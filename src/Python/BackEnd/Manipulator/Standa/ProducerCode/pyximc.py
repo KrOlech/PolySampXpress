@@ -1,7 +1,7 @@
 from ctypes import *
 import platform
 import sys
-from src.Python.BackEnd.Manipulator.Standa.ProducerCode.FildsClass import device_enumeration_t
+from Python.BackEnd.Manipulator.Standa.ProducerCode.FildsClass import device_enumeration_t
 
 
 def ximc_shared_lib():

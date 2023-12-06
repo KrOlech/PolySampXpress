@@ -1,6 +1,6 @@
 from abc import ABCMeta
 
-from src.Python.BackEnd.ROI.Creation.ClickCreate.ClickCreateAbstract import ClickCreateAbstract
+from Python.BackEnd.ROI.Creation.ClickCreate.ClickCreateAbstract import ClickCreateAbstract
 
 
 class ClikcCreateScatter(ClickCreateAbstract):

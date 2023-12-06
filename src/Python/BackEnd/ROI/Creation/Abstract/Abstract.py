@@ -2,8 +2,8 @@ from abc import ABCMeta, abstractmethod
 
 from PyQt5.QtWidgets import QLabel
 
-from src.Python.BackEnd.ROI.Main.ROI.ROI import ROI
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BackEnd.ROI.Main.ROI.ROI import ROI
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class CreateRoiAbstract(QLabel, Loger):

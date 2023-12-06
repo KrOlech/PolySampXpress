@@ -1,5 +1,5 @@
-from src.Python.BackEnd.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
-from src.Python.BackEnd.ROI.Main.Point.PointClass import Point
+from Python.BackEnd.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
+from Python.BackEnd.ROI.Main.Point.PointClass import Point
 
 
 class RoiPoint(CreateRoiAbstract):

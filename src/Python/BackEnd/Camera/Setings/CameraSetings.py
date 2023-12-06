@@ -2,11 +2,11 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QLabel, QFormLayout
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.BackEnd.Camera.Setings.CameraSetingsFromProducent import CameraSettingsFromProducent
-from src.Python.BackEnd.Camera.Slider.SliderCommunicationPoint import SliderCommunicationPoint
-from src.Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BackEnd.Camera.Setings.CameraSetingsFromProducent import CameraSettingsFromProducent
+from Python.BackEnd.Camera.Slider.SliderCommunicationPoint import SliderCommunicationPoint
+from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
+from Python.BaseClass.Logger.Logger import Loger
 
 class CameraSettingsWindow(QWidget, CameraSettingsFromProducent, Loger):
 

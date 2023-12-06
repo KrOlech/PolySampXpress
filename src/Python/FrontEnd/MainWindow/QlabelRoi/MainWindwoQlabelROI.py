@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout
 
-from src.Python.FrontEnd.MainWindow.CamerGUI.CameraGUI import CameraGUI
-from src.Python.FrontEnd.MainWindow.Utilitis.QlabelExtendetManipulatorMenu import QlabelRightClickMenu
+from Python.FrontEnd.MainWindow.CamerGUI.CameraGUI import CameraGUI
+from Python.FrontEnd.MainWindow.Utilitis.QlabelExtendetManipulatorMenu import QlabelRightClickMenu
 
 
 class CameraGUIExtension(CameraGUI):

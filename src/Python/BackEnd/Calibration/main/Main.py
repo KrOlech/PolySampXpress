@@ -1,5 +1,5 @@
-from src.Python.BackEnd.Calibration.DialogWindow.waitWindow.DialogWindow import CalibrationDialog
-from src.Python.BackEnd.Calibration.asyncFunctionality.CalibrateAsync import CalibrateAsync
+from Python.BackEnd.Calibration.DialogWindow.waitWindow.DialogWindow import CalibrationDialog
+from Python.BackEnd.Calibration.asyncFunctionality.CalibrateAsync import CalibrateAsync
 
 
 class MainCalibrate(CalibrateAsync):

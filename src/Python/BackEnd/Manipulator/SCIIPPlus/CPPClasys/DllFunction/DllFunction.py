@@ -1,7 +1,7 @@
 from ctypes import CDLL, c_double, byref, c_long, c_char_p, c_int
 from functools import cache
 
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class DllFunctions(Loger):

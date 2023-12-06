@@ -1,10 +1,10 @@
 from PyQt5 import QtWidgets, QtCore
 
-from src.Python.BackEnd.Camera.Main.Camera import Camera
-from src.Python.BackEnd.Camera.Setings.CameraSetings import CameraSettingsWindow
-from src.Python.FrontEnd.MainWindow.CustomBar.MainWindowMenuBar import MainWindowMenuBar
-from src.Python.BackEnd.Calibration.main.Main import MainCalibrate
-from src.Python.BackEnd.Camera.SimpleViue.View import SimpleView
+from Python.BackEnd.Camera.Main.Camera import Camera
+from Python.BackEnd.Camera.Setings.CameraSetings import CameraSettingsWindow
+from Python.FrontEnd.MainWindow.CustomBar.MainWindowMenuBar import MainWindowMenuBar
+from Python.BackEnd.Calibration.main.Main import MainCalibrate
+from Python.BackEnd.Camera.SimpleViue.View import SimpleView
 
 
 class CameraGUI(MainWindowMenuBar):

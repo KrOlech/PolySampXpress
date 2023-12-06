@@ -1,6 +1,6 @@
-from src.Python.BackEnd.Manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
-from src.Python.BackEnd.Manipulator.Standa.StandaManipulator import StandaManipulator
-from src.Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
+from Python.BackEnd.Manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
+from Python.BackEnd.Manipulator.Standa.StandaManipulator import StandaManipulator
+from Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 
 
 class SelectManipulator:

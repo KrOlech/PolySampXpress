@@ -3,13 +3,13 @@ import platform
 import sys
 from ctypes import create_string_buffer, byref, string_at, c_uint, CDLL, WinDLL, cast, POINTER, c_int
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.BackEnd.Manipulator.Standa.Filds.DeviceInformation import DeviceInformation
-from src.Python.BackEnd.Manipulator.Standa.Filds.Status import StatusFild
-from src.Python.BackEnd.Manipulator.Standa.Abstract.AbstractStandaManipulator import AbstractStandaManipulator
-from src.Python.BackEnd.Manipulator.Standa.Filds.Calibration import Calibration
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BackEnd.Manipulator.Standa.Filds.DeviceInformation import DeviceInformation
+from Python.BackEnd.Manipulator.Standa.Filds.Status import StatusFild
+from Python.BackEnd.Manipulator.Standa.Abstract.AbstractStandaManipulator import AbstractStandaManipulator
+from Python.BackEnd.Manipulator.Standa.Filds.Calibration import Calibration
 
-from src.Python.BackEnd.Manipulator.Standa.Filds.EngineSettings import EngineSettings
+from Python.BackEnd.Manipulator.Standa.Filds.EngineSettings import EngineSettings
 
 
 class StandaManipulatorInitialisation(AbstractStandaManipulator):

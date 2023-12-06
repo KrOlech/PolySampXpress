@@ -1,5 +1,5 @@
-from src.Python.BackEnd.Camera.GetFrame.GetFrameUSB import GetFrameUSB
-from src.Python.BackEnd.Camera.GetFrame.GetFreamFromCameraProducent import GetFrameFromProducent
+from Python.BackEnd.Camera.GetFrame.GetFrameUSB import GetFrameUSB
+from Python.BackEnd.Camera.GetFrame.GetFreamFromCameraProducent import GetFrameFromProducent
 
 
 class GetFrame(GetFrameFromProducent, GetFrameUSB):

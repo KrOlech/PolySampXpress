@@ -1,4 +1,4 @@
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class MapParams(JsonHandling):

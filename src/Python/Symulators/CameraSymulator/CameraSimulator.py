@@ -1,6 +1,6 @@
 import cv2
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class CameraSimulator:

@@ -1,7 +1,7 @@
 from ctypes import byref
 
-from src.Python.BackEnd.Manipulator.Standa.InicialisationClass import StandaManipulatorInitialisation
-from src.Python.BackEnd.Manipulator.Standa.ProducerCode.FildsClass import get_position_t
+from Python.BackEnd.Manipulator.Standa.InicialisationClass import StandaManipulatorInitialisation
+from Python.BackEnd.Manipulator.Standa.ProducerCode.FildsClass import get_position_t
 
 
 class StandaManipulator(StandaManipulatorInitialisation):

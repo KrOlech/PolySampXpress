@@ -2,7 +2,7 @@ from time import sleep
 
 from PyQt5.QtCore import pyqtSignal, QThread
 
-from src.Python.BackEnd.ThreadWorker.Sleeper.SimpleSleeper import SimpleSleeper
+from Python.BackEnd.ThreadWorker.Sleeper.SimpleSleeper import SimpleSleeper
 
 
 class SleeperFun(SimpleSleeper):

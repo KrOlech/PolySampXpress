@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QObject, pyqtSignal, QThread
 from abc import abstractmethod
 
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class Worker(QObject, Loger):

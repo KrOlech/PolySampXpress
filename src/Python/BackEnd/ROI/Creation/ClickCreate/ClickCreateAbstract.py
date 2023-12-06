@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.BackEnd.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BackEnd.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
 
 
 class ClickCreateAbstract(CreateRoiAbstract):

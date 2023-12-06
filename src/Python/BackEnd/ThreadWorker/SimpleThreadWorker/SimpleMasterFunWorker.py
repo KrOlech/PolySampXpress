@@ -1,6 +1,6 @@
 from PyQt5.QtCore import QThread
 
-from src.Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import FunWorker
+from Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import FunWorker
 
 
 class SimpleMasterFunWorker(FunWorker):

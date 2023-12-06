@@ -5,11 +5,11 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import QRect, QPoint, QLine
 from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor, QFont
 
-from src.Python.BackEnd.ROI.Main.Point.Point import Point
-from src.Python.BackEnd.ROI.Main.ROI.ROI import ROI
-from src.Python.FrontEnd.MainWindow.RightClickMenu.Label import RightClickLabel
-from src.Python.FrontEnd.MainWindow.RightClickMenu.RightClickMenu import RightMenu
-from src.Python.BackEnd.ROI.Creation.main.CreateRoi import CreateRoi
+from Python.BackEnd.ROI.Main.Point.Point import Point
+from Python.BackEnd.ROI.Main.ROI.ROI import ROI
+from Python.FrontEnd.MainWindow.RightClickMenu.Label import RightClickLabel
+from Python.FrontEnd.MainWindow.RightClickMenu.RightClickMenu import RightMenu
+from Python.BackEnd.ROI.Creation.main.CreateRoi import CreateRoi
 
 
 class QlabelROI(RightClickLabel, CreateRoi):

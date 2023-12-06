@@ -1,9 +1,9 @@
 from Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleMasterFunWorker import workFunWorkerMaster
-from src.Python.InacuracyMesurments.UserDataForInacuracy.InaccuracyDialog import InaccuracyDialog
-from src.Python.InacuracyMesurments.InfoWindow.InacuracyResultWindow import InacuracyResultWindow
-from src.Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
-from src.Python.InacuracyMesurments.InfoWindow.InaccuracyEnforcementsWindow import InaccuracyEnforcementsWindow
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.InacuracyMesurments.UserDataForInacuracy.InaccuracyDialog import InaccuracyDialog
+from Python.InacuracyMesurments.InfoWindow.InacuracyResultWindow import InacuracyResultWindow
+from Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
+from Python.InacuracyMesurments.InfoWindow.InaccuracyEnforcementsWindow import InaccuracyEnforcementsWindow
+from Python.BaseClass.Logger.Logger import Loger
 from random import randint
 
 

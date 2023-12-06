@@ -1,4 +1,4 @@
-from src.Python.BackEnd.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
+from Python.BackEnd.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
 
 
 class PointerMode(CreateRoiAbstract):

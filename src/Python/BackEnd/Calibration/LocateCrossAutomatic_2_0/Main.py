@@ -1,7 +1,7 @@
 from cv2 import cvtColor, COLOR_BGR2GRAY
 from numpy import array, transpose, linspace
 
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.Logger.Logger import Loger
 from matplotlib import pyplot as plt
 
 
@@ -69,7 +69,7 @@ class LocateCross(Loger):
 
 
 if __name__ == "__main__":
-    from src.Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.dumyCamera import dumyCamera
+    from Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.dumyCamera import dumyCamera
 
     main = dumyCamera()
     loc = LocateCross(main)

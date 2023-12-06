@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 
-from src.Python.BaseClass.Slider.LabeledSlider import LabeledSlider
+from Python.BaseClass.Slider.LabeledSlider import LabeledSlider
 
 
 class ZoomSlider(LabeledSlider):

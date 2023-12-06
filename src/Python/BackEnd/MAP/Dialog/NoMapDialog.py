@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QLabel
 
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.Abstract import AbstractDialog
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.Abstract import AbstractDialog
 
 
 class NoMapDialog(AbstractDialog):

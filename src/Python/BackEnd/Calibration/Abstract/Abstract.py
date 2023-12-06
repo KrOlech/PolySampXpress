@@ -2,9 +2,9 @@ from abc import ABCMeta
 import cv2 as cv
 from numpy import mean
 
-from src.Python.BackEnd.Calibration.Abstract.TemplateMatching import TemplateMatching
-from src.Python.BackEnd.Calibration.Propertis.Propertis import CalibrateProperty
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BackEnd.Calibration.Abstract.TemplateMatching import TemplateMatching
+from Python.BackEnd.Calibration.Propertis.Propertis import CalibrateProperty
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class AbstractCalibrate(JsonHandling, CalibrateProperty, TemplateMatching):

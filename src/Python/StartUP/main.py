@@ -3,9 +3,9 @@ import sys
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.FrontEnd.MainWindow.Main.Main import MainWindow
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.FrontEnd.MainWindow.Main.Main import MainWindow
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class m(Loger):

@@ -1,5 +1,5 @@
-from src.Python.BackEnd.ROI.Main.Abstract.AbstractROI import AbstractROI
-from src.Python.BackEnd.ROI.Main.Edit.Abstract import AbstractEdit
+from Python.BackEnd.ROI.Main.Abstract.AbstractROI import AbstractROI
+from Python.BackEnd.ROI.Main.Edit.Abstract import AbstractEdit
 
 
 class ROIEdit(AbstractROI, AbstractEdit):

@@ -1,5 +1,5 @@
-from src.Python.BackEnd.ROI.Main.Abstract.AbstractPoint import AbstractPoint
-from src.Python.BackEnd.ROI.Main.Edit.Abstract import AbstractEdit
+from Python.BackEnd.ROI.Main.Abstract.AbstractPoint import AbstractPoint
+from Python.BackEnd.ROI.Main.Edit.Abstract import AbstractEdit
 
 
 class PointEdit(AbstractPoint, AbstractEdit):

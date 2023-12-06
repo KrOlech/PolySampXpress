@@ -1,10 +1,10 @@
 import cv2
 from PyQt5.QtCore import QRect, QPoint
 
-from src.Python.BackEnd.ROI.Main.Abstract.AbstractROI import AbstractROI
-from src.Python.BackEnd.ROI.Main.Cursor.Cursor import Cursor
-from src.Python.BackEnd.ROI.Main.Edit.ROIEdit import ROIEdit
-from src.Python.BackEnd.ROI.Main.NameHandling.NameHandling import NameHandling
+from Python.BackEnd.ROI.Main.Abstract.AbstractROI import AbstractROI
+from Python.BackEnd.ROI.Main.Cursor.Cursor import Cursor
+from Python.BackEnd.ROI.Main.Edit.ROIEdit import ROIEdit
+from Python.BackEnd.ROI.Main.NameHandling.NameHandling import NameHandling
 
 
 class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):

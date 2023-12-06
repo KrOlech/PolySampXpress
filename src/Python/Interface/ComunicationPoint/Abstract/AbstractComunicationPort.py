@@ -2,7 +2,7 @@ from abc import abstractmethod
 
 import cv2
 
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class AbstractCommunicationPoint(Loger):

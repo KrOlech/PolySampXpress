@@ -1,6 +1,6 @@
 from abc import ABCMeta
 
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.Abstract import AbstractDialog
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.Abstract import AbstractDialog
 
 
 class AbstractDialogMaster(AbstractDialog):

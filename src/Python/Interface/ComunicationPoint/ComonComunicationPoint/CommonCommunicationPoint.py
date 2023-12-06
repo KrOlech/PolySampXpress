@@ -1,6 +1,6 @@
 import cv2
 
-from src.Python.Interface.ComunicationPoint.Abstract.AbstractComunicationPort import AbstractCommunicationPoint
+from Python.Interface.ComunicationPoint.Abstract.AbstractComunicationPort import AbstractCommunicationPoint
 
 
 class CommonCommunicationPoint(AbstractCommunicationPoint):

@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QLabel
 
-from src.Python.BackEnd.Calibration.DialogWindow.AbstractWindow.AbstractWindow import AbstractWindow
+from Python.BackEnd.Calibration.DialogWindow.AbstractWindow.AbstractWindow import AbstractWindow
 
 
 class InacuracyResultWindow(AbstractWindow):

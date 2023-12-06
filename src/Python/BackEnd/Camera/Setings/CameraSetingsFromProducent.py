@@ -1,4 +1,4 @@
-from src.Python.BackEnd.Camera.FromProducent.Abstract import AbstractCameraFromProducent
+from Python.BackEnd.Camera.FromProducent.Abstract import AbstractCameraFromProducent
 
 
 class CameraSettingsFromProducent(AbstractCameraFromProducent):

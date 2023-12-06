@@ -4,16 +4,16 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QEvent
 
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.BaseClass.Depracation.DepractionFactory import deprecated
-from src.Python.BackEnd.ROI.Creation.ClickCreate.PointerMode import PointerMode
-from src.Python.BackEnd.ROI.Main.Point.PointClass import Point
-from src.Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
-from src.Python.BackEnd.ROI.Creation.ClickCreate.ClickCreateScatter import ClikcCreateScatter
-from src.Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateScatter import SimpleCreateScatter
-from src.Python.BackEnd.ROI.Creation.ClickCreate.ClikcCreateRoi import ClikcCreateRoi
-from src.Python.BackEnd.ROI.Creation.Edit.RoiEdit import RoiEdit
-from src.Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleCreateRoi
-from src.Python.BackEnd.ROI.Main.Point.Point import RoiPoint
+from Python.BaseClass.Depracation.DepractionFactory import deprecated
+from Python.BackEnd.ROI.Creation.ClickCreate.PointerMode import PointerMode
+from Python.BackEnd.ROI.Main.Point.PointClass import Point
+from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
+from Python.BackEnd.ROI.Creation.ClickCreate.ClickCreateScatter import ClikcCreateScatter
+from Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateScatter import SimpleCreateScatter
+from Python.BackEnd.ROI.Creation.ClickCreate.ClikcCreateRoi import ClikcCreateRoi
+from Python.BackEnd.ROI.Creation.Edit.RoiEdit import RoiEdit
+from Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleCreateRoi
+from Python.BackEnd.ROI.Main.Point.Point import RoiPoint
 
 
 class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreateScatter, ClikcCreateScatter,

@@ -1,9 +1,9 @@
 import cv2
 from PyQt5.QtCore import Qt
 
-from src.Python.Interface.ManipulatorInterfejs.Abstract.AbstractManipulatroInterfejs import \
+from Python.Interface.ManipulatorInterfejs.Abstract.AbstractManipulatroInterfejs import \
     AbstractManipulatorInterferes
-from src.Python.Interface.ManipulatorInterfejs.Selection.Select import SelectManipulator
+from Python.Interface.ManipulatorInterfejs.Selection.Select import SelectManipulator
 
 
 class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):

@@ -3,12 +3,12 @@ from PyQt5.QtCore import Qt, QSize, QLine, QPoint
 from PyQt5.QtGui import QPainter, QBrush, QColor, QFont, QIcon
 from PyQt5.QtWidgets import QLabel, QSizeGrip
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.BaseClass.Logger.Logger import Loger
-from src.Python.BackEnd.ROI.Main.Point.PointClass import Point
-from src.Python.BackEnd.ROI.Main.ROI.ROI import ROI
-from src.Python.BackEnd.MAP.Label.WaitWindow import WaitWindow
-from src.Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.Logger.Logger import Loger
+from Python.BackEnd.ROI.Main.Point.PointClass import Point
+from Python.BackEnd.ROI.Main.ROI.ROI import ROI
+from Python.BackEnd.MAP.Label.WaitWindow import WaitWindow
+from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
 
 
 class MapLabel(QLabel, Loger):

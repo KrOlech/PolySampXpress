@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class DataBaseReader(Loger, dict):

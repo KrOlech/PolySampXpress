@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QPoint
 
-from src.Python.Zoom.Interface.ZoomInterface import ZoomInterface
-from src.Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
+from Python.Zoom.Interface.ZoomInterface import ZoomInterface
+from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 
 
 class MainWindowZoom(MainWindowAbstract):

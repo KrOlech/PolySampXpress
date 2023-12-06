@@ -2,9 +2,9 @@ import sys
 
 from PyQt5.QtWidgets import QApplication
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
-from src.Python.FrontEnd.MainWindow.Main.Main import MainWindow
+from Python.FrontEnd.MainWindow.Main.Main import MainWindow
 
 from time import sleep
 

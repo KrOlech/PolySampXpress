@@ -2,8 +2,8 @@ import asyncio
 from abc import ABCMeta
 from abc import abstractmethod
 
-from src.Python.ErrorHandling.CustomExceptions.Exceptions import InvalidSpeed
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.ErrorHandling.CustomExceptions.Exceptions import InvalidSpeed
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class AbstractManipulator(JsonHandling):

@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QAction
 
-from src.Python.BaseClass.Logger.Logger import Loger
-from src.Python.Interface.ManipulatorInterfejs.ManipulatorSlider.ManipulatorSlider import ManipulatorSlider
+from Python.BaseClass.Logger.Logger import Loger
+from Python.Interface.ManipulatorInterfejs.ManipulatorSlider.ManipulatorSlider import ManipulatorSlider
 
 
 class AbstractManipulatorInterferes(QWidget, Loger):

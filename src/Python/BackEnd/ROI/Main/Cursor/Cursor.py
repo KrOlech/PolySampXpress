@@ -3,7 +3,7 @@ from abc import ABCMeta
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication
 
-from src.Python.BackEnd.ROI.Main.ComonNames.CommonNames import CommonNames
+from Python.BackEnd.ROI.Main.ComonNames.CommonNames import CommonNames
 
 
 class Cursor(CommonNames):

@@ -3,7 +3,7 @@ from functools import cache
 
 from PyQt5.QtCore import QRect, QPoint, QLine
 
-from src.Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
+from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
 
 
 class AbstractPoint(AbstractR):

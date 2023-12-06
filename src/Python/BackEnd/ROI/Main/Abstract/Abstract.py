@@ -6,9 +6,9 @@ import numpy as np
 from PyQt5.QtGui import QImage, QPixmap
 from numpy import frombuffer
 
-from src.Python.BackEnd.ROI.Label.ROILable import ROILabel
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BackEnd.ROI.Label.ROILable import ROILabel
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class AbstractR(Loger):

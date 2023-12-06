@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QLabel
 
-from src.Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
-from src.Python.FrontEnd.Utilitis.ProgresBar import ProgresBar
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
+from Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
+from Python.FrontEnd.Utilitis.ProgresBar import ProgresBar
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 
 
 class InaccuracyEnforcementsWindow(AbstractDialogMaster):

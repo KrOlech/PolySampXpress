@@ -3,8 +3,8 @@ from PyQt5.QtWidgets import QMainWindow
 
 from PyQt5.QtCore import Qt
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
 
 
 class MainWindowCustomBar(QMainWindow):

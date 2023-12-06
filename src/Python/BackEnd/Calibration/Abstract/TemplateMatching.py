@@ -2,7 +2,7 @@ from abc import ABCMeta
 from numpy import where, arange
 import cv2
 
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class TemplateMatching(Loger):

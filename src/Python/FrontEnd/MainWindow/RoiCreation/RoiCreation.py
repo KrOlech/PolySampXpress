@@ -2,8 +2,8 @@ from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 
-from src.Python.FrontEnd.MainWindow.RoiCreation.ScatterConfigureWindow import ScatterConfigureWindow
-from src.Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
+from Python.FrontEnd.MainWindow.RoiCreation.ScatterConfigureWindow import ScatterConfigureWindow
+from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 
 
 class MainWindowRoiCreationInterferes(MainWindowAbstract):

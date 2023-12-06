@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt
 
-from src.Python.BaseClass.Slider.Slider import Slider
+from Python.BaseClass.Slider.Slider import Slider
 
 
 class ManipulatorSlider(Slider):
