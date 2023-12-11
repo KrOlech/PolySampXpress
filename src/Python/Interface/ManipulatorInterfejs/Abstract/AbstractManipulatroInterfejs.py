@@ -136,9 +136,13 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     def center(self, x, y):
         self._manipulator.center(x, y)
 
-    def zoomManipulatorChange(self, cords):
+    async def zoomManipulatorChange(self, cords):
+        self._zoomManipulator.x = 0
+        self._zoomManipulator.gotoNotAsync()
+        self._zoomManipulator.waitForTarget()
         self._zoomManipulator.x = self._zoomManipulator.ZoomStepsMap[cords]
         self._zoomManipulator.gotoNotAsync()
+        self._zoomManipulator.waitForTarget()
 
     def fokusManipulatorChange(self):
         self._focusManipulator.gotoNotAsync()
