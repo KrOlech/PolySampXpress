@@ -16,7 +16,7 @@ class StandaManipulator(StandaManipulatorInitialisation):
         self.loger("Standa Resived Position: " + repr(result))
 
         try:
-            pos = self.readFile("StandaPosition.json")
+            pos = self.readFile(f"StandaPosition_{self.device_id}.json")
             self.x = pos["x"]
             self.y = pos["y"]
             self.z = pos["z"]
