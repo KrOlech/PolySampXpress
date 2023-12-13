@@ -11,7 +11,7 @@ class NameHandling(Loger):
 
     def __init__(self, *args, **kwargs):
         self.name = kwargs['name']
-        self.__textedit = ReNameWindow(self, text=str(self.name))
+        self.__textedit = ReNameWindow(self, kwargs['master'], text=str(self.name))
 
     def GetTextLocation(self, x, y):
         dx, dy = self.calculateOffset(x, y)
