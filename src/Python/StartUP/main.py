@@ -28,8 +28,6 @@ class m(Loger):
 
         self.mainWindow.show()
 
-        self.mainWindow.readWorkFieldWindow.show()
-
         self.app.exec_()
 
     def trySavingRoiList(self):

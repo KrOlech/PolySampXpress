@@ -53,6 +53,11 @@ class MainWindowInicialisationFlag(MainWindowROIList):
             self.workFildMenu.addAction(action)
             self.workFildActions.append(action)
 
+        try:
+            self.togle(0)
+        except Exception as e:
+            self.logError(e)
+
     def closeAction(self):
         super(MainWindowInicialisationFlag, self).closeAction()
         if self.mapWindowObject:

@@ -8,21 +8,12 @@ from Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workF
 class ReadPoleRobocze:
 
     def __init__(self, mainWindow, windowSize):
-
         self.mainWindow = mainWindow
 
         self.workFields = JsonHandling.loadPolaRoboczeJson()
 
         self.GUI = WorkFilledGui(self.workFields, windowSize)
         self.GUI.setWindowFlag(Qt.Popup)
-
-        workFunWorker(self, self.__threadWaitForInicialisation)
-
-    def __threadWaitForInicialisation(self):
-        while True:
-            if self.GUI.valueSet:
-                self.showMain()
-                break
 
     def show(self):
         self.GUI.show()

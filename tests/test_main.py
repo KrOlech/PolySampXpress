@@ -16,8 +16,6 @@ def test_Main_Close():
 
     mainWindow.show()
 
-    mainWindow.readWorkFieldWindow.show()
-
     sleep(5)
 
     mainWindow.TestClose()
