@@ -1,6 +1,6 @@
-from Python.BackEnd.Manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
-from Python.BackEnd.Manipulator.Standa.StandaManipulator import StandaManipulator
-from Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
+from src.Python.BackEnd.Manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
+from src.Python.BackEnd.Manipulator.Standa.StandaManipulator import StandaManipulator
+from src.Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 
 
 class SelectManipulator:
@@ -14,7 +14,7 @@ class SelectManipulator:
             self):
         self._manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
         if not self._manipulator.initState:
-            self._manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
+       	    self._manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
         self._focusManipulator = StandaManipulator(self.FOCUS_MANIPULATOR_ADDRESS, self.windowSize, self.myStatusBar)
         if not self._focusManipulator.manipulatorConnected:
