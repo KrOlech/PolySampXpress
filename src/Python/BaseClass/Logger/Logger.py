@@ -5,6 +5,17 @@ from datetime import datetime
 
 class Loger:
 
+    def logStart(self):
+        self._logImportant(" Program Starting ", (41, 42))
+
+    def logEnd(self):
+        self._logImportant(" Program Stoping ", (41, 42))
+
+    def _logImportant(self, mesage, offset=(42, 42)):
+        self.loger("#" * 100)
+        self.loger("#" * offset[0] + mesage + "#" * offset[1])
+        self.loger("#" * 100)
+
     def loger(self, *message):
         self.__log(*message, state="log")
 
@@ -26,8 +37,8 @@ class Loger:
 
         print(info)
 
-        with open(f"{datetime.now().day}-{datetime.now().year}-{datetime.now().month}.log","a") as file:
-            file.write(info+"\n")
+        with open(f"{datetime.now().day}-{datetime.now().year}-{datetime.now().month}.log", "a") as file:
+            file.write(info + "\n")
 
     @staticmethod
     def isDebuggerActive() -> bool:
