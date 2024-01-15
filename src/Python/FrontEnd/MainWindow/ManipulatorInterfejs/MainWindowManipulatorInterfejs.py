@@ -1,6 +1,6 @@
 from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QLabel, QPushButton
 
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
@@ -99,6 +99,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
     def __manipulatorButtons(self):
         self.manipulatorButtons = self.manipulatorInterferes.createButtons(70)
+        self.focusButtons = self.manipulatorInterferes.crateFocusButtons()
         self.focusSlider = self.manipulatorInterferes.createFocusSlider()
 
         positions = [self.geometry().bottomRight() - button.geometry().bottomRight() - offset for
@@ -109,7 +110,16 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         self.focusSlider.move(self.geometry().bottomRight() -
                               self.focusSlider.geometry().bottomRight()
-                              - QPoint(300 + self.focusSlider.width(), 35))
+                              - QPoint(300 + self.focusSlider.width(),
+                                       35))  # todo full pruth calculation ja wiem ze to jest ok ale musi byc lepiej
+
+        self.focusButtons[0].move(self.geometry().bottomRight() -
+                                  self.focusButtons[0].geometry().bottomRight()
+                                  - QPoint(300 + self.focusButtons[0].width(), 55))
+
+        self.focusButtons[1].move(self.geometry().bottomRight() -
+                                  self.focusButtons[1].geometry().bottomRight()
+                                  - QPoint(300 + self.focusButtons[1].width(), self.focusSlider.height()+85))
 
     def rightMenu(self, pos):
         self.buttons = self.manipulatorInterferes.createButtons(100)
