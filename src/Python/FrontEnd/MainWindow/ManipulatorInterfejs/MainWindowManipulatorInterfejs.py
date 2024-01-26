@@ -44,6 +44,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         manipulatorMenu.addAction(setZeroPointManual)
         manipulatorMenu.addAction(calculateInaccuracy)
 
+        autoFocus = self.qActionCreate("&autoFocus", self.manipulatorInterferes.autoFokus)
+        self.cameraMenu.addAction(autoFocus)
+
     def __createAction(self, name, manipulatorSeFun):
         return self.qActionCreate(name, manipulatorSeFun, checkable=True)
 
@@ -119,7 +122,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         self.focusButtons[1].move(self.geometry().bottomRight() -
                                   self.focusButtons[1].geometry().bottomRight()
-                                  - QPoint(300 + self.focusButtons[1].width(), self.focusSlider.height()+85))
+                                  - QPoint(300 + self.focusButtons[1].width(), self.focusSlider.height() + 85))
 
     def rightMenu(self, pos):
         self.buttons = self.manipulatorInterferes.createButtons(100)

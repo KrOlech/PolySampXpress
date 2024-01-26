@@ -25,11 +25,12 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
         fileMenu.addAction(SaveROI)
 
         cameraSettings = self.qActionCreate("&All settings", self.showAllCameraSettings)
-        cameraMenu = self.menu.addMenu("&Camera settings")
-        cameraMenu.addAction(cameraSettings)
+        self.cameraMenu = self.menu.addMenu("&Camera settings")
+        self.cameraMenu.addAction(cameraSettings)
 
         cameraCalibration = self.qActionCreate("&Calibration", self.calibrate)
-        cameraMenu.addAction(cameraCalibration)
+        self.cameraMenu.addAction(cameraCalibration)
+
 
     @abstractmethod
     def showAllCameraSettings(self):
