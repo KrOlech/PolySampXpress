@@ -8,6 +8,7 @@ class MainWindow(MainWindowInicialisationFlag,
                  MainWindowZoom):
 
     def __init__(self, *args, **kwargs):
+        self.logStart()
         super().__init__(*args, **kwargs)
 
         self.createRoiModsMenu()

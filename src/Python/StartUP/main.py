@@ -8,7 +8,7 @@ from Python.FrontEnd.MainWindow.Main.Main import MainWindow
 from Python.BaseClass.Logger.Logger import Loger
 
 
-class m(Loger):
+class m(Loger):  # TODO better name
     mainWindow = None
 
     def __init__(self):
@@ -42,7 +42,6 @@ class m(Loger):
             self.logError(e)
             self.logWarning(
                 "ERROR During program runing unable to save ROI list")
-
 
     def main(self):
         try:

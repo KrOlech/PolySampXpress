@@ -67,8 +67,12 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         self.cameraView.afterInitialisation = True
         self.__UncheckAll()
         self.workFildActions[nr].setChecked(True)
-        self.fildParams = self.readWorkFieldWindow.workFields[nr]
-        self.loger(self.fildParams)
+        try:
+            self.fildParams = self.readWorkFieldWindow.workFields[nr]
+            self.loger(self.fildParams)
+        except ImportError as e:
+            self.logError(e)
+
 
     def __UncheckAll(self, State=False):
         for workFildAction in self.workFildActions:

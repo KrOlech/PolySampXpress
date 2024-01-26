@@ -78,10 +78,10 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         self._manipulator.down()
 
     def __fockus_key_up(self):
-        self._focusManipulator.up()
+        self._focusManipulator.left()
 
     def __focus_key_down(self):
-        self._focusManipulator.down()
+        self._focusManipulator.right()
 
     def __stop(self):
         self._manipulator.stop()

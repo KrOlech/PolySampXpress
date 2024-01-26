@@ -9,7 +9,7 @@ class StandaManipulator(StandaManipulatorInitialisation):
     def __init__(self, device_id_Address, screenSize, *args, **kwargs):
         super().__init__(device_id_Address, screenSize, *args, **kwargs)
 
-        self.setSpeed(100)
+        self.setSpeed(10)
 
         x_pos = get_position_t()
         result = self.lib.get_position(self.device_id, byref(x_pos))
