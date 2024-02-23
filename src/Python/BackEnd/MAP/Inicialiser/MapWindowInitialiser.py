@@ -95,10 +95,10 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         sizeIn_mm = [self.master.fildParams[1] - self.master.fildParams[0],
                      self.master.fildParams[3] - self.master.fildParams[2]]
 
-        sizeIn_px = [(wal * offset) + cam for wal, offset, cam in
+        sizeIn_px = [(wal * abs(offset)) + cam for wal, offset, cam in
                      zip(sizeIn_mm, self.mapParams.offsets, JsonHandling.loadCameraResolutionJson())]
 
-        self.realSizeIn_mm = [(wal / offset) for wal, offset in
+        self.realSizeIn_mm = [(wal / abs(offset)) for wal, offset in
                               zip(sizeIn_px, self.mapParams.offsets)]
 
         self.loger(f"work filld size in mm {sizeIn_mm}")
@@ -124,10 +124,12 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         # xOffset, yOffset = 590, 490
 
         xOffset, yOffset = self.loadOffsetsJson()
+        xOffset, yOffset = abs(xOffset), abs(yOffset)
 
         xMaxManipulator, yMaxanipulator = self.readManipulatorMax()
         dy = self.cameraFrameSizeX / xOffset
         dx = self.cameraFrameSizeY / yOffset
+        dy, dx = abs(dy), abs(dx)
         self.loger(f"cameraX: {self.cameraFrameSizeX} offsetx: {xOffset}")
         self.loger(f"cameraY: {self.cameraFrameSizeY} offsety: {yOffset}")
         self.loger(f"krok po Y {dx} krok po X {dy}")

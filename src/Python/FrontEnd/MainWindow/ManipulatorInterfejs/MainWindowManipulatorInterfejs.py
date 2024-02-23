@@ -90,7 +90,6 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         if self.testEventClose:
             self.closeAction()
             event.accept()
-            self.logEnd()
             return
 
         event.ignore()
