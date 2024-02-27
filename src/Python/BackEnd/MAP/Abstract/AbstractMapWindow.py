@@ -63,7 +63,9 @@ class AbstractMapWindow(Loger):
         return QPixmap.fromImage(qImage)
 
     def takePhoto(self):
-        return self.scalleFream(self.master.camera.getFrame())
+        frame = self.master.camera.getFrame()
+        cv2.imwrite(f"Map_{self.photoCount}.png",frame)
+        return self.scalleFream(frame)
 
     def scalleFream(self, frame):
         return cv2.resize(frame, self.scaledCameraFrameSize)

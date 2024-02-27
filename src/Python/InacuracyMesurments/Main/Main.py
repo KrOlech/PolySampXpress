@@ -83,5 +83,5 @@ class InaccuracyMeasurements(Loger):
 
             self.infoWindow.pbar.update()
 
-        self.master.manipulatorInterferes.goToCords(26, 0)
+        self.master.manipulatorInterferes.goToCords(0, 0)
         self.master.manipulatorInterferes.waitForTarget()
