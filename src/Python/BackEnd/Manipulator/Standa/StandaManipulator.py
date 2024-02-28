@@ -6,6 +6,8 @@ from Python.BackEnd.Manipulator.Standa.ProducerCode.FildsClass import get_positi
 
 class StandaManipulator(StandaManipulatorInitialisation):
 
+
+
     def __init__(self, device_id_Address, screenSize, *args, **kwargs):
         super().__init__(device_id_Address, screenSize, *args, **kwargs)
 
@@ -32,6 +34,9 @@ class StandaManipulator(StandaManipulatorInitialisation):
     def center(self, pozycja, pozycja2):
         self.lib.command_home(self.device_id)
 
+    def home(self):
+        self.lib.command_home(self.device_id)
+
     def validateSpeed(self, speed):
         return True
 
@@ -47,3 +52,6 @@ class StandaManipulator(StandaManipulatorInitialisation):
 
     def homeAxis(self):
         pass
+
+    def waitForTarget(self):
+        self.lib.command_wait_for_stop(self.device_id, 10)

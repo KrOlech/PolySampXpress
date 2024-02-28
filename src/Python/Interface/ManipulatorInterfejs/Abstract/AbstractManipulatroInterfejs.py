@@ -114,6 +114,8 @@ class AbstractManipulatorInterferes(QWidget, Loger):
 
     def waitForTarget(self):
         self._manipulator.waitForTarget()
+        self._focusManipulator.waitForTarget()
+        self._zoomManipulator.waitForTarget()
 
     def createButtons(self, transparency=40):
         buttons = [QPushButton(name, self.master.widget) for name in self.buttonsNames]

@@ -9,5 +9,6 @@ class AbstractCreateWorkFild:
 
         self.master.workFildMenu.addAction(action)
         self.master.workFildActions.append(action)
+        self.master.readWorkFieldWindow.workFields.append(field)
 
         self.master.togle(nrWorkFields)
