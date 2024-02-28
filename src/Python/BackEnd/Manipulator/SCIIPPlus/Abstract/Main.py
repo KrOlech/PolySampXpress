@@ -39,8 +39,9 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
 
     def goToMain(self):
         if not self.getMotorStateM([1, 0]):
-            self.goToPointM({1: self.x, 0: self.y})
-            self.loger({1: self.x, 0: self.y})
+            self.goToPointM({1: self.x - (self.y * 15771 * pow(10, -7)), 0: self.y})
+            self.loger('SCI Standard', {1: self.x, 0: self.y})
+            self.loger('SCI Corrected', {1: self.x - (self.y * 15771 * pow(10, -7)), 0: self.y})
             self.waitForTarget()
             self.x = self.getPosition(1)
             self.y = self.getPosition(0)
