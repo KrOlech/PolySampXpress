@@ -29,9 +29,9 @@ class RightMenu(QMenu):
 
     def createRoiMenus(self, rois):
 
-        names = ["Edit ROI", "Rename", "Center On", "Delete ROI"]
+        names = ["Edit ROI", "Rename", "Center On", "Delete ROI", "Edit Scatter"]
 
-        functions = ["edit", "rename", "centerOnMe", "delete"]
+        functions = ["edit", "rename", "centerOnMe", "delete", "editScatter"]
 
         for name, fun in zip(names, functions):
             menu = self.addMenu(str(name))
@@ -40,11 +40,12 @@ class RightMenu(QMenu):
                 action = menu.addAction(str(roi.name))
                 action.triggered.connect(roi.__getattribute__(fun))
 
+
     def createSingleRoiMenu(self, roi):
 
-        names = ["Edit ROI", "Rename", "Center On", "Delete ROI"]
+        names = ["Edit ROI", "Rename", "Center On", "Delete ROI", "Edit Scatter"]
 
-        functions = ["edit", "rename", "centerOnMe", "delete"]
+        functions = ["edit", "rename", "centerOnMe", "delete", "editScatter"]
 
         for name, fun in zip(names, functions):
             action = self.addAction(name+' '+str(roi.name))

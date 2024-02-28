@@ -9,12 +9,16 @@ from numpy import frombuffer
 from Python.BackEnd.ROI.Label.ROILable import ROILabel
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.BaseClass.Logger.Logger import Loger
+from Python.FrontEnd.MainWindow.RoiCreation.ScatterConfigureWindow import ScatterConfigureWindow
 
 
 class AbstractR(Loger):
     __metaclass__ = ABCMeta
 
     xOffset, yOffset = JsonHandling.loadOffsetsJson()
+
+    scatter = None
+    fileDict = None
 
     def __init__(self, *args, **kwargs):
         self.master = kwargs['master']
@@ -106,3 +110,9 @@ class AbstractR(Loger):
     @staticmethod
     def convertQimageToOpenCV(qimage):
         return AbstractR.convertQpixmapToOpenCV(AbstractR.convertQimageToQpixmap(qimage))
+
+    @abstractmethod
+    def editScatter(self):
+        self.scatter = True
+        self.fileDict["scatter"] = True
+        ScatterConfigureWindow(self.master).exec_()
