@@ -5,6 +5,8 @@ from Python.BackEnd.MAP.Inicialiser.MapWindowInitialiser import MapWindowInitial
 from PyQt5.QtWidgets import QFileDialog
 import cv2 as cv
 
+from Python.Utilitis.timer import timeit
+
 
 class MapWindow(MapWindowInitialise):
 
@@ -33,6 +35,7 @@ class MapWindow(MapWindowInitialise):
         self.master.isMapReadi = True
         self.master.creatingMap = False
 
+    @timeit
     def addFrame(self, frame):
 
         n = self.photoCount[0] * self.scaledCameraFrameSize[1]
@@ -44,27 +47,34 @@ class MapWindow(MapWindowInitialise):
         self.loger(f"photo shape {photoShape}")
 
         try:
-            if all(mozaikPieceShape):
+            if all([a == b for a, b in zip(mozaikPieceShape, photoShape)]):
                 self.mapNumpy[n: n + photoShape[0], m:m + photoShape[1]] = frame
-                self.mapNumpyBorders[n: n + photoShape[0], m:m + photoShape[1]] = frame
-            else:
-                raise NoPlaceToAddFreame()
+                #self.mapNumpyBorders[n: n + photoShape[0], m:m + photoShape[1]] = frame
 
-            self.drewLines(n, m, photoShape)
+            elif not all(mozaikPieceShape):
+                raise NoPlaceToAddFreame()
+            else:
+                self.addFrame(frame[:mozaikPieceShape[0], :mozaikPieceShape[1]])
+
+            #self.drewLines(n, m, photoShape)
 
         except NoPlaceToAddFreame as e:
             self.loger(e)
             self.missedFrames += 1
 
         except ValueError as e:
-            eStr = str(e)
-            if eStr.find("could not broadcast input array from shape") == 0:
-                self.loger("Frame need chopping")
-                x, y, z = self.decodeEroreMesage(eStr)
-                self.loger(f"Decoded frame size {x}, {y}, {z}")
-                self.addFrame(frame[:x, :y])
-            else:
-                self.loger(e)
+            self.__errorHandling(e, frame)
+
+    @timeit
+    def __errorHandling(self, e, frame):
+        eStr = str(e)
+        if eStr.find("could not broadcast input array from shape") == 0:
+            self.loger("Frame need chopping")
+            x, y, z = self.decodeEroreMesage(eStr)
+            self.loger(f"Decoded frame size {x}, {y}, {z}")
+            self.addFrame(frame[:x, :y])
+        else:
+            self.loger(e)
 
     def drewLines(self, n, m, photoShape):
         self.mapNumpyBorders[n: n + photoShape[0], m - 1:m, :] = np.ones((photoShape[0], 1, 3), dtype=np.uint8) * 255

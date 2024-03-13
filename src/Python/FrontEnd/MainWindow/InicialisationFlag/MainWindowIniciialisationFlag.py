@@ -9,6 +9,7 @@ from Python.BackEnd.MAP.Main.MapWindow import MapWindow
 from Python.FrontEnd.MainWindow.RoiList.MainWindowROIList import MainWindowROIList
 from Python.BackEnd.WorkFeald.Main.main import ReadPoleRobocze
 from Python.BackEnd.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
+from Python.Utilitis.timer import timeit
 
 
 class MainWindowInicialisationFlag(MainWindowROIList):
@@ -100,6 +101,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
             self.__createMap()
 
+    @timeit
     def __createMap(self):
         self.mapWindowObject = self.crateMapObject()
         self.dialogWindowMap = DialogWindowMap(self)

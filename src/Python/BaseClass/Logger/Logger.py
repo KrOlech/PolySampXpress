@@ -41,5 +41,14 @@ class Loger:
             file.write(info + "\n")
 
     @staticmethod
+    def log(message, type, state="log"):
+        info = f"[{datetime.now()}] - [{type}] - [{stack()[2].function}] [{state}] [{message}]"
+
+        print(info)
+
+        with open(f"{datetime.now().day}-{datetime.now().year}-{datetime.now().month}.log", "a") as file:
+            file.write(info + "\n")
+
+    @staticmethod
     def isDebuggerActive() -> bool:
         return hasattr(sys, 'gettrace') and sys.gettrace() is not None
