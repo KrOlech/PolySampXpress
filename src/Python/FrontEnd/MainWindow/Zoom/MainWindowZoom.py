@@ -17,9 +17,6 @@ class MainWindowZoom(MainWindowAbstract):
     def createZoom(self):
         self.zoomInterface = ZoomInterface(self)
 
-        self.toolBar = self.addToolBar("File")
-        self.addToolBar(self.toolBar)
-
         self.zooms = QComboBox()
         self.zooms.setFocusPolicy(Qt.NoFocus)
         self.zooms.activated.connect(self.zoomChangeActionMenu)

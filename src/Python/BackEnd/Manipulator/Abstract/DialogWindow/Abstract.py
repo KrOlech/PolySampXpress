@@ -61,7 +61,7 @@ class AbstractDialog(QDialog, Loger):
         self.accept()
 
     @staticmethod
-    def createQSpinBox(value, min=0, max=200):
+    def createQSpinBox(value, min=0, max=200):  # todo move to util metods
         spinBox = QDoubleSpinBox()
         spinBox.setValue(value)
         spinBox.setRange(min, max)
