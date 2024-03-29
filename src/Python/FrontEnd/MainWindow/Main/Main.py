@@ -13,7 +13,7 @@ class MainWindow(MainWindowInicialisationFlag,
 
         self.createRoiModsMenu()
 
-        self.createZoomSlider()
+        self.createZoom()
 
     def TestClose(self):
         self.testEventClose = True

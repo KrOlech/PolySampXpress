@@ -1,5 +1,9 @@
-from PyQt5.QtCore import QPoint
+import asyncio
 
+from PyQt5.QtCore import QPoint, Qt
+from PyQt5.QtWidgets import QComboBox, QLabel
+
+from Python.BaseClass.Depracation.DepractionFactory import deprecated
 from Python.Zoom.Interface.ZoomInterface import ZoomInterface
 from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 
@@ -7,9 +11,26 @@ from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbs
 class MainWindowZoom(MainWindowAbstract):
     __zoomSlider = None
 
-    def createZoomSlider(self):
+    # todo Unificacja
+    labelsDictionary = {0: 0.85, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10}
+
+    def createZoom(self):
         self.zoomInterface = ZoomInterface(self)
 
+        self.toolBar = self.addToolBar("File")
+        self.addToolBar(self.toolBar)
+
+        self.zooms = QComboBox()
+        self.zooms.setFocusPolicy(Qt.NoFocus)
+        self.zooms.activated.connect(self.zoomChangeActionMenu)
+
+        self.toolBar.addWidget(QLabel("ZOOM: "))
+        self.toolBar.addWidget(self.zooms)
+
+        self.zooms.addItems([str(i) for i in [0.85, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]])
+
+    @deprecated("old unrealable metode")
+    def createZoomSlider(self):
         self.__zoomSlider = self.zoomInterface.createZoomSlider()
 
         self.__zoomSlider.move(self.geometry().bottomRight()
@@ -17,3 +38,9 @@ class MainWindowZoom(MainWindowAbstract):
                                - QPoint(5, 35))
 
         self.__zoomSlider.show()
+
+    def zoomChangeActionMenu(self, i):
+        zoom = float(self.zooms.itemText(i))
+
+        asyncio.run(self.manipulatorInterferes.zoomManipulatorChange(zoom))
+        self.zoomInterface.zoomLabel.setText(str(self.labelsDictionary[zoom]))

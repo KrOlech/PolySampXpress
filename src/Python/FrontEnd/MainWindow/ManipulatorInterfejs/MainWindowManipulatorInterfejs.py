@@ -1,6 +1,6 @@
 from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QLabel, QPushButton
+from PyQt5.QtWidgets import QLabel
 
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
@@ -47,6 +47,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         autoFocus = self.qActionCreate("&autoFocus", self.manipulatorInterferes.autoFokus)
         self.cameraMenu.addAction(autoFocus)
 
+    # todo consolidate to one methood  __createAction
     def __createAction(self, name, manipulatorSeFun):
         return self.qActionCreate(name, manipulatorSeFun, checkable=True)
 
