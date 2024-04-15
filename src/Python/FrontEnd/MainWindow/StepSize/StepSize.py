@@ -1,6 +1,5 @@
-from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QLabel, QComboBox
 
-from Python.BackEnd.Manipulator.Abstract.DialogWindow.Abstract import AbstractDialog
 from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 
 
@@ -9,11 +8,12 @@ class MainWindowStepSize(MainWindowAbstract):
         self.toolBar.addSeparator()
         self.toolBar.addWidget(QLabel(" Step Size: "))
 
-        self.valueX = AbstractDialog.createQSpinBox(self.manipulatorInterferes.speed)
-        self.valueX.valueChanged.connect(self.newStepSize)
+        self.valueX = QComboBox()
+        self.valueX.activated.connect(self.newStepSize)
+
+        self.valueX.addItems([str(i) for i in [0.1, 0.25, 0.4, 0.5, 0.75, 1, 2, 2.5, 4, 5, 7.5, 10]])
 
         self.toolBar.addWidget(self.valueX)
 
-    def newStepSize(self):
-        self.manipulatorInterferes.setSpeed(self.valueX.value())
-        self.valueX.clearFocus()
+    def newStepSize(self, i):
+        self.step = self.manipulatorInterferes.setSpeed(float(self.valueX.itemText(i)))
