@@ -112,18 +112,14 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         [button.move(pos - QPoint(self.focusSlider.width(), 80))
          for button, pos in zip(self.manipulatorButtons, positions)]
 
-        self.focusSlider.move(self.geometry().bottomRight() -
-                              self.focusSlider.geometry().bottomRight()
-                              - QPoint(300 + self.focusSlider.width(),
-                                       35))  # todo full pruth calculation ja wiem ze to jest ok ale musi byc lepiej
+        self.focusSlider.move(QPoint(self.geometry().left() + 10,
+                                     self.geometry().center().y() - self.focusSlider.height() // 2 + 20))
 
-        self.focusButtons[0].move(self.geometry().bottomRight() -
-                                  self.focusButtons[0].geometry().bottomRight()
-                                  - QPoint(300 + self.focusButtons[0].width(), 75))
+        self.focusButtons[1].move(QPoint(self.geometry().left() + 10,
+                                         self.geometry().center().y() - self.focusSlider.height() // 2 - 120))
 
-        self.focusButtons[1].move(self.geometry().bottomRight() -
-                                  self.focusButtons[1].geometry().bottomRight()
-                                  - QPoint(300 + self.focusButtons[1].width(), self.focusSlider.height() + 100 + self.focusButtons[1].height()))
+        self.focusButtons[0].move(QPoint(self.geometry().left() + 10,
+                                         self.geometry().center().y() + self.focusSlider.height() // 2))
 
     def rightMenu(self, pos):
         self.buttons = self.manipulatorInterferes.createButtons(100)
