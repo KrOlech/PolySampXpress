@@ -15,8 +15,6 @@ from Python.FrontEnd.MainWindow.RoiCreation.ScatterConfigureWindow import Scatte
 class AbstractR(Loger):
     __metaclass__ = ABCMeta
 
-    xOffset, yOffset = JsonHandling.loadOffsetsJson()
-
     scatter = None
     fileDict = None
 
@@ -37,11 +35,10 @@ class AbstractR(Loger):
         self.loger(f"wynik x={ox}, offset y={oy}")
         return ox, oy
 
-    @staticmethod
-    @cache
-    def calculateOffsetStatic(x, y, mx=0, my=0):
-        ox = int((x - mx) * AbstractR.xOffset)
-        oy = int((y - my) * AbstractR.yOffset)
+    def calculateOffsetStatic(self, x, y, mx=0, my=0):
+        xOffset, yOffset = JsonHandling.loadOffsetsJson(self.master.mainWindow.zoom)
+        ox = int((x - mx) * xOffset)
+        oy = int((y - my) * yOffset)
         return ox, oy
 
     @abstractmethod
@@ -80,6 +77,7 @@ class AbstractR(Loger):
         self.master.mainWindow.manipulatorInterferes.goToCords(x=x, y=y)
 
     def convertPixelsTomm(self, x, y):
+        self.xOffset, self.yOffset = JsonHandling.loadOffsetsJson(self.master.mainWindow.zoom)
         return x / self.xOffset, y / self.yOffset
 
     @abstractmethod

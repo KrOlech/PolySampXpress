@@ -17,7 +17,7 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
 
     @property
     def ZoomStepsMap(self):
-        return {0: 0, 1: -35, 2: -190, 3: -280, 4: -335, 5: -355, 6: -425, 7: -455, 8: -485, 9: -505, 10: -525}
+        return {0.85: 0, 1: -35, 2: -190, 3: -280, 4: -335, 5: -355, 6: -425, 7: -455, 8: -485, 9: -505, 10: -525}
 
     def __init__(self, device_id_Address, screenSize, *args, **kwargs):
         super().__init__(screenSize, *args, **kwargs)

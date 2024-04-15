@@ -29,7 +29,7 @@ class JsonHandling(Loger):
     def readManipulatorRange():
         data = JsonHandling.readFile(JsonHandling.manipulatorMainFile)
 
-        border = data["0"]["borders"]
+        border = data["borders"]
 
         return border["x"], border["y"]
 
@@ -73,13 +73,13 @@ class JsonHandling(Loger):
     @staticmethod
     def readManipulatorPosition():
         manipulatorConfig = JsonHandling.readFile("ManipulatorFullConfig.json")
-        positions = manipulatorConfig["0"]["CurrentPosition"]
+        positions = manipulatorConfig["CurrentPosition"]
         return positions["x"], positions["y"]
 
     @staticmethod
     def saveManipulatorPosition(positions: dict):
         manipulatorConfig = JsonHandling.readFile("ManipulatorFullConfig.json")
-        manipulatorConfig["0"]["CurrentPosition"] = positions
+        manipulatorConfig["CurrentPosition"] = positions
         JsonHandling.saveFile("ManipulatorFullConfig.json", manipulatorConfig)
 
     @staticmethod
@@ -90,10 +90,11 @@ class JsonHandling(Loger):
         return int(data["xResolution"]), int(data["yResolution"]), int(data["FPS"])
 
     @staticmethod
-    def loadOffsetsJson():
+    def loadOffsetsJson(zoom=0.85):
+        zoomS = str(zoom)
         with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'r') as file:
             data = json.load(file)
-        return float(data["0"]["offsets"]["x"]), float(data["0"]["offsets"]["y"])
+        return float(data[zoomS]["offsets"]["x"]), float(data[zoomS]["offsets"]["y"])
 
     @staticmethod
     def loadPolaRoboczeJson():

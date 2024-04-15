@@ -123,8 +123,8 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         # xOffset, yOffset = 900-30, 485-140-25  #
         # xOffset, yOffset = 590, 490
 
-        xOffset, yOffset = self.loadOffsetsJson()
-        #xOffset, yOffset =264,264
+        xOffset, yOffset = self.loadOffsetsJson(self.master.zoom)
+        # xOffset, yOffset =264,264
         xOffset, yOffset = abs(xOffset), abs(yOffset)
 
         xMaxManipulator, yMaxanipulator = self.readManipulatorMax()

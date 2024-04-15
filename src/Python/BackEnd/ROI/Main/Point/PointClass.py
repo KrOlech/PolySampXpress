@@ -28,6 +28,8 @@ class Point(PointEdit, NameHandling, Cursor):
 
         self.view = self.master.getFrame() if viue is None else viue
 
+        self.zoom = self.master.mainWindow.zoom
+
         self.fileDict = self.__createFileDict()
 
     def __createFileDict(self) -> dict:
@@ -37,7 +39,8 @@ class Point(PointEdit, NameHandling, Cursor):
         return {"absolute Pixell Values": {"x0": x0,
                                            "y0": y0},
                 "absolute mm Values": {"x0": x0 / self.xOffset,
-                                       "y0": y0 / self.yOffset}
+                                       "y0": y0 / self.yOffset},
+                "zoom":self.zoom
                 }
 
     def createLabelMarker(self, scalaX, scalaY):

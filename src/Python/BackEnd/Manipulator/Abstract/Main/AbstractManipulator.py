@@ -104,7 +104,8 @@ class AbstractManipulator(JsonHandling):
 
         asyncio.run(self.goto())
 
-    def center(self, x, y):
+    def center(self, x, y, zoom):
+        self.xOffset, self.yOffset = self.loadOffsetsJson(zoom)
         self.x += (x - self.screenSize.width() // 2) / self.xOffset
         self.y += (y - self.screenSize.height() // 2) / self.yOffset
 

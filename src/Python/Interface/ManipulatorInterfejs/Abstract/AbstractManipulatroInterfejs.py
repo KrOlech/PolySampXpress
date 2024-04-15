@@ -86,9 +86,6 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     def __stop(self):
         self._manipulator.stop()
 
-    def center(self, pos):
-        self._manipulator.center(pos)
-
     def moveUp(self):
         self._manipulator.up()
 
@@ -150,8 +147,8 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     def inMotion(self):
         return self._manipulator.inMotion
 
-    def center(self, x, y):
-        self._manipulator.center(x, y)
+    def center(self, x, y, zoom):
+        self._manipulator.center(x, y, zoom)
 
     async def zoomManipulatorChange(self, cords):
         self._zoomManipulator.x = 0

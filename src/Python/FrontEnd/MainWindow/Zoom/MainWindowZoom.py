@@ -10,6 +10,7 @@ from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbs
 
 class MainWindowZoom(MainWindowAbstract):
     __zoomSlider = None
+    zoom = 0.85
 
     # todo Unificacja
     labelsDictionary = {0: 0.85, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10}
@@ -37,7 +38,7 @@ class MainWindowZoom(MainWindowAbstract):
         self.__zoomSlider.show()
 
     def zoomChangeActionMenu(self, i):
-        zoom = float(self.zooms.itemText(i))
+        self.zoom = float(self.zooms.itemText(i))
 
-        asyncio.run(self.manipulatorInterferes.zoomManipulatorChange(zoom))
-        self.zoomInterface.zoomLabel.setText(str(self.labelsDictionary[zoom]))
+        asyncio.run(self.manipulatorInterferes.zoomManipulatorChange(self.zoom))
+        self.zoomInterface.zoomLabel.setText(str(self.labelsDictionary[self.zoom]))

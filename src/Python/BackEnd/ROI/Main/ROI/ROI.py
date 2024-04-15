@@ -5,6 +5,7 @@ from Python.BackEnd.ROI.Main.Abstract.AbstractROI import AbstractROI
 from Python.BackEnd.ROI.Main.Cursor.Cursor import Cursor
 from Python.BackEnd.ROI.Main.Edit.ROIEdit import ROIEdit
 from Python.BackEnd.ROI.Main.NameHandling.NameHandling import NameHandling
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
@@ -35,6 +36,8 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
         self.scatter = scatter
 
+        self.zoom = self.master.mainWindow.zoom
+
         self.fileDict = self.__createFileDict()
 
     def __createFileDict(self) -> dict:
@@ -43,15 +46,18 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
         y0 = self.y0 - self.pixelAbsolutValue[1]
         y1 = self.y1 - self.pixelAbsolutValue[1]
 
+        xOffset, yOffset = JsonHandling.loadOffsetsJson(self.zoom)
+
         return {"absolute Pixell Values": {"x0": x0,
                                            "x1": x1,
                                            "y0": y0,
                                            "y1": y1},
-                "absolute mm Values": {"x0": x0 / self.xOffset,
-                                       "x1": x1 / self.xOffset,
-                                       "y0": y0 / self.yOffset,
-                                       "y1": y1 / self.yOffset},
-                "scatter": self.scatter
+                "absolute mm Values": {"x0": x0 / xOffset,
+                                       "x1": x1 / xOffset,
+                                       "y0": y0 / yOffset,
+                                       "y1": y1 / yOffset},
+                "scatter": self.scatter,
+                "zoom": self.zoom
                 }
 
     def createLabelMarker(self, scalaX, scalaY):

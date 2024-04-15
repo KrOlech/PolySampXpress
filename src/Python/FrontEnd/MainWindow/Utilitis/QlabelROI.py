@@ -68,15 +68,16 @@ class QlabelROI(RightClickLabel, CreateRoi):
         if not self.mainWindow.manipulatorInterferes.inMotion:
 
             for i, rectangle in enumerate(self.ROIList):
-                rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulatorInterferes.x,
-                                                   self.mainWindow.manipulatorInterferes.y)
-                qp.drawText(rx, ry, str(rectangle.name))
-                if isinstance(rectangle, ROI):
-                    qp.drawRect(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
-                                                    self.mainWindow.manipulatorInterferes.y))
-                elif isinstance(rectangle, Point):
-                    qp.drawLines(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
-                                                     self.mainWindow.manipulatorInterferes.y))
+                if rectangle.zoom == self.mainWindow.zoom:
+                    rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulatorInterferes.x,
+                                                       self.mainWindow.manipulatorInterferes.y)
+                    qp.drawText(rx, ry, str(rectangle.name))
+                    if isinstance(rectangle, ROI):
+                        qp.drawRect(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
+                                                        self.mainWindow.manipulatorInterferes.y))
+                    elif isinstance(rectangle, Point):
+                        qp.drawLines(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
+                                                         self.mainWindow.manipulatorInterferes.y))
 
         if self.pressed and not self.mainWindow.creatingMap:
             if self.mainWindow.mode == "Point":
@@ -106,7 +107,9 @@ class QlabelROI(RightClickLabel, CreateRoi):
 
     @abstractmethod
     def center(self):
-        self.mainWindow.manipulatorInterferes.center(self.rightClickPos.x(), self.rightClickPos.y())
+        self.mainWindow.manipulatorInterferes.center(self.rightClickPos.x(),
+                                                     self.rightClickPos.y(),
+                                                     self.mainWindow.zoom)
 
     @abstractmethod
     def checkIfInROI(self):
