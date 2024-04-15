@@ -9,7 +9,7 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 class Point(PointEdit, NameHandling, Cursor):
 
-    def __init__(self, master, x1, y1, name, manipulatotrX, manipulatorY, pixelAbsolutValue, viue=None):
+    def __init__(self, master, x1, y1, name, manipulatotrX, manipulatorY, pixelAbsolutValue, viue=None, zoom=None):
         self.loger(f"x1 = {x1},  y1 = {y1}")
 
         self.x0Label, self.y0Label = x1, y1
@@ -29,7 +29,7 @@ class Point(PointEdit, NameHandling, Cursor):
 
         self.view = self.master.getFrame() if viue is None else viue
 
-        self.zoom = self.master.mainWindow.zoom
+        self.zoom = zoom if zoom else self.master.mainWindow.zoom
 
         self.fileDict = self.__createFileDict()
 
@@ -43,7 +43,7 @@ class Point(PointEdit, NameHandling, Cursor):
                                            "y0": y0},
                 "absolute mm Values": {"x0": x0 / self.xOffset,
                                        "y0": y0 / self.yOffset},
-                "zoom":self.zoom
+                "zoom": self.zoom
                 }
 
     def createLabelMarker(self, scalaX, scalaY):

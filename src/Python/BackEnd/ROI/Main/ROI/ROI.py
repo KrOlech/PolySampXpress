@@ -11,7 +11,7 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
     def __init__(self, master, x1, y1, x2, y2, name, manipulatotrX, manipulatorY, pixelAbsolutValue, scatter=False,
-                 viue=None):
+                 viue=None, zoom=None):
         self.loger(
             f"x1 = {x1}, x2 = {x2}, y1 = {y1}, y2 = {y2}, manipulatotrX = {manipulatotrX}, manipulatorY = {manipulatorY}, absolutePixelValue = {pixelAbsolutValue}")
 
@@ -36,7 +36,7 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
         self.scatter = scatter
 
-        self.zoom = self.master.mainWindow.zoom
+        self.zoom = zoom if zoom else self.master.mainWindow.zoom
 
         self.fileDict = self.__createFileDict()
 

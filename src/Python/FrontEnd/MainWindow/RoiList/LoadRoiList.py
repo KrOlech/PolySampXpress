@@ -9,6 +9,9 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class LoadRoiList(JsonHandling):
+    directoryPath: str = ""
+    filePath: str = ""
+    currentDirectory: str = ""
 
     def __init__(self, master):
         self.master = master
@@ -17,34 +20,30 @@ class LoadRoiList(JsonHandling):
         self.absolutPxY = self.master.cameraView.pixelAbsolutValue[1]
 
     def load(self):
-        curentDirectory = curdir
-        filePath, _ = QFileDialog.getOpenFileName(self.master, "Select file with Roi List", "",
-                                                  "Json Files (*.json)")
 
-        directoryPath = filePath[:filePath.rfind(r"/")]
+        self.filePath, currentDirectory = self.resolveFile()
 
-        self.loger(filePath)
+        self.directoryPath = self.filePath[:self.filePath.rfind(r"/")]
 
-        data = JsonHandling.readFileRow(filePath)
+        self.loger(self.filePath)
+
+        data = JsonHandling.readFileRow(self.filePath)
         try:
             for name, values in data.items():
                 cords = values['absolute Pixell Values']
 
-                self.loger(directoryPath + r"/" + name)
-                cvBGBImg = cv2.imread(directoryPath + r"/" + name + ".png")
-                qImg = QImage(cvBGBImg.data, cvBGBImg.shape[1], cvBGBImg.shape[0], QImage.Format_BGR888)
-
-                img = QPixmap.fromImage(qImg)
+                img = self.loadImage(name)
 
                 if len(cords) == 4:
                     roi = ROI(self.master.cameraView, cords["x0"] + self.absolutPxX, cords["y0"] + self.absolutPxY,
                               cords["x1"] + self.absolutPxX, cords["y1"] + self.absolutPxY, name, 0,
-                              0, self.master.cameraView.pixelAbsolutValue, scatter=values["scatter"], viue=img)
+                              0, self.master.cameraView.pixelAbsolutValue, scatter=values["scatter"], viue=img,
+                              zoom=values["zoom"])
 
                 elif len(cords) == 2:
                     roi = Point(self.master.cameraView, cords["x0"] + self.absolutPxX, cords["y0"] + self.absolutPxY,
                                 name, 0,
-                                0, self.master.cameraView.pixelAbsolutValue, viue=img)
+                                0, self.master.cameraView.pixelAbsolutValue, viue=img, zoom=values["zoom"])
 
                 self.master.cameraView.ROIList.append(roi)
 
@@ -66,4 +65,16 @@ class LoadRoiList(JsonHandling):
 
 
         finally:
-            chdir(curentDirectory)
+            chdir(currentDirectory)
+
+    def resolveFile(self):
+        filePath, _ = QFileDialog.getOpenFileName(self.master, "Select file with Roi List", "",
+                                                  "Json Files (*.json)")
+        return filePath, curdir
+
+    def loadImage(self, name):
+        self.loger(self.directoryPath + r"/" + name)
+        cvBGBImg = cv2.imread(self.directoryPath + r"/" + name + ".png")
+        qImg = QImage(cvBGBImg.data, cvBGBImg.shape[1], cvBGBImg.shape[0], QImage.Format_BGR888)
+
+        QPixmap.fromImage(qImg)
