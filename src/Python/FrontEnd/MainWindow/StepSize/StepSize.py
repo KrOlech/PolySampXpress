@@ -11,8 +11,9 @@ class MainWindowStepSize(MainWindowAbstract):
 
         self.valueX = AbstractDialog.createQSpinBox(self.manipulatorInterferes.speed)
         self.valueX.valueChanged.connect(self.newStepSize)
-        
+
         self.toolBar.addWidget(self.valueX)
 
     def newStepSize(self):
         self.manipulatorInterferes.setSpeed(self.valueX.value())
+        self.valueX.clearFocus()
