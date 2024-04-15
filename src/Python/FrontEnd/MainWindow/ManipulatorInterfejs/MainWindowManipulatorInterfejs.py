@@ -106,11 +106,11 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         self.focusButtons = self.manipulatorInterferes.crateFocusButtons()
         self.focusSlider = self.manipulatorInterferes.createFocusSlider()
 
-        positions = [self.geometry().bottomRight() - button.geometry().bottomRight() - offset for
-                     button, offset in zip(self.manipulatorButtons, self.offsets)]
+        positions = [self.geometry().bottomRight() - button.geometry().bottomRight() - offset
+                     for button, offset in zip(self.manipulatorButtons, self.offsets)]
 
-        [button.move(pos - QPoint(self.focusSlider.width(), 80)) for button, pos in
-         zip(self.manipulatorButtons, positions)]
+        [button.move(pos - QPoint(self.focusSlider.width(), 80))
+         for button, pos in zip(self.manipulatorButtons, positions)]
 
         self.focusSlider.move(self.geometry().bottomRight() -
                               self.focusSlider.geometry().bottomRight()
@@ -119,11 +119,11 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         self.focusButtons[0].move(self.geometry().bottomRight() -
                                   self.focusButtons[0].geometry().bottomRight()
-                                  - QPoint(300 + self.focusButtons[0].width(), 55))
+                                  - QPoint(300 + self.focusButtons[0].width(), 75))
 
         self.focusButtons[1].move(self.geometry().bottomRight() -
                                   self.focusButtons[1].geometry().bottomRight()
-                                  - QPoint(300 + self.focusButtons[1].width(), self.focusSlider.height() + 85))
+                                  - QPoint(300 + self.focusButtons[1].width(), self.focusSlider.height() + 100 + self.focusButtons[1].height()))
 
     def rightMenu(self, pos):
         self.buttons = self.manipulatorInterferes.createButtons(100)

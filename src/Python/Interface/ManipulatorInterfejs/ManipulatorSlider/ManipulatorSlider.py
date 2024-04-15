@@ -11,7 +11,7 @@ class ManipulatorSlider(Slider):
         super().__init__(master, self.minV, self.maxV, value, *args, orientation=Qt.Vertical, **kwargs)
 
         self.setFixedWidth(20)
-        self.setFixedHeight(180)
+        self.setFixedHeight(140)
 
     def change(self, value):
         super().change(value)
