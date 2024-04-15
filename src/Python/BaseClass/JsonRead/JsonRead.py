@@ -91,7 +91,7 @@ class JsonHandling(Loger):
 
     @staticmethod
     def loadOffsetsJson(zoom=0.85):
-        zoomS = str(zoom)
+        zoomS = str(int(zoom))
         with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'r') as file:
             data = json.load(file)
         return float(data[zoomS]["offsets"]["x"]), float(data[zoomS]["offsets"]["y"])

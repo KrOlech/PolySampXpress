@@ -13,7 +13,7 @@ class MainWindowZoom(MainWindowAbstract):
     zoom = 0.85
 
     # todo Unificacja
-    labelsDictionary = {0: 0.85, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10}
+    labelsDictionary = {0.85: 0.85, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10}
 
     def createZoom(self):
         self.zoomInterface = ZoomInterface(self)

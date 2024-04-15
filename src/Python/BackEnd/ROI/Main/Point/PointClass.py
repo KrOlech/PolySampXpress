@@ -4,6 +4,7 @@ from PyQt5.QtCore import QPoint, QLine
 from Python.BackEnd.ROI.Main.Cursor.Cursor import Cursor
 from Python.BackEnd.ROI.Main.Edit.PointEdit import PointEdit
 from Python.BackEnd.ROI.Main.NameHandling.NameHandling import NameHandling
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class Point(PointEdit, NameHandling, Cursor):
@@ -35,6 +36,8 @@ class Point(PointEdit, NameHandling, Cursor):
     def __createFileDict(self) -> dict:
         x0 = self.x0 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
+
+        self.xOffset, self.yOffset = JsonHandling.loadOffsetsJson(self.master.mainWindow.zoom)
 
         return {"absolute Pixell Values": {"x0": x0,
                                            "y0": y0},
