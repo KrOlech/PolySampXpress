@@ -19,8 +19,13 @@ class AbstractPoint(AbstractR):
 
         dx, dy = self.calculateOffset(kwargs["manipulatotrX"], kwargs["manipulatorY"])
 
-        self.x0, self.y0 = kwargs["x1"] + dx, kwargs['y1'] + dy
-        self.x1, self.y1 = kwargs["x1"] + dx, kwargs['y1'] + dy
+        x0, y0 = kwargs["x1"] + dx, kwargs['y1'] + dy
+        x1, y1 = kwargs["x1"] + dx, kwargs['y1'] + dy
+
+        self.x0 = int(x0)
+        self.y0 = int(y0)
+        self.x1 = int(x1)
+        self.y1 = int(y1)
 
     def createMarker(self):
         return QRect(QPoint(self.x0, self.y0), QPoint(self.x0, self.y0))

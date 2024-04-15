@@ -100,7 +100,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
                     getattr(self, self.supportedModes[self.mainWindow.mode] + "__saveTemporaryLocation")(e)
                     self.mainWindow.showROIList(e)
 
-        #xOffset, yOffset = JsonHandling.loadOffsetsJson() #{self.x / xOffset} mm, {self.y / yOffset} mm, prawie ok brakuje wspułrzednych pkt 00
+        # xOffset, yOffset = JsonHandling.loadOffsetsJson() #{self.x / xOffset} mm, {self.y / yOffset} mm, prawie ok brakuje wspułrzednych pkt 00
 
         self.mainWindow.myStatusBarMouse.setText(f"     Cursor X: {e.x()}     Y: {e.y()}")
 
@@ -118,8 +118,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
                      self.mainWindow.manipulatorInterferes.y, self.pixelAbsolutValue)
 
     def __resolvePixelAbsolutValue(self, x, y):
-        ofsetX, ofsetY = AbstractR.calculateOffsetStatic(self.mainWindow.manipulatorInterferes.x,
-                                                         self.mainWindow.manipulatorInterferes.y)
+        ofsetX, ofsetY = JsonHandling.loadOffsetsJson(self.mainWindow.zoom)
         return x + ofsetX, y + ofsetY
 
     def __createAndSaveZeroPoint(self, x, y):

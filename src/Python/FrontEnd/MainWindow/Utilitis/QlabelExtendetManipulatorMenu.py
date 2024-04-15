@@ -8,9 +8,9 @@ from Python.FrontEnd.MainWindow.Utilitis.QlabelROI import QlabelROI
 class Worker(QObject):
     finished = pyqtSignal()
 
-    def __init__(self, mainwindow, *args, **kwargs):
+    def __init__(self, mainWindow, *args, **kwargs):
         super(Worker, self).__init__(*args, **kwargs)
-        self.mainWindow = mainwindow
+        self.mainWindow = mainWindow
 
     def run(self):
         sleep(0.01)

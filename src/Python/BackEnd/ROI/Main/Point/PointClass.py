@@ -47,8 +47,8 @@ class Point(PointEdit, NameHandling, Cursor):
                 }
 
     def createLabelMarker(self, scalaX, scalaY):
-        xlabel = self.x0Label // scalaX
-        ylabel = self.y0Label // scalaY
+        xlabel = int(self.x0Label // scalaX)
+        ylabel = int(self.y0Label // scalaY)
         l1 = QLine(QPoint(xlabel + 5, ylabel),
                    QPoint(xlabel - 5, ylabel))
         l2 = QLine(QPoint(xlabel, ylabel + 5),

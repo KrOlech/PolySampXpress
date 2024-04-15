@@ -36,6 +36,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         setZeroPoint = self.qActionCreate("Set Zero Point", self.__setZeroPoint)
         setZeroPointManual = self.qActionCreate("Set Zero Point Manual", self.__setZeroPointManual)
         calculateInaccuracy = self.qActionCreate("Calculate Inaccuracy", self.__calculateInaccuracy)
+        removeSample = self.qActionCreate("Remove Sample", self.__removeSample)
 
         manipulatorMenu.addAction(homeAxis)
         manipulatorMenu.addAction(goToCords)
@@ -43,6 +44,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         manipulatorMenu.addAction(setZeroPoint)
         manipulatorMenu.addAction(setZeroPointManual)
         manipulatorMenu.addAction(calculateInaccuracy)
+        manipulatorMenu.addAction(removeSample)
 
         autoFocus = self.qActionCreate("&autoFocus", self.manipulatorInterferes.autoFokus)
         self.cameraMenu.addAction(autoFocus)
@@ -72,6 +74,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
     def __calculateInaccuracy(self):
         InaccuracyMeasurements(self).runScript()
+
+    def __removeSample(self):
+        self.manipulatorInterferes.goToCords(110,0)
 
     def __configureStatusBar(self):
         myStatusBar = QLabel(self)
