@@ -23,10 +23,12 @@ class AbstractR(Loger):
         self.label = ROILabel(self, self.master.mainWindow.windowSize)
 
     def delete(self):
-        self.master.ROIList.remove(self)
-        self.master.removeLable(self.label)
-        self.label = None
-
+        try:
+            self.master.ROIList.remove(self)
+            self.master.removeLable(self.label)
+            self.label = None
+        except Exception as e:
+            self.logError(e)
     @cache
     def calculateOffset(self, x, y):
         x0 = self.master.mainWindow.manipulatorInterferes.x0

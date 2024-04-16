@@ -1,3 +1,4 @@
+from PyQt5.QtCore import QRect
 from PyQt5.QtWidgets import QWidget, QVBoxLayout
 
 from Python.FrontEnd.MainWindow.CamerGUI.CameraGUI import CameraGUI
@@ -10,13 +11,16 @@ class CameraGUIExtension(CameraGUI):
     def __init__(self, *args, **kwargs) -> None:
         super(CameraGUIExtension, self).__init__(*args, **kwargs)
 
-        self.setFixedSize(self.windowSize)
+        #self.setFixedSize(self.windowSize)
+
+        self.setGeometry(QRect(0,1080,0,1920))
 
         self.widget = QWidget()
         self.setCentralWidget(self.widget)
 
         self.cameraView = QlabelRightClickMenu(self)
-        self.cameraView.setFixedSize(self.windowSize)
+        #self.cameraView.setFixedSize(self.windowSize)
+        self.cameraView.setGeometry(QRect(0,1080,0,1920))
 
         self.layout_box = QVBoxLayout(self.widget)
         self.layout_box.setContentsMargins(0, 0, 0, 0)

@@ -38,15 +38,22 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
         self.zoom = zoom if zoom else self.master.mainWindow.zoom
 
-        self.fileDict = self.__createFileDict()
+        self.fileDict = self.createFileDict()
 
-    def __createFileDict(self) -> dict:
+    def createFileDict(self) -> dict:
         x0 = self.x0 - self.pixelAbsolutValue[0]
         x1 = self.x1 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
         y1 = self.y1 - self.pixelAbsolutValue[1]
 
         xOffset, yOffset = JsonHandling.loadOffsetsJson(self.zoom)
+
+        xp = self.master.mainWindow.zeroPoint.x0
+        yp = self.master.mainWindow.zeroPoint.y0
+        xp1 = self.master.mainWindow.zeroPoint.x1
+        yp1 = self.master.mainWindow.zeroPoint.y1
+
+        xOffsetP, yOffsetP = JsonHandling.loadOffsetsJson(self.master.mainWindow.zeroPoint.zoom)
 
         return {"absolute Pixell Values": {"x0": x0,
                                            "x1": x1,
@@ -56,6 +63,10 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
                                        "x1": x1 / xOffset,
                                        "y0": y0 / yOffset,
                                        "y1": y1 / yOffset},
+                "sample mm Values": {"x0": self.x0 / xOffset - xp / xOffsetP,
+                                     "x1": self.x1 / xOffset - xp1 / xOffsetP,
+                                     "y0": self.y0 / yOffset - yp / yOffsetP,
+                                     "y1": self.y1 / yOffset - yp1 / yOffsetP},
                 "scatter": self.scatter,
                 "zoom": self.zoom
                 }

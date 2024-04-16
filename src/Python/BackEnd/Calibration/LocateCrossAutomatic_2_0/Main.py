@@ -22,7 +22,7 @@ class LocateCross(Loger):
         self.y, self.dataY = self.analyzePhotoY(gsc)
 
         self.loger(
-            f"position of the marker point: {self.x} px, {self.y}px  for zoom:_ with name: {self.name}")  # todo when Zoom implemented add zoom value
+            f"position of the marker point: {self.x} px, {self.y}px  for zoom:{self.master.zoom} with name: {self.name}")  # todo when Zoom implemented add zoom value
 
         self.__crateAndSaveResults(self.markSpot(photo))
 

@@ -9,7 +9,8 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 class Point(PointEdit, NameHandling, Cursor):
 
-    def __init__(self, master, x1, y1, name, manipulatotrX, manipulatorY, pixelAbsolutValue, viue=None, zoom=None):
+    def __init__(self, master, x1, y1, name, manipulatotrX, manipulatorY, pixelAbsolutValue, viue=None, zoom=None,
+                 ooPoint=False):
         self.loger(f"x1 = {x1},  y1 = {y1}")
 
         self.x0Label, self.y0Label = x1, y1
@@ -31,18 +32,26 @@ class Point(PointEdit, NameHandling, Cursor):
 
         self.zoom = zoom if zoom else self.master.mainWindow.zoom
 
-        self.fileDict = self.__createFileDict()
+        if not ooPoint:
+            self.fileDict = self.createFileDict()
 
-    def __createFileDict(self) -> dict:
+    def createFileDict(self) -> dict:
         x0 = self.x0 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
 
-        self.xOffset, self.yOffset = JsonHandling.loadOffsetsJson(self.master.mainWindow.zoom)
+        self.xOffset, self.yOffset = JsonHandling.loadOffsetsJson(self.zoom)
+
+        xp = self.master.mainWindow.zeroPoint.x0
+        yp = self.master.mainWindow.zeroPoint.y0
+
+        xOffsetP, yOffsetP = JsonHandling.loadOffsetsJson(self.master.mainWindow.zeroPoint.zoom)
 
         return {"absolute Pixell Values": {"x0": x0,
                                            "y0": y0},
                 "absolute mm Values": {"x0": x0 / self.xOffset,
                                        "y0": y0 / self.yOffset},
+                "sample mm Values": {"x0": self.x0 / self.xOffset - xp / xOffsetP,
+                                     "y0": self.y0 / self.yOffset - yp / yOffsetP},
                 "zoom": self.zoom
                 }
 

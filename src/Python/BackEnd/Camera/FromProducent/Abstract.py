@@ -39,6 +39,11 @@ class AbstractCameraFromProducent:
                                      POINTER(c_int),
                                      POINTER(c_int),)
 
+    _SetVideoFormat = tisgrabber.IC_SetVideoFormat
+    _SetVideoFormat.restype = c_int
+    _SetVideoFormat.argtypes = (GrabberHandlePtr,
+                                     c_char_p)
+
     __isConnectionEstablished = None
 
     def establishConnection(self):

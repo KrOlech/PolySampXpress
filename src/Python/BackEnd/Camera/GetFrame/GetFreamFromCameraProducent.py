@@ -1,5 +1,6 @@
 from ctypes import c_int, POINTER, c_long, c_ubyte, cast, sizeof, c_uint8
 
+import cv2
 from pygetwindow import getWindowsWithTitle
 from numpy import ndarray, uint8
 
@@ -15,11 +16,14 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
 
         self.StartLive()
 
+        self.setVideoFormat()
+
         self.lWidth, self.lHeight, self.iBitsPerPixel, _ = self.GetImageDescription()
 
         self.bufferSize = self.lWidth * self.lHeight * self.iBitsPerPixel * sizeof(c_uint8)
 
         self.shape = (self.lHeight, self.lWidth, self.iBitsPerPixel)
+        self.loger(self.shape)
 
     def setWhiteBalanceAuto(self):
         self.tisgrabber.IC_SetWhiteBalanceAuto(self.handle, 1)
@@ -34,6 +38,10 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
 
         return (lWidth.value, lHeight.value, iBitsPerPixel.value // 8, COLORFORMAT.value)
 
+    def setVideoFormat(self):
+        Error = self._SetVideoFormat(self.handle, b"UYVY (640x480)")
+        self.loger(f"ustawienie formatu Wideo {Error}")
+
     def getImagePointer(self):
         return self.GetImagePtr(self.handle)
 
@@ -46,7 +54,8 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
         img = ndarray(buffer=Bild.contents,
                       dtype=uint8,
                       shape=self.shape)
-        return img
+
+        return cv2.resize(img, (0, 0), fx=0.25, fy=0.25)
 
     def getFrame(self) -> ndarray:
         return self.getFrameProducent()

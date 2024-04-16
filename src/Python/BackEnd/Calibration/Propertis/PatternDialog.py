@@ -21,4 +21,5 @@ class PatternDialog(AbstractDialogMaster):
         self.finaliseGUI()
 
     def okPressed(self):
-        self.master.dataPrivaided()
+        self.master.dataPrivaided(int(self.x.value()), int(self.x1.value()), int(self.y.value()), int(self.y1.value()))
+        super().okPressed()

@@ -6,10 +6,14 @@ from Python.BackEnd.Manipulator.Standa.ProducerCode.FildsClass import get_positi
 
 class StandaManipulator(StandaManipulatorInitialisation):
 
-
-
     def __init__(self, device_id_Address, screenSize, *args, **kwargs):
         super().__init__(device_id_Address, screenSize, *args, **kwargs)
+
+        try:
+            self.currentPosition = kwargs["currentPosition"]
+        except KeyError as e:
+            self.logError(f"Error reading current position")
+
 
         self.setSpeed(10)
 

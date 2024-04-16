@@ -112,10 +112,12 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
             self.__absolutZeroPoint.delete()
             self.__absolutZeroPoint = None
 
-    def __newZeroPoint(self):
-        return Point(self, self.pixelAbsolutValue[0], self.pixelAbsolutValue[1], "PX 0 0",
+    def __newZeroPoint(self, x=None, y=None):
+        x = x if x else self.pixelAbsolutValue[0]
+        y = y if y else self.pixelAbsolutValue[1]
+        return Point(self, x, y, "PX 0 0",
                      self.mainWindow.manipulatorInterferes.x,
-                     self.mainWindow.manipulatorInterferes.y, self.pixelAbsolutValue)
+                     self.mainWindow.manipulatorInterferes.y, self.pixelAbsolutValue, ooPoint=True)
 
     def __resolvePixelAbsolutValue(self, x, y):
         ofsetX, ofsetY = JsonHandling.loadOffsetsJson(self.mainWindow.zoom)
@@ -123,13 +125,17 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
 
     def __createAndSaveZeroPoint(self, x, y):
         self.pixelAbsolutValue = self.__resolvePixelAbsolutValue(x, y)
+        self.loger(f"Calculated zero point absolute Pixels: {self.pixelAbsolutValue}")
 
         self.__removeZeroPoint()
 
-        self.__absolutZeroPoint = self.__newZeroPoint()
+        self.__absolutZeroPoint = self.__newZeroPoint(x, y)
 
         self.ROIList.append(self.__absolutZeroPoint)
         self.mainWindow.addROIToList()
+        self.mainWindow.zeroPoint = self.__absolutZeroPoint
+
+        self.__absolutZeroPoint.createFileDict()
 
     @deprecated("old manual metode")
     def __setAbsolutZeroPositionForPixels(self, e):

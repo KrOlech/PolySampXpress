@@ -24,7 +24,7 @@ class CameraGUI(MainWindowMenuBar):
         self.cameraSettingsWidget.show()
 
     def calibrate(self):
-        MainCalibrate(self.camera).calibrate(self.manipulatorInterferes)
+        MainCalibrate(self.camera, self).calibrate(self.manipulatorInterferes)
 
 
 if __name__ == '__main__':

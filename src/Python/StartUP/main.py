@@ -1,5 +1,6 @@
 import sys
 
+from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 
@@ -22,6 +23,9 @@ class m(Loger):  # TODO better name
         self.icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
 
         self.app.setWindowIcon(self.icon)
+
+        self.loger(
+            f"res {self.app.desktop().availableGeometry().size()} {type(self.app.desktop().availableGeometry().size())}") #QSize(640, 640)
 
         self.mainWindow = MainWindow(self.app.desktop().availableGeometry().size())
         self.mainWindow.setWindowIcon(self.icon)

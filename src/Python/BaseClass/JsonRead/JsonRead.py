@@ -97,6 +97,34 @@ class JsonHandling(Loger):
         return float(data[zoomS]["offsets"]["x"]), float(data[zoomS]["offsets"]["y"])
 
     @staticmethod
+    def loadZoomLocationJson():
+        with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'r') as file:
+            data = json.load(file)
+        return float(data["CurrentPosition"]["zoom"])
+
+    @staticmethod
+    def loadFokusLocationJson():
+        with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'r') as file:
+            data = json.load(file)
+        return float(data["CurrentPosition"]["fokus"])
+
+    @staticmethod
+    def saveZoomLocationJson(zoom):
+        with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'r') as file:
+            data = json.load(file)
+        data["CurrentPosition"]["zoom"] = zoom
+        with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'w') as file:
+            json.dump(data, file, indent=4)
+
+    @staticmethod
+    def saveFokusLocationJson(fokus):
+        with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'r') as file:
+            data = json.load(file)
+        data["CurrentPosition"]["fokus"] = fokus
+        with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'w') as file:
+            json.dump(data, file, indent=4)
+
+    @staticmethod
     def loadPolaRoboczeJson():
         jsonKeys = ["Xmin", "Xmax", "Ymin", "Ymax"]
 

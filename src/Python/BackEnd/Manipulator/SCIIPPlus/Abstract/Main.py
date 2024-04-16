@@ -47,21 +47,21 @@ class SCIManipulator(AbstractManipulator, DllFunctions):
 
             self.loger('SCI Corrected', {1: self.x, 0: self.y})
             self.waitForTarget()
-            self.x = -self.getPosition(1)
+            self.x = self.getPosition(1)
             self.y = self.getPosition(0)
             self.loger({1: self.x, 0: self.y})
         else:
             self.logError("Manipulator in motion?")
 
         if self.checkAxisStateM():
-            self.x = -self.getPosition(1)
+            self.x = self.getPosition(1)
             self.y = self.getPosition(0)
 
     def __goToMain(self):
         if self.yMovment:
             self.x -= (self.deltaY * 20649 * pow(10, -7))
 
-        self.goToPointM({1: -self.x, 0: self.y})
+        self.goToPointM({1: self.x, 0: self.y})
 
     def waitForTarget(self):
         while self.getMotorStateM([0, 1]):
