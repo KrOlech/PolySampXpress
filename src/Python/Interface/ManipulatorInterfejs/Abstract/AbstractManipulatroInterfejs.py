@@ -114,13 +114,13 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         self._focusManipulator.waitForTarget()
         self._zoomManipulator.waitForTarget()
 
-    def createButtons(self, transparency=40):
+    def createButtons(self, transparency=10):
         buttons = [QPushButton(name, self.master.widget) for name in self.buttonsNames]
         [button.released.connect(f) for f, button in zip(self.fun, buttons)]
         [button.setStyleSheet(f"background-color: rgba(255, 255, 255, {transparency});") for button in buttons]
         return buttons
 
-    def crateFocusButtons(self, transparency=40):
+    def crateFocusButtons(self, transparency=10):
         buttons = [QPushButton(r'\/', self.master.widget),QPushButton( "/\\", self.master.widget)]
         [button.setStyleSheet(f"background-color: rgba(255, 255, 255, {transparency});") for button in buttons]
         [button.released.connect(f) for f, button in zip(self.focusFun, buttons)]
