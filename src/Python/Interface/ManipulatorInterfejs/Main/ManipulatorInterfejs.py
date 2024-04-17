@@ -2,6 +2,7 @@ import cv2
 from PyQt5.QtCore import Qt
 from cv2 import cvtColor, COLOR_BGR2GRAY, imwrite
 
+from Python.BackEnd.SzarpnesCalculation.Main import SzarpnesCalculation
 from Python.Interface.ManipulatorInterfejs.Abstract.AbstractManipulatroInterfejs import \
     AbstractManipulatorInterferes
 from Python.Interface.ManipulatorInterfejs.Selection.Select import SelectManipulator
@@ -33,7 +34,7 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
         return cv2.Laplacian(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY), cv2.CV_64F).var()
 
     def autoFokus(self):
-        pass
+        SzarpnesCalculation(self, self.master.camera).show()
 
     def autoFokusOld(self):
 
@@ -65,6 +66,16 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
             self._focusManipulator.gotoNotAsync()
             self._focusManipulator.waitForTarget()
             imwrite(f"1_{i}_{self.image_sharpness(self.master.camera.getFrame())}.png", self.master.camera.getFrame())
+
+    def fokusUp(self):
+        self._focusManipulator.x += 100
+        self._focusManipulator.gotoNotAsync()
+        self._focusManipulator.waitForTarget()
+
+    def fokus0(self):
+        self._focusManipulator.x = -10000
+        self._focusManipulator.gotoNotAsync()
+        self._focusManipulator.waitForTarget()
 
     def autoFokusNot(self):
         self.focusPoints = []
