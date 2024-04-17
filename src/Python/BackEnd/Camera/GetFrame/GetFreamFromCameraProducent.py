@@ -1,3 +1,4 @@
+import ctypes
 from ctypes import c_int, POINTER, c_long, c_ubyte, cast, sizeof, c_uint8
 
 import cv2
@@ -6,6 +7,7 @@ from numpy import ndarray, uint8
 
 from Python.BackEnd.Camera.FromProducent.Abstract import AbstractCameraFromProducent
 from Python.BackEnd.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
+import tisgrabber as tis
 
 
 class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
@@ -16,9 +18,9 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
         if not self.isConnectionEstablished:
             self.loger(f"Conection to Camera from Producent {self.establishConnection()}:")
 
-        self.StartLive()
+        self.setVideoFormat()
 
-        #self.setVideoFormat()
+        self.StartLive()
 
         self.lWidth, self.lHeight, self.iBitsPerPixel, _ = self.GetImageDescription()
 
@@ -41,8 +43,11 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
         return (lWidth.value, lHeight.value, iBitsPerPixel.value // 8, COLORFORMAT.value)
 
     def setVideoFormat(self):
-        Error = self.ic.IC_SetVideoFormat(self.handle, b"RGB32 (640x480)")
-        self.loger(f"ustawienie formatu Wideo {Error}")
+        Error = None
+        if (self.ic.IC_IsDevValid(self.handle)):
+            Error = self.ic.IC_SetVideoFormat(self.handle, tis.T("RGB64 (1536x1016) [Binning 2x]"))
+
+        self.loger(f"ustawienie formatu Wideo res: {Error}")
 
     def getImagePointer(self):
         return self.ic.IC_GetImagePtr(self.handle)
@@ -57,9 +62,8 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
                       dtype=uint8,
                       shape=self.shape)
 
-
-        #return cv2.resize(img, (0, 0), fx=0.75, fy=0.75)
-        return  img
+        # return cv2.resize(img, (0, 0), fx=0.75, fy=0.75)
+        return img
 
     def getFrame(self) -> ndarray:
         return self.getFrameProducent()

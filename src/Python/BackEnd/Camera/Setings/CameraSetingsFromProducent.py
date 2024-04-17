@@ -4,4 +4,4 @@ from Python.BackEnd.Camera.FromProducent.Abstract import AbstractCameraFromProdu
 class CameraSettingsFromProducent(AbstractCameraFromProducent):
 
     def showProducentSettings(self):
-        self.tisgrabber.IC_ShowPropertyDialog(self.master.camera.handle)
+        self.ic.IC_ShowPropertyDialog(self.master.camera.handle)
