@@ -6,7 +6,9 @@ class GetFrame(GetFrameFromProducent, GetFrameUSB):
     device = None
 
     def __init__(self):
-        self.establishConnection()
+        super().__init__()
+        if not self.isConnectionEstablished:
+            self.loger(f"Conection to Camera from Producent {self.establishConnection()}:")
 
         if self.isConnectionEstablished:
             GetFrameFromProducent.__init__(self)

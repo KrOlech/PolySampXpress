@@ -39,6 +39,9 @@ class SelectManipulator:
             self._focusManipulator.close()
 
         if self._zoomManipulator:
-            JsonHandling.saveZoomLocationJson(
-                self._zoomManipulator.StepZoomsMap[self._zoomManipulator.x])
+            try:
+                JsonHandling.saveZoomLocationJson(
+                    self._zoomManipulator.StepZoomsMap[self._zoomManipulator.x])
+            except AttributeError as e:
+                print(e)
             self._zoomManipulator.close()

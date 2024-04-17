@@ -48,12 +48,14 @@ class m(Loger):  # TODO better name
                 "ERROR During program runing unable to save ROI list")
 
     def main(self):
-        try:
-            self.mainNoTryCahch()
-        except Exception as e:
-            self.logError(e)
-            self.logWarning("ERROR During program runing trying to save ROI list")
-            self.trySavingRoiList()
+        self.mainNoTryCahch()
+
+        #try:
+        #    self.mainNoTryCahch()
+        #except Exception as e:
+        #    self.logError(e)
+        #    self.logWarning("ERROR During program runing trying to save ROI list")
+        #    self.trySavingRoiList()
 
 
 if __name__ == '__main__':

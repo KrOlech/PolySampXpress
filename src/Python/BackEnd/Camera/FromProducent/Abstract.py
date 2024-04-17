@@ -1,10 +1,22 @@
 from ctypes import c_int, Structure, c_char_p, c_void_p, POINTER, c_long, windll
 
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+import ctypes
+
+import tisgrabber as tis
+
+ic = ctypes.cdll.LoadLibrary("./tisgrabber_x64.dll") #toDo move to class corectli no as global and corect file location
+
+tis.declareFunctions(ic)
 
 
 class AbstractCameraFromProducent:
-    tisgrabber = windll.LoadLibrary(JsonHandling.getFileLocation(r"CameraDLL\tisgrabber_x64.dll"))
+    def __init__(self, *args, **kwargs):
+        self.ic = ic
+
+        self.ic.IC_InitLibrary(0)
+
+    # tisgrabber = windll.LoadLibrary(JsonHandling.getFileLocation(r"CameraDLL\tisgrabber_x64.dll"))
 
     class GrabberHandle(Structure):
         pass
@@ -13,6 +25,7 @@ class AbstractCameraFromProducent:
 
     GrabberHandlePtr = POINTER(GrabberHandle)
 
+    '''
     create_grabber = tisgrabber.IC_CreateGrabber
     create_grabber.restype = GrabberHandlePtr
     create_grabber.argtypes = None
@@ -20,6 +33,11 @@ class AbstractCameraFromProducent:
     open_device_by_unique_name = tisgrabber.IC_OpenDevByUniqueName
     open_device_by_unique_name.restype = c_int
     open_device_by_unique_name.argtypes = (GrabberHandlePtr,
+                                           c_char_p)
+
+    _OpenVideoCaptureDevice = tisgrabber.IC_OpenVideoCaptureDevice
+    _OpenVideoCaptureDevice.restype = c_int
+    _OpenVideoCaptureDevice.argtypes = (GrabberHandlePtr,
                                            c_char_p)
 
     GetImagePtr = tisgrabber.IC_GetImagePtr
@@ -44,14 +62,22 @@ class AbstractCameraFromProducent:
     _SetVideoFormat.argtypes = (GrabberHandlePtr,
                                      c_char_p)
 
+    _IsDevValid = tisgrabber.IC_IsDevValid
+    _IsDevValid.restype = c_int
+    _IsDevValid.argtypes = (GrabberHandlePtr,)
+    '''
+
     __isConnectionEstablished = None
 
     def establishConnection(self):
-        self.tisgrabber.IC_InitLibrary(None)
+        self.ic.IC_InitLibrary(None)
 
-        self.handle = self.create_grabber()
+        self.handle = self.ic.IC_ShowDeviceSelectionDialog(None)
 
-        self.__isConnectionEstablished = self.open_device_by_unique_name(self.handle, b'DFK 37BUX178 44121122')
+        # self.__isConnectionEstablished = self.open_device_by_unique_name(self.handle, b'DFK 37BUX178 44121122')
+        #self.__isConnectionEstablished = self.ic.IC_OpenVideoCaptureDevice(self.handle, b"DFK 37BUX178")
+        self.__isConnectionEstablished = self.ic.IC_IsDevValid(self.handle)
+        return self.ic.IC_IsDevValid(self.handle)
 
     @property
     def isConnectionEstablished(self):

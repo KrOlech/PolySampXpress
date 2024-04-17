@@ -11,8 +11,8 @@ from Python.BackEnd.Camera.Configuration.Configuration import Configuration
 class GetFrameUSB(AbstractGetFrame, Configuration):
     __metaclass__ = ABCMeta
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         self.device = cv2.VideoCapture(0)
 

@@ -11,12 +11,14 @@ from Python.BackEnd.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
 class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
 
     def __init__(self):
+        super().__init__(self)
+
         if not self.isConnectionEstablished:
-            self.establishConnection()
+            self.loger(f"Conection to Camera from Producent {self.establishConnection()}:")
 
         self.StartLive()
 
-        self.setVideoFormat()
+        #self.setVideoFormat()
 
         self.lWidth, self.lHeight, self.iBitsPerPixel, _ = self.GetImageDescription()
 
@@ -26,7 +28,7 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
         self.loger(self.shape)
 
     def setWhiteBalanceAuto(self):
-        self.tisgrabber.IC_SetWhiteBalanceAuto(self.handle, 1)
+        self.ic.IC_SetWhiteBalanceAuto(self.handle, 1)
 
     def GetImageDescription(self):
         lWidth = c_long()
@@ -34,16 +36,16 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
         iBitsPerPixel = c_int()
         COLORFORMAT = c_int()
 
-        Error = self._GetImageDescription(self.handle, lWidth, lHeight, iBitsPerPixel, COLORFORMAT)
+        Error = self.ic.IC_GetImageDescription(self.handle, lWidth, lHeight, iBitsPerPixel, COLORFORMAT)
 
         return (lWidth.value, lHeight.value, iBitsPerPixel.value // 8, COLORFORMAT.value)
 
     def setVideoFormat(self):
-        Error = self._SetVideoFormat(self.handle, b"UYVY (640x480)")
+        Error = self.ic.IC_SetVideoFormat(self.handle, b"RGB32 (640x480)")
         self.loger(f"ustawienie formatu Wideo {Error}")
 
     def getImagePointer(self):
-        return self.GetImagePtr(self.handle)
+        return self.ic.IC_GetImagePtr(self.handle)
 
     def getFrameProducent(self):
         self.SnapImage()
@@ -55,33 +57,39 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
                       dtype=uint8,
                       shape=self.shape)
 
-        return cv2.resize(img, (0, 0), fx=0.25, fy=0.25)
+
+        #return cv2.resize(img, (0, 0), fx=0.75, fy=0.75)
+        return  img
 
     def getFrame(self) -> ndarray:
         return self.getFrameProducent()
 
     def StopLive(self):
-        Error = self.tisgrabber.IC_StopLive(self.handle)
+        Error = self.ic.IC_StopLive(self.handle)
         return Error
 
     def PrepareLive(self):
-        self.tisgrabber.IC_PrepareLive(self.handle)
+        self.ic.IC_PrepareLive(self.handle)
 
     def SuspendLive(self):
-        self.tisgrabber.IC_SuspendLive(self.handle)
+        self.ic.IC_SuspendLive(self.handle)
 
     def GetPropertyMapString(self):
-        self.tisgrabber.IC_GetPropertyMapString(self.handle)
+        self.ic.IC_GetPropertyMapString(self.handle)
 
     def StartLive(self):
-        Error = self.tisgrabber.IC_StartLive(self.handle, 1)
-        win = getWindowsWithTitle('ActiveMovie Window')[0]
-        win.close()
+        try:
+            Error = self.ic.IC_StartLive(self.handle, 1)
+            win = getWindowsWithTitle('ActiveMovie Window')[0]
+            win.close()
+        except IndexError as e:
+            self.logError(e)
+            self.loger("no window to close?")
 
         return Error
 
     def SnapImage(self):
-        self.tisgrabber.IC_SnapImage(self.handle, 2000)
+        self.ic.IC_SnapImage(self.handle, 2000)
 
 
 if __name__ == "__main__":

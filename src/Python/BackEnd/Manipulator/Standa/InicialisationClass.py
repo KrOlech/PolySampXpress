@@ -21,7 +21,7 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
 
     @property
     def StepZoomsMap(self):
-        return {0: 0.85, -35:1, -190:2, -280:3, -335:4, -355:5, -425:6, -455:7, -485:8, -505:9, -525:10}
+        return {0: 0.85, -35: 1, -190: 2, -280: 3, -335: 4, -355: 5, -425: 6, -455: 7, -485: 8, -505: 9, -525: 10}
 
     def __init__(self, device_id_Address, screenSize, *args, **kwargs):
         super().__init__(screenSize, *args, **kwargs)
@@ -96,6 +96,7 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
         else:
             return None
 
+    # todo better name
     def __testInfo(self, device_id):
         x_device_information = DeviceInformation()
         result = self.lib.get_device_information(device_id, byref(x_device_information))
