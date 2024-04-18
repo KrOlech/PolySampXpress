@@ -74,12 +74,8 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
     def __loadManipulatorFullMovement(self):
         rowData = self.readFile(self.MANIPULATOR_FULL_MOVEMENT_FILEPATH)
 
-        for data in rowData.values():
-            if data[self.ZOOM] == self.master.selectedManipulatorZoom:
-                break
-        else:
-            self.logWarning("There is no selected Manipulator")
-            return -1
+        data = {'zoom': self.master.zoom, 'offsets': rowData[self.master.zoom]['offsets'],
+                'borders': rowData['borders']}
 
         return data
 
