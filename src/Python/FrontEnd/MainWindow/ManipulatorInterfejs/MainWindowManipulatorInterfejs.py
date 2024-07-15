@@ -2,6 +2,7 @@ from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.MoveByValue import MoveByValue
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
 from Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
@@ -32,6 +33,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         homeAxis = self.qActionCreate("Home All Axis", self.__homeAxis)
         goToCords = self.qActionCreate("Go To Cords", self.__goToCords)
+        moveByValue = self.qActionCreate("Move By Value", self.__moveByValue)
         setStepSize = self.qActionCreate("Set Step Size", self.__setStepSize)
         setZeroPoint = self.qActionCreate("Set Zero Point", self.__setZeroPoint)
         setZeroPointManual = self.qActionCreate("Set Zero Point Manual", self.__setZeroPointManual)
@@ -40,6 +42,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         manipulatorMenu.addAction(homeAxis)
         manipulatorMenu.addAction(goToCords)
+        manipulatorMenu.addAction(moveByValue)
         manipulatorMenu.addAction(setStepSize)
         manipulatorMenu.addAction(setZeroPoint)
         manipulatorMenu.addAction(setZeroPointManual)
@@ -68,6 +71,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
     def __goToCords(self):
         GoToCordsDialog(self.manipulatorInterferes).exec_()
+
+    def __moveByValue(self):
+        MoveByValue(self.manipulatorInterferes).exec_()
 
     def __setStepSize(self):
         SetStepSizeDialog(self.manipulatorInterferes).exec_()
