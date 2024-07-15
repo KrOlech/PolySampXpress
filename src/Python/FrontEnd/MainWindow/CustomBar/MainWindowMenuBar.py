@@ -31,6 +31,8 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
         cameraCalibration = self.qActionCreate("&Calibration", self.calibrate)
         self.cameraMenu.addAction(cameraCalibration)
 
+        saveCurrentFrame = self.qActionCreate("&Save Current Frame", self.saveCurrentFrame)
+        self.cameraMenu.addAction(saveCurrentFrame)
 
     @abstractmethod
     def showAllCameraSettings(self):
@@ -38,6 +40,10 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
 
     @abstractmethod
     def calibrate(self):
+        self.abstractmetod()
+
+    @abstractmethod
+    def saveCurrentFrame(self):
         self.abstractmetod()
 
     @abstractmethod

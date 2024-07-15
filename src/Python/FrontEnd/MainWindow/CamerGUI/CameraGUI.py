@@ -1,3 +1,6 @@
+import cv2 as cv
+from PyQt5.QtWidgets import QFileDialog
+
 from PyQt5 import QtWidgets, QtCore
 
 from Python.BackEnd.Camera.Main.Camera import Camera
@@ -23,12 +26,19 @@ class CameraGUI(MainWindowMenuBar):
     def showAllCameraSettings(self) -> None:
         self.cameraSettingsWidget.show()
 
+    def saveCurrentFrame(self):
+        folderPath, _ = QFileDialog.getSaveFileName(self, "Select Location to save Current Frame", "",
+                                                    "BitMap Files (*.png)")
+        self.loger(folderPath)
+        if folderPath:
+            cv.imwrite(folderPath, self.camera.getFrame())
+
     def calibrate(self):
         MainCalibrate(self.camera, self).calibrate(self.manipulatorInterferes)
 
 
 if __name__ == '__main__':
-    from PyQt5.QtWidgets import QApplication
+    from PyQt5.QtWidgets import QApplication, QFileDialog
     import sys
 
     if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
