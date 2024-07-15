@@ -64,7 +64,7 @@ class AbstractMapWindow(Loger):
 
     def takePhoto(self):
         frame = self.master.camera.getFrame()
-        cv2.imwrite(f"Map_{self.photoCount}.png",frame)
+        #cv2.imwrite(f"Map_{self.photoCount}.png",frame)
         return self.scalleFream(frame)
 
     def scalleFream(self, frame):

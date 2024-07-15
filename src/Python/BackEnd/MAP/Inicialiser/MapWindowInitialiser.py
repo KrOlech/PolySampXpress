@@ -74,7 +74,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
     def __loadManipulatorFullMovement(self):
         rowData = self.readFile(self.MANIPULATOR_FULL_MOVEMENT_FILEPATH)
 
-        data = {'zoom': self.master.zoom, 'offsets': rowData[self.master.zoom]['offsets'],
+        data = {'zoom': self.master.zoom, 'offsets': rowData[f"{int(self.master.zoom)}"]['offsets'],
                 'borders': rowData['borders']}
 
         return data
