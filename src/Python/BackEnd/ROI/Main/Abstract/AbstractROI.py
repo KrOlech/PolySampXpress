@@ -75,3 +75,10 @@ class AbstractROI(AbstractR):
 
     def foundCenter(self) -> (int, int):
         return self.x0 + (self.x1 - self.x0) // 2, self.y0 + (self.y1 - self.y0) // 2
+
+    def foundAbsoluteCenter(self) -> (int, int):
+        x0 = self.x0 - self.pixelAbsolutValue[0]
+        x1 = self.x1 - self.pixelAbsolutValue[0]
+        y0 = self.y0 - self.pixelAbsolutValue[1]
+        y1 = self.y1 - self.pixelAbsolutValue[1]
+        return x0 + (x1 - x0) // 2, y0 + (y1 - y0) // 2

@@ -16,9 +16,11 @@ class AbstractR(Loger):
     __metaclass__ = ABCMeta
 
     scatter = None
-    fileDict = None
+    zoom = None
+    pixelAbsolutValue = None
 
     def __init__(self, *args, **kwargs):
+
         self.master = kwargs['master']
         self.label = ROILabel(self, self.master.mainWindow.windowSize)
 
@@ -29,6 +31,23 @@ class AbstractR(Loger):
             self.label = None
         except Exception as e:
             self.logError(e)
+
+    def resolveZeroPoint(self):
+
+        if self.master.mainWindow.zeroPoint:
+            xp = self.master.mainWindow.zeroPoint.x0
+            yp = self.master.mainWindow.zeroPoint.y0
+            xOffsetP, yOffsetP = JsonHandling.loadOffsetsJson(self.master.mainWindow.zeroPoint.zoom)
+            zeroPointStatus = True
+        else:
+            xp = 0
+            yp = 0
+            xOffsetP, yOffsetP = 1, 1
+            zeroPointStatus = False
+            self.logWarning("Zero Point was not set")
+
+        return xp / xOffsetP, yp / yOffsetP, zeroPointStatus
+
     @cache
     def calculateOffset(self, x, y):
         x0 = self.master.mainWindow.manipulatorInterferes.x0
@@ -86,6 +105,22 @@ class AbstractR(Loger):
     def foundCenter(self) -> (int, int):
         self.abstractmetod()
         return 0, 0
+
+    @abstractmethod
+    def foundAbsoluteCenter(self) -> (int, int):
+        self.abstractmetod()
+        return 0, 0
+
+    def saveCenterToFileDict(self):
+        xCenter, yCenter = self.foundAbsoluteCenter()
+        self.fileDict["center Pixell"] = {"x": xCenter, "y": yCenter}
+
+        xOffset, yOffset = JsonHandling.loadOffsetsJson(self.zoom)
+        xCenterMM, yCenterMM = xCenter / xOffset, yCenter / xOffset,
+        self.fileDict["center mm"] = {"x": xCenterMM, "y": yCenterMM}
+
+        deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
+        self.fileDict["sample center mm"] = {"x": xCenterMM - deltaX, "y": yCenterMM - deltaY}
 
     @abstractmethod
     def saveViue(self, path):

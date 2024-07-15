@@ -32,28 +32,26 @@ class Point(PointEdit, NameHandling, Cursor):
 
         self.zoom = zoom if zoom else self.master.mainWindow.zoom
 
-        if not ooPoint:
-            self.fileDict = self.createFileDict()
+        self.fileDict = {}
 
-    def createFileDict(self) -> dict:
+        if not ooPoint:
+            self.fillFileDict()
+            self.saveCenterToFileDict()
+
+    def fillFileDict(self):
         x0 = self.x0 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
+        self.fileDict["Pixell Values"] = {"x0": x0, "y0": y0}
 
         self.xOffset, self.yOffset = JsonHandling.loadOffsetsJson(self.zoom)
+        absoluteMMValuesX, absoluteMMValuesY = x0 / self.xOffset, y0 / self.yOffset
+        self.fileDict["mm Values"] = {"x0": absoluteMMValuesX, "y0": absoluteMMValuesY}
 
-        xp = self.master.mainWindow.zeroPoint.x0
-        yp = self.master.mainWindow.zeroPoint.y0
+        deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
+        self.fileDict["sample mm Values"] = {"x0": absoluteMMValuesX - deltaX, "y0": absoluteMMValuesY - deltaY}
+        self.fileDict["zero Point Present"] = zeroPointStatus
 
-        xOffsetP, yOffsetP = JsonHandling.loadOffsetsJson(self.master.mainWindow.zeroPoint.zoom)
-
-        return {"absolute Pixell Values": {"x0": x0,
-                                           "y0": y0},
-                "absolute mm Values": {"x0": x0 / self.xOffset,
-                                       "y0": y0 / self.yOffset},
-                "sample mm Values": {"x0": self.x0 / self.xOffset - xp / xOffsetP,
-                                     "y0": self.y0 / self.yOffset - yp / yOffsetP},
-                "zoom": self.zoom
-                }
+        self.fileDict["zoom"] = self.zoom
 
     def createLabelMarker(self, scalaX, scalaY):
         xlabel = int(self.x0Label // scalaX)

@@ -135,7 +135,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
         self.mainWindow.addROIToList()
         self.mainWindow.zeroPoint = self.__absolutZeroPoint
 
-        self.__absolutZeroPoint.createFileDict()
+        self.__absolutZeroPoint.fillFileDict()
 
     @deprecated("old manual metode")
     def __setAbsolutZeroPositionForPixels(self, e):

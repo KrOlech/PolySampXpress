@@ -38,38 +38,30 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
 
         self.zoom = zoom if zoom else self.master.mainWindow.zoom
 
-        self.fileDict = self.createFileDict()
+        self.fileDict = {}
+        self.fillFileDict()
+        self.saveCenterToFileDict()
 
-    def createFileDict(self) -> dict:
+    def fillFileDict(self):
         x0 = self.x0 - self.pixelAbsolutValue[0]
         x1 = self.x1 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
         y1 = self.y1 - self.pixelAbsolutValue[1]
+        self.fileDict["Pixell Values"] = {"x0": x0, "x1": x1, "y0": y0, "y1": y1}
 
         xOffset, yOffset = JsonHandling.loadOffsetsJson(self.zoom)
+        absoluteMMValuesX0, absoluteMMValuesX1, = x0 / xOffset, x1 / xOffset,
+        absoluteMMValuesY0, absoluteMMValuesY1 = y0 / yOffset, y1 / yOffset
+        self.fileDict["mm Values"] = {"x0": absoluteMMValuesX0, "x1": absoluteMMValuesX1,
+                                      "y0": absoluteMMValuesY0, "y1": absoluteMMValuesY1}
 
-        xp = self.master.mainWindow.zeroPoint.x0
-        yp = self.master.mainWindow.zeroPoint.y0
-        xp1 = self.master.mainWindow.zeroPoint.x1
-        yp1 = self.master.mainWindow.zeroPoint.y1
+        deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
+        self.fileDict["sample mm Values"] = {"x0": absoluteMMValuesX0 - deltaX, "x1": absoluteMMValuesX1 - deltaX,
+                                             "y0": absoluteMMValuesY0 - deltaY, "y1": absoluteMMValuesY1 - deltaY}
+        self.fileDict["zero Point Present"] = zeroPointStatus
 
-        xOffsetP, yOffsetP = JsonHandling.loadOffsetsJson(self.master.mainWindow.zeroPoint.zoom)
-
-        return {"absolute Pixell Values": {"x0": x0,
-                                           "x1": x1,
-                                           "y0": y0,
-                                           "y1": y1},
-                "absolute mm Values": {"x0": x0 / xOffset,
-                                       "x1": x1 / xOffset,
-                                       "y0": y0 / yOffset,
-                                       "y1": y1 / yOffset},
-                "sample mm Values": {"x0": self.x0 / xOffset - xp / xOffsetP,
-                                     "x1": self.x1 / xOffset - xp1 / xOffsetP,
-                                     "y0": self.y0 / yOffset - yp / yOffsetP,
-                                     "y1": self.y1 / yOffset - yp1 / yOffsetP},
-                "scatter": self.scatter,
-                "zoom": self.zoom
-                }
+        self.fileDict["zoom"] = self.zoom
+        self.fileDict["scatter"] = self.scatter
 
     def createLabelMarker(self, scalaX, scalaY):
         return QRect(QPoint(self.x0Label // scalaX, self.y0Label // scalaY),
