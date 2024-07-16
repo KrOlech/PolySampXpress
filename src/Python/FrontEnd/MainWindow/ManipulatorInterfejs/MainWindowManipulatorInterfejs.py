@@ -52,6 +52,8 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         autoFocus = self.qActionCreate("&autoFocus", self.manipulatorInterferes.autoFokus)
         self.cameraMenu.addAction(autoFocus)
 
+        self.manipulatorInterferes.homeAxis()
+
     # todo consolidate to one methood  __createAction
     def __createAction(self, name, manipulatorSeFun):
         return self.qActionCreate(name, manipulatorSeFun, checkable=True)
