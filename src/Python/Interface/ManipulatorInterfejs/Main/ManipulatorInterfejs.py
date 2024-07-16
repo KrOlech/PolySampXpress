@@ -1,6 +1,7 @@
 from PyQt5.QtCore import Qt
 
 from Python.BackEnd.AutoFokus_02.Main.AutoFokus_02 import AutoFokus02
+from Python.BackEnd.AutoFokus_03.Main import AutoFokus03
 from Python.BackEnd.SzarpnesCalculation.Main import SzarpnesCalculation
 from Python.Interface.ManipulatorInterfejs.Abstract.AbstractManipulatroInterfejs import \
     AbstractManipulatorInterferes
@@ -22,10 +23,10 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
 
         [self.master.addAction(a) for a in self.actions]
 
-        # self.autoFokus()
+        self.autoFokus()
 
     def autoFokus(self):
-        AutoFokus02(self, self.master.camera).run()
+        AutoFokus03(self, self.master.camera).run()
 
     def fokusGoTo(self, x):
         self._focusManipulator.x = x

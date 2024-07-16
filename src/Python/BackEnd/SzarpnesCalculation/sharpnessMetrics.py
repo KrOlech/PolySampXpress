@@ -33,7 +33,7 @@ def scharr_variance(image):
     return numpy.var(filters.scharr(image))
 
 
-def edge_based_sharpness(image):
+def edge_based_sharpness(sth, image, *args):
     edges = cv2.Canny(image, 100, 200)
     return numpy.var(edges)
 

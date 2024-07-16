@@ -50,7 +50,7 @@ class MainWindowZoom(MainWindowAbstract):
         window.run()
         window.exec_()
 
-        self.zoomInterface.zoomLabel.setText(str(self.labelsDictionary[self.zoom]))
+        #self.zoomInterface.zoomLabel.setText(str(self.labelsDictionary[self.zoom]))
 
     def zoomChangeAction(self):
         asyncio.run(self.manipulatorInterferes.zoomManipulatorChange(self.zoom))
