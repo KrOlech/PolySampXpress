@@ -23,6 +23,10 @@ class LoadRoiList(JsonHandling):
 
         self.filePath, currentDirectory = self.resolveFile()
 
+        if not self.filePath or not currentDirectory:
+            self.loger("File loading interrupted by user no file was selected to load")
+            return
+
         self.directoryPath = self.filePath[:self.filePath.rfind(r"/")]
 
         self.loger(self.filePath)
