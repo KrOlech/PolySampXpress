@@ -31,32 +31,27 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         manipulatorMenu = self.menu.addMenu("&Manipulator")
 
-        homeAxis = self.qActionCreate("Home All Axis", self.__homeAxis)
-        goToCords = self.qActionCreate("Go To Cords", self.__goToCords)
-        moveByValue = self.qActionCreate("Move By Value", self.__moveByValue)
-        setStepSize = self.qActionCreate("Set Step Size", self.__setStepSize)
-        setZeroPoint = self.qActionCreate("Set Zero Point", self.__setZeroPoint)
-        setZeroPointManual = self.qActionCreate("Set Zero Point Manual", self.__setZeroPointManual)
-        calculateInaccuracy = self.qActionCreate("Calculate Inaccuracy", self.__calculateInaccuracy)
-        removeSample = self.qActionCreate("Remove Sample", self.__removeSample)
+        menuSetup = [("Home All Axis", self.__homeAxis),
+                     ("Go To Cords", self.__goToCords),
+                     ("Move By Value", self.__moveByValue),
+                     ("Set Step Size", self.__setStepSize),
+                     ("Set Zero Point", self.__setZeroPoint),
+                     ("Set Zero Point Manual", self.__setZeroPointManual),
+                     ("Calculate Inaccuracy", self.__calculateInaccuracy),
+                     ("Remove Sample", self.__removeSample)]
 
-        manipulatorMenu.addAction(homeAxis)
-        manipulatorMenu.addAction(goToCords)
-        manipulatorMenu.addAction(moveByValue)
-        manipulatorMenu.addAction(setStepSize)
-        manipulatorMenu.addAction(setZeroPoint)
-        manipulatorMenu.addAction(setZeroPointManual)
-        manipulatorMenu.addAction(calculateInaccuracy)
-        manipulatorMenu.addAction(removeSample)
+        for name, fun in menuSetup:
+            self.__saveAndCreateAction(name, fun, manipulatorMenu)
 
-        autoFocus = self.qActionCreate("&autoFocus", self.manipulatorInterferes.autoFokus)
-        self.cameraMenu.addAction(autoFocus)
+        self.__saveAndCreateAction("&autoFocus", self.manipulatorInterferes.autoFokus, self.cameraMenu)
 
         self.manipulatorInterferes.homeAxis()
 
-    # todo consolidate to one methood  __createAction
-    def __createAction(self, name, manipulatorSeFun):
-        return self.qActionCreate(name, manipulatorSeFun, checkable=True)
+    def __createAction(self, name, manipulatorSeFun, checkable=True):
+        return self.qActionCreate(name, manipulatorSeFun, checkable=checkable)
+
+    def __saveAndCreateAction(self, name, manipulatorSeFun, menu, checkable=False):
+        menu.addAction(self.__createAction(name, manipulatorSeFun, checkable))
 
     def __homeAxis(self):
         homeAxis = HomeAxisDialog(self.manipulatorInterferes)
@@ -84,7 +79,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         InaccuracyMeasurements(self).runScript()
 
     def __removeSample(self):
-        self.manipulatorInterferes.goToCords(110,0)
+        self.manipulatorInterferes.goToCords(110, 0)
 
     def __configureStatusBar(self):
         myStatusBar = QLabel(self)
@@ -125,9 +120,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         [button.move(pos - QPoint(self.focusSlider.width(), 80))
          for button, pos in zip(self.manipulatorButtons, positions)]
 
-
-
-        self.focusSlider.move(QPoint(self.geometry().right() -40,
+        self.focusSlider.move(QPoint(self.geometry().right() - 40,
                                      self.geometry().center().y() - self.focusSlider.height() // 2 + 20))
 
         self.focusButtons[1].move(QPoint(self.geometry().right() - 40,
