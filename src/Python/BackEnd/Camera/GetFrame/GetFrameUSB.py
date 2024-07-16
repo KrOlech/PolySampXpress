@@ -27,8 +27,6 @@ class GetFrameUSB(AbstractGetFrame, Configuration):
 
     def __testCameraCommunication(self) -> None:
         self.device = CameraSimulator()
-        return
-        self.device = CameraSimulator()
 
     def setNewValueForCommunicationPoint(self, communicationPoint) -> None:
         self.device.set(communicationPoint.address, communicationPoint.value)

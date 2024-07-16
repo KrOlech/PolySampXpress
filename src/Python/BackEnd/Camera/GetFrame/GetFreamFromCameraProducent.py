@@ -16,7 +16,7 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
         super().__init__(self)
 
         if not self.isConnectionEstablished:
-            self.loger(f"Conection to Camera from Producent {self.establishConnection()}:")
+            self.loger(f"Connection to Camera from Produce {self.establishConnection()}:")
 
         self.setVideoFormat()
 
@@ -45,7 +45,7 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
     def setVideoFormat(self):
         Error = None
         if (self.ic.IC_IsDevValid(self.handle)):
-            Error = self.ic.IC_SetVideoFormat(self.handle, tis.T("RGB64 (1536x1016) [Binning 2x]"))
+            Error = self.ic.IC_SetVideoFormat(self.handle, tis.T("RGB64 (1536x1000) [Binning 2x]"))
 
         self.loger(f"ustawienie formatu Wideo res: {Error}")
 

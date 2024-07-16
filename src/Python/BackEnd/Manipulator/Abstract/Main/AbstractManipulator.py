@@ -106,8 +106,9 @@ class AbstractManipulator(JsonHandling):
 
     def center(self, x, y, zoom):
         self.xOffset, self.yOffset = self.loadOffsetsJson(zoom)
+
         self.x += (x - 1536 // 2) / self.xOffset #toDo get From Camera not hend put
-        self.y += (y - 1016 // 2) / self.yOffset
+        self.y += (y - 960 // 2) / self.yOffset
 
         self.gotoNotAsync()
 

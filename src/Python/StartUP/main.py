@@ -30,6 +30,8 @@ class m(Loger):  # TODO better name
         self.mainWindow = MainWindow(self.app.desktop().availableGeometry().size())
         self.mainWindow.setWindowIcon(self.icon)
 
+        self.mainWindow.showMaximized()
+
         self.mainWindow.show()
 
         self.app.exec_()

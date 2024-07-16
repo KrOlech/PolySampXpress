@@ -10,7 +10,7 @@ class ZoomInterface:
         self.master = master
         self.zoomManipulator = master.manipulatorInterferes
 
-        self.zoomLabel = ZoomLabel(self.master, 0)
+        #self.zoomLabel = ZoomLabel(self.master, 0)
 
     def createZoomSlider(self):
         return ZoomSlider(self, widget=self.master)  # self.zoomManipulator.x)

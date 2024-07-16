@@ -98,8 +98,11 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
 
         myStatusBar.setAlignment(Qt.AlignCenter)
         myStatusBar.setFont(font)
+
         myStatusBar.move(
-            QPoint(self.windowSize.width() // 2 - self.windowSize.width() // 16, self.windowSize.height() - 25))
+            QPoint(self.windowSize.width() // 2 - self.windowSize.width() // 16,
+                   self.windowSize.height() - 25 - myStatusBar.height()))
+
         myStatusBar.show()
 
         return myStatusBar
