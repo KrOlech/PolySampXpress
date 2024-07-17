@@ -1,4 +1,4 @@
-import numpy as np
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class CalculateAndSaveResults:
@@ -14,13 +14,13 @@ class CalculateAndSaveResults:
     def saveResults(self, img, fokus):
         value = self(img)
 
-        with open(f"{self.funName}.dat", "a") as file:
+        with open(JsonHandling.getFileLocation(f"{self.funName}.dat"), "a") as file:
             file.write(f"{fokus},{value}\n")
 
     def show(self, plt):
         x = []
         y = []
-        with open(f"{self.funName}.dat", "r") as file:
+        with open(JsonHandling.getFileLocation(f"{self.funName}.dat"), "r") as file:
             while line := file.readline():
                 x.append(float(line[:line.find(",")]))
                 y.append(float(line[line.find(",") + 1:]))

@@ -25,7 +25,7 @@ class m(Loger):  # TODO better name
         self.app.setWindowIcon(self.icon)
 
         self.loger(
-            f"res {self.app.desktop().availableGeometry().size()} {type(self.app.desktop().availableGeometry().size())}") #QSize(640, 640)
+            f"res {self.app.desktop().availableGeometry().size()} {type(self.app.desktop().availableGeometry().size())}")  # QSize(640, 640)
 
         self.mainWindow = MainWindow(self.app.desktop().availableGeometry().size())
         self.mainWindow.setWindowIcon(self.icon)
@@ -33,6 +33,8 @@ class m(Loger):  # TODO better name
         self.mainWindow.showMaximized()
 
         self.mainWindow.show()
+
+        self.mainWindow.homeAllAxis()
 
         self.app.exec_()
 
@@ -52,9 +54,9 @@ class m(Loger):  # TODO better name
     def main(self):
         self.mainNoTryCahch()
 
-        #try:
+        # try:
         #    self.mainNoTryCahch()
-        #except Exception as e:
+        # except Exception as e:
         #    self.logError(e)
         #    self.logWarning("ERROR During program runing trying to save ROI list")
         #    self.trySavingRoiList()

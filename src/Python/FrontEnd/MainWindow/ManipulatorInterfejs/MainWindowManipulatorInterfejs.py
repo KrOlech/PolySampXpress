@@ -11,6 +11,7 @@ from Python.BackEnd.Manipulator.Abstract.DialogWindow.SimpleDialogWindow import 
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.StepSizeDialog import SetStepSizeDialog
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.WaitDialoge import HomeAxisDialog
 from Python.Interface.ManipulatorInterfejs.Main.ManipulatorInterfejs import ManipulatorInterfere
+from Python.Utilitis.GenericProgressClass import GenericProgressClass
 
 
 class MainWindowManipulatorInterfejs(CameraGUIExtension):
@@ -45,7 +46,10 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         self.__saveAndCreateAction("&autoFocus", self.manipulatorInterferes.autoFokus, self.cameraMenu)
 
-        self.manipulatorInterferes.homeAxis()
+    def homeAllAxis(self):
+        window = GenericProgressClass("Start Up in progress", self.manipulatorInterferes.homeAxis, 200, self)
+        window.run()
+        window.exec_()
 
     def __createAction(self, name, manipulatorSeFun, checkable=True):
         return self.qActionCreate(name, manipulatorSeFun, checkable=checkable)

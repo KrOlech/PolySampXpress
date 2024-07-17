@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QComboBox, QLabel
 
 from Python.BaseClass.Depracation.DepractionFactory import deprecated
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from Python.Zoom.FrontEnd.ZoomInfoWindow import ZoomInfoWindow
+from Python.Utilitis.GenericProgressClass import GenericProgressClass
 from Python.Zoom.Interface.ZoomInterface import ZoomInterface
 from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 
@@ -46,11 +46,9 @@ class MainWindowZoom(MainWindowAbstract):
     def zoomChangeActionMenu(self, i):
         self.zoom = float(self.zooms.itemText(i))
 
-        window = ZoomInfoWindow(self)
+        window = GenericProgressClass("Zoom in progress", self.zoomChangeAction, 150, self)
         window.run()
         window.exec_()
-
-        #self.zoomInterface.zoomLabel.setText(str(self.labelsDictionary[self.zoom]))
 
     def zoomChangeAction(self):
         asyncio.run(self.manipulatorInterferes.zoomManipulatorChange(self.zoom))
