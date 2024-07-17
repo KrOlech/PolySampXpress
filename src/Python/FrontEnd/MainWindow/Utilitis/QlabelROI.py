@@ -66,31 +66,53 @@ class QlabelROI(RightClickLabel, CreateRoi):
         self.setPixmap(frame)
 
         if not self.mainWindow.manipulatorInterferes.inMotion:
-
-            for i, rectangle in enumerate(self.ROIList):
-                if rectangle.zoom == self.mainWindow.zoom:
-                    rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulatorInterferes.x,
-                                                       self.mainWindow.manipulatorInterferes.y)
-                    qp.drawText(rx, ry, str(rectangle.name))
-                    if isinstance(rectangle, ROI):
-                        qp.drawRect(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
-                                                        self.mainWindow.manipulatorInterferes.y))
-                    elif isinstance(rectangle, Point):
-                        qp.drawLines(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
-                                                         self.mainWindow.manipulatorInterferes.y))
+            self.__drawRectangles(qp)
 
         if self.pressed and not self.mainWindow.creatingMap:
-            if self.mainWindow.mode == "Point":
-                l1 = QLine(QPoint(self.x1 + 10, self.y1), QPoint(self.x1 - 10, self.y1))
-                l2 = QLine(QPoint(self.x1, self.y1 + 10), QPoint(self.x1, self.y1 - 10))
-                qp.drawLines([l1, l2])
+            self.__drawCurrentlyMarkedRectangles(qp)
+
+        self.__drawRuler(qp)
+
+    def __drawRectangles(self, qp):
+        for i, rectangle in enumerate(self.ROIList):
+
+            if rectangle.zoom != self.mainWindow.zoom:
+                continue
+
+            self.__drawRectangleName(qp, rectangle)
+
+            self.__drawRectangleMarker(qp, rectangle)
+
+    def __drawRectangleName(self, qp, rectangle):
+        rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulatorInterferes.x,
+                                           self.mainWindow.manipulatorInterferes.y)
+        qp.drawText(rx, ry, str(rectangle.name))
+
+    def __drawRectangleMarker(self, qp, rectangle):
+
+        if isinstance(rectangle, ROI):
+            qp.drawRect(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
+                                            self.mainWindow.manipulatorInterferes.y))
+        elif isinstance(rectangle, Point):
+            qp.drawLines(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
+                                             self.mainWindow.manipulatorInterferes.y))
+
+    def __drawCurrentlyMarkedRectangles(self, qp):
+        if self.mainWindow.mode == "Point":
+            l1 = QLine(QPoint(self.x1 + 10, self.y1), QPoint(self.x1 - 10, self.y1))
+            l2 = QLine(QPoint(self.x1, self.y1 + 10), QPoint(self.x1, self.y1 - 10))
+            qp.drawLines([l1, l2])
+        else:
+            if self.mainWindow.mode == "Clicks" or self.mainWindow.mode == "Clicks Scatter":
+                dx, dy = self.calculateOffset()
+                x1, y1 = self.x1 + dx, self.y1 + dy
             else:
-                if self.mainWindow.mode == "Clicks" or self.mainWindow.mode == "Clicks Scatter":
-                    dx, dy = self.calculateOffset()
-                    x1, y1 = self.x1 + dx, self.y1 + dy
-                else:
-                    x1, y1 = self.x1, self.y1
-                qp.drawRect(QRect(QPoint(x1, y1), QPoint(self.x2, self.y2)))
+                x1, y1 = self.x1, self.y1
+            qp.drawRect(QRect(QPoint(x1, y1), QPoint(self.x2, self.y2)))
+
+    def __drawRuler(self, qp):
+
+        qp.drawLines(QPoint(10,10), QPoint(100,10))
 
     @abstractmethod
     def right_menu(self, pos):

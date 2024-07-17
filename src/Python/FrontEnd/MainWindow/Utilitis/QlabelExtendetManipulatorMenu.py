@@ -18,6 +18,7 @@ class Worker(QObject):
         self.finished.emit()
 
 
+#TODO Dlaczego to jest tutaj ????????
 class QlabelRightClickMenu(QlabelROI):
 
     def right_menu(self, pos):
