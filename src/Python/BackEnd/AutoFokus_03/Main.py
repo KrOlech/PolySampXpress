@@ -14,7 +14,8 @@ class AutoFokus03(Loger):
         self.metricCalculation = CalculateAndSaveResults(self.fun)
 
     def run(self):
-        rez = minimize(self.handleFokus, 2000, bounds=[(2000, 3000)], method='COBYLA', tol=0.005,
+        current = self.manipulatorInterface.focusPosition
+        rez = minimize(self.handleFokus, current, bounds=[(current+500, current+500)], method='COBYLA', tol=0.005,
                        options={"rhobeg": 100}
                        )
 

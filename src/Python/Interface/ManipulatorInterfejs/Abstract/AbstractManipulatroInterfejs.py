@@ -14,6 +14,10 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         return ["/\\", "<", ">", r'\/']
 
     @property
+    def focusPosition(self):
+        return self._focusManipulator.x
+
+    @property
     def x(self):
         return self._manipulator.x
 
@@ -41,7 +45,7 @@ class AbstractManipulatorInterferes(QWidget, Loger):
 
         self.fun = [self.__key_down, self.__key_left, self.__key_right, self.__key_up]
 
-        self.focusFun = [ self.__focus_key_down, self.__fockus_key_up]
+        self.focusFun = [self.__focus_key_down, self.__fockus_key_up]
 
         self.windowSize = windowSize
 
@@ -121,10 +125,10 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         return buttons
 
     def crateFocusButtons(self, transparency=10):
-        buttons = [QPushButton(r'\/', self.master.widget),QPushButton( "/\\", self.master.widget)]
+        buttons = [QPushButton(r'\/', self.master.widget), QPushButton("/\\", self.master.widget)]
         [button.setStyleSheet(f"background-color: rgba(255, 255, 255, {transparency});") for button in buttons]
         [button.released.connect(f) for f, button in zip(self.focusFun, buttons)]
-        [button.setFixedSize(20,20) for button in buttons]
+        [button.setFixedSize(20, 20) for button in buttons]
         return buttons
 
     def createFocusSlider(self):

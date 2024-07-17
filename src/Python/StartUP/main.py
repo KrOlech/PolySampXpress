@@ -34,7 +34,7 @@ class m(Loger):  # TODO better name
 
         self.mainWindow.show()
 
-        self.mainWindow.homeAllAxis()
+        #self.mainWindow.homeAllAxis()
 
         self.app.exec_()
 

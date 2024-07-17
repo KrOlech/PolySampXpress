@@ -6,6 +6,7 @@ from Python.BackEnd.SzarpnesCalculation.Main import SzarpnesCalculation
 from Python.Interface.ManipulatorInterfejs.Abstract.AbstractManipulatroInterfejs import \
     AbstractManipulatorInterferes
 from Python.Interface.ManipulatorInterfejs.Selection.Select import SelectManipulator
+from Python.Utilitis.GenericProgressClass import GenericProgressClass
 
 
 class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
@@ -23,10 +24,18 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
 
         [self.master.addAction(a) for a in self.actions]
 
-        #self.autoFokus()
+        # self.autoFokus()
 
     def autoFokus(self):
-        AutoFokus03(self, self.master.camera).run()
+
+        fokus = AutoFokus02(self, self.master.camera)
+        window = GenericProgressClass("Auto Fokus in progress", fokus.run, 200, self)
+        fokus.window = window
+
+        window.run()
+        window.exec_()
+
+        fokus.show()
 
     def fokusGoTo(self, x):
         self._focusManipulator.x = x
