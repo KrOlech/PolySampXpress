@@ -61,7 +61,6 @@ class AutoFokus02(Loger):
                         label=self.metricCalculation[self.iterator].funName)
 
     def show(self):
-
         plt.legend()
         plt.show()
 
