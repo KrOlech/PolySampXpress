@@ -103,7 +103,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
         pixelCount = sizeIn_px[0] * sizeIn_px[1]
 
-        mapRes_x, mapRes_y, _ = self.loadResolution("1080P")
+        mapRes_x, mapRes_y, _ = self.loadResolution("1536P")
 
         mapPixelCount = mapRes_x * mapRes_y
 

@@ -46,6 +46,8 @@ class QlabelROI(RightClickLabel, CreateRoi):
 
         self.zoomsLengths = self.__createZoomLengths()
 
+        self.cen = self.__createCenter()
+
     @abstractmethod
     def getFrame(self) -> QPixmap:
         cvBGBImg = self.mainWindow.camera.getFrame()
@@ -78,6 +80,24 @@ class QlabelROI(RightClickLabel, CreateRoi):
             self.__drawCurrentlyMarkedRectangles(qp)
 
         self.__drawRuler(qp)
+
+        self.__drawCenter(qp)
+
+    def __createCenter(self):
+        cx = self.size().height() // 2
+        cy = self.size().width() // 2
+        l1 = QPoint(cy, cx + 5), QPoint(cy, cx - 5)
+        l2 = QPoint(cy + 5, cx), QPoint(cy - 5, cx)
+        return l1, l2
+
+    def __drawCenter(self, qp):
+        pen = qp.pen()
+        pen.setWidth(1)
+        pen.setColor(QColor("blue"))
+        qp.setPen(pen)
+
+        qp.drawLine(*self.cen[0])
+        qp.drawLine(*self.cen[1])
 
     def __drawRectangles(self, qp):
         for i, rectangle in enumerate(self.ROIList):
