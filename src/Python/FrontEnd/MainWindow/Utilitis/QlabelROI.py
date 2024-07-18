@@ -7,6 +7,7 @@ from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor, QFont
 
 from Python.BackEnd.ROI.Main.Point.Point import Point
 from Python.BackEnd.ROI.Main.ROI.ROI import ROI
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.FrontEnd.MainWindow.RightClickMenu.Label import RightClickLabel
 from Python.FrontEnd.MainWindow.RightClickMenu.RightClickMenu import RightMenu
 from Python.BackEnd.ROI.Creation.main.CreateRoi import CreateRoi
@@ -19,6 +20,9 @@ class QlabelROI(RightClickLabel, CreateRoi):
     rois = None
 
     afterInitialisation = False
+
+    rulerHeightOffset = 50
+    rulerWidthOffset = 10
 
     def __init__(self, mainWindow, *args, **kwargs):
         super(QlabelROI, self).__init__(*args, **kwargs)
@@ -39,6 +43,8 @@ class QlabelROI(RightClickLabel, CreateRoi):
         self.setMinimumSize(cvBGBImg.shape[1], cvBGBImg.shape[0])
 
         self.setMouseTracking(True)
+
+        self.zoomsLengths = self.__createZoomLengths()
 
     @abstractmethod
     def getFrame(self) -> QPixmap:
@@ -112,7 +118,55 @@ class QlabelROI(RightClickLabel, CreateRoi):
 
     def __drawRuler(self, qp):
 
-        qp.drawLines(QPoint(10,10), QPoint(100,10))
+        pen = qp.pen()
+        pen.setWidth(3)
+        pen.setColor(QColor(200, 10, 10, 200))
+        qp.setPen(pen)
+
+        zoomsNames = {0: "1 mm", 1: "1 mm", 2: "0.5 mm", 3: "0.5 mm", 4: "0.2 mm", 5: "0.2 mm", 6: "0.2 mm",
+                      7: "0.1 mm",
+                      8: "0.1 mm", 9: "0.1 mm", 10: "0.1 mm"}
+
+        length = self.zoomsLengths[int(self.mainWindow.zoom)]
+
+        rulerHeight = self.size().height() - self.rulerHeightOffset
+
+        rulerOffsetLength = self.rulerWidthOffset + length
+
+        rulerHalfOffsetLength = rulerOffsetLength // 2
+
+        rulerQuoterOffsetLength = rulerOffsetLength // 4
+
+        p00 = QPoint(self.rulerWidthOffset, rulerHeight)
+
+        lineHeight = self.size().height() - 60
+
+        qp.drawLines(p00, QPoint(rulerOffsetLength, rulerHeight))
+
+        qp.drawLines(p00,
+                     QPoint(self.rulerWidthOffset, lineHeight))
+        qp.drawLines(QPoint(rulerOffsetLength, rulerHeight),
+                     QPoint(rulerOffsetLength, lineHeight))
+
+        qp.drawLines(QPoint(rulerHalfOffsetLength, rulerHeight),
+                     QPoint(rulerHalfOffsetLength, lineHeight))
+
+        qp.drawLines(QPoint(rulerQuoterOffsetLength, rulerHeight),
+                     QPoint(rulerQuoterOffsetLength, lineHeight + 5))
+        qp.drawLines(QPoint(rulerHalfOffsetLength + length // 4, rulerHeight),
+                     QPoint(rulerHalfOffsetLength + length // 4, lineHeight + 5))
+
+        qp.drawText(length + 20, rulerHeight, zoomsNames[int(self.mainWindow.zoom)])
+
+    def __createZoomLengths(self):
+        zoomsLengths = {0: 100, 1: 100, 2: 100, 3: 100, 4: 100, 5: 100, 6: 100, 7: 100, 8: 100, 9: 100, 10: 100}
+        realLengthsMM = [1, 1, 0.5, 0.5, 0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 0.1]
+
+        for zoom, length in zip(zoomsLengths, realLengthsMM):
+            x, y = JsonHandling.loadOffsetsJson(zoom)
+            zoomsLengths[zoom] = int(y * length)
+
+        return zoomsLengths
 
     @abstractmethod
     def right_menu(self, pos):
