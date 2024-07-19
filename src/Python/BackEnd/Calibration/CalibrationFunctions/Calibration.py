@@ -1,33 +1,41 @@
+import cv2
+import numpy as np
+
 from Python.BackEnd.Calibration.Abstract.Abstract import AbstractCalibrate
 
 
 class Calibrate(AbstractCalibrate):
 
     def __calibrate(self, manipulatorInterferes, movementFun, index=None, template=None):
-        template, _, _ = self.extractTemplate(self.getGrayFrame()) if template is None else template
-
-        frame_ = self.camera.getFrame()
-
-        self.saveFrameWithTemplate(str(index) + movementFun.__name__ + 's.png', frame_,
-                                   (self.templateLocationY, self.templateLocationX))
-
         movementFun()
         manipulatorInterferes.waitForTarget()
 
-        loc = self.matchTemplate(template)
+        #delta = self.findTemplates(loc, index)
 
-        self.loger(f"locations of the template: {loc}")
+        self.patternLocator.name = str(int(self.patternLocator.name) + 1)
+        crossLocation = self.patternLocator.locateCross()
 
-        if loc is None:
-            self.logWarning(f"No matched template")
-            return
+        #circles = cv2.HoughCircles(cv2.medianBlur(cv2.cvtColor(self.master.camera.getFrame(), cv2.COLOR_BGR2GRAY), 5),
+        #                           cv2.HOUGH_GRADIENT, dp=1.2, minDist=100,
+        #                           param1=100, param2=30, minRadius=0, maxRadius=0)
 
-        delta = self.findTemplates(loc, index)
+        #if circles is None:
+        #    self.logError("Caliration failed")
+
+        #circles = np.round(circles[0, :]).astype("int")
+
+        #self.loger(f"Circles {circles}")
+
+        #crossLocation = circles[0]
+
+        delta = self.x0 - crossLocation[0], self.yo - crossLocation[1]
 
         self.loger(f"Calculated different in template location {delta}")
 
+        self.loger(f"Index {index}")
+
         if delta[not index] > 5:
-            self.logWarning(f"To math distortion in other axis") #todo invalidate calibration
+            self.logWarning(f"To math distortion in other axis")  # todo invalidate calibration
             return
 
         if index is not None:
