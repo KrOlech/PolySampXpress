@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QLabel
 
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.MoveByValue import MoveByValue
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
-from Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
+from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
 from Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
 from Python.FrontEnd.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.SimpleDialogWindow import GoToCordsDialog

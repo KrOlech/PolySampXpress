@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 from Python.BackEnd.Calibration.DialogWindow.waitWindow.DialogWindow import CalibrationDialog
-from Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
+from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
 from Python.BackEnd.Calibration.asyncFunctionality.CalibrateAsync import CalibrateAsync
 
 
