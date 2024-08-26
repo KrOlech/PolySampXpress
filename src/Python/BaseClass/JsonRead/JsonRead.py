@@ -157,6 +157,13 @@ class JsonHandling(Loger):
 
         return JsonHandling.loadResolution(resolution)
 
+    @staticmethod
+    def loadTreyConfigurations():
+        with open(JsonHandling.getFileLocation(r"TreyConfig.json"), 'r') as file:
+            treys = json.load(file)
+
+        return treys
+
 
 if __name__ == '__main__':
     print(JsonHandling.getFileLocation("test"))

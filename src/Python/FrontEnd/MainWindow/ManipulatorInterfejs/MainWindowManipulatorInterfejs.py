@@ -3,6 +3,7 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.MoveByValue import MoveByValue
+from Python.BackEnd.XeroStartup.Main import XeroStartup
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
 from Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
@@ -39,12 +40,20 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
                      ("Set Zero Point", self.__setZeroPoint),
                      ("Set Zero Point Manual", self.__setZeroPointManual),
                      ("Calculate Inaccuracy", self.__calculateInaccuracy),
-                     ("Remove Sample", self.__removeSample)]
+                     ("Remove Sample", self.__removeSample),
+                     ("00Test", self._00Test)]
+
+        self.sampleTreyName = "Trey0"
+
+        self.refPoints = {}
 
         for name, fun in menuSetup:
             self.__saveAndCreateAction(name, fun, manipulatorMenu)
 
         self.__saveAndCreateAction("&autoFocus", self.manipulatorInterferes.autoFokus, self.cameraMenu)
+
+    def _00Test(self):
+        XeroStartup(self).xeroOut()
 
     def homeAllAxis(self):
         window = GenericProgressClass("Start Up in progress", self.manipulatorInterferes.homeAxis, 200, self)
