@@ -53,7 +53,10 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         self.__saveAndCreateAction("&autoFocus", self.manipulatorInterferes.autoFokus, self.cameraMenu)
 
     def _00Test(self):
-        XeroStartup(self).xeroOut()
+        zta = XeroStartup(self)
+        window = GenericProgressClass("Xero Startup", zta.xeroOut, 200, self)
+        window.run()
+        window.exec_()
 
     def homeAllAxis(self):
         window = GenericProgressClass("Start Up in progress", self.manipulatorInterferes.homeAxis, 200, self)

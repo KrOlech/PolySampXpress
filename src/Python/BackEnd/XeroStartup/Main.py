@@ -9,30 +9,35 @@ class XeroStartup(Loger):
         self.master = master
 
         self.treyConfig = JsonHandling.loadTreyConfigurations()[self.master.sampleTreyName]
-        self.treyConfigZoom = float(JsonHandling.loadTreyConfigurations()["zoom"][self.master.zoom])
+        self.treyConfigZoom = float(JsonHandling.loadTreyConfigurations()["zoom"][str(int(self.master.zoom))])
 
     def xeroOut(self):
         for name, point in self.treyConfig.items():
-            self.master.manipulatorInterferes.goToCords(float(point["x"]), float(point["y"]))
+            self.master.manipulatorInterferes.goToCords(float(point["y"]), float(point["x"]))
 
-            self.master.manipulatorInterferes.autoFokus()
+            self.master.manipulatorInterferes.autoFokusNotAsync()
             z = self.master.manipulatorInterferes.focusPosition
 
             x, y = LocateCross(self.master,
                                f"Zoom_{self.master.zoom}_Trey_{self.master.sampleTreyName}_TreyNumer_{name}").locateCross()
 
-            self.master.manipulatorInterferes.goToCords(x, y)
+            self.master.manipulatorInterferes.center(y, x, self.master.zoom)
 
-            self.master.manipulatorInterferes.goToCords(x + self.treyConfigZoom, y + self.treyConfigZoom)
+            x0, y0 = LocateCross(self.master,
+                               f"Zoom_{self.master.zoom}_Trey_{self.master.sampleTreyName}_TreyNumer_{name}").locateCross()
+
+            self.master.manipulatorInterferes.center(x + self.treyConfigZoom, y + self.treyConfigZoom, self.master.zoom)
 
             xC, yC = LocateCross(self.master,
                                  f"Zoom_{self.master.zoom}_Trey_{self.master.sampleTreyName}_TreyNumer_{name}_Calibration").locateCross()
 
-            self.CalculateAndCheckCalibration([x, y], [xC, yC])
+            self.CalculateAndCheckCalibration([x0, y0], [xC, yC])
 
             self.master.refPoints[name] = {"x": x, "y": y, "z": z}
 
     def CalculateAndCheckCalibration(self, start, end):
+
+        self.loger(f"Start point {start} , end point {end} ")
 
         dx = start[0] - end[0]
         dy = start[1] - end[1]
@@ -44,6 +49,8 @@ class XeroStartup(Loger):
 
         differenceX = abs(dx - ofsetX)
         differenceY = abs(dx - ofsetY)
+
+        self.loger(f"raf dx difference: dx:{dx} , dy:{dy}, readed from file difrence ox:{ofsetX} , oy:{ofsetY}")
 
         if not (differenceX < 5 and differenceY < 5):
             # todo Rise proper Error

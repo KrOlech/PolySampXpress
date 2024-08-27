@@ -26,7 +26,7 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
 
         # self.autoFokus()
 
-    def autoFokus(self):
+    def autoFokus(self, showResults=False):
 
         fokus = AutoFokus02(self, self.master.camera)
         window = GenericProgressClass("Auto Fokus in progress", fokus.run, 200, self)
@@ -35,7 +35,12 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
         window.run()
         window.exec_()
 
-        fokus.show()
+        if showResults:
+            fokus.show()
+
+    def autoFokusNotAsync(self):
+        fokus = AutoFokus02(self, self.master.camera)
+        fokus.run()
 
     def fokusGoTo(self, x):
         self._focusManipulator.x = x

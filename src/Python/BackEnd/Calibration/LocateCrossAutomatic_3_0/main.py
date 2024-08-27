@@ -52,7 +52,9 @@ class LocateCross(Loger):
         return photo
 
     def __crateAndSaveResults(self, photo):
-
+        plt.close()
+        plt.cla()
+        plt.clf()
         plt.imshow(photo)
 
         plt.savefig(f"{self.name}.png")
