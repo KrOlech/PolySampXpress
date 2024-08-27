@@ -55,6 +55,6 @@ class LocateCross(Loger):
         plt.close()
         plt.cla()
         plt.clf()
-        plt.imshow(photo)
+        #plt.imshow(photo)
 
-        plt.savefig(f"{self.name}.png")
+        plt.imsave(f"{self.name}.png",photo, cmap='gray')

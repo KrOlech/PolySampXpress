@@ -147,6 +147,9 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     def goToCords(self, x, y):
         self._manipulator.goToCords(x=x, y=y)
 
+    def removeSample(self):
+        self._manipulator.goToCords(110, 0)
+
     async def goToCordsAsync(self, x, y):
         self._manipulator.goToCords(x=x, y=y)
         self._manipulator.waitForTarget()

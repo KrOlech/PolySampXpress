@@ -13,23 +13,28 @@ class XeroStartup(Loger):
 
     def xeroOut(self):
         for name, point in self.treyConfig.items():
+            fileName = f"Zoom_{self.master.zoom}_Trey_{self.master.sampleTreyName}_TreyNumer_{name}"
+
             self.master.manipulatorInterferes.goToCords(float(point["y"]), float(point["x"]))
+            self.master.manipulatorInterferes.waitForTarget()
 
             self.master.manipulatorInterferes.autoFokusNotAsync()
             z = self.master.manipulatorInterferes.focusPosition
 
-            x, y = LocateCross(self.master,
-                               f"Zoom_{self.master.zoom}_Trey_{self.master.sampleTreyName}_TreyNumer_{name}").locateCross()
+            x, y = LocateCross(self.master, fileName).locateCross()
 
             self.master.manipulatorInterferes.center(y, x, self.master.zoom)
+            self.loger(f"calibration_Start location {x} {y}")
+            self.master.manipulatorInterferes.waitForTarget()
 
-            x0, y0 = LocateCross(self.master,
-                               f"Zoom_{self.master.zoom}_Trey_{self.master.sampleTreyName}_TreyNumer_{name}").locateCross()
+            x0, y0 = LocateCross(self.master, fileName + "calibration_Start").locateCross()
 
-            self.master.manipulatorInterferes.center(x + self.treyConfigZoom, y + self.treyConfigZoom, self.master.zoom)
+            self.master.manipulatorInterferes.setSpeed(self.treyConfigZoom)
+            self.master.manipulatorInterferes.moveUp()
+            self.master.manipulatorInterferes.moveLeft()
+            self.master.manipulatorInterferes.waitForTarget()
 
-            xC, yC = LocateCross(self.master,
-                                 f"Zoom_{self.master.zoom}_Trey_{self.master.sampleTreyName}_TreyNumer_{name}_Calibration").locateCross()
+            xC, yC = LocateCross(self.master, fileName + "calibration_End").locateCross()
 
             self.CalculateAndCheckCalibration([x0, y0], [xC, yC])
 

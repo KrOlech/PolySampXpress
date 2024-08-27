@@ -95,7 +95,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         InaccuracyMeasurements(self).runScript()
 
     def __removeSample(self):
-        self.manipulatorInterferes.goToCords(110, 0)
+        window = GenericProgressClass("Remove Sample in progress", self.manipulatorInterferes.removeSample, 200, self)
+        window.run()
+        window.exec_()
 
     def __configureStatusBar(self):
         myStatusBar = QLabel(self)
