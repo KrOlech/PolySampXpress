@@ -51,6 +51,8 @@ class AbstractCalibrate(JsonHandling, CalibrateProperty, TemplateMatching):
 
     def saveCalibrationResults(self, delta, index):
 
+        index = not index
+
         data = self.readFile(self.configFile)
 
         self.loger(f"Calculated offset for index: {index} : {delta[index]}")
