@@ -53,27 +53,27 @@ class SaveRoiList(JsonHandling):
 
             chdir(currentDirectory)
 
-    # todo Test if needed alsow move to new zip Format
     def emergancySave(self):
-        folderPath = os.curdir
-        curentDirectory = curdir
 
         data = {roi.name: roi.fileDict for roi in self.roiList}
 
-        fileName = folderPath[folderPath.rfind(r"/") + 1:]
-
-        folderPath = folderPath[:folderPath.rfind(r"/")]
-
-        chdir(folderPath)
-
         now = datetime.now()
 
-        directoryName = f"{str(now.date())}-{str(now.hour)}.{str(now.minute)}.{str(now.second)}"
+        fileName = f"{str(now.date())}-{str(now.hour)}.{str(now.minute)}.{str(now.second)}"
 
-        mkdir(directoryName)
+        with zipfile.ZipFile(f'{fileName}', 'w') as zipF:
+            with zipF.open('data.json', 'w') as jsonfile:
+                jsonfile.write(json.dumps(data, indent=4).encode('utf-8'))
 
-        self.simpleSaveFile(folderPath + r"/" + directoryName + r"/" + fileName, data)
+            for roi in self.roiList:
+                photoArray = roi.createViue()
 
-        [roi.saveViue(folderPath + r"/" + directoryName + r"/") for roi in self.roiList]
+                name = str(roi.name) + ".png"
 
-        chdir(curentDirectory)
+                img = Image.fromarray(photoArray)
+
+                imgByte = BytesIO()
+                img.save(imgByte, format='PNG')  # Save as PNG or JPEG
+
+                # Write the image to the zip file
+                zipF.writestr(name, imgByte.getvalue())
