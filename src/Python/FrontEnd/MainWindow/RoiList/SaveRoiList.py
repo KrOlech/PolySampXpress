@@ -1,16 +1,13 @@
-import os
+import json
+import zipfile
+from datetime import datetime
+from io import BytesIO
+from os import chdir, curdir
 
+from PIL import Image
 from PyQt5.QtWidgets import QFileDialog
 
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from datetime import datetime
-from os import mkdir, chdir, curdir
-import zipfile
-import json
-import zipfile
-import numpy as np
-from PIL import Image
-from io import BytesIO
 
 
 class SaveRoiList(JsonHandling):
@@ -46,9 +43,8 @@ class SaveRoiList(JsonHandling):
                     img = Image.fromarray(photoArray)
 
                     imgByte = BytesIO()
-                    img.save(imgByte, format='PNG')  # Save as PNG or JPEG
+                    img.save(imgByte, format='PNG')
 
-                    # Write the image to the zip file
                     zipF.writestr(name, imgByte.getvalue())
 
             chdir(currentDirectory)
@@ -73,7 +69,6 @@ class SaveRoiList(JsonHandling):
                 img = Image.fromarray(photoArray)
 
                 imgByte = BytesIO()
-                img.save(imgByte, format='PNG')  # Save as PNG or JPEG
+                img.save(imgByte, format='PNG')
 
-                # Write the image to the zip file
                 zipF.writestr(name, imgByte.getvalue())
