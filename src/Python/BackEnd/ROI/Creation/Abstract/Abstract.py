@@ -35,8 +35,12 @@ class CreateRoiAbstract(QLabel, Loger):
     def seveReliseLocation(self, e):
         self.abstractmetod()
 
+    def __checIfSizeIsValid(self) -> bool:
+        return abs(self.x1 - self.x2) < 10 and abs(self.y1 - self.y2) < 10
+
     def createAndAddROIToList(self, scatter=False):
-        if abs(self.x1 - self.x2) < 10 and abs(self.y1 - self.y2) < 10:
+
+        if self.__checIfSizeIsValid():
             return
 
         self.ROIList.append(

@@ -1,4 +1,5 @@
 from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
+from Python.BackEnd.ROI.Main.Point.PointClass import Point
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.BaseClass.Logger.Logger import Loger
 
@@ -38,7 +39,17 @@ class XeroStartup(Loger):
 
             self.CalculateAndCheckCalibration([x0, y0], [xC, yC])
 
-            self.master.refPoints[name] = {"x": x, "y": y, "z": z}
+            p = Point(self.master.cameraView, x, y, f"PX 0 0, {fileName}",
+                      self.master.manipulatorInterferes.x,
+                      self.master.manipulatorInterferes.y, [0, 0], ooPoint=False, zValue=z)
+
+            self.master.cameraView.ROIList.append(p)
+
+            self.master.addROIToList()
+
+            self.master.refPoints[name] = {"x": x, "y": y, "z": z, "point": p.fileDict}
+
+            print(self.master.refPoints)
 
     def CalculateAndCheckCalibration(self, start, end):
 

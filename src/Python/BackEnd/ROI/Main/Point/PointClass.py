@@ -10,10 +10,12 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 class Point(PointEdit, NameHandling, Cursor):
 
     def __init__(self, master, x1, y1, name, manipulatotrX, manipulatorY, pixelAbsolutValue, viue=None, zoom=None,
-                 ooPoint=False):
+                 ooPoint=False, zValue=None):
         self.loger(f"x1 = {x1},  y1 = {y1}")
 
         self.x0Label, self.y0Label = x1, y1
+
+        self.zValue = zValue
 
         self.pixelAbsolutValue = pixelAbsolutValue
 
@@ -38,9 +40,12 @@ class Point(PointEdit, NameHandling, Cursor):
             self.fillFileDict()
             self.saveCenterToFileDict()
 
+
+
     def fillFileDict(self):
         x0 = self.x0 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
+
         self.fileDict["Pixell Values"] = {"x0": x0, "y0": y0}
 
         self.xOffset, self.yOffset = JsonHandling.loadOffsetsJson(self.zoom)
@@ -50,6 +55,10 @@ class Point(PointEdit, NameHandling, Cursor):
         deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
         self.fileDict["sample mm Values"] = {"x0": absoluteMMValuesX - deltaX, "y0": absoluteMMValuesY - deltaY}
         self.fileDict["zero Point Present"] = zeroPointStatus
+
+        if self.zValue:
+            self.fileDict["Pixell Values"] = {"x0": self.x0, "y0": self.y0, "z0": self.zValue}
+            self.fileDict["zero Point Present"] = None
 
         self.fileDict["zoom"] = self.zoom
 

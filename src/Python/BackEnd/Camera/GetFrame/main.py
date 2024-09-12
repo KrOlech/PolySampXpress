@@ -2,11 +2,11 @@ from Python.BackEnd.Camera.GetFrame.GetFrameUSB import GetFrameUSB
 from Python.BackEnd.Camera.GetFrame.GetFreamFromCameraProducent import GetFrameFromProducent
 
 
-class GetFrame(GetFrameFromProducent):
+class GetFrame(GetFrameUSB):
     device = None
 
     def __init__(self):
         super().__init__()
 
     def getFrame(self):
-        return self.getFrameProducent()
+        return self.getFrameUSB()

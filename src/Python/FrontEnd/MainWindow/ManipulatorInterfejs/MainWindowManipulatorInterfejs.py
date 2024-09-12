@@ -37,8 +37,6 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
                      ("Go To Cords", self.__goToCords),
                      ("Move By Value", self.__moveByValue),
                      ("Set Step Size", self.__setStepSize),
-                     ("Set Zero Point", self.__setZeroPoint),
-                     ("Set Zero Point Manual", self.__setZeroPointManual),
                      ("Calculate Inaccuracy", self.__calculateInaccuracy),
                      ("Remove Sample", self.__removeSample),
                      ("00Test", self._00Test)]

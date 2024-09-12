@@ -16,7 +16,7 @@ class AbstractMapWindow(Loger):
     # Direction of next frame passable values "R" i "L"
     mapDirection = "R"
 
-    # If true map is finished
+    # If a true map is finished
     mapEnd = False
 
     # map container Numpy
