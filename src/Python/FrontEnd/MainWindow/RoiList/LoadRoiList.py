@@ -2,6 +2,11 @@ import cv2
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from os import chdir, curdir
+import zipfile
+import json
+import numpy as np
+from PIL import Image
+from io import BytesIO
 
 from Python.BackEnd.ROI.Main.Point.Point import Point
 from Python.BackEnd.ROI.Main.ROI.ROI import ROI
@@ -20,6 +25,58 @@ class LoadRoiList(JsonHandling):
         self.absolutPxY = self.master.cameraView.pixelAbsolutValue[1]
 
     def load(self):
+
+        self.filePath, currentDirectory = self.resolveFile()
+
+        if not self.filePath or not currentDirectory:
+            self.loger("File loading interrupted by user no file was selected to load")
+            return
+
+        self.directoryPath = self.filePath[:self.filePath.rfind(r"/")]
+
+        self.loger(self.filePath)
+
+        with zipfile.ZipFile(self.filePath, 'r') as zipF:
+
+            with zipF.open('data.json') as jsonfile:
+                json_data = jsonfile.read().decode('utf-8')
+                data = json.loads(json_data)
+                self.loger("Dictionary from JSON:", data)
+
+            for fileName in zipF.namelist():
+                if fileName.endswith('.png') or fileName.endswith('.jpg'):
+
+                    with zipF.open(fileName) as imgfile:
+
+                        img = np.array(Image.open(BytesIO(imgfile.read())))
+
+                        qImg = QPixmap.fromImage(QImage(img.data, img.shape[1], img.shape[0], QImage.Format_BGR888))
+
+                        name = fileName[:fileName.rfind(r".")]
+
+                        cords = data[name]['Pixell Values']
+
+                        if len(cords) == 4:
+                            roi = ROI(self.master.cameraView, cords["x0"] + self.absolutPxX,
+                                      cords["y0"] + self.absolutPxY,
+                                      cords["x1"] + self.absolutPxX, cords["y1"] + self.absolutPxY, name, 0,
+                                      0, self.master.cameraView.pixelAbsolutValue, scatter=data[name]["scatter"],
+                                      viue=qImg,
+                                      zoom=data[name]["zoom"])
+
+                        elif len(cords) == 2:
+                            roi = Point(self.master.cameraView, cords["x0"] + self.absolutPxX,
+                                        cords["y0"] + self.absolutPxY,
+                                        name, 0,
+                                        0, self.master.cameraView.pixelAbsolutValue, viue=qImg,
+                                        zoom=data[name]["zoom"])
+                        self.master.cameraView.ROIList.append(roi)
+
+                        self.master.addROIToList()
+
+            self.master.cameraView.roiNames = len(self.master.cameraView.ROIList)
+
+    def loadDeprecated(self):
 
         self.filePath, currentDirectory = self.resolveFile()
 
@@ -73,7 +130,7 @@ class LoadRoiList(JsonHandling):
 
     def resolveFile(self):
         filePath, _ = QFileDialog.getOpenFileName(self.master, "Select file with Roi List", "",
-                                                  "Json Files (*.json)")
+                                                  "Json Files (*.zip)")
         return filePath, curdir
 
     def loadImage(self, name):

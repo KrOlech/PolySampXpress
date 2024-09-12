@@ -68,8 +68,11 @@ class ROI(ROIEdit, Cursor, AbstractROI, NameHandling):
                      QPoint(self.x1Label // scalaX, self.y1Label // scalaY))
 
     def saveViue(self, path):
+        cv2.imwrite(path + str(self.name) + ".png", self.createViue())
+
+    def createViue(self):
         image = self.convertQpixmapToOpenCV(self.view)
 
         cv2.rectangle(image, [self.x0Label, self.y0Label], [self.x1Label, self.y1Label], (0, 0, 255), 2)
 
-        cv2.imwrite(path + str(self.name) + ".png", image)
+        return image
