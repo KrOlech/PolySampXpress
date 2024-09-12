@@ -39,7 +39,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
                      ("Set Step Size", self.__setStepSize),
                      ("Calculate Inaccuracy", self.__calculateInaccuracy),
                      ("Remove Sample", self.__removeSample),
-                     ("00Test", self._00Test)]
+                     ("Calculate Zero points", self._00Points)]
 
         self.sampleTreyName = "Trey0"
 
@@ -50,11 +50,19 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         self.__saveAndCreateAction("&autoFocus", self.manipulatorInterferes.autoFokus, self.cameraMenu)
 
-    def _00Test(self):
-        zta = XeroStartup(self)
-        window = GenericProgressClass("Xero Startup", zta.xeroOut, 200, self)
+    def _00Points(self):
+        self.zta = XeroStartup(self)
+
+        window = GenericProgressClass("Calculate Zero points", self.zeroOut, 200, self)
         window.run()
         window.exec_()
+
+    def zeroOut(self):
+        self.autoZoomMode = True
+        for zoom in [0.85, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
+            self.zooms.setCurrentText(str(zoom))
+            self.zta.xeroOut()
+        self.autoZoomMode = False
 
     def homeAllAxis(self):
         window = GenericProgressClass("Start Up in progress", self.manipulatorInterferes.homeAxis, 200, self)

@@ -107,11 +107,13 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
     def __isOkToProcesEvent(self):
         return self.mainWindow.manipulatorInterferes.inMotion or not self.leftMouseButton or self.mainWindow.creatingMap
 
+    @deprecated
     def __removeZeroPoint(self):
         if self.__absolutZeroPoint is not None:
             self.__absolutZeroPoint.delete()
             self.__absolutZeroPoint = None
 
+    @deprecated
     def __newZeroPoint(self, x=None, y=None):
         x = x if x else self.pixelAbsolutValue[0]
         y = y if y else self.pixelAbsolutValue[1]
@@ -123,6 +125,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
         ofsetX, ofsetY = JsonHandling.loadOffsetsJson(self.mainWindow.zoom)
         return x + ofsetX, y + ofsetY
 
+    @deprecated
     def __createAndSaveZeroPoint(self, x, y):
         self.pixelAbsolutValue = self.__resolvePixelAbsolutValue(x, y)
         self.loger(f"Calculated zero point absolute Pixels: {self.pixelAbsolutValue}")
@@ -144,6 +147,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
 
             self.mainWindow.myStatusBarClick.setText("")
 
+    @deprecated
     def setAbsolutZeroPositionForPixels(self, x, y):
         if not self.mainWindow.manipulatorInterferes.inMotion:
             self.__createAndSaveZeroPoint(x, y)

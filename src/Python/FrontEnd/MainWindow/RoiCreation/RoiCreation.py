@@ -17,7 +17,7 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
 
     scatterConfig = None
 
-    zeroPoint = None
+    zeroPoint = {}
 
     def createRoiModsMenu(self):
         self.__pointer = self.qActionCreate("Hand Mode", self.__togglePointerMode,

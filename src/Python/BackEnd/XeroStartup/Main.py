@@ -5,16 +5,21 @@ from Python.BaseClass.Logger.Logger import Loger
 
 
 class XeroStartup(Loger):
+    treyConfigZoom = None
 
     def __init__(self, master):
         self.master = master
 
         self.treyConfig = JsonHandling.loadTreyConfigurations()[self.master.sampleTreyName]
-        self.treyConfigZoom = float(JsonHandling.loadTreyConfigurations()["zoom"][str(int(self.master.zoom))])
 
     def xeroOut(self):
+
+        self.treyConfigZoom = float(JsonHandling.loadTreyConfigurations()["zoom"][str(int(self.master.zoom))])
+
+        self.master.refPoints[self.treyConfigZoom] = {}
+
         for name, point in self.treyConfig.items():
-            fileName = f"Zoom_{self.master.zoom}_Trey_{self.master.sampleTreyName}_TreyNumer_{name}"
+            fileName = f"P00_Zoom_{self.master.zoom}_Trey_{self.master.sampleTreyName}_TreyNumer_{name}"
 
             self.master.manipulatorInterferes.goToCords(float(point["y"]), float(point["x"]))
             self.master.manipulatorInterferes.waitForTarget()
@@ -39,7 +44,7 @@ class XeroStartup(Loger):
 
             self.CalculateAndCheckCalibration([x0, y0], [xC, yC])
 
-            p = Point(self.master.cameraView, x, y, f"PX 0 0, {fileName}",
+            p = Point(self.master.cameraView, x, y, f"{fileName}",
                       self.master.manipulatorInterferes.x,
                       self.master.manipulatorInterferes.y, [0, 0], ooPoint=False, zValue=z)
 
@@ -47,9 +52,11 @@ class XeroStartup(Loger):
 
             self.master.addROIToList()
 
-            self.master.refPoints[name] = {"x": x, "y": y, "z": z, "point": p.fileDict}
+            self.master.refPoints[self.treyConfigZoom][name] = {"x": x, "y": y, "z": z, "point": p.fileDict}
 
             print(self.master.refPoints)
+
+        self.master.zeroPoint[self.treyConfigZoom] = next(iter(self.master.refPoints[self.treyConfigZoom].values()))
 
     def CalculateAndCheckCalibration(self, start, end):
 

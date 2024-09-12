@@ -34,17 +34,20 @@ class AbstractR(Loger):
 
     def resolveZeroPoint(self):
 
-        if self.master.mainWindow.zeroPoint:
-            xp = self.master.mainWindow.zeroPoint.x0
-            yp = self.master.mainWindow.zeroPoint.y0
-            xOffsetP, yOffsetP = JsonHandling.loadOffsetsJson(self.master.mainWindow.zeroPoint.zoom)
+        currentZoom = self.master.mainWindow.zoom
+        try:
+            zeroPoint = self.master.mainWindow.zeroPoint[currentZoom]
+            xp = zeroPoint.x0
+            yp = zeroPoint.y0
+            xOffsetP, yOffsetP = JsonHandling.loadOffsetsJson(currentZoom)
             zeroPointStatus = True
-        else:
+        except KeyError as e:
             xp = 0
             yp = 0
             xOffsetP, yOffsetP = 1, 1
             zeroPointStatus = False
             self.logWarning("Zero Point was not set")
+
 
         return xp / xOffsetP, yp / yOffsetP, zeroPointStatus
 

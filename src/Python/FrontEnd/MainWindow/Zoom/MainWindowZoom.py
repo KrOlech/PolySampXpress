@@ -12,6 +12,7 @@ from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbs
 
 class MainWindowZoom(MainWindowAbstract):
     __zoomSlider = None
+    autoZoomMode = None
     zoom = 0.85
 
     # todo Unificacja
@@ -45,6 +46,10 @@ class MainWindowZoom(MainWindowAbstract):
 
     def zoomChangeActionMenu(self, i):
         self.zoom = float(self.zooms.itemText(i))
+
+        if self.autoZoomMode:
+            self.manipulatorInterferes.syncZoomManipulatorChange(i)
+            return
 
         window = GenericProgressClass("Zoom in progress", self.zoomChangeAction, 150, self)
         window.run()
