@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QFileDialog
 
 from PyQt5 import QtWidgets, QtCore
 
+from Python.BackEnd.Calibration.DialogWindow.IndoWindow.InfoWindow import CalibrationInfoWindow
 from Python.BackEnd.Camera.Main.Camera import Camera
 from Python.BackEnd.Camera.Setings.CameraSetings import CameraSettingsWindow
 from Python.FrontEnd.MainWindow.CustomBar.MainWindowMenuBar import MainWindowMenuBar
@@ -34,6 +35,8 @@ class CameraGUI(MainWindowMenuBar):
             cv.imwrite(folderPath, self.camera.getFrame())
 
     def calibrate(self):
+        CalibrationInfoWindow(self).exec_()
+    def performCalibration(self):
         MainCalibrate(self.camera, self).calibrate(self.manipulatorInterferes)
 
 
