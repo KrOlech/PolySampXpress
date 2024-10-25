@@ -10,6 +10,7 @@ class NameHandling(Loger):
     name = ""
 
     def __init__(self, *args, **kwargs):
+        self.id = kwargs['id'] if kwargs['id'] else kwargs['name']
         self.name = kwargs['name']
         self.__textedit = ReNameWindow(self, kwargs['master'], text=str(self.name))
 

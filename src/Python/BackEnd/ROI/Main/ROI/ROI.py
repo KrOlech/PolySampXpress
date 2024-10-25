@@ -10,7 +10,7 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 class ROI(ROIEdit, AbstractROI, NameHandling):
 
     def __init__(self, master, x1, y1, x2, y2, name, manipulatotrX, manipulatorY, pixelAbsolutValue, scatter=False,
-                 viue=None, zoom=None):
+                 viue=None, zoom=None, id=None):
         self.loger(
             f"x1 = {x1}, x2 = {x2}, y1 = {y1}, y2 = {y2}, manipulatotrX = {manipulatotrX}, manipulatorY = {manipulatorY}, absolutePixelValue = {pixelAbsolutValue}")
 
@@ -20,6 +20,7 @@ class ROI(ROIEdit, AbstractROI, NameHandling):
 
         kwargs = {"master": master,
                   "name": name,
+                  "id": id,
                   "x1": x1, "y1": y1,
                   "x2": x2, "y2": y2,
                   "manipulatotrX": manipulatotrX,
@@ -61,6 +62,9 @@ class ROI(ROIEdit, AbstractROI, NameHandling):
 
         self.fileDict["zoom"] = self.zoom
         self.fileDict["scatter"] = self.scatter
+        self.fileDict["name"] = self.name
+
+        return self.fileDict
 
     def createLabelMarker(self, scalaX, scalaY):
         return QRect(QPoint(self.x0Label // scalaX, self.y0Label // scalaY),

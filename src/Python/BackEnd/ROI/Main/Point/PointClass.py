@@ -9,7 +9,7 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 class Point(PointEdit, NameHandling):
 
     def __init__(self, master, x1, y1, name, manipulatotrX, manipulatorY, pixelAbsolutValue, viue=None, zoom=None,
-                 ooPoint=False, zValue=None):
+                 ooPoint=False, zValue=None, id=None):
         self.loger(f"x1 = {x1},  y1 = {y1}")
 
         self.x0Label, self.y0Label = x1, y1
@@ -20,6 +20,7 @@ class Point(PointEdit, NameHandling):
 
         kwargs = {"master": master,
                   "name": name,
+                  "id": id,
                   "x1": x1, "y1": y1,
                   "manipulatotrX": manipulatotrX,
                   "manipulatorY": manipulatorY}
@@ -38,8 +39,6 @@ class Point(PointEdit, NameHandling):
         if not ooPoint:
             self.fillFileDict()
             self.saveCenterToFileDict()
-
-
 
     def fillFileDict(self):
         x0 = self.x0 - self.pixelAbsolutValue[0]
@@ -60,6 +59,9 @@ class Point(PointEdit, NameHandling):
             self.fileDict["zero Point Present"] = None
 
         self.fileDict["zoom"] = self.zoom
+        self.fileDict["name"] = self.name
+
+        return self.fileDict
 
     def createLabelMarker(self, scalaX, scalaY):
         xlabel = int(self.x0Label // scalaX)
@@ -77,3 +79,11 @@ class Point(PointEdit, NameHandling):
         cv2.line(image, (self.x0Label, self.y0Label + 5), (self.x0Label, self.y0Label - 5), (0, 0, 255), 2)
 
         cv2.imwrite(path + str(self.name) + ".png", image)
+
+    def createViue(self):
+        image = self.convertQpixmapToOpenCV(self.view)
+
+        cv2.line(image, (self.x0Label + 5, self.y0Label), (self.x0Label - 5, self.y0Label), (0, 0, 255), 2)
+        cv2.line(image, (self.x0Label, self.y0Label + 5), (self.x0Label, self.y0Label - 5), (0, 0, 255), 2)
+
+        return image

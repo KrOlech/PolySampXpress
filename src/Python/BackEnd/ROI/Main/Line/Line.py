@@ -9,8 +9,7 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 class Line(LineEdit, NameHandling):
 
     def __init__(self, master, x1, y1, x2, y2, name, manipulatotrX, manipulatorY, pixelAbsolutValue, scatter=False,
-                 viue=None, zoom=None):
-
+                 viue=None, zoom=None, id=None):
         self.loger(
             f"x1 = {x1}, x2 = {x2}, y1 = {y1}, y2 = {y2}, manipulatotrX = {manipulatotrX}, manipulatorY = {manipulatorY}, absolutePixelValue = {pixelAbsolutValue}")
 
@@ -20,11 +19,11 @@ class Line(LineEdit, NameHandling):
 
         kwargs = {"master": master,
                   "name": name,
+                  "id": id,
                   "x1": x1, "y1": y1,
                   "x2": x2, "y2": y2,
                   "manipulatotrX": manipulatotrX,
                   "manipulatorY": manipulatorY}
-
 
         NameHandling.__init__(self, **kwargs)
         LineEdit.__init__(self, **kwargs)
@@ -33,15 +32,13 @@ class Line(LineEdit, NameHandling):
 
         self.view = self.master.getFrame() if viue is None else viue
 
-        self.scatter = scatter
-
         self.zoom = zoom if zoom else self.master.mainWindow.zoom
 
         self.fileDict = {}
         self.fillFileDict()
         self.saveCenterToFileDict()
 
-    def fillFileDict(self):#toDO proper type Name
+    def fillFileDict(self):  # toDO proper type Name
         x0 = self.x0 - self.pixelAbsolutValue[0]
         x1 = self.x1 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
@@ -60,7 +57,9 @@ class Line(LineEdit, NameHandling):
         self.fileDict["zero Point Present"] = zeroPointStatus
 
         self.fileDict["zoom"] = self.zoom
-        self.fileDict["scatter"] = self.scatter
+        self.fileDict["name"] = self.name
+
+        return self.fileDict
 
     def createLabelMarker(self, scalaX, scalaY):
         return QLine(QPoint(self.x0Label // scalaX, self.y0Label // scalaY),

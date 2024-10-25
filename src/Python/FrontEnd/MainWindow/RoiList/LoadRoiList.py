@@ -36,6 +36,8 @@ class LoadRoiList(JsonHandling):
 
         self.loger(self.filePath)
 
+        startId = self.master.cameraView.roiNames
+
         with zipfile.ZipFile(self.filePath, 'r') as zipF:
 
             with zipF.open('data.json') as jsonfile:
@@ -52,24 +54,25 @@ class LoadRoiList(JsonHandling):
 
                         qImg = QPixmap.fromImage(QImage(img.data, img.shape[1], img.shape[0], QImage.Format_BGR888))
 
-                        name = fileName[:fileName.rfind(r".")]
+                        id = fileName[:fileName.rfind(r".")]
 
-                        cords = data[name]['Pixell Values']
+                        cords = data[id]['Pixell Values']
 
                         if len(cords) == 4:
                             roi = ROI(self.master.cameraView, cords["x0"] + self.absolutPxX,
                                       cords["y0"] + self.absolutPxY,
-                                      cords["x1"] + self.absolutPxX, cords["y1"] + self.absolutPxY, name, 0,
-                                      0, self.master.cameraView.pixelAbsolutValue, scatter=data[name]["scatter"],
+                                      cords["x1"] + self.absolutPxX, cords["y1"] + self.absolutPxY, data[id]["name"], 0,
+                                      0, self.master.cameraView.pixelAbsolutValue, scatter=data[id]["scatter"],
                                       viue=qImg,
-                                      zoom=data[name]["zoom"])
+                                      zoom=data[id]["zoom"], id=int(id)+startId)
 
                         elif len(cords) == 2:
                             roi = Point(self.master.cameraView, cords["x0"] + self.absolutPxX,
                                         cords["y0"] + self.absolutPxY,
-                                        name, 0,
+                                        data[id]["name"], 0,
                                         0, self.master.cameraView.pixelAbsolutValue, viue=qImg,
-                                        zoom=data[name]["zoom"])
+                                        zoom=data[id]["zoom"], id=int(id)+startId)
+
                         self.master.cameraView.ROIList.append(roi)
 
                         self.master.addROIToList()
@@ -93,6 +96,7 @@ class LoadRoiList(JsonHandling):
         self.loger(self.filePath)
 
         data = JsonHandling.readFileRow(self.filePath)
+
         try:
             for name, values in data.items():
                 cords = values['absolute Pixell Values']
