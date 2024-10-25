@@ -111,6 +111,9 @@ class CreateRoi(SimpleCreateRoi,
 
         self.mainWindow.myStatusBarMouse.setText(f"     Cursor X: {e.x()}     Y: {e.y()}")
 
+    def toggleModeCleenUp(self):
+        getattr(self, self.supportedModes[self.mainWindow.mode] + "__toggleModeCleenUp")()
+
     def __isOkToProcesEvent(self):
         return self.mainWindow.manipulatorInterferes.inMotion or not self.leftMouseButton or self.mainWindow.creatingMap
 

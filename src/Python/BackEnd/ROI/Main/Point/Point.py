@@ -32,3 +32,10 @@ class RoiPoint(CreateRoiAbstract):
         self.y1 = e.y()
         self.x2 = e.x()
         self.y2 = e.y()
+
+    def __toggleModeCleenUp(self):
+        self.pressed = False
+        self.x1 = 0
+        self.y1 = 0
+        self.x2 = 0
+        self.y2 = 0

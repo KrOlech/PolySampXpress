@@ -10,3 +10,6 @@ class PointerMode(CreateRoiAbstract):
 
     def __saveTemporaryLocation(self, e):
         pass
+
+    def __toggleModeCleenUp(self):
+        pass

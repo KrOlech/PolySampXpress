@@ -49,3 +49,15 @@ class PointSpacing(CreateRoiAbstract):
     def calculateOffset(self):
         return int((self.manipulatorXFirstPresX - self.mainWindow.manipulatorInterferes.x) * self.xOffset), int(
             (self.manipulatorYFirstPresY - self.mainWindow.manipulatorInterferes.y) * self.yOffset)
+
+    def __toggleModeCleenUp(self):
+        self.firstPress = False
+        self.secondPress = False
+        self.manipulatorXFP = None
+        self.manipulatorXFirstPresX = None
+        self.manipulatorYFirstPresY = None
+
+        self.x1 = 0
+        self.y1 = 0
+        self.x2 = 0
+        self.y2 = 0

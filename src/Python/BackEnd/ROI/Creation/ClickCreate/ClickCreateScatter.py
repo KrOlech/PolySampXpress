@@ -18,3 +18,14 @@ class ClikcCreateScatter(ClickCreateAbstract):
 
     def __saveTemporaryLocation(self, e):
         self.saveTemporaryLocation(e)
+
+    def __toggleModeCleenUp(self):
+        self.firstPress = False
+        self.secondPress = False
+        self.manipulatorXFP = None
+        self.manipulatorXFirstPresX = None
+        self.manipulatorYFirstPresY = None
+        self.x1 = 0
+        self.y1 = 0
+        self.x2 = 0
+        self.y2 = 0

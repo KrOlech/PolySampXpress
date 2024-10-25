@@ -84,6 +84,8 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.myStatusBarClick.setText("Calculate distant between points")
 
     def __UncheckAll(self, State=False):
+        self.cameraView.toggleModeCleenUp()
+        self.cameraView.pressed = False
         for mod in self.modes:
             mod.setChecked(State)
         self.myStatusBarClick.setText("")
