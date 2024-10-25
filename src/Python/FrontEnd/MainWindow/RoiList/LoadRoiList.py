@@ -76,6 +76,10 @@ class LoadRoiList(JsonHandling):
 
             self.master.cameraView.roiNames = len(self.master.cameraView.ROIList)
 
+        self.master.autoZoomMode = True
+        self.master.zooms.setCurrentText(str(self.master.cameraView.ROIList[-1].zoom))
+        self.master.autoZoomMode = False
+
     def loadDeprecated(self):
 
         self.filePath, currentDirectory = self.resolveFile()
