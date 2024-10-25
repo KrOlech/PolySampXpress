@@ -134,7 +134,7 @@ class LoadRoiList(JsonHandling):
 
     def resolveFile(self):
         filePath, _ = QFileDialog.getOpenFileName(self.master, "Select file with Roi List", "",
-                                                  "Json Files (*.zip)")
+                                                  "Zip Files (*.zip)")
         return filePath, curdir
 
     def loadImage(self, name):
