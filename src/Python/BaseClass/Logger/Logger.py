@@ -29,9 +29,11 @@ class Loger:
     def logWarning(self, *message):
         self.__log(*message, state="Warning")
 
-    def abstractmetod(self):
-        self.__log("Abstract Methode", state="Warning")
-
+    def abstractmetod(self, name=None):
+        if name:
+            self.__log(f"Abstract Methode {name}", state="Warning")
+        else:
+            self.__log("Abstract Methode", state="Warning")
     def __log(self, *message, state="log"):
         info = f"[{datetime.now()}] - [{type(self).__name__}] - [{stack()[2].function}] [{state}] [{[mes for mes in message]}]"
 

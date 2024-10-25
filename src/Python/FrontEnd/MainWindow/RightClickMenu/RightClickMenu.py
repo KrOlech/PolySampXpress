@@ -9,10 +9,14 @@ class RightMenu(QMenu):
 
         self.master = master
 
-        self.center = self.addAction("Center Hear")
+        self.center = self.addAction("Center Here")
         self.center.triggered.connect(self.master.center)
 
-        if master.mainWindow.zoomInterface.zoomChange:
+        self.SaveFream = self.addAction("Save Current Frame")
+        self.SaveFream.triggered.connect(self.master.mainWindow.saveCurrentFrame)
+
+        # toDo Depraceted
+        if master.mainWindow.zoomInterface.zoomChange and False:
             self.endZoom = self.addAction("End Zoom Change")
             self.endZoom.triggered.connect(self.master.mainWindow.zoomInterface.endZoomChange)
 
@@ -40,7 +44,6 @@ class RightMenu(QMenu):
                 action = menu.addAction(str(roi.name))
                 action.triggered.connect(roi.__getattribute__(fun))
 
-
     def createSingleRoiMenu(self, roi):
 
         names = ["Edit ROI", "Rename", "Center On", "Delete ROI", "Edit Scatter"]
@@ -48,7 +51,7 @@ class RightMenu(QMenu):
         functions = ["edit", "rename", "centerOnMe", "delete", "editScatter"]
 
         for name, fun in zip(names, functions):
-            action = self.addAction(name+' '+str(roi.name))
+            action = self.addAction(name + ' ' + str(roi.name))
             action.triggered.connect(roi.__getattribute__(fun))
 
     def closeEvent(self, a0: QtGui.QCloseEvent) -> None:

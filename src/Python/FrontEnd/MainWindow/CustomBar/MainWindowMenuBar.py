@@ -44,7 +44,7 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
 
     @abstractmethod
     def saveCurrentFrame(self):
-        self.abstractmetod()
+        self.abstractmetod("saveCurrentFrame")
 
     @abstractmethod
     def showListOfROI(self):
