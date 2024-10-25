@@ -1,4 +1,4 @@
-from abc import ABCMeta
+from abc import ABC
 from functools import cache
 
 from PyQt5.QtCore import QRect, QPoint
@@ -6,9 +6,7 @@ from PyQt5.QtCore import QRect, QPoint
 from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
 
 
-class AbstractROI(AbstractR):
-    __metaclass__ = ABCMeta
-
+class AbstractROI(AbstractR, ABC):
     rect = None
 
     x0, x1, y0, y1 = 0, 0, 0, 0
@@ -20,10 +18,7 @@ class AbstractROI(AbstractR):
     def __init__(self, *args, **kwargs):
         super(AbstractROI, self).__init__(*args, **kwargs)
 
-        dx, dy = self.calculateOffset(kwargs["manipulatotrX"], kwargs["manipulatorY"])
-
-        x1, y1, x2, y2 = kwargs["x1"] + dx, kwargs['y1'] + dy, kwargs['x2'] + dx, kwargs["y2"] + dy
-        self.__setBorders(x1, x2, y1, y2)
+        self.__setBorders(*self.calculateCords(**kwargs))
 
     def createMarker(self):
         return QRect(QPoint(self.x0, self.y0), QPoint(self.x1, self.y1))
@@ -38,25 +33,8 @@ class AbstractROI(AbstractR):
         return QRect(QPoint(self.x0 - dx, self.y0 - dy), QPoint(self.x1 - dx, self.y1 - dy))
 
     @cache
-    def getMarkerMap(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale, MapLabel):
-        x0 = self.x0 - self.pixelAbsolutValue[0]
-        x1 = self.x1 - self.pixelAbsolutValue[0]
-        y0 = self.y0 - self.pixelAbsolutValue[1]
-        y1 = self.y1 - self.pixelAbsolutValue[1]
-
-        x0mm = x0 / self.xOffset
-        x1mm = x1 / self.xOffset
-        y0mm = y0 / self.yOffset
-        y1mm = y1 / self.yOffset
-
-        self.loger("milimetry", x0mm, y0mm, x1mm, y1mm)
-
-        x0mm = int(MapLabel.calculatePixels(x0mm, screenWidth, mapX0, mapX0 + mapWidth))
-        y0mm = int(MapLabel.calculatePixels(y0mm, screenheight, mapY0, mapY0 + mapHeight))
-        x1mm = int(MapLabel.calculatePixels(x1mm, screenWidth, mapX0, mapX0 + mapWidth))
-        y1mm = int(MapLabel.calculatePixels(y1mm, screenheight, mapY0, mapY0 + mapHeight))
-
-        self.loger("pixele", x0mm, y0mm, x1mm, y1mm)
+    def getMarkerMap(self, *args):
+        x0mm, y0mm, x1mm, y1mm = self.calculateMapMarker4Cordynats(self, *args)
 
         return QRect(QPoint(x0mm, y0mm), QPoint(x1mm, y1mm))
 

@@ -1,13 +1,12 @@
 import cv2
 from PyQt5.QtCore import QPoint, QLine
 
-from Python.BackEnd.ROI.Main.Cursor.Cursor import Cursor
 from Python.BackEnd.ROI.Main.Edit.PointEdit import PointEdit
 from Python.BackEnd.ROI.Main.NameHandling.NameHandling import NameHandling
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
-class Point(PointEdit, NameHandling, Cursor):
+class Point(PointEdit, NameHandling):
 
     def __init__(self, master, x1, y1, name, manipulatotrX, manipulatorY, pixelAbsolutValue, viue=None, zoom=None,
                  ooPoint=False, zValue=None):

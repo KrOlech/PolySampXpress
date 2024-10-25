@@ -3,11 +3,11 @@ from abc import ABCMeta
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QEvent
 
+from Python.BackEnd.ROI.PointDistance.PointSpacing import PointSpacing
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.BaseClass.Depracation.DepractionFactory import deprecated
 from Python.BackEnd.ROI.Creation.ClickCreate.PointerMode import PointerMode
 from Python.BackEnd.ROI.Main.Point.PointClass import Point
-from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
 from Python.BackEnd.ROI.Creation.ClickCreate.ClickCreateScatter import ClikcCreateScatter
 from Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateScatter import SimpleCreateScatter
 from Python.BackEnd.ROI.Creation.ClickCreate.ClikcCreateRoi import ClikcCreateRoi
@@ -16,8 +16,14 @@ from Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleCreat
 from Python.BackEnd.ROI.Main.Point.Point import RoiPoint
 
 
-class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreateScatter, ClikcCreateScatter,
-                PointerMode):
+class CreateRoi(SimpleCreateRoi,
+                RoiEdit,
+                RoiPoint,
+                ClikcCreateRoi,
+                SimpleCreateScatter,
+                ClikcCreateScatter,
+                PointerMode,
+                PointSpacing):
     __metaclass__ = ABCMeta
 
     leftMouseButton = False
@@ -32,7 +38,8 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
         "Scatter": "_SimpleCreateScatter",
         "Clicks": "_ClikcCreateRoi",
         "Clicks Scatter": "_ClikcCreateScatter",
-        "Pointer": "_PointerMode"
+        "Pointer": "_PointerMode",
+        "pointSpacing": "_PointSpacing"
     }
 
     def eventFilter(self, source, event):

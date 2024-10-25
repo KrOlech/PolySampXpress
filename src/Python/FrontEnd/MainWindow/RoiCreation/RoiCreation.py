@@ -20,25 +20,25 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
     zeroPoint = {}
 
     def createRoiModsMenu(self):
-        self.__pointer = self.qActionCreate("Hand Mode", self.__togglePointerMode,
-                                            checkable=True)
+        self.__pointer = self.qActionCreate("Hand Mode", self.__togglePointerMode, checkable=True)
         self.__classic = self.qActionCreate("Classic mode", self.__toggleClassicMode, checkable=True)
         self.__point = self.qActionCreate("Point mode", self.__togglePointMode, checkable=True)
         self.__scatter = self.qActionCreate("Scatter mode", self.__toggleScatterMode, checkable=True)
         self.__fromClicks = self.qActionCreate("Click mode", self.__toggleClicksMode, checkable=True)
         self.__fromScatterClicks = self.qActionCreate("Click Scatter mode", self.__toggleScatterClicksMode,
                                                       checkable=True)
+        self.__pointSpacing = self.qActionCreate("Calculate distant between points", self.__togglePointSpacing,
+                                                 checkable=True)
+
+        self.modes = [self.__pointer, self.__classic, self.__point, self.__scatter, self.__fromClicks,
+                      self.__fromScatterClicks, self.__pointSpacing]
 
         self.__classic.setChecked(True)
 
         roi = self.menu.addMenu("&ROI")
 
-        roi.addAction(self.__pointer)
-        roi.addAction(self.__classic)
-        roi.addAction(self.__point)
-        roi.addAction(self.__scatter)
-        roi.addAction(self.__fromClicks)
-        roi.addAction(self.__fromScatterClicks)
+        for mod in self.modes:
+            roi.addAction(mod)
 
         self.myStatusBarClick = self.clickCreateStatus()
 
@@ -77,13 +77,15 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.mode = "Pointer"
         self.myStatusBarClick.setText("Pointer Mode")
 
+    def __togglePointSpacing(self):
+        self.__UncheckAll()
+        self.__pointSpacing.setChecked(True)
+        self.mode = "pointSpacing"
+        self.myStatusBarClick.setText("Calculate distant between points")
+
     def __UncheckAll(self, State=False):
-        self.__classic.setChecked(State)
-        self.__point.setChecked(State)
-        self.__scatter.setChecked(State)
-        self.__fromClicks.setChecked(State)
-        self.__pointer.setChecked(State)
-        self.__fromScatterClicks.setChecked(State)
+        for mod in self.modes:
+            mod.setChecked(State)
         self.myStatusBarClick.setText("")
 
     def clickCreateStatus(self):

@@ -1,16 +1,16 @@
 import cv2
-from PyQt5.QtCore import QRect, QPoint
+from PyQt5.QtCore import QLine, QPoint
 
-from Python.BackEnd.ROI.Main.Abstract.AbstractROI import AbstractROI
-from Python.BackEnd.ROI.Main.Edit.ROIEdit import ROIEdit
+from Python.BackEnd.ROI.Main.Edit.LineEdit import LineEdit
 from Python.BackEnd.ROI.Main.NameHandling.NameHandling import NameHandling
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
-class ROI(ROIEdit, AbstractROI, NameHandling):
+class Line(LineEdit, NameHandling):
 
     def __init__(self, master, x1, y1, x2, y2, name, manipulatotrX, manipulatorY, pixelAbsolutValue, scatter=False,
                  viue=None, zoom=None):
+
         self.loger(
             f"x1 = {x1}, x2 = {x2}, y1 = {y1}, y2 = {y2}, manipulatotrX = {manipulatotrX}, manipulatorY = {manipulatorY}, absolutePixelValue = {pixelAbsolutValue}")
 
@@ -25,9 +25,9 @@ class ROI(ROIEdit, AbstractROI, NameHandling):
                   "manipulatotrX": manipulatotrX,
                   "manipulatorY": manipulatorY}
 
-        ROIEdit.__init__(self, **kwargs)
+
         NameHandling.__init__(self, **kwargs)
-        AbstractROI.__init__(self, **kwargs)
+        LineEdit.__init__(self, **kwargs)
 
         self.rect = self.createMarker()
 
@@ -41,7 +41,7 @@ class ROI(ROIEdit, AbstractROI, NameHandling):
         self.fillFileDict()
         self.saveCenterToFileDict()
 
-    def fillFileDict(self):
+    def fillFileDict(self):#toDO proper type Name
         x0 = self.x0 - self.pixelAbsolutValue[0]
         x1 = self.x1 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
@@ -63,7 +63,7 @@ class ROI(ROIEdit, AbstractROI, NameHandling):
         self.fileDict["scatter"] = self.scatter
 
     def createLabelMarker(self, scalaX, scalaY):
-        return QRect(QPoint(self.x0Label // scalaX, self.y0Label // scalaY),
+        return QLine(QPoint(self.x0Label // scalaX, self.y0Label // scalaY),
                      QPoint(self.x1Label // scalaX, self.y1Label // scalaY))
 
     def saveViue(self, path):
@@ -72,6 +72,6 @@ class ROI(ROIEdit, AbstractROI, NameHandling):
     def createViue(self):
         image = self.convertQpixmapToOpenCV(self.view)
 
-        cv2.rectangle(image, [self.x0Label, self.y0Label], [self.x1Label, self.y1Label], (0, 0, 255), 2)
+        cv2.line(image, [self.x0Label, self.y0Label], [self.x1Label, self.y1Label], (0, 0, 255), 2)
 
         return image

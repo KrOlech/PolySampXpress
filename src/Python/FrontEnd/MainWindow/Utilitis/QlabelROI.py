@@ -5,6 +5,7 @@ from PyQt5 import QtGui
 from PyQt5.QtCore import QRect, QPoint, QLine
 from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor, QFont
 
+from Python.BackEnd.ROI.Main.Line.Line import Line
 from Python.BackEnd.ROI.Main.Point.Point import Point
 from Python.BackEnd.ROI.Main.ROI.ROI import ROI
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
@@ -115,12 +116,14 @@ class QlabelROI(RightClickLabel, CreateRoi):
         qp.drawText(rx, ry, str(rectangle.name))
 
     def __drawRectangleMarker(self, qp, rectangle):
-
         if isinstance(rectangle, ROI):
             qp.drawRect(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
                                             self.mainWindow.manipulatorInterferes.y))
         elif isinstance(rectangle, Point):
             qp.drawLines(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
+                                             self.mainWindow.manipulatorInterferes.y))
+        elif isinstance(rectangle, Line):
+            qp.drawLine(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
                                              self.mainWindow.manipulatorInterferes.y))
 
     def __drawCurrentlyMarkedRectangles(self, qp):
@@ -128,6 +131,10 @@ class QlabelROI(RightClickLabel, CreateRoi):
             l1 = QLine(QPoint(self.x1 + 10, self.y1), QPoint(self.x1 - 10, self.y1))
             l2 = QLine(QPoint(self.x1, self.y1 + 10), QPoint(self.x1, self.y1 - 10))
             qp.drawLines([l1, l2])
+        elif self.mainWindow.mode == "pointSpacing":
+            dx, dy = self.calculateOffset()
+            x1, y1 = self.x1 + dx, self.y1 + dy
+            qp.drawLine(QLine(QPoint(x1, y1), QPoint(self.x2, self.y2)))
         else:
             if self.mainWindow.mode == "Clicks" or self.mainWindow.mode == "Clicks Scatter":
                 dx, dy = self.calculateOffset()

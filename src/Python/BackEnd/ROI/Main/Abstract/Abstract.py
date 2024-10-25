@@ -48,7 +48,6 @@ class AbstractR(Loger):
             zeroPointStatus = False
             self.logWarning("Zero Point was not set")
 
-
         return xp / xOffsetP, yp / yOffsetP, zeroPointStatus
 
     @cache
@@ -64,6 +63,34 @@ class AbstractR(Loger):
         ox = int((x - mx) * xOffset)
         oy = int((y - my) * yOffset)
         return ox, oy
+
+    def calculateMapMarker4Cordynats(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale,
+                                     MapLabel):
+        x0 = self.x0 - self.pixelAbsolutValue[0]
+        x1 = self.x1 - self.pixelAbsolutValue[0]
+        y0 = self.y0 - self.pixelAbsolutValue[1]
+        y1 = self.y1 - self.pixelAbsolutValue[1]
+
+        x0mm = x0 / self.xOffset
+        x1mm = x1 / self.xOffset
+        y0mm = y0 / self.yOffset
+        y1mm = y1 / self.yOffset
+
+        self.loger("milimetry", x0mm, y0mm, x1mm, y1mm)
+
+        x0mm = int(MapLabel.calculatePixels(x0mm, screenWidth, mapX0, mapX0 + mapWidth))
+        y0mm = int(MapLabel.calculatePixels(y0mm, screenheight, mapY0, mapY0 + mapHeight))
+        x1mm = int(MapLabel.calculatePixels(x1mm, screenWidth, mapX0, mapX0 + mapWidth))
+        y1mm = int(MapLabel.calculatePixels(y1mm, screenheight, mapY0, mapY0 + mapHeight))
+
+        self.loger("pixele", x0mm, y0mm, x1mm, y1mm)
+
+        return x0mm, y0mm, x1mm, y1mm
+
+    def calculateCords(self, **kwargs):
+        dx, dy = self.calculateOffset(kwargs["manipulatotrX"], kwargs["manipulatorY"])
+
+        return kwargs["x1"] + dx, kwargs['x2'] + dx, kwargs['y1'] + dy, kwargs["y2"] + dy
 
     @abstractmethod
     def createMarker(self):

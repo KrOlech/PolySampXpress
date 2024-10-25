@@ -1,15 +1,10 @@
 from Python.BackEnd.ROI.Main.Abstract.AbstractPoint import AbstractPoint
+from Python.BackEnd.ROI.Main.Cursor.Cursor import Cursor
 from Python.BackEnd.ROI.Main.Edit.Abstract import AbstractEdit
 
 
-class PointEdit(AbstractPoint, AbstractEdit):
+class PointEdit(AbstractPoint, AbstractEdit, Cursor):
     px, py = 0, 0
-
-    def __init__(self, *args, **kwargs):
-        super(PointEdit, self).__init__(*args, **kwargs)
-
-    def delete(self):
-        super(PointEdit, self).delete()
 
     def __move(self):
         self.x0 = self.px
