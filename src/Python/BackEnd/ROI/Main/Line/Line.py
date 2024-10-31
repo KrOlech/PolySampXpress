@@ -43,17 +43,34 @@ class Line(LineEdit, NameHandling):
         x1 = self.x1 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
         y1 = self.y1 - self.pixelAbsolutValue[1]
-        self.fileDict["Pixell Values"] = {"x0": x0, "x1": x1, "y0": y0, "y1": y1}
+
+        self.fileDict["Pixell Values"] = {}
+
+        self.fileDict["Pixell Values"]["x0"] = x0
+        self.fileDict["Pixell Values"]["x1"] = x1
+        self.fileDict["Pixell Values"]["y0"] = y0
+        self.fileDict["Pixell Values"]["y1"] = y1
 
         xOffset, yOffset = JsonHandling.loadOffsetsJson(self.zoom)
         absoluteMMValuesX0, absoluteMMValuesX1, = x0 / xOffset, x1 / xOffset,
         absoluteMMValuesY0, absoluteMMValuesY1 = y0 / yOffset, y1 / yOffset
-        self.fileDict["mm Values"] = {"x0": absoluteMMValuesX0, "x1": absoluteMMValuesX1,
-                                      "y0": absoluteMMValuesY0, "y1": absoluteMMValuesY1}
+
+        self.fileDict["mm Values"] = {}
+
+        self.fileDict["mm Values"]["x0"] = absoluteMMValuesX0
+        self.fileDict["mm Values"]["x1"] = absoluteMMValuesX1
+        self.fileDict["mm Values"]["y0"] = absoluteMMValuesY0
+        self.fileDict["mm Values"]["y1"] = absoluteMMValuesY1
 
         deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
-        self.fileDict["sample mm Values"] = {"x0": absoluteMMValuesX0 - deltaX, "x1": absoluteMMValuesX1 - deltaX,
-                                             "y0": absoluteMMValuesY0 - deltaY, "y1": absoluteMMValuesY1 - deltaY}
+
+        self.fileDict["sample mm Values"] = {}
+
+        self.fileDict["sample mm Values"]["x0"] = absoluteMMValuesX0 - deltaX
+        self.fileDict["sample mm Values"]["x1"] = absoluteMMValuesX1 - deltaX
+        self.fileDict["sample mm Values"]["y0"] = absoluteMMValuesY0 - deltaY
+        self.fileDict["sample mm Values"]["y1"] = absoluteMMValuesY1 - deltaY
+
         self.fileDict["zero Point Present"] = zeroPointStatus
 
         self.fileDict["zoom"] = self.zoom

@@ -18,7 +18,7 @@ class SaveRoiList(JsonHandling):
 
     def save(self):
         currentDirectory = curdir
-        data = {roi.id: roi.fillFileDict() for roi in self.roiList}
+        data = {roi.id: roi.resolveFileDict() for roi in self.roiList}
 
         folderPath, _ = QFileDialog.getSaveFileName(self.master, "Select Location to save Roi List", "",
                                                     "Zip Files (*.zip)")

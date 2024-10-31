@@ -141,16 +141,21 @@ class AbstractR(Loger):
         self.abstractmetod()
         return 0, 0
 
+    def resolveFileDict(self):
+        self.fillFileDict()
+        self.saveCenterToFileDict()
+        return self.fileDict
+
     def saveCenterToFileDict(self):
         xCenter, yCenter = self.foundAbsoluteCenter()
-        self.fileDict["center Pixell"] = {"x": xCenter, "y": yCenter}
+        self.fileDict["Pixell Values"]["center Pixell"] = {"x": xCenter, "y": yCenter}
 
         xOffset, yOffset = JsonHandling.loadOffsetsJson(self.zoom)
         xCenterMM, yCenterMM = xCenter / xOffset, yCenter / xOffset,
-        self.fileDict["center mm"] = {"x": xCenterMM, "y": yCenterMM}
+        self.fileDict["mm Values"]["center mm"] = {"x": xCenterMM, "y": yCenterMM}
 
         deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
-        self.fileDict["sample center mm"] = {"x": xCenterMM - deltaX, "y": yCenterMM - deltaY}
+        self.fileDict["sample mm Values"]["sample center mm"] = {"x": xCenterMM - deltaX, "y": yCenterMM - deltaY}
 
     @abstractmethod
     def saveViue(self, path):

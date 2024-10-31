@@ -44,14 +44,26 @@ class Point(PointEdit, NameHandling):
         x0 = self.x0 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]
 
-        self.fileDict["Pixell Values"] = {"x0": x0, "y0": y0}
+        self.fileDict["Pixell Values"] = {}
+
+        self.fileDict["Pixell Values"]["x0"] = x0
+        self.fileDict["Pixell Values"]["y0"] = y0
 
         self.xOffset, self.yOffset = JsonHandling.loadOffsetsJson(self.zoom)
         absoluteMMValuesX, absoluteMMValuesY = x0 / self.xOffset, y0 / self.yOffset
-        self.fileDict["mm Values"] = {"x0": absoluteMMValuesX, "y0": absoluteMMValuesY}
+
+        self.fileDict["mm Values"] = {}
+
+        self.fileDict["mm Values"]["x0"] = absoluteMMValuesX
+        self.fileDict["mm Values"]["y0"] = absoluteMMValuesY
 
         deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
-        self.fileDict["sample mm Values"] = {"x0": absoluteMMValuesX - deltaX, "y0": absoluteMMValuesY - deltaY}
+
+        self.fileDict["sample mm Values"] = {}
+
+        self.fileDict["sample mm Values"]["x0"] = absoluteMMValuesX - deltaX
+        self.fileDict["sample mm Values"]["y0"] = absoluteMMValuesY - deltaY
+
         self.fileDict["zero Point Present"] = zeroPointStatus
 
         if self.zValue:
