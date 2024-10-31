@@ -8,8 +8,10 @@ import numpy as np
 from PIL import Image
 from io import BytesIO
 
+from Python.BackEnd.ROI.Main.Line.Line import Line
 from Python.BackEnd.ROI.Main.Point.Point import Point
 from Python.BackEnd.ROI.Main.ROI.ROI import ROI
+from Python.BaseClass.Depracation.DepractionFactory import deprecated
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
@@ -54,24 +56,16 @@ class LoadRoiList(JsonHandling):
 
                         qImg = QPixmap.fromImage(QImage(img.data, img.shape[1], img.shape[0], QImage.Format_BGR888))
 
-                        id = fileName[:fileName.rfind(r".")]
+                        currentId = fileName[:fileName.rfind(r".")]
 
-                        cords = data[id]['Pixell Values']
+                        newId = int(currentId) + startId
 
-                        if len(cords) == 4:
-                            roi = ROI(self.master.cameraView, cords["x0"] + self.absolutPxX,
-                                      cords["y0"] + self.absolutPxY,
-                                      cords["x1"] + self.absolutPxX, cords["y1"] + self.absolutPxY, data[id]["name"], 0,
-                                      0, self.master.cameraView.pixelAbsolutValue, scatter=data[id]["scatter"],
-                                      viue=qImg,
-                                      zoom=data[id]["zoom"], id=int(id)+startId)
-
-                        elif len(cords) == 2:
-                            roi = Point(self.master.cameraView, cords["x0"] + self.absolutPxX,
-                                        cords["y0"] + self.absolutPxY,
-                                        data[id]["name"], 0,
-                                        0, self.master.cameraView.pixelAbsolutValue, viue=qImg,
-                                        zoom=data[id]["zoom"], id=int(id)+startId)
+                        try:
+                            data[currentId]["Type"]
+                        except KeyError:
+                            roi = self.oldChoseRoiType(data[currentId], qImg, newId)
+                        else:
+                            roi = self.choseRoiType(data[currentId], qImg, newId)
 
                         self.master.cameraView.ROIList.append(roi)
 
@@ -83,6 +77,69 @@ class LoadRoiList(JsonHandling):
         self.master.zooms.setCurrentText(str(self.master.cameraView.ROIList[-1].zoom))
         self.master.autoZoomMode = False
 
+    def choseRoiType(self, data, qImg, newId):
+
+        roiType = data["Type"]
+
+        if roiType == "ROI":
+            return self.createRoi(data, qImg, newId)
+
+        elif roiType == "Point":
+            return self.createPoint(data, qImg, newId)
+
+        elif roiType == "Line":
+            return self.createLine(data, qImg, newId)
+
+    def createRoi(self, data, qImg, newId):
+        cords = data['Pixell Values']
+        return ROI(self.master.cameraView,
+                   cords["x0"] + self.absolutPxX,
+                   cords["y0"] + self.absolutPxY,
+                   cords["x1"] + self.absolutPxX,
+                   cords["y1"] + self.absolutPxY, data["name"],
+                   0, 0,
+                   self.master.cameraView.pixelAbsolutValue,
+                   scatter=data["scatter"],
+                   viue=qImg,
+                   zoom=data["zoom"],
+                   id=newId)
+
+    def createPoint(self, data, qImg, newId):
+        cords = data['Pixell Values']
+        return Point(self.master.cameraView,
+                     cords["x0"] + self.absolutPxX,
+                     cords["y0"] + self.absolutPxY,
+                     data["name"],
+                     0, 0,
+                     self.master.cameraView.pixelAbsolutValue,
+                     viue=qImg,
+                     zoom=data["zoom"],
+                     id=newId)
+
+    def createLine(self, data, qImg, newId):
+        cords = data['Pixell Values']
+        return Line(self.master.cameraView,
+                    cords["x0"] + self.absolutPxX,
+                    cords["y0"] + self.absolutPxY,
+                    cords["x1"] + self.absolutPxX,
+                    cords["y1"] + self.absolutPxY,
+                    data["name"],
+                    0, 0,
+                    self.master.cameraView.pixelAbsolutValue,
+                    viue=qImg,
+                    zoom=data["zoom"],
+                    id=newId)
+
+    @deprecated
+    def oldChoseRoiType(self, data, qImg, newId):
+        cords = data['Pixell Values']
+        if len(cords) == 4:
+            return self.createRoi(data, qImg, newId)
+
+        elif len(cords) == 2:
+            return self.createPoint(data, qImg, newId)
+
+    @deprecated
     def loadDeprecated(self):
 
         self.filePath, currentDirectory = self.resolveFile()

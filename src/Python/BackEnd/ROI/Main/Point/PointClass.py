@@ -61,6 +61,8 @@ class Point(PointEdit, NameHandling):
         self.fileDict["zoom"] = self.zoom
         self.fileDict["name"] = self.name
 
+        self.fileDict["Type"] = "Point"
+
         return self.fileDict
 
     def createLabelMarker(self, scalaX, scalaY):

@@ -64,6 +64,8 @@ class ROI(ROIEdit, AbstractROI, NameHandling):
         self.fileDict["scatter"] = self.scatter
         self.fileDict["name"] = self.name
 
+        self.fileDict["Type"] = "ROI"
+
         return self.fileDict
 
     def createLabelMarker(self, scalaX, scalaY):

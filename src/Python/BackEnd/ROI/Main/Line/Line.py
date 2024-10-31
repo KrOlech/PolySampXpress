@@ -8,7 +8,7 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 class Line(LineEdit, NameHandling):
 
-    def __init__(self, master, x1, y1, x2, y2, name, manipulatotrX, manipulatorY, pixelAbsolutValue, scatter=False,
+    def __init__(self, master, x1, y1, x2, y2, name, manipulatotrX, manipulatorY, pixelAbsolutValue,
                  viue=None, zoom=None, id=None):
         self.loger(
             f"x1 = {x1}, x2 = {x2}, y1 = {y1}, y2 = {y2}, manipulatotrX = {manipulatotrX}, manipulatorY = {manipulatorY}, absolutePixelValue = {pixelAbsolutValue}")
@@ -58,6 +58,8 @@ class Line(LineEdit, NameHandling):
 
         self.fileDict["zoom"] = self.zoom
         self.fileDict["name"] = self.name
+
+        self.fileDict["Type"] = "Line"
 
         return self.fileDict
 
