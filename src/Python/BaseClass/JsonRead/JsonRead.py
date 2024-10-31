@@ -121,8 +121,11 @@ class JsonHandling(Loger):
         with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'r') as file:
             data = json.load(file)
         data["CurrentPosition"]["fokus"] = fokus
-        with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'w') as file:
-            json.dump(data, file, indent=4)
+        try:
+            with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'w') as file:
+                json.dump(data, file, indent=4)
+        except PermissionError as e:
+            print(e)
 
     @staticmethod
     def loadPolaRoboczeJson():
