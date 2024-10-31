@@ -2,11 +2,11 @@ import cv2
 from PyQt5.QtCore import QLine, QPoint
 
 from Python.BackEnd.ROI.Main.Edit.LineEdit import LineEdit
-from Python.BackEnd.ROI.Main.NameHandling.NameHandling import NameHandling
+from Python.BackEnd.ROI.Main.NameHandling.LineNameHandling import LineNameHandling
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
-class Line(LineEdit, NameHandling):
+class Line(LineEdit, LineNameHandling):
 
     def __init__(self, master, x1, y1, x2, y2, name, manipulatotrX, manipulatorY, pixelAbsolutValue,
                  viue=None, zoom=None, id=None):
@@ -25,8 +25,10 @@ class Line(LineEdit, NameHandling):
                   "manipulatotrX": manipulatotrX,
                   "manipulatorY": manipulatorY}
 
-        NameHandling.__init__(self, **kwargs)
+        LineNameHandling.__init__(self, **kwargs)
         LineEdit.__init__(self, **kwargs)
+
+        self.setNameFromLen()
 
         self.rect = self.createMarker()
 

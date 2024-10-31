@@ -31,8 +31,8 @@ class LineEdit(AbstractLine, AbstractEdit, Cursor):
         super(LineEdit, self).mouseMove(event, xManipulatorPosition, yManipulatorPosition)
 
     def __closerPoint(self, x, y):
-        distanceTo0 = (x + self.x0) // 2 + (y + self.y0) // 2
-        distanceTo1 = (self.x1 + x) // 2 + (self.y1 + y) // 2
+        distanceTo0 = abs(x - self.x0) + abs(y - self.y0)
+        distanceTo1 = abs(self.x1 - x) + abs(self.y1 - y)
         if distanceTo0 < distanceTo1:
             self.__0Point = True
             self.__1Point = False

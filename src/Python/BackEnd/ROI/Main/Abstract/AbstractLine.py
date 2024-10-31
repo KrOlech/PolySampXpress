@@ -7,7 +7,6 @@ from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
 
 
 class AbstractLine(AbstractR, ABC):
-
     x0, x1, y0, y1 = 0, 0, 0, 0
     x0Label, x1Label, y0Label, y1Label = 0, 0, 0, 0
 
@@ -15,7 +14,6 @@ class AbstractLine(AbstractR, ABC):
         super().__init__(self, **kwargs)
 
         self.x0, self.x1, self.y0, self.y1 = self.calculateCords(**kwargs)
-
 
     def createMarker(self):
         return QLine(QPoint(self.x0, self.y0), QPoint(self.x1, self.y1))
@@ -45,3 +43,13 @@ class AbstractLine(AbstractR, ABC):
         y0 = self.y0 - self.pixelAbsolutValue[1]
         y1 = self.y1 - self.pixelAbsolutValue[1]
         return (x1 + x0) // 2, (y1 + y0) // 2
+
+    def lineLen(self):
+        return (self.x1 + self.x0) // 2 + (self.y1 + self.y0) // 2
+
+    def lineLenMM(self):
+        xmm0, ymm0 = self.calculateOffset(self.x0, self.y0)
+        xmm1, ymm1 = self.calculateOffset(self.x1, self.y1)
+
+        return round(pow(abs(xmm1 - xmm0) + abs(ymm1 - ymm0), 1/2),2)
+
