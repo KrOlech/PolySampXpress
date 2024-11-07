@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import numpy
+from numpy import sum, mean, array
 from cv2 import cvtColor, COLOR_BGR2GRAY, IMREAD_GRAYSCALE, imwrite, imread
 
 from Python.BackEnd.SzarpnesCalculation.CalculateAndSaveResults import CalculateAndSaveResults
@@ -7,38 +7,46 @@ from Python.BackEnd.SzarpnesCalculation.sharpnessMetrics import image_sharpness,
     fft_based_sharpness, scharr_variance, edge_based_sharpness, lpc_based_sharpness
 from Python.BaseClass.Logger.Logger import Loger
 
-from scipy.optimize import minimize
+from scipy.optimize import minimize, curve_fit
+
+from Python.Utilitis.SimpleStartEndWrapper import simpleStartEndWrapper
 
 
 class AutoFokus02(Loger):
     funs = [image_sharpness]
-    # image_sharpness2, sobel,fft_based_sharpness,lpc_based_sharpness , edge_based_sharpness,   scharr_variance]
 
     window = None
+    fokusQuality = None
 
     def __init__(self, manipulatorInterface, camera):
         self.manipulatorInterface = manipulatorInterface
         self.camera = camera
 
-        # self.metricCalculation = CalculateAndSaveResults(edge_based_sharpness)
         self.metricCalculation = [CalculateAndSaveResults(fun) for fun in self.funs]
-        # self.metricCalculation = [CalculateAndSaveResults(self.funs[0])]
 
+    @simpleStartEndWrapper(text="Optimization")
     def run(self):
-        self.loger('Optimization started')
-        # self.manipulatorInterface.fokusGoTo(-10000)  # zerowanei fokusu
-
-        self.manipulatorInterface.fokusGoTo(1000)  # osiongniecie potecialnego fokusu
+        self.manipulatorInterface.fokusGoTo(1000)  # ToDo potecial fokus from file not hardCoded
 
         self.guess()
-        # self.scan()
 
-        self.loger('Optimization ended')
+        self.show()
 
-    def guess(self):
-        plt.close()
-        plt.cla()
-        plt.clf()
+        while self.fokusQuality:
+            self.manipulatorInterface.fokusUp()
+            self.guess()
+
+    @simpleStartEndWrapper(text="Optimization")
+    def runScan(self):
+        self.scan()
+
+    def guess(self, plot=True):
+
+        if plot:
+            plt.close()
+            plt.cla()
+            plt.clf()
+
         for i in range(len(self.funs)):
             self.manipulatorInterface.fokusUp(50)
             self.iterator = i
@@ -51,14 +59,18 @@ class AutoFokus02(Loger):
                            )
 
             self.loger(f"calculated Fokus rez = {rez}")
-
             self.loger(f"calculated Fokus min = {rez.x[0]} low = {rez.x}")
 
             self.manipulatorInterface.fokusGoTo(rez.x[0])
 
             maxY = max(self.fokusData)
-            plt.scatter(self.fokusDataX, [w / maxY for w in self.fokusData], marker='.',
-                        label=self.metricCalculation[self.iterator].funName)
+            self.normalizedRoad = array([w / maxY for w in self.fokusData])
+
+            self.calculateFocusGoodness()
+
+            if plot:
+                plt.scatter(self.fokusDataX, self.normalizedRoad, marker='.',
+                            label=self.metricCalculation[self.iterator].funName)
 
     def show(self):
         plt.legend()
@@ -97,3 +109,29 @@ class AutoFokus02(Loger):
         self.fokusData.append(-rez)
         self.fokusDataX.append(i[0])
         return rez
+
+    def calculateFocusGoodness(self):
+
+        line = lambda x, a, b: a * x + b
+        parabolic = lambda x, a, b, c: a * x * x + b * x + c
+
+        linePopt, _ = curve_fit(line, self.fokusDataX, self.normalizedRoad)
+
+        poptParabolic, _ = curve_fit(parabolic, self.fokusDataX, self.normalizedRoad)
+
+        # Predict y values for both models
+        y_predLine = array([line(x, *linePopt) for x in self.fokusDataX])
+        y_predParabolic = array([parabolic(x, *poptParabolic) for x in self.fokusDataX])
+
+        # Calculate RSS
+        rssLine = sum((self.normalizedRoad - y_predLine) ** 2)
+        rss1 = sum((self.normalizedRoad - y_predParabolic) ** 2)
+
+        # Calculate R-squared
+        r2_line = 1 - (rssLine / sum((self.normalizedRoad - mean(self.normalizedRoad)) ** 2))
+        r2_Parabolic = 1 - (rss1 / sum((self.normalizedRoad - mean(self.normalizedRoad)) ** 2))
+
+        self.loger(f"Line {r2_line}")
+        self.loger(f"Parabola {r2_Parabolic}")
+
+        self.fokusQuality = r2_line > r2_Parabolic
