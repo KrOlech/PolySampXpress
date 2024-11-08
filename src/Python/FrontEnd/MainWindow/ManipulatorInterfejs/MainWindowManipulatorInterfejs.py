@@ -3,6 +3,7 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.MoveByValue import MoveByValue
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.RemoveSampleDialog import RemoveSampleDialog
 from Python.BackEnd.XeroStartup.Main import XeroStartup
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
@@ -101,6 +102,10 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         InaccuracyMeasurements(self).runScript()
 
     def __removeSample(self):
+
+        if len(self.cameraView.ROIList):
+            RemoveSampleDialog(self).exec_()
+
         window = GenericProgressClass("Remove Sample in progress", self.manipulatorInterferes.removeSample, 200, self)
         window.run()
         window.exec_()
