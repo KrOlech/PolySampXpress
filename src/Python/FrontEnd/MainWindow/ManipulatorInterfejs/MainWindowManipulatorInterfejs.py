@@ -59,6 +59,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         window.exec_()
 
     def zeroOut(self):
+        self.zta.xeroOut()
+
+    def zeroOutMultiZoom(self):
         self.autoZoomMode = True
         for zoom in [0.85, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
             self.zooms.setCurrentText(str(zoom))
@@ -100,7 +103,6 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
     def __calculateInaccuracy(self):
         InaccuracyMeasurements(self).runScript()
-
 
     def removeSampleAsync(self):
 
