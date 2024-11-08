@@ -8,8 +8,6 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.BaseClass.Depracation.DepractionFactory import deprecated
 from Python.BackEnd.ROI.Creation.ClickCreate.PointerMode import PointerMode
 from Python.BackEnd.ROI.Main.Point.PointClass import Point
-from Python.BackEnd.ROI.Creation.ClickCreate.ClickCreateScatter import ClikcCreateScatter
-from Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateScatter import SimpleCreateScatter
 from Python.BackEnd.ROI.Creation.ClickCreate.ClikcCreateRoi import ClikcCreateRoi
 from Python.BackEnd.ROI.Creation.Edit.RoiEdit import RoiEdit
 from Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleCreateRoi
@@ -20,8 +18,6 @@ class CreateRoi(SimpleCreateRoi,
                 RoiEdit,
                 RoiPoint,
                 ClikcCreateRoi,
-                SimpleCreateScatter,
-                ClikcCreateScatter,
                 PointerMode,
                 PointSpacing):
     __metaclass__ = ABCMeta
@@ -35,9 +31,7 @@ class CreateRoi(SimpleCreateRoi,
     supportedModes = {
         "Classic": "_SimpleCreateRoi",
         "Point": "_RoiPoint",
-        "Scatter": "_SimpleCreateScatter",
         "Clicks": "_ClikcCreateRoi",
-        "Clicks Scatter": "_ClikcCreateScatter",
         "Pointer": "_PointerMode",
         "pointSpacing": "_PointSpacing"
     }

@@ -2,7 +2,6 @@ from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 
-from Python.FrontEnd.MainWindow.RoiCreation.ScatterConfigureWindow import ScatterConfigureWindow
 from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 
 
@@ -23,15 +22,11 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.__pointer = self.qActionCreate("Hand Mode", self.__togglePointerMode, checkable=True)
         self.__classic = self.qActionCreate("Classic mode", self.__toggleClassicMode, checkable=True)
         self.__point = self.qActionCreate("Point mode", self.__togglePointMode, checkable=True)
-        self.__scatter = self.qActionCreate("Scatter mode", self.__toggleScatterMode, checkable=True)
         self.__fromClicks = self.qActionCreate("Click mode", self.__toggleClicksMode, checkable=True)
-        self.__fromScatterClicks = self.qActionCreate("Click Scatter mode", self.__toggleScatterClicksMode,
-                                                      checkable=True)
         self.__pointSpacing = self.qActionCreate("Calculate distant between points", self.__togglePointSpacing,
                                                  checkable=True)
 
-        self.modes = [self.__pointer, self.__classic, self.__point, self.__scatter, self.__fromClicks,
-                      self.__fromScatterClicks, self.__pointSpacing]
+        self.modes = [self.__pointer, self.__classic, self.__point, self.__fromClicks, self.__pointSpacing]
 
         self.__classic.setChecked(True)
 
@@ -52,24 +47,11 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.__point.setChecked(True)
         self.mode = "Point"
 
-    def __toggleScatterMode(self):
-        self.__UncheckAll()
-        self.__scatter.setChecked(True)
-        self.mode = "Scatter"
-        ScatterConfigureWindow(self).exec_()
-
     def __toggleClicksMode(self):
         self.__UncheckAll()
         self.__fromClicks.setChecked(True)
         self.mode = "Clicks"
         self.myStatusBarClick.setText("Click Mode")
-
-    def __toggleScatterClicksMode(self):
-        self.__UncheckAll()
-        self.__fromScatterClicks.setChecked(True)
-        self.mode = "Clicks Scatter"
-        self.myStatusBarClick.setText("Click Mode")
-        ScatterConfigureWindow(self).exec_()
 
     def __togglePointerMode(self):
         self.__UncheckAll()
