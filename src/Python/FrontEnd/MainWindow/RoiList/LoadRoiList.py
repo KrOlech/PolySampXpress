@@ -9,7 +9,7 @@ from PIL import Image
 from io import BytesIO
 
 from Python.BackEnd.ROI.Main.Line.Line import Line
-from Python.BackEnd.ROI.Main.Point.Point import Point
+from Python.BackEnd.ROI.Main.Point.PointClass import Point
 from Python.BackEnd.ROI.Main.ROI.ROI import ROI
 from Python.BaseClass.Depracation.DepractionFactory import deprecated
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling

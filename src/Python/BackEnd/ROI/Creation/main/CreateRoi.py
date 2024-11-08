@@ -11,12 +11,10 @@ from Python.BackEnd.ROI.Main.Point.PointClass import Point
 from Python.BackEnd.ROI.Creation.ClickCreate.ClikcCreateRoi import ClikcCreateRoi
 from Python.BackEnd.ROI.Creation.Edit.RoiEdit import RoiEdit
 from Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleCreateRoi
-from Python.BackEnd.ROI.Main.Point.Point import RoiPoint
 
 
 class CreateRoi(SimpleCreateRoi,
                 RoiEdit,
-                RoiPoint,
                 ClikcCreateRoi,
                 PointerMode,
                 PointSpacing):
@@ -30,7 +28,6 @@ class CreateRoi(SimpleCreateRoi,
 
     supportedModes = {
         "Classic": "_SimpleCreateRoi",
-        "Point": "_RoiPoint",
         "Clicks": "_ClikcCreateRoi",
         "Pointer": "_PointerMode",
         "pointSpacing": "_PointSpacing"

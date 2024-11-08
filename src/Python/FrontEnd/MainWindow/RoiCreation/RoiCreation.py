@@ -9,10 +9,7 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
     mode = "Classic"
 
     __classic = None
-    __point = None
-    __scatter = None
     __fromClicks = None
-    __fromScatterClicks = None
 
     scatterConfig = None
 
@@ -21,14 +18,13 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
     def createRoiModsMenu(self):
         self.__pointer = self.qActionCreate("Hand Mode", self.__togglePointerMode, checkable=True)
         self.__classic = self.qActionCreate("Classic mode", self.__toggleClassicMode, checkable=True)
-        self.__point = self.qActionCreate("Point mode", self.__togglePointMode, checkable=True)
         self.__fromClicks = self.qActionCreate("Click mode", self.__toggleClicksMode, checkable=True)
         self.__pointSpacing = self.qActionCreate("Calculate distant between points", self.__togglePointSpacing,
                                                  checkable=True)
 
-        self.modes = [self.__pointer, self.__classic, self.__point, self.__fromClicks, self.__pointSpacing]
+        self.modes = [self.__pointer, self.__classic, self.__fromClicks, self.__pointSpacing]
 
-        self.__classic.setChecked(True)
+        self.__pointer.setChecked(True)
 
         roi = self.menu.addMenu("&ROI")
 
@@ -41,11 +37,6 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         self.__UncheckAll()
         self.__classic.setChecked(True)
         self.mode = "Classic"
-
-    def __togglePointMode(self):
-        self.__UncheckAll()
-        self.__point.setChecked(True)
-        self.mode = "Point"
 
     def __toggleClicksMode(self):
         self.__UncheckAll()

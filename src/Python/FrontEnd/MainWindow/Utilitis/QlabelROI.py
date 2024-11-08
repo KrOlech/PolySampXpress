@@ -6,7 +6,7 @@ from PyQt5.QtCore import QRect, QPoint, QLine
 from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor, QFont
 
 from Python.BackEnd.ROI.Main.Line.Line import Line
-from Python.BackEnd.ROI.Main.Point.Point import Point
+from Python.BackEnd.ROI.Main.Point.PointClass import Point
 from Python.BackEnd.ROI.Main.ROI.ROI import ROI
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.FrontEnd.MainWindow.RightClickMenu.Label import RightClickLabel
