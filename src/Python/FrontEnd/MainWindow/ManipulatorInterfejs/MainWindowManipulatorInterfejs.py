@@ -39,7 +39,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
                      ("Move By Value", self.__moveByValue),
                      ("Set Step Size", self.__setStepSize),
                      ("Calculate Inaccuracy", self.__calculateInaccuracy),
-                     ("Remove Sample", self.__removeSample),
+                     ("Remove Sample", self.removeSampleAsync),
                      ("Calculate Zero points", self._00Points)]
 
         self.sampleTreyName = "Trey0"
@@ -101,7 +101,8 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def __calculateInaccuracy(self):
         InaccuracyMeasurements(self).runScript()
 
-    def __removeSample(self):
+
+    def removeSampleAsync(self):
 
         if len(self.cameraView.ROIList):
             RemoveSampleDialog(self).exec_()
