@@ -34,6 +34,7 @@ class MapWindow(MapWindowInitialise):
 
         self.master.isMapReadi = True
         self.master.creatingMap = False
+        self.isMapReadi = True
 
     @timeit
     def addFrame(self, frame):

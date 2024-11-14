@@ -1,14 +1,13 @@
-from PyQt5.QtWidgets import QDesktopWidget
+from PyQt5.QtWidgets import QDesktopWidget, QMenu
 
-from Python.BackEnd.MAP.Dialog.NoMapDialog import NoMapDialog
+from Python.BackEnd.MAP.Dialog.NewMapDialog import NewMapDialog
+from Python.BackEnd.MAP.Main.MapWindow import MapWindow
+from Python.BackEnd.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
+from Python.BackEnd.WorkFeald.Main.main import ReadPoleRobocze
+from Python.FrontEnd.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
 from Python.FrontEnd.MainWindow.InicialisationFlag.MapFromHearWindow import MapFromHearWindow
 from Python.FrontEnd.MainWindow.InicialisationFlag.WindowCreateWorkFeald import WindowCreateWorkFeald
-from Python.BackEnd.MAP.Dialog.OwerideDialog import OwerideCurrentMapDialog
-from Python.FrontEnd.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
-from Python.BackEnd.MAP.Main.MapWindow import MapWindow
 from Python.FrontEnd.MainWindow.RoiList.MainWindowROIList import MainWindowROIList
-from Python.BackEnd.WorkFeald.Main.main import ReadPoleRobocze
-from Python.BackEnd.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
 from Python.Utilitis.timer import timeit
 
 
@@ -17,29 +16,33 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     selectedManipulatorZoom = 1
     mapWindowObject = None
     isMapReadi = None
-    owerideMap = False
     creatingMap = False
     mapFromHearX = 5
     mapFromHearY = 5
+    createMapVariable = None
+    mapId = 0
 
     def __init__(self, *args, **kwargs):
         super(MainWindowInicialisationFlag, self).__init__(*args, **kwargs)
 
-        showMap = self.qActionCreate("Show Mozaik", self.showMap)
+        self.mapsList = {}
+
+        self.mapListMenu = QMenu("Mozaik list", self)
         createMapAction = self.qActionCreate("Create Mozaik", self.createMap)
-        saveMapAction = self.qActionCreate("Save Mozaik", self.saveMap)
         createMapFromHearAction = self.qActionCreate("Create Mozaik From Hear", self.createMapFromHear)
         self.mozaikBorders = self.qActionCreate("Show Border Lines", lambda _: _, checkable=True)
 
         self.mozaikBorders.setChecked(True)
 
         mapMenu = self.menu.addMenu("&Mozaik")
-        mapMenu.addAction(showMap)
+        mapMenu.addMenu(self.mapListMenu)
         mapMenu.addAction(createMapAction)
-        mapMenu.addAction(saveMapAction)
         mapMenu.addAction(createMapFromHearAction)
         mapMenu.addAction(self.mozaikBorders)
 
+        self.__createWorkFieldMenu()
+
+    def __createWorkFieldMenu(self):
         self.readWorkFieldWindow = ReadPoleRobocze(self, self.windowSize)
 
         self.workFildMenu = self.menu.addMenu("&Work Field")
@@ -61,8 +64,8 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
     def closeAction(self):
         super(MainWindowInicialisationFlag, self).closeAction()
-        if self.mapWindowObject:
-            self.mapWindowObject.mapWidget.close()
+        for mapO in self.mapsList.values():
+            mapO.mapWidget.close()
 
     def togle(self, nr):
         self.cameraView.afterInitialisation = True
@@ -74,50 +77,74 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         except ImportError as e:
             self.logError(e)
 
-
     def __UncheckAll(self, State=False):
         for workFildAction in self.workFildActions:
             workFildAction.setChecked(State)
 
     def createMap(self):
-        self.creatingMap = True
-        if not self.mapWindowObject:
-            self.__createMap()
+        if self.creatingMap:
+            self.loger("Can't create map already creating map")
+            self.dialogWindowMap.show()
         else:
-            self.loger("do you wont to owe ride created Map?")
-            OwerideCurrentMapDialog(self).exec_()
+            self.creatingMap = True
 
-            if not self.owerideMap:
-                self.loger("no I don't wont to owe ride created Map?")
+            self.loger("do you wont to created Map?")
+            NewMapDialog(self).exec_()
+
+            if not self.createMapVariable:
+                self.loger("no I don't wont to created Map?")
                 self.creatingMap = False
                 return
 
-            self.loger("Yes I wont to owe ride created Map?")
+            self.loger("Yes I wont to created Map?")
 
-            self.owerideMap = False
-            self.mapWindowObject.mapWidget.close()
-            self.mapWindowObject = None
             self.isMapReadi = False
 
             self.__createMap()
 
+
     @timeit
     def __createMap(self):
-        self.mapWindowObject = self.crateMapObject()
+        mapWindowObject = self.crateMapObject()
+
         self.dialogWindowMap = DialogWindowMap(self)
         self.dialogWindowMap.run()
-        workFunWorkerAsync(self, self.mapWindowObject.mapCreate)
+        workFunWorkerAsync(self, mapWindowObject.mapCreate)
         self.dialogWindowMap.exec_()
+
+        self.addMap(mapWindowObject)
+
+    def addMap(self, mapWindowObject):
+
+        self.mapsList[self.mapId] = mapWindowObject
+
+        mapMenu = QMenu(str(self.mapId), self)
+        mapMenu.addAction(self.qActionCreate("Show", lambda checked, nr=mapWindowObject.mapId: self.showMap(nr)))
+        mapMenu.addAction(self.qActionCreate("Remove", lambda checked, nr=mapWindowObject.mapId: self.removeMap(nr)))
+
+        self.mapListMenu.addMenu(mapMenu)
+        mapWindowObject.menu = mapMenu
+
+        self.mapId += 1
+
+    def removeMap(self, mapId):
+        if self.mapsList[mapId].isMapReadi:
+            self.loger(f"removing map from list {mapId}")
+            self.mapListMenu.removeAction(self.mapsList[mapId].menu.menuAction())
+            self.mapsList[mapId].mapWidget.close()
+            self.mapsList[mapId] = None
+            self.mapsList.pop(mapId)
+            self.loger("removed map from list")
+        else:
+            self.loger("Cannot remove map from list, Map still in progress")
+            self.dialogWindowMap.show()
 
     def createMapFromHear(self):
         MapFromHearWindow(self).exec_()
 
-    def showMap(self):
-        if self.mapWindowObject:
-            self.mapWindowObject.move(QDesktopWidget().availableGeometry().topLeft())
-            self.mapWindowObject.showMap()
-        else:
-            NoMapDialog(self).exec_()
+    def showMap(self, mapId):
+        self.mapsList[mapId].move(QDesktopWidget().availableGeometry().topLeft())
+        self.mapsList[mapId].showMap()
 
     def setPoleRobocze(self, fildParams):
         self.fildParams = fildParams
@@ -127,7 +154,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
                 break
 
     def crateMapObject(self):
-        return MapWindow(self, self.windowSize, self.manipulatorInterferes)
+        return MapWindow(self, self.windowSize, self.manipulatorInterferes, self.mapId)
 
     def saveMap(self):
         if self.mapWindowObject:
@@ -136,3 +163,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
     def createWorkField(self):
         WindowCreateWorkFeald(self).exec_()
+
+    def endMapCreation(self):
+        for map in self.mapsList.values():
+            map.mapEnd = True

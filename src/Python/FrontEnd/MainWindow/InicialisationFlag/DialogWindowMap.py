@@ -32,6 +32,6 @@ class DialogWindowMap(AbstractDialogMaster):
     def cancelPressed(self):
         self.loger("Mozaik Creation Stopped")
         self.master.manipulatorInterferes.stop()
-        self.master.mapWindowObject.mapEnd = True
+        self.master.endMapCreation()
         self.master.isMapReadi = True
         self.master.creatingMap = False

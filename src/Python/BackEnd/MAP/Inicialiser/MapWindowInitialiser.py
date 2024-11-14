@@ -14,6 +14,9 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 class MapWindowInitialise(AbstractMapWindow, JsonHandling):
     __metaclass__ = ABCMeta
 
+    menu = None
+    isMapReadi = False
+
     # Pointer to Master object
     master = None
 
@@ -28,10 +31,11 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
 
     cameraFrameSizeX, cameraFrameSizeY = JsonHandling.loadCameraResolutionJson()  # 2560, 1440
 
-    def __init__(self, master, windowSize, manipulatorInterferes):
+    def __init__(self, master, windowSize, manipulatorInterferes, mapId):
         self.master = master
         self.manipulator = manipulatorInterferes
         self.windowSize = windowSize
+        self.mapId = mapId
 
         self.mapParams = self.__mapParams()
 

@@ -3,22 +3,27 @@ from PyQt5.QtWidgets import QLabel
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 
 
-class OwerideCurrentMapDialog(AbstractDialogMaster):
+class NewMapDialog(AbstractDialogMaster):
 
     @property
     def windowName(self):
-        return "Oweride Mozaik"
+        return "New Mozaik"
+
+    @property
+    def CancelName(self):
+        return "No"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.form.addRow(QLabel("Oweride Current Mozaik Data?"))
+        self.form.addRow(QLabel("Create New Mozaik"))
 
         self.finaliseGUI()
 
     def okPressed(self):
-        self.master.owerideMap = True
-        super(OwerideCurrentMapDialog, self).okPressed()
+        self.master.createMapVariable = True
+        super(NewMapDialog, self).okPressed()
 
     def cancelPressed(self):
+        self.master.createMapVariable = False
         self.accept()
