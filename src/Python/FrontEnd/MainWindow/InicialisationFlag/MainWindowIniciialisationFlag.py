@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QDesktopWidget, QMenu
 
 from Python.BackEnd.MAP.Dialog.NewMapDialog import NewMapDialog
 from Python.BackEnd.MAP.Main.MapWindow import MapWindow
+from Python.BackEnd.ROI.RenameWindow.RenameWidnow import ReNameWindow
 from Python.BackEnd.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
 from Python.BackEnd.WorkFeald.Main.main import ReadPoleRobocze
 from Python.FrontEnd.MainWindow.InicialisationFlag.DialogWindowMap import DialogWindowMap
@@ -121,6 +122,9 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         mapMenu = QMenu(str(self.mapId), self)
         mapMenu.addAction(self.qActionCreate("Show", lambda checked, nr=mapWindowObject.mapId: self.showMap(nr)))
         mapMenu.addAction(self.qActionCreate("Remove", lambda checked, nr=mapWindowObject.mapId: self.removeMap(nr)))
+        mapMenu.addAction(self.qActionCreate("ReName", lambda checked, nr=mapWindowObject.mapId: self.newNameOfMap(nr)))
+
+
 
         self.mapListMenu.addMenu(mapMenu)
         mapWindowObject.menu = mapMenu
@@ -167,3 +171,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     def endMapCreation(self):
         for map in self.mapsList.values():
             map.mapEnd = True
+
+    def newNameOfMap(self, mapId):
+        mapO = self.mapsList[mapId]
+        ReNameWindow(mapO, self, text=str(mapO.mapId)).show()

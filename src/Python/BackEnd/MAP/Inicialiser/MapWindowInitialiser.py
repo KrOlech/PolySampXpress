@@ -36,6 +36,7 @@ class MapWindowInitialise(AbstractMapWindow, JsonHandling):
         self.manipulator = manipulatorInterferes
         self.windowSize = windowSize
         self.mapId = mapId
+        self.name = mapId
 
         self.mapParams = self.__mapParams()
 

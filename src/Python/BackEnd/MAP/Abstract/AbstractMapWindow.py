@@ -32,6 +32,11 @@ class AbstractMapWindow(Loger):
 
     master = None
 
+    name = None
+
+    x0 = 100
+    y0 = 100
+
     def move(self, geometry):
         self.mapWidget.move(geometry)
 
@@ -72,3 +77,7 @@ class AbstractMapWindow(Loger):
 
     def wait(self, time=30, fun=None):
         workSleeperFun(self, time, fun)
+
+    def setName(self, newName):
+        self.name = newName
+        self.menu.setTitle(newName)
