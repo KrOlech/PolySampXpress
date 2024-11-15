@@ -21,6 +21,7 @@ class MapParams(JsonHandling):
         return super(MapParams, cls).__new__(cls, *args, **kwargs)
 
     def __init__(self, manipulatorFullConfig):
+        self.dictionary = manipulatorFullConfig
 
         type(self).__zoom = manipulatorFullConfig["zoom"]
 

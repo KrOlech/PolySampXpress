@@ -103,7 +103,6 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
             self.__createMap()
 
-
     @timeit
     def __createMap(self):
         mapWindowObject = self.crateMapObject()
@@ -123,8 +122,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         mapMenu.addAction(self.qActionCreate("Show", lambda checked, nr=mapWindowObject.mapId: self.showMap(nr)))
         mapMenu.addAction(self.qActionCreate("Remove", lambda checked, nr=mapWindowObject.mapId: self.removeMap(nr)))
         mapMenu.addAction(self.qActionCreate("ReName", lambda checked, nr=mapWindowObject.mapId: self.newNameOfMap(nr)))
-
-
+        mapMenu.addAction(self.qActionCreate("Save Map", lambda checked, nr=mapWindowObject.mapId: self.saveMap(nr)))
 
         self.mapListMenu.addMenu(mapMenu)
         mapWindowObject.menu = mapMenu
@@ -160,11 +158,6 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     def crateMapObject(self):
         return MapWindow(self, self.windowSize, self.manipulatorInterferes, self.mapId)
 
-    def saveMap(self):
-        if self.mapWindowObject:
-            self.mapWindowObject.saveMapToFile()
-            self.manipulatorInterferes.stop()
-
     def createWorkField(self):
         WindowCreateWorkFeald(self).exec_()
 
@@ -175,3 +168,6 @@ class MainWindowInicialisationFlag(MainWindowROIList):
     def newNameOfMap(self, mapId):
         mapO = self.mapsList[mapId]
         ReNameWindow(mapO, self, text=str(mapO.mapId)).show()
+
+    def saveMap(self, mapId):
+        self.mapsList[mapId].saveMapFile()
