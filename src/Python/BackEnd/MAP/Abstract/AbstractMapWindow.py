@@ -3,6 +3,8 @@ import zipfile
 from abc import ABCMeta
 from io import BytesIO
 from os import curdir, chdir
+
+import numpy as np
 from PIL import Image
 
 import cv2
@@ -39,6 +41,8 @@ class AbstractMapWindow(Loger):
     master = None
 
     name = None
+
+    fildParams = None
 
     x0 = 100
     y0 = 100
@@ -94,7 +98,7 @@ class AbstractMapWindow(Loger):
         currentDirectory = curdir
 
         folderPath, _ = QFileDialog.getSaveFileName(self.master, "Select Location to save Roi List", "",
-                                                    "Zip Files (*.zip)")
+                                                    "Zip Files (*.zip)") #toDo correct name
 
         self.loger(f"folder path: {folderPath}")
 
@@ -119,4 +123,33 @@ class AbstractMapWindow(Loger):
         chdir(currentDirectory)
 
     def createMapDict(self) -> dict:
-        return {self.mapId: {"MapParams": self.mapParams.dictionary, "MapName": self.name}}
+        return {
+            self.mapId: {"MapParams": self.mapParams.dictionary, "MapName": self.name, "fildParams": self.fildParams}}
+
+    def loadMapFile(self):
+
+        filePath, _ = QFileDialog.getOpenFileName(self.master, "Select file with Roi List", "",
+                                                  "Zip Files (*.zip)") #toDo correct name
+
+        currentDirectory = curdir
+
+        if not filePath or not currentDirectory:
+            self.loger("File loading interrupted by user no file was selected to load")
+            return
+
+        self.loger(filePath)
+
+        with zipfile.ZipFile(filePath, 'r') as zipF:
+            with zipF.open('data.json') as jsonfile:
+                json_data = jsonfile.read().decode('utf-8')
+                data = json.loads(json_data)
+                self.loger("Dictionary from JSON:", data)
+
+            fileName = list(data.keys())[0]
+
+            with zipF.open(fileName + '.png') as imgfile:
+                img = np.array(Image.open(BytesIO(imgfile.read())))
+
+                #qImg = QPixmap.fromImage(QImage(img.data, img.shape[1], img.shape[0], QImage.Format_BGR888))
+
+        return data, img

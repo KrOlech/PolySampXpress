@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QDesktopWidget, QMenu
 
 from Python.BackEnd.MAP.Dialog.NewMapDialog import NewMapDialog
 from Python.BackEnd.MAP.Main.MapWindow import MapWindow
+from Python.BackEnd.MAP.MapFromFile.MapFromFile import MapFromFile
 from Python.BackEnd.ROI.RenameWindow.RenameWidnow import ReNameWindow
 from Python.BackEnd.ThreadWorker.SimpleThreadWorker.FunWorkerAsync import workFunWorkerAsync
 from Python.BackEnd.WorkFeald.Main.main import ReadPoleRobocze
@@ -31,6 +32,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         self.mapListMenu = QMenu("Mozaik list", self)
         createMapAction = self.qActionCreate("Create Mozaik", self.createMap)
         createMapFromHearAction = self.qActionCreate("Create Mozaik From Hear", self.createMapFromHear)
+        lodaMapFromFile = self.qActionCreate("load Mozaik from Fille", self.loadMap)
         self.mozaikBorders = self.qActionCreate("Show Border Lines", lambda _: _, checkable=True)
 
         self.mozaikBorders.setChecked(True)
@@ -39,6 +41,7 @@ class MainWindowInicialisationFlag(MainWindowROIList):
         mapMenu.addMenu(self.mapListMenu)
         mapMenu.addAction(createMapAction)
         mapMenu.addAction(createMapFromHearAction)
+        mapMenu.addAction(lodaMapFromFile)
         mapMenu.addAction(self.mozaikBorders)
 
         self.__createWorkFieldMenu()
@@ -171,3 +174,12 @@ class MainWindowInicialisationFlag(MainWindowROIList):
 
     def saveMap(self, mapId):
         self.mapsList[mapId].saveMapFile()
+
+    def loadMap(self):
+        newMap = MapFromFile(self, self.windowSize, self.mapId)
+        newMap.loadMap()
+        self.addMap(newMap)
+
+        newMap.setName(newMap.name)
+        self.mapId += 1
+
