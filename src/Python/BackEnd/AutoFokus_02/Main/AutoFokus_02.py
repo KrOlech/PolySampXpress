@@ -30,7 +30,7 @@ class AutoFokus02(Loger):
 
         self.guess()
 
-        self.show()
+        #self.show()
 
         while self.fokusQuality:
             self.manipulatorInterface.fokusUp()
@@ -73,8 +73,9 @@ class AutoFokus02(Loger):
                             label=self.metricCalculation[self.iterator].funName)
 
     def show(self):
-        plt.legend()
-        plt.show()
+        pass
+        #plt.legend()
+        #plt.show()
 
     def scan(self):
 

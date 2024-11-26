@@ -1,13 +1,12 @@
 import sys
 
-from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.InsertSampleDialog import InsertSampleDialog
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from Python.FrontEnd.MainWindow.Main.Main import MainWindow
 from Python.BaseClass.Logger.Logger import Loger
+from Python.FrontEnd.MainWindow.Main.Main import MainWindow
 
 
 class m(Loger):  # TODO better name

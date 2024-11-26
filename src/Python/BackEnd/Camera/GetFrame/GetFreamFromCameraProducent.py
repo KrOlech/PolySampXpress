@@ -1,13 +1,11 @@
-import ctypes
 from ctypes import c_int, POINTER, c_long, c_ubyte, cast, sizeof, c_uint8
 
-import cv2
-from pygetwindow import getWindowsWithTitle
+import tisgrabber as tis
 from numpy import ndarray, uint8
+from pygetwindow import getWindowsWithTitle
 
 from Python.BackEnd.Camera.FromProducent.Abstract import AbstractCameraFromProducent
 from Python.BackEnd.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
-import tisgrabber as tis
 
 
 class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
