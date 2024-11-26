@@ -9,6 +9,8 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     _zoomManipulator = None
     _manipulator = None
 
+    AXIS_HOMED = False
+
     @property
     def buttonsNames(self):
         return ["/\\", "<", ">", r'\/']
@@ -143,6 +145,7 @@ class AbstractManipulatorInterferes(QWidget, Loger):
 
     def homeAxis(self):
         self._manipulator.homeAxis()
+        self.AXIS_HOMED = True
 
     def goToCords(self, x, y):
         self._manipulator.goToCords(x=x, y=y)

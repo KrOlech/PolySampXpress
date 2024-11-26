@@ -109,6 +109,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         if len(self.cameraView.ROIList):
             RemoveSampleDialog(self).exec_()
 
+        if not self.manipulatorInterferes.AXIS_HOMED:
+            self.__homeAxis()
+
         window = GenericProgressClass("Remove Sample in progress", self.manipulatorInterferes.removeSample, 200, self)
         window.run()
         window.exec_()
