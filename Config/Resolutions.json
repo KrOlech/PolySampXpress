@@ -13,5 +13,10 @@
     "xResolution": "1920",
     "yResolution": "1080",
     "FPS": "40"
+  },
+    "1536P": {
+    "xResolution": "1536",
+    "yResolution": "1000",
+    "FPS": "40"
   }
 }
