@@ -32,8 +32,8 @@ class AbstractPoint(AbstractR):
 
     def getMarker(self, x, y):
         dx, dy = self.calculateOffset(x, y)
-        l1 = QLine(QPoint(self.x0 + dx + 10, self.y0 + dy), QPoint(self.x0 + dx - 10, self.y0 + dy))
-        l2 = QLine(QPoint(self.x0 + dx, self.y0 + dy + 10), QPoint(self.x0 + dx, self.y0 + dy - 10))
+        l1 = QLine(QPoint(self.x0 - dx + 10, self.y0 - dy), QPoint(self.x0 - dx - 10, self.y0 - dy))
+        l2 = QLine(QPoint(self.x0 - dx, self.y0 - dy + 10), QPoint(self.x0 - dx, self.y0 - dy - 10))
         return [l1, l2]
 
     @cache
