@@ -6,7 +6,7 @@ from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbs
 
 
 class MainWindowRoiCreationInterferes(MainWindowAbstract):
-    mode = "Classic"
+    mode = "Pointer"
 
     __classic = None
     __fromClicks = None
