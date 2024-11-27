@@ -3,20 +3,21 @@ from abc import ABCMeta
 from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QEvent
 
-from src.Python.BaseClass.Depracation.DepractionFactory import deprecated
-from src.Python.BackEnd.ROI.Creation.ClickCreate.PointerMode import PointerMode
-from src.Python.BackEnd.ROI.Main.Point.PointClass import Point
-from src.Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
-from src.Python.BackEnd.ROI.Creation.ClickCreate.ClickCreateScatter import ClikcCreateScatter
-from src.Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateScatter import SimpleCreateScatter
-from src.Python.BackEnd.ROI.Creation.ClickCreate.ClikcCreateRoi import ClikcCreateRoi
-from src.Python.BackEnd.ROI.Creation.Edit.RoiEdit import RoiEdit
-from src.Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleCreateRoi
-from src.Python.BackEnd.ROI.Main.Point.Point import RoiPoint
+from Python.BackEnd.ROI.PointDistance.PointSpacing import PointSpacing
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.Depracation.DepractionFactory import deprecated
+from Python.BackEnd.ROI.Creation.ClickCreate.PointerMode import PointerMode
+from Python.BackEnd.ROI.Main.Point.PointClass import Point
+from Python.BackEnd.ROI.Creation.ClickCreate.ClikcCreateRoi import ClikcCreateRoi
+from Python.BackEnd.ROI.Creation.Edit.RoiEdit import RoiEdit
+from Python.BackEnd.ROI.Creation.SimpleCreate.SimpleCreateRoi import SimpleCreateRoi
 
 
-class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreateScatter, ClikcCreateScatter,
-                PointerMode):
+class CreateRoi(SimpleCreateRoi,
+                RoiEdit,
+                ClikcCreateRoi,
+                PointerMode,
+                PointSpacing):
     __metaclass__ = ABCMeta
 
     leftMouseButton = False
@@ -27,11 +28,9 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
 
     supportedModes = {
         "Classic": "_SimpleCreateRoi",
-        "Point": "_RoiPoint",
-        "Scatter": "_SimpleCreateScatter",
         "Clicks": "_ClikcCreateRoi",
-        "Clicks Scatter": "_ClikcCreateScatter",
-        "Pointer": "_PointerMode"
+        "Pointer": "_PointerMode",
+        "pointSpacing": "_PointSpacing"
     }
 
     def eventFilter(self, source, event):
@@ -99,35 +98,48 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
                     getattr(self, self.supportedModes[self.mainWindow.mode] + "__saveTemporaryLocation")(e)
                     self.mainWindow.showROIList(e)
 
-        self.mainWindow.myStatusBarMouse.setText(f"     Cursor X: {e.x()}     Y: {e.y()}") #todo wspułrzxedne w mm na próbce
+        # xOffset, yOffset = JsonHandling.loadOffsetsJson() #{self.x / xOffset} mm, {self.y / yOffset} mm, prawie ok brakuje wspułrzednych pkt 00
+
+        self.mainWindow.myStatusBarMouse.setText(f"     Cursor X: {e.x()}     Y: {e.y()}")
+
+    def toggleModeCleenUp(self):
+        getattr(self, self.supportedModes[self.mainWindow.mode] + "__toggleModeCleenUp")()
 
     def __isOkToProcesEvent(self):
         return self.mainWindow.manipulatorInterferes.inMotion or not self.leftMouseButton or self.mainWindow.creatingMap
 
+    @deprecated
     def __removeZeroPoint(self):
         if self.__absolutZeroPoint is not None:
             self.__absolutZeroPoint.delete()
             self.__absolutZeroPoint = None
 
-    def __newZeroPoint(self):
-        return Point(self, self.pixelAbsolutValue[0], self.pixelAbsolutValue[1], "PX 0 0",
+    @deprecated
+    def __newZeroPoint(self, x=None, y=None):
+        x = x if x else self.pixelAbsolutValue[0]
+        y = y if y else self.pixelAbsolutValue[1]
+        return Point(self, x, y, "PX 0 0",
                      self.mainWindow.manipulatorInterferes.x,
-                     self.mainWindow.manipulatorInterferes.y, self.pixelAbsolutValue)
+                     self.mainWindow.manipulatorInterferes.y, self.pixelAbsolutValue, ooPoint=True)
 
     def __resolvePixelAbsolutValue(self, x, y):
-        ofsetX, ofsetY = AbstractR.calculateOffsetStatic(self.mainWindow.manipulatorInterferes.x,
-                                                         self.mainWindow.manipulatorInterferes.y)
+        ofsetX, ofsetY = JsonHandling.loadOffsetsJson(self.mainWindow.zoom)
         return x + ofsetX, y + ofsetY
 
+    @deprecated
     def __createAndSaveZeroPoint(self, x, y):
         self.pixelAbsolutValue = self.__resolvePixelAbsolutValue(x, y)
+        self.loger(f"Calculated zero point absolute Pixels: {self.pixelAbsolutValue}")
 
         self.__removeZeroPoint()
 
-        self.__absolutZeroPoint = self.__newZeroPoint()
+        self.__absolutZeroPoint = self.__newZeroPoint(x, y)
 
         self.ROIList.append(self.__absolutZeroPoint)
         self.mainWindow.addROIToList()
+        self.mainWindow.zeroPoint = self.__absolutZeroPoint
+
+        self.__absolutZeroPoint.fillFileDict()
 
     @deprecated("old manual metode")
     def __setAbsolutZeroPositionForPixels(self, e):
@@ -136,6 +148,7 @@ class CreateRoi(SimpleCreateRoi, RoiEdit, RoiPoint, ClikcCreateRoi, SimpleCreate
 
             self.mainWindow.myStatusBarClick.setText("")
 
+    @deprecated
     def setAbsolutZeroPositionForPixels(self, x, y):
         if not self.mainWindow.manipulatorInterferes.inMotion:
             self.__createAndSaveZeroPoint(x, y)

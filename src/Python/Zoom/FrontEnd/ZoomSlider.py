@@ -1,6 +1,8 @@
+import asyncio
+
 from PyQt5.QtCore import Qt
 
-from src.Python.BaseClass.Slider.LabeledSlider import LabeledSlider
+from Python.BaseClass.Slider.LabeledSlider import LabeledSlider
 
 
 class ZoomSlider(LabeledSlider):
@@ -36,5 +38,5 @@ class ZoomSlider(LabeledSlider):
             self.sl.setValue(0)
         else:
             self.sl.setValue(value)
-            self.master.zoomManipulator.zoomManipulatorChange(value)
+            asyncio.run(self.master.zoomManipulator.zoomManipulatorChange(value))
             self.master.zoomLabel.setText(str(self.labelsDictionary[value]))

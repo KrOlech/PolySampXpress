@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QAction
 
-from src.Python.BaseClass.Logger.Logger import Loger
-from src.Python.Interface.ManipulatorInterfejs.ManipulatorSlider.ManipulatorSlider import ManipulatorSlider
+from Python.BaseClass.Logger.Logger import Loger
+from Python.Interface.ManipulatorInterfejs.ManipulatorSlider.ManipulatorSlider import ManipulatorSlider
 
 
 class AbstractManipulatorInterferes(QWidget, Loger):
@@ -9,9 +9,15 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     _zoomManipulator = None
     _manipulator = None
 
+    AXIS_HOMED = False
+
     @property
     def buttonsNames(self):
         return ["/\\", "<", ">", r'\/']
+
+    @property
+    def focusPosition(self):
+        return self._focusManipulator.x
 
     @property
     def x(self):
@@ -22,24 +28,26 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         return self._manipulator.y
 
     @property
-    def x0(self):  # toDO powino to byc zawsze 0 obecnie z uwagi na blad z kalibracja
+    def x0(self):
         return self._manipulator.x0
 
     @property
-    def y0(self):  # toDO powino to byc zawsze 0 obecnie z uwagi na blad z kalibracja
+    def y0(self):
         return self._manipulator.y0
 
     @property
     def speed(self):
         return self._manipulator.speed
 
-    def conn(self):  # toDO old implementation need redo propably not useed
+    def conn(self):
         return self._manipulator.conn
 
     def __init__(self, master, windowSize, myStatusBar, *args, **kwargs):
         super(AbstractManipulatorInterferes, self).__init__(*args, **kwargs)
 
         self.fun = [self.__key_down, self.__key_left, self.__key_right, self.__key_up]
+
+        self.focusFun = [self.__focus_key_down, self.__fockus_key_up]
 
         self.windowSize = windowSize
 
@@ -64,22 +72,29 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         self.setLayout(self.__layout)
 
     def __key_up(self):
-        self._manipulator.up()
+        if not self._manipulator.inMotion:
+            self._manipulator.up()
 
     def __key_left(self):
-        self._manipulator.left()
+        if not self._manipulator.inMotion:
+            self._manipulator.left()
 
     def __key_right(self):
-        self._manipulator.right()
+        if not self._manipulator.inMotion:
+            self._manipulator.right()
 
     def __key_down(self):
-        self._manipulator.down()
+        if not self._manipulator.inMotion:
+            self._manipulator.down()
+
+    def __fockus_key_up(self):
+        self._focusManipulator.left()
+
+    def __focus_key_down(self):
+        self._focusManipulator.right()
 
     def __stop(self):
         self._manipulator.stop()
-
-    def center(self, pos):
-        self._manipulator.center(pos)
 
     def moveUp(self):
         self._manipulator.up()
@@ -106,11 +121,20 @@ class AbstractManipulatorInterferes(QWidget, Loger):
 
     def waitForTarget(self):
         self._manipulator.waitForTarget()
+        self._focusManipulator.waitForTarget()
+        self._zoomManipulator.waitForTarget()
 
-    def createButtons(self, transparency=40):
+    def createButtons(self, transparency=10):
         buttons = [QPushButton(name, self.master.widget) for name in self.buttonsNames]
         [button.released.connect(f) for f, button in zip(self.fun, buttons)]
         [button.setStyleSheet(f"background-color: rgba(255, 255, 255, {transparency});") for button in buttons]
+        return buttons
+
+    def crateFocusButtons(self, transparency=10):
+        buttons = [QPushButton(r'\/', self.master.widget), QPushButton("/\\", self.master.widget)]
+        [button.setStyleSheet(f"background-color: rgba(255, 255, 255, {transparency});") for button in buttons]
+        [button.released.connect(f) for f, button in zip(self.focusFun, buttons)]
+        [button.setFixedSize(20, 20) for button in buttons]
         return buttons
 
     def createFocusSlider(self):
@@ -125,20 +149,40 @@ class AbstractManipulatorInterferes(QWidget, Loger):
 
     def homeAxis(self):
         self._manipulator.homeAxis()
+        self.AXIS_HOMED = True
 
     def goToCords(self, x, y):
         self._manipulator.goToCords(x=x, y=y)
+
+    def removeSample(self):
+        self._manipulator.goToCords(110, 0)
+
+    async def goToCordsAsync(self, x, y):
+        self._manipulator.goToCords(x=x, y=y)
+        self._manipulator.waitForTarget()
 
     @property
     def inMotion(self):
         return self._manipulator.inMotion
 
-    def center(self, x, y):
-        self._manipulator.center(x, y)
+    def center(self, x, y, zoom):
+        self._manipulator.center(x, y, zoom)
 
-    def zoomManipulatorChange(self, cords):
+    async def zoomManipulatorChange(self, cords):
+        self._zoomManipulator.x = 0
+        self._zoomManipulator.gotoNotAsync()
+        self._zoomManipulator.waitForTarget()
         self._zoomManipulator.x = self._zoomManipulator.ZoomStepsMap[cords]
         self._zoomManipulator.gotoNotAsync()
+        self._zoomManipulator.waitForTarget()
+
+    def syncZoomManipulatorChange(self, cords):
+        self._zoomManipulator.x = 0
+        self._zoomManipulator.gotoNotAsync()
+        self._zoomManipulator.waitForTarget()
+        self._zoomManipulator.x = self._zoomManipulator.ZoomStepsMap[cords]
+        self._zoomManipulator.gotoNotAsync()
+        self._zoomManipulator.waitForTarget()
 
     def fokusManipulatorChange(self):
         self._focusManipulator.gotoNotAsync()

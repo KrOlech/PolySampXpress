@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel, QToolButton
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QPalette, QIcon
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class MyBar(QWidget):

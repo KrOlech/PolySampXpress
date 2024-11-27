@@ -2,9 +2,9 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QHBoxLayout, QDialog
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
-from src.Python.BackEnd.WorkFeald.Label.Label import WorkFaldLabel
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
+from Python.BackEnd.WorkFeald.Label.Label import WorkFaldLabel
 
 
 class WorkFilledGui(QDialog):

@@ -1,33 +1,27 @@
-from src.Python.BackEnd.Calibration.Abstract.Abstract import AbstractCalibrate
+import cv2
+import numpy as np
+
+from Python.BackEnd.Calibration.Abstract.Abstract import AbstractCalibrate
 
 
 class Calibrate(AbstractCalibrate):
 
     def __calibrate(self, manipulatorInterferes, movementFun, index=None, template=None):
-        template, _, _ = self.extractTemplate(self.getGrayFrame()) if template is None else template
-
-        frame_ = self.camera.getFrame()
-
-        self.saveFrameWithTemplate(str(index) + movementFun.__name__ + 's.png', frame_,
-                                   (self.templateLocationY, self.templateLocationX))
-
         movementFun()
         manipulatorInterferes.waitForTarget()
 
-        loc = self.matchTemplate(template)
+        self.patternLocator.name = str(int(self.patternLocator.name) + 1)
 
-        self.loger(f"locations of the template: {loc}")
+        crossLocation = self.patternLocator.locateCross()
 
-        if loc is None:
-            self.logWarning(f"No matched template")
-            return
-
-        delta = self.findTemplates(loc, index)
+        delta = self.x0 - crossLocation[0], self.yo - crossLocation[1]
 
         self.loger(f"Calculated different in template location {delta}")
 
+        self.loger(f"Index {index}")
+
         if delta[not index] > 5:
-            self.logWarning("To math distortion in other axis")
+            self.logWarning(f"To math distortion in other axis")  # todo invalidate calibration
             return
 
         if index is not None:

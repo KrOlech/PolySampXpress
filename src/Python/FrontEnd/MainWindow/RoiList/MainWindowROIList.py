@@ -1,7 +1,8 @@
-from src.Python.FrontEnd.MainWindow.RoiList.LoadRoiList import LoadRoiList
-from src.Python.FrontEnd.MainWindow.RoiList.SaveRoiList import SaveRoiList
-from src.Python.FrontEnd.MainWindow.ManipulatorInterfejs.MainWindowManipulatorInterfejs import MainWindowManipulatorInterfejs
-from src.Python.BackEnd.ROI.List.ROIList import ROIList
+from Python.FrontEnd.MainWindow.RoiList.LoadRoiList import LoadRoiList
+from Python.FrontEnd.MainWindow.RoiList.SaveRoiList import SaveRoiList
+from Python.FrontEnd.MainWindow.ManipulatorInterfejs.MainWindowManipulatorInterfejs import \
+    MainWindowManipulatorInterfejs
+from Python.BackEnd.ROI.List.ROIList import ROIList
 from functools import cache
 
 
@@ -11,7 +12,7 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
         super(MainWindowROIList, self).__init__(*args, **kwargs)
 
         self.roiList = ROIList(self, self.widget)
-        self.roiList.hide()
+        self.roiList.move(self.roiListWidthFilld - 80, 0)  # toDo proper Load from file not Hard coded
 
     @property
     @cache
@@ -19,15 +20,10 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
         return self.windowSize.width() - self.roiList.width
 
     def showROIList(self, e):
-        if e.x() > self.roiListWidthFilld:
-            self.roiList.move(self.roiListWidthFilld, 0)
-            self.roiList.show()
-        else:
-            self.roiList.hide()
+        self.roiList.show()
 
     def showROIListButton(self, e):
-        self.roiList.move(0, 0)
-        self.roiList.show()
+        pass  # toDo extra window with info on ROIs
 
     def addROIToList(self):
         self.roiList.addROI(self.cameraView.ROIList[-1].label)
@@ -38,8 +34,12 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
     def saveListOfROI(self):
         SaveRoiList(self, self.cameraView.ROIList).save()
 
+    def emergancysaveListOfROI(self):
+        SaveRoiList(self, self.cameraView.ROIList).emergancySave()
+
     def loadListOfROI(self):
         LoadRoiList(self).load()
+
 
 if __name__ == '__main__':
     import faulthandler

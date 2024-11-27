@@ -20,7 +20,7 @@ class Slider(QSlider):
         self.setFocusPolicy(Qt.StrongFocus)
         self.setTickPosition(QSlider.TicksBothSides)
         self.setTickInterval(100)
-        self.setSingleStep(10)
+        self.setSingleStep(1)
         self.setMaximum(self.maxSlider)
         self.setMinimum(0)
         self.setValue(self.reconversion(self.value))

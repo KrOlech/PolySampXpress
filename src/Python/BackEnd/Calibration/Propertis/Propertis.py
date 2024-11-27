@@ -6,16 +6,16 @@ class CalibrateProperty:
 
     @property
     def configFile(self):
-        return "test.json"  # TODo Correct config File Name
+        return "ManipulatorFullConfig.json"
 
     @property
     def templateLocationX(self):
-        return 1496
+        return 990
 
     @property
     def templateLocationY(self):
-        return 984
+        return 540
 
     @property
     def templateSize(self):
-        return 80
+        return 100

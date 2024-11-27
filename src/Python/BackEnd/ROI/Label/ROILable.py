@@ -2,10 +2,10 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel
 
-from src.Python.BackEnd.ROI.RightMenu.ROIRightMenu import RoiRightMenu
-from src.Python.BackEnd.ROI.LabelViue.ROILabelViue import ROILegendVue
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BackEnd.ROI.RightMenu.ROIRightMenu import RoiRightMenu
+from Python.BackEnd.ROI.LabelViue.ROILabelViue import ROILegendVue
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class ROILabel(QWidget, Loger):

@@ -3,29 +3,67 @@ import sys
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.FrontEnd.MainWindow.Main.Main import MainWindow
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.InsertSampleDialog import InsertSampleDialog
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.Logger.Logger import Loger
+from Python.FrontEnd.MainWindow.Main.Main import MainWindow
 
 
-def main():
-    app = QApplication(sys.argv)
+class m(Loger):  # TODO better name
+    mainWindow = None
 
-    app.setApplicationDisplayName("PolySampXpress beta-0.7")
+    def __init__(self):
+        pass
 
-    icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
+    def mainNoTryCahch(self):
+        self.app = QApplication(sys.argv)
 
-    app.setWindowIcon(icon)
+        self.app.setApplicationDisplayName("PolySampXpress 0.7")
 
-    mainWindow = MainWindow(app.desktop().availableGeometry().size())
-    mainWindow.setWindowIcon(icon)
+        self.icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
 
-    mainWindow.show()
+        self.app.setWindowIcon(self.icon)
 
-    mainWindow.readWorkFieldWindow.show()
+        self.loger(
+            f"res {self.app.desktop().availableGeometry().size()} {type(self.app.desktop().availableGeometry().size())}")  # QSize(640, 640)
 
-    app.exec_()
+        self.mainWindow = MainWindow(self.app.desktop().availableGeometry().size())
+        self.mainWindow.setWindowIcon(self.icon)
+
+        self.mainWindow.showMaximized()
+
+        self.mainWindow.show()
+
+        InsertSampleDialog(self.mainWindow).exec_()
+
+        #self.mainWindow.homeAllAxis()
+
+        self.app.exec_()
+
+    def trySavingRoiList(self):
+        try:
+            if self.mainWindow:
+                self.mainWindow.emergancysaveListOfROI()
+                self.mainWindow.saveListOfROI()
+            else:
+                self.logWarning(
+                    "ERROR During program runing unable to save ROI list")
+        except Exception as e:
+            self.logError(e)
+            self.logWarning(
+                "ERROR During program runing unable to save ROI list")
+
+    def main(self):
+        self.mainNoTryCahch()
+
+        # try:
+        #    self.mainNoTryCahch()
+        # except Exception as e:
+        #    self.logError(e)
+        #    self.logWarning("ERROR During program runing trying to save ROI list")
+        #    self.trySavingRoiList()
 
 
 if __name__ == '__main__':
-    main()
+    m().main()
     # cProfile.run("main()", filename='my_profile.prof')

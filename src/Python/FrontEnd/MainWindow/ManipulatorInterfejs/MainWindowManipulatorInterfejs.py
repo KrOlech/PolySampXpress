@@ -2,13 +2,20 @@ from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLabel
 
-from src.Python.BackEnd.Calibration.LocateCrossAutomatic_2_0.Main import LocateCross
-from src.Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
-from src.Python.FrontEnd.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.SimpleDialogWindow import GoToCordsDialog
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.StepSizeDialog import SetStepSizeDialog
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.WaitDialoge import HomeAxisDialog
-from src.Python.Interface.ManipulatorInterfejs.Main.ManipulatorInterfejs import ManipulatorInterfere
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.MoveByValue import MoveByValue
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.RemoveSampleDialog import RemoveSampleDialog
+from Python.BackEnd.XeroStartup.Main import XeroStartup
+from Python.BackEnd.XeroStartup.XeroConfirmationWindow import XeroConfirmationWindow
+from Python.BackEnd.XeroStartup.XeroProgresWindow import XeroProgresWindow
+from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
+from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
+from Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
+from Python.FrontEnd.MainWindow.QlabelRoi.MainWindwoQlabelROI import CameraGUIExtension
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.SimpleDialogWindow import GoToCordsDialog
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.StepSizeDialog import SetStepSizeDialog
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.WaitDialoge import HomeAxisDialog
+from Python.Interface.ManipulatorInterfejs.Main.ManipulatorInterfejs import ManipulatorInterfere
+from Python.Utilitis.GenericProgressClass import GenericProgressClass
 
 
 class MainWindowManipulatorInterfejs(CameraGUIExtension):
@@ -16,6 +23,8 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     buttons = None
     testEventClose = False
     calibratePixelsMode = False
+
+    map00PointsVariable = None
 
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
@@ -29,20 +38,58 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         manipulatorMenu = self.menu.addMenu("&Manipulator")
 
-        homeAxis = self.qActionCreate("Home All Axis", self.__homeAxis)
-        goToCords = self.qActionCreate("Go To Cords", self.__goToCords)
-        setStepSize = self.qActionCreate("Set Step Size", self.__setStepSize)
-        setZeroPoint = self.qActionCreate("Set Zero Point", self.__setZeroPoint)
-        setZeroPointManual = self.qActionCreate("Set Zero Point Manual", self.__setZeroPointManual)
+        menuSetup = [("Home All Axis", self.__homeAxis),
+                     ("Go To Cords", self.__goToCords),
+                     ("Move By Value", self.__moveByValue),
+                     ("Set Step Size", self.__setStepSize),
+                     ("Calculate Inaccuracy", self.__calculateInaccuracy),
+                     ("Remove Sample", self.removeSampleAsync),
+                     ("Calculate Zero points", self._00Points)]
 
-        manipulatorMenu.addAction(homeAxis)
-        manipulatorMenu.addAction(goToCords)
-        manipulatorMenu.addAction(setStepSize)
-        manipulatorMenu.addAction(setZeroPoint)
-        manipulatorMenu.addAction(setZeroPointManual)
+        self.sampleTreyName = "Trey0"
 
-    def __createAction(self, name, manipulatorSeFun):
-        return self.qActionCreate(name, manipulatorSeFun, checkable=True)
+        self.refPoints = {}
+
+        for name, fun in menuSetup:
+            self.__saveAndCreateAction(name, fun, manipulatorMenu)
+
+        self.__saveAndCreateAction("&autoFocus", self.manipulatorInterferes.autoFokus, self.cameraMenu)
+
+    def _00Points(self):
+
+        self.loger("do you wont to mark 00 Points?")
+        XeroConfirmationWindow(self).exec_()
+
+        if not self.createMapVariable:
+            self.loger("no I don't wont to mark 00 Points")
+            return
+
+        self.zta = XeroStartup(self)
+
+        window = XeroProgresWindow("Calculate Zero points", self.zeroOut, 200, self)
+        window.run()
+        window.exec_()
+
+    def zeroOut(self):
+        self.zta.xeroOut()
+
+    def zeroOutMultiZoom(self):
+        self.autoZoomMode = True
+        for zoom in [0.85, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
+            self.zooms.setCurrentText(str(zoom))
+            self.zta.xeroOut()
+        self.autoZoomMode = False
+
+    def homeAllAxis(self):
+        window = GenericProgressClass("Start Up in progress", self.manipulatorInterferes.homeAxis, 200, self)
+        window.run()
+        window.exec_()
+
+    def __createAction(self, name, manipulatorSeFun, checkable=True):
+        return self.qActionCreate(name, manipulatorSeFun, checkable=checkable)
+
+    def __saveAndCreateAction(self, name, manipulatorSeFun, menu, checkable=False):
+        menu.addAction(self.__createAction(name, manipulatorSeFun, checkable))
 
     def __homeAxis(self):
         homeAxis = HomeAxisDialog(self.manipulatorInterferes)
@@ -60,8 +107,26 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def __goToCords(self):
         GoToCordsDialog(self.manipulatorInterferes).exec_()
 
+    def __moveByValue(self):
+        MoveByValue(self.manipulatorInterferes).exec_()
+
     def __setStepSize(self):
         SetStepSizeDialog(self.manipulatorInterferes).exec_()
+
+    def __calculateInaccuracy(self):
+        InaccuracyMeasurements(self).runScript()
+
+    def removeSampleAsync(self):
+
+        if len(self.cameraView.ROIList):
+            RemoveSampleDialog(self).exec_()
+
+        if not self.manipulatorInterferes.AXIS_HOMED:
+            self.__homeAxis()
+
+        window = GenericProgressClass("Remove Sample in progress", self.manipulatorInterferes.removeSample, 200, self)
+        window.run()
+        window.exec_()
 
     def __configureStatusBar(self):
         myStatusBar = QLabel(self)
@@ -73,7 +138,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         font = QFont()
         font.setPointSize(13)
         myStatusBar.setFont(font)
-        myStatusBar.move(QPoint(0, self.windowSize.height() - 25))
+        myStatusBar.move(QPoint(0, self.windowSize.height() - 25 - myStatusBar.height()))
         myStatusBar.show()
 
         return myStatusBar
@@ -93,17 +158,23 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
     def __manipulatorButtons(self):
         self.manipulatorButtons = self.manipulatorInterferes.createButtons(70)
+        self.focusButtons = self.manipulatorInterferes.crateFocusButtons(70)
         self.focusSlider = self.manipulatorInterferes.createFocusSlider()
 
-        positions = [self.geometry().bottomRight() - button.geometry().bottomRight() - offset for
-                     button, offset in zip(self.manipulatorButtons, self.offsets)]
+        positions = [self.geometry().bottomRight() - button.geometry().bottomRight() - offset
+                     for button, offset in zip(self.manipulatorButtons, self.offsets)]
 
-        [button.move(pos - QPoint(self.focusSlider.width(), 80)) for button, pos in
-         zip(self.manipulatorButtons, positions)]
+        [button.move(pos - QPoint(self.focusSlider.width(), 80))
+         for button, pos in zip(self.manipulatorButtons, positions)]
 
-        self.focusSlider.move(self.geometry().bottomRight() -
-                              self.focusSlider.geometry().bottomRight()
-                              - QPoint(300 + self.focusSlider.width(), 35))
+        self.focusSlider.move(QPoint(self.geometry().right() - 40,
+                                     self.geometry().center().y() - self.focusSlider.height() // 2 + 20))
+
+        self.focusButtons[1].move(QPoint(self.geometry().right() - 40,
+                                         self.geometry().center().y() - self.focusSlider.height() // 2 - 120))
+
+        self.focusButtons[0].move(QPoint(self.geometry().right() - 40,
+                                         self.geometry().center().y() + self.focusSlider.height() // 2))
 
     def rightMenu(self, pos):
         self.buttons = self.manipulatorInterferes.createButtons(100)
@@ -118,7 +189,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         [button.hide() for button in self.buttons]
         self.buttons = []
 
-    def configureStatusBarMouse(self):  # toDO why hear?
+    def configureStatusBarMouse(self):
         myStatusBar = QLabel(self)
 
         myStatusBar.setFixedWidth(self.windowSize.width() // 8)
@@ -130,7 +201,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         myStatusBar.setFont(font)
         myStatusBar.setText("test")
         myStatusBar.move(
-            QPoint((self.windowSize.width() // 8), self.windowSize.height() - 25))
+            QPoint((self.windowSize.width() // 8), self.windowSize.height() - 25 - myStatusBar.height()))
         myStatusBar.show()
 
         return myStatusBar

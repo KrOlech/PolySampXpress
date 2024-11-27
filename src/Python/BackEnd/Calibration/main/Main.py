@@ -1,5 +1,9 @@
-from src.Python.BackEnd.Calibration.DialogWindow.waitWindow.DialogWindow import CalibrationDialog
-from src.Python.BackEnd.Calibration.asyncFunctionality.CalibrateAsync import CalibrateAsync
+import cv2
+import numpy as np
+
+from Python.BackEnd.Calibration.DialogWindow.waitWindow.DialogWindow import CalibrationDialog
+from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
+from Python.BackEnd.Calibration.asyncFunctionality.CalibrateAsync import CalibrateAsync
 
 
 class MainCalibrate(CalibrateAsync):
@@ -11,6 +15,10 @@ class MainCalibrate(CalibrateAsync):
         self.manipulatorInterferes = manipulatorInterferes
 
         self.template0 = self.extractTemplate(self.getGrayFrame())
+
+        self.patternLocator = LocateCross(self.master, "0")
+
+        self.x0, self.yo = self.patternLocator.locateCross(True)
 
         self.calibrationDialog = CalibrationDialog(self)
 

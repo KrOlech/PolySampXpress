@@ -3,7 +3,7 @@ from functools import cache
 
 from PyQt5.QtCore import QRect, QPoint, QLine
 
-from src.Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
+from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
 
 
 class AbstractPoint(AbstractR):
@@ -12,15 +12,16 @@ class AbstractPoint(AbstractR):
     rect = None
 
     x0, y0 = 0, 0
-    x1, y1 = 0, 0
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         dx, dy = self.calculateOffset(kwargs["manipulatotrX"], kwargs["manipulatorY"])
 
-        self.x0, self.y0 = kwargs["x1"] + dx, kwargs['y1'] + dy
-        self.x1, self.y1 = kwargs["x1"] + dx, kwargs['y1'] + dy
+        x0, y0 = kwargs["x1"] + dx, kwargs['y1'] + dy
+
+        self.x0 = int(x0)
+        self.y0 = int(y0)
 
     def createMarker(self):
         return QRect(QPoint(self.x0, self.y0), QPoint(self.x0, self.y0))
@@ -31,8 +32,8 @@ class AbstractPoint(AbstractR):
 
     def getMarker(self, x, y):
         dx, dy = self.calculateOffset(x, y)
-        l1 = QLine(QPoint(self.x0 + dx + 10, self.y0 + dx), QPoint(self.x0 + dx - 10, self.y0 + dx))
-        l2 = QLine(QPoint(self.x0 + dx, self.y0 + dx + 10), QPoint(self.x0 + dx, self.y0 + dx - 10))
+        l1 = QLine(QPoint(self.x0 - dx + 10, self.y0 - dy), QPoint(self.x0 - dx - 10, self.y0 - dy))
+        l2 = QLine(QPoint(self.x0 - dx, self.y0 - dy + 10), QPoint(self.x0 - dx, self.y0 - dy - 10))
         return [l1, l2]
 
     @cache
@@ -54,3 +55,8 @@ class AbstractPoint(AbstractR):
 
     def foundCenter(self) -> (int, int):
         return self.x0, self.y0
+
+    def foundAbsoluteCenter(self) -> (int, int):
+        x0 = self.x0 - self.pixelAbsolutValue[0]
+        y0 = self.y0 - self.pixelAbsolutValue[1]
+        return x0, y0

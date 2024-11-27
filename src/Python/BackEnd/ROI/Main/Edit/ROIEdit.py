@@ -1,16 +1,11 @@
-from src.Python.BackEnd.ROI.Main.Abstract.AbstractROI import AbstractROI
-from src.Python.BackEnd.ROI.Main.Edit.Abstract import AbstractEdit
+from Python.BackEnd.ROI.Main.Abstract.AbstractROI import AbstractROI
+from Python.BackEnd.ROI.Main.Cursor.Cursor import Cursor
+from Python.BackEnd.ROI.Main.Edit.Abstract import AbstractEdit
 
 
-class ROIEdit(AbstractROI, AbstractEdit):
+class ROIEdit(AbstractROI, AbstractEdit, Cursor):
     px0, py0 = 0, 0
     px1, py1 = 0, 0
-
-    def __init__(self, *args, **kwargs):
-        super(ROIEdit, self).__init__(*args, **kwargs)
-
-    def delete(self):
-        super(ROIEdit, self).delete()
 
     def mouseRelease(self, e, x, y):
         super(ROIEdit, self).mouseRelease(e, x, y)
@@ -74,8 +69,6 @@ class ROIEdit(AbstractROI, AbstractEdit):
 
         self.leftBottom = self.left and self.bottom
         self.rightBottom = self.right and self.bottom
-
-
 
     def __edgeMove(self):
         if self.leftTop:

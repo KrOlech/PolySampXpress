@@ -1,7 +1,7 @@
 import asyncio
 
-from src.Python.BackEnd.Manipulator.SCIIPPlus.Abstract.Main import SCIManipulator
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BackEnd.Manipulator.SCIIPPlus.Abstract.Main import SCIManipulator
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class SCIManipulatorMain(SCIManipulator, JsonHandling):
@@ -32,4 +32,4 @@ class SCIManipulatorMain(SCIManipulator, JsonHandling):
         self.upadteLable()
 
     def close(self):
-        self.disableAllAxis()  # toDo checck in producent code if its ok or I need to do more - works ok for now
+        self.disableAllAxis()

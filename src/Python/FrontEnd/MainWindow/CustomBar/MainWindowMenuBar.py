@@ -1,8 +1,8 @@
 from abc import ABCMeta
 from abc import abstractmethod
 
-from src.Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
-from src.Python.FrontEnd.MainWindow.CustomBar.MainWindowCustomBar import MainWindowCustomBar
+from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
+from Python.FrontEnd.MainWindow.CustomBar.MainWindowCustomBar import MainWindowCustomBar
 
 
 class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
@@ -15,27 +15,24 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
 
         self.windowSize = windowSize
 
-        listROI = self.qActionCreate("List ROI", self.showROIListButton)
+        #listROI = self.qActionCreate("List ROI", self.showROIListButton) #todo extra info window on ROIs
         loadROI = self.qActionCreate("Save ROI List", self.saveListOfROI)
         SaveROI = self.qActionCreate("Load ROI list", self.loadListOfROI)
 
         fileMenu = self.menu.addMenu("&File")
-        fileMenu.addAction(listROI)
+        # fileMenu.addAction(listROI) #todo extra info window on ROIs
         fileMenu.addAction(loadROI)
         fileMenu.addAction(SaveROI)
 
-        undo = self.qActionCreate("Undo", self.WIP)
-        redo = self.qActionCreate("Redo", self.WIP)
-        editMenu = self.menu.addMenu("&Edit")
-        editMenu.addAction(undo)
-        editMenu.addAction(redo)
-
         cameraSettings = self.qActionCreate("&All settings", self.showAllCameraSettings)
-        cameraMenu = self.menu.addMenu("&Camera settings")
-        cameraMenu.addAction(cameraSettings)
+        self.cameraMenu = self.menu.addMenu("&Camera settings")
+        self.cameraMenu.addAction(cameraSettings)
 
         cameraCalibration = self.qActionCreate("&Calibration", self.calibrate)
-        cameraMenu.addAction(cameraCalibration)
+        self.cameraMenu.addAction(cameraCalibration)
+
+        saveCurrentFrame = self.qActionCreate("&Save Current Frame", self.saveCurrentFrame)
+        self.cameraMenu.addAction(saveCurrentFrame)
 
     @abstractmethod
     def showAllCameraSettings(self):
@@ -44,6 +41,10 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
     @abstractmethod
     def calibrate(self):
         self.abstractmetod()
+
+    @abstractmethod
+    def saveCurrentFrame(self):
+        self.abstractmetod("saveCurrentFrame")
 
     @abstractmethod
     def showListOfROI(self):

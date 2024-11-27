@@ -1,8 +1,8 @@
-from src.Python.BackEnd.Calibration.DialogWindow.ResultWindow.CalibrationResultWindowNoResults import \
+from Python.BackEnd.Calibration.DialogWindow.ResultWindow.CalibrationResultWindowNoResults import \
     CalibrationResultWindowNoResults
-from src.Python.BackEnd.Calibration.CalibrationFunctions.Calibration import Calibrate
-from src.Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
-from src.Python.BackEnd.Calibration.DialogWindow.ResultWindow.CalibrationResultWindow import CalibrationResultsDialog
+from Python.BackEnd.Calibration.CalibrationFunctions.Calibration import Calibrate
+from Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
+from Python.BackEnd.Calibration.DialogWindow.ResultWindow.CalibrationResultWindow import CalibrationResultsDialog
 
 
 class CalibrateAsync(Calibrate):
@@ -54,9 +54,9 @@ class CalibrateAsync(Calibrate):
     def calibrateEndCall(self):
         self.loger("Calibration End")
         self.calibrationDialog.end()
-        CalibrationResultsDialog(self.manipulatorInterferes).exec_()
+        CalibrationResultsDialog(self).exec_()
 
     def calibrateEndCallQuick(self):
         self.loger("Calibration End Quick")
         self.calibrationDialog.end()
-        CalibrationResultWindowNoResults(self.manipulatorInterferes).exec_()
+        CalibrationResultWindowNoResults(self).exec_()

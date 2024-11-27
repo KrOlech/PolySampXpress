@@ -3,8 +3,8 @@ from abc import ABCMeta, abstractmethod
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel
 
-from src.Python.BaseClass.Logger.Logger import Loger
-from src.Python.FrontEnd.MainWindow.RightClickMenu.RightClickMenu import RightMenu
+from Python.BaseClass.Logger.Logger import Loger
+from Python.FrontEnd.MainWindow.RightClickMenu.RightClickMenu import RightMenu
 
 
 class RightClickLabel(QLabel, Loger):

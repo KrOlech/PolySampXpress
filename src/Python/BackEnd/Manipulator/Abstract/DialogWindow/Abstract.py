@@ -4,9 +4,9 @@ from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QDialog, QFormLayout, QPushButton, QDoubleSpinBox, QLabel
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.BaseClass.Logger.Logger import Loger
-from src.Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.Logger.Logger import Loger
+from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
 
 
 class AbstractDialog(QDialog, Loger):
@@ -21,7 +21,7 @@ class AbstractDialog(QDialog, Loger):
 
     @property
     def okName(self):
-        return "ok"
+        return "Yes"
 
     @property
     def CancelName(self):
@@ -61,7 +61,7 @@ class AbstractDialog(QDialog, Loger):
         self.accept()
 
     @staticmethod
-    def createQSpinBox(value, min=0, max=200):
+    def createQSpinBox(value, min=0, max=200):  # todo move to util metods
         spinBox = QDoubleSpinBox()
         spinBox.setValue(value)
         spinBox.setRange(min, max)

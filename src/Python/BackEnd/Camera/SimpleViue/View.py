@@ -1,3 +1,4 @@
+from PyQt5.QtCore import QRect
 from PyQt5.QtGui import QPixmap, QImage, QPainter
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QLabel
@@ -18,7 +19,7 @@ class SimpleView(QLabel):
 
         frame = QPixmap.fromImage(qImg)
 
-        return frame
+        return frame.copy(QRect(0,1080,0,1920))
 
     def paintEvent(self, a0: QtGui.QPaintEvent) -> None:
         qp = QPainter(self)

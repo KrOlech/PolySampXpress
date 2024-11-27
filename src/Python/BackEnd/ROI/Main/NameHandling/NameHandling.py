@@ -1,8 +1,8 @@
 from abc import ABCMeta
 from functools import cache
 
-from src.Python.BackEnd.ROI.RenameWindow.RenameWidnow import ReNameWindow
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BackEnd.ROI.RenameWindow.RenameWidnow import ReNameWindow
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class NameHandling(Loger):
@@ -10,8 +10,9 @@ class NameHandling(Loger):
     name = ""
 
     def __init__(self, *args, **kwargs):
+        self.id = kwargs['id'] if kwargs['id'] else kwargs['name']
         self.name = kwargs['name']
-        self.__textedit = ReNameWindow(self, text=str(self.name))
+        self.__textedit = ReNameWindow(self, kwargs['master'], text=str(self.name))
 
     def GetTextLocation(self, x, y):
         dx, dy = self.calculateOffset(x, y)

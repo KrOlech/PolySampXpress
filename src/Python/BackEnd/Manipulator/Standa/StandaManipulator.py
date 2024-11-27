@@ -1,7 +1,7 @@
 from ctypes import byref
 
-from src.Python.BackEnd.Manipulator.Standa.InicialisationClass import StandaManipulatorInitialisation
-from src.Python.BackEnd.Manipulator.Standa.ProducerCode.FildsClass import get_position_t
+from Python.BackEnd.Manipulator.Standa.InicialisationClass import StandaManipulatorInitialisation
+from Python.BackEnd.Manipulator.Standa.ProducerCode.FildsClass import get_position_t
 
 
 class StandaManipulator(StandaManipulatorInitialisation):
@@ -9,14 +9,20 @@ class StandaManipulator(StandaManipulatorInitialisation):
     def __init__(self, device_id_Address, screenSize, *args, **kwargs):
         super().__init__(device_id_Address, screenSize, *args, **kwargs)
 
-        self.setSpeed(100)
+        try:
+            self.currentPosition = kwargs["currentPosition"]
+        except KeyError as e:
+            self.logError(f"Error reading current position")
+
+
+        self.setSpeed(10)
 
         x_pos = get_position_t()
         result = self.lib.get_position(self.device_id, byref(x_pos))
         self.loger("Standa Resived Position: " + repr(result))
 
         try:
-            pos = self.readFile("StandaPosition.json")
+            pos = self.readFile(f"StandaPosition_{self.device_id}.json")
             self.x = pos["x"]
             self.y = pos["y"]
             self.z = pos["z"]
@@ -29,11 +35,14 @@ class StandaManipulator(StandaManipulatorInitialisation):
     def getCurrentPosition(self):
         return self.x, self.y, self.z
 
-    def center(self, pozycja, pozycja2):  # toDo uncorect Functionality implemented only for test purpuse
+    def center(self, pozycja, pozycja2):
+        self.lib.command_home(self.device_id)
+
+    def home(self):
         self.lib.command_home(self.device_id)
 
     def validateSpeed(self, speed):
-        return True  # TODO
+        return True
 
     async def goto(self):
         self.__goto()
@@ -46,4 +55,7 @@ class StandaManipulator(StandaManipulatorInitialisation):
         self.lib.command_move(self.device_id, int(self.x), 0)
 
     def homeAxis(self):
-        pass  # toDo
+        pass
+
+    def waitForTarget(self):
+        self.lib.command_wait_for_stop(self.device_id, 10)

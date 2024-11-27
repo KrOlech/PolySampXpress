@@ -1,6 +1,6 @@
 from abc import ABCMeta
 
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class CommonNames(Loger):

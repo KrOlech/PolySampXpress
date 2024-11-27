@@ -1,6 +1,6 @@
 
 
-from src.Python.BaseClass.Slider.Slider import Slider
+from Python.BaseClass.Slider.Slider import Slider
 
 
 class SliderCommunicationPoint(Slider):

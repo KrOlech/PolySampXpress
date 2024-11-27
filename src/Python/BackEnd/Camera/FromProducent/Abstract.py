@@ -1,52 +1,31 @@
 from ctypes import c_int, Structure, c_char_p, c_void_p, POINTER, c_long, windll
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+import ctypes
+
+import tisgrabber as tis
 
 
 class AbstractCameraFromProducent:
-    tisgrabber = windll.LoadLibrary(JsonHandling.getFileLocation(r"CameraDLL\tisgrabber_x64.dll"))
-
-    class GrabberHandle(Structure):
-        pass
-
-    GrabberHandle._fields_ = [('unused', c_int)]
-
-    GrabberHandlePtr = POINTER(GrabberHandle)
-
-    create_grabber = tisgrabber.IC_CreateGrabber
-    create_grabber.restype = GrabberHandlePtr
-    create_grabber.argtypes = None
-
-    open_device_by_unique_name = tisgrabber.IC_OpenDevByUniqueName
-    open_device_by_unique_name.restype = c_int
-    open_device_by_unique_name.argtypes = (GrabberHandlePtr,
-                                           c_char_p)
-
-    GetImagePtr = tisgrabber.IC_GetImagePtr
-    GetImagePtr.restype = c_void_p
-    GetImagePtr.argtypes = (GrabberHandlePtr,)
-
-    StartLive = tisgrabber.IC_StartLive
-    StartLive.restype = c_int
-    StartLive.argtypes = (GrabberHandlePtr,
-                          c_int,)
-
-    _GetImageDescription = tisgrabber.IC_GetImageDescription
-    _GetImageDescription.restype = c_int
-    _GetImageDescription.argtypes = (GrabberHandlePtr,
-                                     POINTER(c_long),
-                                     POINTER(c_long),
-                                     POINTER(c_int),
-                                     POINTER(c_int),)
-
     __isConnectionEstablished = None
 
+    def __init__(self, *args, **kwargs):
+        self.ic = windll.LoadLibrary(JsonHandling.getFileLocation(r"CameraDLL\tisgrabber_x64.dll"))
+
+        tis.declareFunctions(self.ic)
+
+        self.ic.IC_InitLibrary(0)
+
     def establishConnection(self):
-        self.tisgrabber.IC_InitLibrary(None)
+        self.ic.IC_InitLibrary(0)
 
-        self.handle = self.create_grabber()
+        self.handle = self.ic.IC_CreateGrabber()
 
-        self.__isConnectionEstablished = self.open_device_by_unique_name(self.handle, b'DFK 37BUX178 44121122')
+        self.ic.IC_OpenVideoCaptureDevice(self.handle, tis.T("DFK 37BUX178"))
+
+        self.__isConnectionEstablished = self.ic.IC_IsDevValid(self.handle)
+
+        return self.__isConnectionEstablished
 
     @property
     def isConnectionEstablished(self):

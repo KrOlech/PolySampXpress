@@ -1,11 +1,12 @@
+import asyncio
 from abc import ABCMeta
 from abc import abstractmethod
 
-from src.Python.ErrorHandling.CustomExceptions.Exceptions import InvalidSpeed
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.ErrorHandling.CustomExceptions.Exceptions import InvalidSpeed
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
-class AbstractManipulator(JsonHandling):  # toDo test if beter resalts wit async movment
+class AbstractManipulator(JsonHandling):
     __metaclass__ = ABCMeta
 
     speed = 0
@@ -96,9 +97,18 @@ class AbstractManipulator(JsonHandling):  # toDo test if beter resalts wit async
 
         self.gotoNotAsync()
 
-    def center(self, x, y):
-        self.x += (x - self.screenSize.width() // 2) / self.xOffset
-        self.y += (y - self.screenSize.height() // 2) / self.yOffset
+    def goToCordsAsync(self, x=None, y=None, z=None):
+        self.x = x if x is not None else self.x
+        self.y = y if y is not None else self.y
+        self.z = z if z is not None else self.z
+
+        asyncio.run(self.goto())
+
+    def center(self, x, y, zoom):
+        self.xOffset, self.yOffset = self.loadOffsetsJson(zoom)
+
+        self.x += (x - 1536 // 2) / self.xOffset #toDo get From Camera not hend put
+        self.y += (y - 1000 // 2) / self.yOffset
 
         self.gotoNotAsync()
 

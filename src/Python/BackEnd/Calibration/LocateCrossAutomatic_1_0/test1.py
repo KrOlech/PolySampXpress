@@ -1,8 +1,8 @@
 import numpy as np
 from numpy import ones
 
-from src.Python.BackEnd.Calibration.LocateCrossAutomatic_1_0.DataBase.CalibrationPointDataBase import CalibrationPointDataBase
-from src.Python.BackEnd.Calibration.Abstract.TemplateMatching import TemplateMatching
+from Python.BackEnd.Calibration.LocateCrossAutomatic_1_0.DataBase.CalibrationPointDataBase import CalibrationPointDataBase
+from Python.BackEnd.Calibration.Abstract.TemplateMatching import TemplateMatching
 
 
 class LocateCross(TemplateMatching):

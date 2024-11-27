@@ -1,7 +1,7 @@
 from ctypes import CDLL, c_double, byref, c_long, c_char_p, c_int
 from functools import cache
 
-from src.Python.BaseClass.Logger.Logger import Loger
+from Python.BaseClass.Logger.Logger import Loger
 
 
 class DllFunctions(Loger):
@@ -11,7 +11,7 @@ class DllFunctions(Loger):
         return c_char_p(b"10.0.0.100")
 
     def __init__(self, *args, **kwargs):
-        self.dll = CDLL(r"C:\Windows\System32\ACSCL_x64.dll")  # toDo Resolv DLL location
+        self.dll = CDLL(r"C:\Windows\System32\ACSCL_x64.dll")
 
     def __enter__(self):
         self.handle = self.dll.acsc_OpenCommEthernetTCP(self.IP, 701)
@@ -103,7 +103,7 @@ class DllFunctions(Loger):
         self.dll.acsc_GetFaultMask(self.handle, axisNr, byref(m_FaultMask), 0)
         self.loger(f"GetFaultMask for axis {axisNr}: {m_FaultMask.value}")
 
-    def setPositions(self, position: dict): #ToDo check if works?
+    def setPositions(self, position: dict):
         for axisNr, axisPosition in position.items():
             self.dll.acsc_SetFPosition(self.handle, axisNr, axisPosition, 0)
 

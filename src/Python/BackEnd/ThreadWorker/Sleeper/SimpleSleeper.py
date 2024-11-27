@@ -3,7 +3,7 @@ from asyncio import sleep
 
 from PyQt5.QtCore import pyqtSignal, QThread
 
-from src.Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleThreadWorker import Worker
+from Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleThreadWorker import Worker
 
 
 class SimpleSleeper(Worker):

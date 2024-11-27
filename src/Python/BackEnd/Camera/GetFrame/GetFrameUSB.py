@@ -2,17 +2,17 @@ from abc import ABCMeta
 
 import cv2
 from numpy import ndarray, average, mean, clip, uint8
-from src.Python.ErrorHandling.CustomExceptions.Exceptions import NoCammeraConected
-from src.Python.BackEnd.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
-from src.Python.Symulators.CameraSymulator.CameraSimulator import CameraSimulator
-from src.Python.BackEnd.Camera.Configuration.Configuration import Configuration
+from Python.ErrorHandling.CustomExceptions.Exceptions import NoCammeraConected
+from Python.BackEnd.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
+from Python.Symulators.CameraSymulator.CameraSimulator import CameraSimulator
+from Python.BackEnd.Camera.Configuration.Configuration import Configuration
 
 
 class GetFrameUSB(AbstractGetFrame, Configuration):
     __metaclass__ = ABCMeta
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         self.device = cv2.VideoCapture(0)
 
@@ -26,13 +26,7 @@ class GetFrameUSB(AbstractGetFrame, Configuration):
         [communicationPoint.setValue(self.device) for communicationPoint in self.communicationPoints]
 
     def __testCameraCommunication(self) -> None:
-        try:
-            ret, _ = self.device.read()
-            if not ret:
-                raise NoCammeraConected
-        except NoCammeraConected:
-
-            self.device = CameraSimulator()
+        self.device = CameraSimulator()
 
     def setNewValueForCommunicationPoint(self, communicationPoint) -> None:
         self.device.set(communicationPoint.address, communicationPoint.value)

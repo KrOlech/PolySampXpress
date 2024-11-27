@@ -2,15 +2,15 @@ from time import sleep
 
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
-from src.Python.FrontEnd.MainWindow.Utilitis.QlabelROI import QlabelROI
+from Python.FrontEnd.MainWindow.Utilitis.QlabelROI import QlabelROI
 
-#toDo move to two files + beter names
+
 class Worker(QObject):
     finished = pyqtSignal()
 
-    def __init__(self, mainwindow, *args, **kwargs):
+    def __init__(self, mainWindow, *args, **kwargs):
         super(Worker, self).__init__(*args, **kwargs)
-        self.mainWindow = mainwindow
+        self.mainWindow = mainWindow
 
     def run(self):
         sleep(0.01)
@@ -18,6 +18,7 @@ class Worker(QObject):
         self.finished.emit()
 
 
+#TODO Dlaczego to jest tutaj ????????
 class QlabelRightClickMenu(QlabelROI):
 
     def right_menu(self, pos):

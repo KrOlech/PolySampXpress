@@ -1,7 +1,8 @@
-from PyQt5.QtWidgets import QLabel, QProgressBar
+from PyQt5.QtWidgets import QLabel
 
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
-from src.Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
+from Python.FrontEnd.Utilitis.ProgresBar import ProgresBar
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
+from Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 
 
 class DialogWindowMap(AbstractDialogMaster):
@@ -11,20 +12,7 @@ class DialogWindowMap(AbstractDialogMaster):
 
         self.form.addRow(QLabel("Creating Mozaik"))
 
-        self.pbar = QProgressBar(self)
-
-        self.pbar.setTextVisible(False)
-
-        self.pbar.setStyleSheet("QProgressBar"
-                          "{"
-                          "border: solid grey;"
-                          "border-radius: 15px;"
-                          " color: black; "
-                          "}"
-                          "QProgressBar::chunk "
-                          "{background-color: # 05B8CC;"
-                          "border-radius :15px;"
-                          "}")
+        self.pbar = ProgresBar(self)
 
         self.form.addRow(self.pbar)
 
@@ -44,6 +32,6 @@ class DialogWindowMap(AbstractDialogMaster):
     def cancelPressed(self):
         self.loger("Mozaik Creation Stopped")
         self.master.manipulatorInterferes.stop()
-        self.master.mapWindowObject.mapEnd = True
+        self.master.endMapCreation()
         self.master.isMapReadi = True
         self.master.creatingMap = False

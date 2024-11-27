@@ -1,5 +1,5 @@
-from src.Python.FrontEnd.MainWindow.InicialisationFlag.AbstractCreateWorkFild import AbstractCreateWorkFild
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
+from Python.FrontEnd.MainWindow.InicialisationFlag.AbstractCreateWorkFild import AbstractCreateWorkFild
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 
 
 class WindowCreateWorkFeald(AbstractDialogMaster, AbstractCreateWorkFild):

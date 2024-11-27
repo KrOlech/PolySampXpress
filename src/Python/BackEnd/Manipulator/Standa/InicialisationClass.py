@@ -3,13 +3,13 @@ import platform
 import sys
 from ctypes import create_string_buffer, byref, string_at, c_uint, CDLL, WinDLL, cast, POINTER, c_int
 
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from src.Python.BackEnd.Manipulator.Standa.Filds.DeviceInformation import DeviceInformation
-from src.Python.BackEnd.Manipulator.Standa.Filds.Status import StatusFild
-from src.Python.BackEnd.Manipulator.Standa.Abstract.AbstractStandaManipulator import AbstractStandaManipulator
-from src.Python.BackEnd.Manipulator.Standa.Filds.Calibration import Calibration
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BackEnd.Manipulator.Standa.Filds.DeviceInformation import DeviceInformation
+from Python.BackEnd.Manipulator.Standa.Filds.Status import StatusFild
+from Python.BackEnd.Manipulator.Standa.Abstract.AbstractStandaManipulator import AbstractStandaManipulator
+from Python.BackEnd.Manipulator.Standa.Filds.Calibration import Calibration
 
-from src.Python.BackEnd.Manipulator.Standa.Filds.EngineSettings import EngineSettings
+from Python.BackEnd.Manipulator.Standa.Filds.EngineSettings import EngineSettings
 
 
 class StandaManipulatorInitialisation(AbstractStandaManipulator):
@@ -17,7 +17,11 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
 
     @property
     def ZoomStepsMap(self):
-        return {0: 0.85, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10}
+        return {0.85: 0, 1: -35, 2: -190, 3: -280, 4: -335, 5: -355, 6: -425, 7: -455, 8: -485, 9: -505, 10: -525}
+
+    @property
+    def StepZoomsMap(self):
+        return {0: 0.85, -35: 1, -190: 2, -280: 3, -335: 4, -355: 5, -425: 6, -455: 7, -485: 8, -505: 9, -525: 10}
 
     def __init__(self, device_id_Address, screenSize, *args, **kwargs):
         super().__init__(screenSize, *args, **kwargs)
@@ -51,7 +55,7 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
             self.loger(f"error Trying opening device: {encodedComPort.decode()}")
 
     def close(self):
-        self.saveFile(f"StandaPosition_{self.device_id}.json", {"x": self.x, "y": self.y, "z": self.z}) #TODO corect File Nametrta
+        self.saveFile(f"StandaPosition_{self.device_id}.json", {"x": self.x, "y": self.y, "z": self.z})
         self.closeDevice(self.device_id)
         self.loger("Done Closing Standa")
 
@@ -92,6 +96,7 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
         else:
             return None
 
+    # todo better name
     def __testInfo(self, device_id):
         x_device_information = DeviceInformation()
         result = self.lib.get_device_information(device_id, byref(x_device_information))

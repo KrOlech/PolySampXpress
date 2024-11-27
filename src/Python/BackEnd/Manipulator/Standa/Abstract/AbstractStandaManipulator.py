@@ -1,7 +1,7 @@
 import os
 import sys
 
-from src.Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
+from Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 
 
 class AbstractStandaManipulator(AbstractManipulator):

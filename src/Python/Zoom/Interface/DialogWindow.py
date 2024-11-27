@@ -1,4 +1,4 @@
-from src.Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
+from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 
 
 class ZoomChangeDialogWindow(AbstractDialogMaster):

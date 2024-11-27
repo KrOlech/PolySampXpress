@@ -1,20 +1,22 @@
-from src.Python.BackEnd.Camera.GetFrame.GetFrameUSB import GetFrameUSB
-from src.Python.BackEnd.Camera.GetFrame.GetFreamFromCameraProducent import GetFrameFromProducent
+from Python.BackEnd.Camera.GetFrame.GetFrameUSB import GetFrameUSB
+from Python.BackEnd.Camera.GetFrame.GetFreamFromCameraProducent import GetFrameFromProducent
 
 
-class GetFrame(GetFrameFromProducent, GetFrameUSB):
+class GetFrame(GetFrameUSB, GetFrameFromProducent):
     device = None
 
-    def __init__(self):
-        self.establishConnection()
+    FrameFun = None
 
-        if self.isConnectionEstablished:
-            GetFrameFromProducent.__init__(self)
+    def __init__(self):
+        super().__init__()
+
+        try:
+            self.getFrameProducent()
+        except Exception as e:
+            self.loger(e)
+            self.FrameFun = self.getFrameUSB
         else:
-            GetFrameUSB.__init__(self)
+            self.FrameFun = self.getFrameProducent
 
     def getFrame(self):
-        if self.isConnectionEstablished:
-            return self.getFrameProducent()
-        else:
-            return self.getFrameUSB()
+        return self.FrameFun()

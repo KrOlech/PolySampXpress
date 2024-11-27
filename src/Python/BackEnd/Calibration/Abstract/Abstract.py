@@ -2,9 +2,9 @@ from abc import ABCMeta
 import cv2 as cv
 from numpy import mean
 
-from src.Python.BackEnd.Calibration.Abstract.TemplateMatching import TemplateMatching
-from src.Python.BackEnd.Calibration.Propertis.Propertis import CalibrateProperty
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BackEnd.Calibration.Abstract.TemplateMatching import TemplateMatching
+from Python.BackEnd.Calibration.Propertis.Propertis import CalibrateProperty
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class AbstractCalibrate(JsonHandling, CalibrateProperty, TemplateMatching):
@@ -14,15 +14,16 @@ class AbstractCalibrate(JsonHandling, CalibrateProperty, TemplateMatching):
     template0 = None
     calibrationDialog = None
 
-    def __init__(self, camera):
+    def __init__(self, camera, master):
         self.camera = camera
+        self.master = master
 
     def getGrayFrame(self):
         return cv.cvtColor(self.camera.getFrame(), cv.COLOR_BGR2GRAY)
 
     def extractTemplate(self, frame):
         template = frame[self.templateLocationY:self.templateLocationY + self.templateSize,
-                         self.templateLocationX:self.templateLocationX + self.templateSize]
+                   self.templateLocationX:self.templateLocationX + self.templateSize]
         w, h = template.shape[::-1]
         return template, w, h
 
@@ -50,9 +51,14 @@ class AbstractCalibrate(JsonHandling, CalibrateProperty, TemplateMatching):
 
     def saveCalibrationResults(self, delta, index):
 
+        index = not index
+
         data = self.readFile(self.configFile)
+
+        self.loger(f"Calculated offset for index: {index} : {delta[index]}")
+
         try:
-            data["0"]["offsets"][self.indexLegend[index]] = int(delta[index])
+            data[str(int(self.master.zoom))]["offsets"][self.indexLegend[index]] = int(abs(delta[index]))
         except ValueError as e:
             self.logError(e)
         else:

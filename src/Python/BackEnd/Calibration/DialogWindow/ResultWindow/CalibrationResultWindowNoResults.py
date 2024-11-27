@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import QLabel
 
-from src.Python.BackEnd.Calibration.DialogWindow.AbstractWindow.AbstractWindow import AbstractWindow
+from Python.BackEnd.Calibration.DialogWindow.AbstractWindow.AbstractWindow import AbstractWindow
 
 
 class CalibrationResultWindowNoResults(AbstractWindow):
 
-    def __init__(self, manipulator, *args, **kwargs):
-        super().__init__(manipulator, *args, **kwargs)
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master.manipulatorInterferes, *args, **kwargs)
 
         self.form.addRow(QLabel("Calibration was Stoped befor end"))
 

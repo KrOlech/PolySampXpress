@@ -1,18 +1,27 @@
-from src.Python.FrontEnd.MainWindow.Zoom.MainWindowZoom import MainWindowZoom
-from src.Python.FrontEnd.MainWindow.InicialisationFlag.MainWindowIniciialisationFlag import MainWindowInicialisationFlag
-from src.Python.FrontEnd.MainWindow.RoiCreation.RoiCreation import MainWindowRoiCreationInterferes
+from Python.FrontEnd.MainWindow.StepSize.StepSize import MainWindowStepSize
+from Python.FrontEnd.MainWindow.ToolBar.ToolBar import MainWindowToolBar
+from Python.FrontEnd.MainWindow.Zoom.MainWindowZoom import MainWindowZoom
+from Python.FrontEnd.MainWindow.InicialisationFlag.MainWindowIniciialisationFlag import MainWindowInicialisationFlag
+from Python.FrontEnd.MainWindow.RoiCreation.RoiCreation import MainWindowRoiCreationInterferes
 
 
 class MainWindow(MainWindowInicialisationFlag,
                  MainWindowRoiCreationInterferes,
-                 MainWindowZoom):
+                 MainWindowToolBar,
+                 MainWindowZoom,
+                 MainWindowStepSize):
 
     def __init__(self, *args, **kwargs):
+        self.logStart()
         super().__init__(*args, **kwargs)
 
         self.createRoiModsMenu()
 
-        self.createZoomSlider()
+        self.createToolbar()
+
+        self.createZoom()
+
+        self.createStepSize()
 
     def TestClose(self):
         self.testEventClose = True

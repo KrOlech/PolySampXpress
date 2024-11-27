@@ -1,4 +1,4 @@
-from src.Python.BackEnd.Manipulator.SCIIPPlus.Abstract.Main import SCIManipulator
+from Python.BackEnd.Manipulator.SCIIPPlus.Abstract.Main import SCIManipulator
 
 
 class SCIManipulatorSimulator(SCIManipulator):

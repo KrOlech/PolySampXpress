@@ -1,6 +1,6 @@
-from src.Python.BackEnd.Camera.GetFrame.main import GetFrame
-from src.Python.BackEnd.Camera.ComonNames.ComonNames import CommonNames
-from src.Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BackEnd.Camera.GetFrame.main import GetFrame
+from Python.BackEnd.Camera.ComonNames.ComonNames import CommonNames
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class Camera(CommonNames, GetFrame):

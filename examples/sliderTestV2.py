@@ -75,7 +75,7 @@ class LabeledSlider(QtWidgets.QWidget):
                 x_loc=QStyle.sliderPositionFromValue(self.sl.minimum(),
                         self.sl.maximum(), v, available)+length//2
 
-                # left bound of the text = center - half of text width + L_margin
+                # left to bound of the text = center - half of text width + L_margin
                 left=x_loc-rect.width()//2+self.left_margin
                 bottom=self.rect().bottom()
 
