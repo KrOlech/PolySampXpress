@@ -21,9 +21,9 @@ class XeroConfirmationWindow(AbstractDialogMaster):
         self.finaliseGUI()
 
     def okPressed(self):
-        self.master.map00PointsVariable = True
+        self.master.createMapVariable = True
         super(XeroConfirmationWindow, self).okPressed()
 
     def cancelPressed(self):
-        self.master.map00PointsVariable = False
+        self.master.createMapVariable = False
         self.accept()
