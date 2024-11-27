@@ -66,7 +66,7 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
     def clickCreateStatus(self):
         myStatusBar = QLabel(self)
 
-        myStatusBar.setFixedWidth(self.windowSize.width() // 8)
+        myStatusBar.setFixedWidth(self.windowSize.width() // 6)
 
         myStatusBar.setStyleSheet("background-color: rgba(255, 255, 255, 75);")
 
