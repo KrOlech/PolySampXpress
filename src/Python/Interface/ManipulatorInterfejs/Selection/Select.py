@@ -1,10 +1,11 @@
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.BaseClass.Logger.Logger import Loger
 from src.Python.BackEnd.Manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
 from src.Python.BackEnd.Manipulator.Standa.StandaManipulator import StandaManipulator
 from src.Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 
 
-class SelectManipulator:
+class SelectManipulator(Loger):
     _manipulator = None
     _focusManipulator = None
 
@@ -16,16 +17,22 @@ class SelectManipulator:
         self.zoom_Position = JsonHandling.loadZoomLocationJson()
         self.fokus_Position = JsonHandling.loadFokusLocationJson()
 
-        self._manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
-        if not self._manipulator.initState:
+        try:
+            self._manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
+        except Exception as e:
+            self.loger(e)
             self._manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
-        self._focusManipulator = StandaManipulator(self.FOCUS_MANIPULATOR_ADDRESS, self.windowSize, self.myStatusBar)
-        if not self._focusManipulator.manipulatorConnected:
+        try:
+            self._focusManipulator = StandaManipulator(self.FOCUS_MANIPULATOR_ADDRESS, self.windowSize, self.myStatusBar)
+        except Exception as e:
+            self.loger(e)
             self._focusManipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
-        self._zoomManipulator = StandaManipulator(self.ZOOM_MANIPULATOR_ADDRESS, self.windowSize, self.myStatusBar)
-        if not self._zoomManipulator.manipulatorConnected:
+        try:
+            self._zoomManipulator = StandaManipulator(self.ZOOM_MANIPULATOR_ADDRESS, self.windowSize, self.myStatusBar)
+        except Exception as e:
+            self.loger(e)
             self._zoomManipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
     def closeAction(self):
