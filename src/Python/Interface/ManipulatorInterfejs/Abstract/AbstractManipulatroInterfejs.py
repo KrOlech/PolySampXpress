@@ -72,16 +72,20 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         self.setLayout(self.__layout)
 
     def __key_up(self):
-        self._manipulator.up()
+        if not self._manipulator.inMotion:
+            self._manipulator.up()
 
     def __key_left(self):
-        self._manipulator.left()
+        if not self._manipulator.inMotion:
+            self._manipulator.left()
 
     def __key_right(self):
-        self._manipulator.right()
+        if not self._manipulator.inMotion:
+            self._manipulator.right()
 
     def __key_down(self):
-        self._manipulator.down()
+        if not self._manipulator.inMotion:
+            self._manipulator.down()
 
     def __fockus_key_up(self):
         self._focusManipulator.left()
