@@ -10,7 +10,9 @@ from PIL import Image
 import cv2
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QFileDialog
+from numpy import frombuffer
 
+from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
 from Python.BaseClass.Logger.Logger import Loger
 from Python.BackEnd.ThreadWorker.Sleeper.SleeperFun import workSleeperFun
 
@@ -113,6 +115,7 @@ class AbstractMapWindow(Loger):
 
                 name = str(self.mapId) + ".png"
 
+                self.mapNumpy = self.mapNumpy[:, :, ::-1]
                 img = Image.fromarray(self.mapNumpy)
 
                 imgByte = BytesIO()
