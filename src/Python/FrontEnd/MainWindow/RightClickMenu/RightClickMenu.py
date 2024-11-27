@@ -43,8 +43,6 @@ class RightMenu(QMenu):
             menu = self.addMenu(str(name))
 
             for roi in rois:
-                if type(roi) is Line and fun == "rename":
-                    continue
                 action = menu.addAction(str(roi.name))
                 action.triggered.connect(roi.__getattribute__(fun))
 
@@ -55,8 +53,6 @@ class RightMenu(QMenu):
         functions = ["edit", "rename", "centerOnMe", "delete", "editScatter"]
 
         for name, fun in zip(names, functions):
-            if type(roi) is Line and fun == "rename":
-                continue
             action = self.addAction(name + ' ' + str(roi.name))
             action.triggered.connect(roi.__getattribute__(fun))
 

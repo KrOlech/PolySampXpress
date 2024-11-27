@@ -9,5 +9,13 @@ class LineNameHandling(NameHandling):
         return x - 15 - dx, y - 15 - dy
 
     def setNameFromLen(self):
-        self.name = str(self.lineLenMM())
+        self.name = self.__getNameFromLen()
         self.label.updateName(self.name)
+
+    def setName(self, name):
+        self.name = self.__getNameFromLen()
+        self.name = name + self.name
+        self.label.updateName(name)
+
+    def __getNameFromLen(self):
+        return str(self.lineLenMM()) + " mm"
