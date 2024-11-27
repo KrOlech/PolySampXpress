@@ -32,6 +32,7 @@ class GenericProgressClass(AbstractDialogMaster):
 
         self.setMinimumWidth(size)
 
+
     def run(self):
         workFunWorker(self, self.function, self.end)
 

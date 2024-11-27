@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QLabel
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.MoveByValue import MoveByValue
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.RemoveSampleDialog import RemoveSampleDialog
 from Python.BackEnd.XeroStartup.Main import XeroStartup
+from Python.BackEnd.XeroStartup.XeroProgresWindow import XeroProgresWindow
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
 from Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
@@ -54,7 +55,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def _00Points(self):
         self.zta = XeroStartup(self)
 
-        window = GenericProgressClass("Calculate Zero points", self.zeroOut, 200, self)
+        window = XeroProgresWindow("Calculate Zero points", self.zeroOut, 200, self)
         window.run()
         window.exec_()
 
