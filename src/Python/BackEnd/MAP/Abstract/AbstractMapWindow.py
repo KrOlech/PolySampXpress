@@ -100,7 +100,7 @@ class AbstractMapWindow(Loger):
         currentDirectory = curdir
 
         folderPath, _ = QFileDialog.getSaveFileName(self.master, "Select Location to save Roi List", "",
-                                                    "Zip Files (*.zip)") #toDo correct name
+                                                    "Zip Files (*.zip)")
 
         self.loger(f"folder path: {folderPath}")
 
@@ -132,7 +132,7 @@ class AbstractMapWindow(Loger):
     def loadMapFile(self):
 
         filePath, _ = QFileDialog.getOpenFileName(self.master, "Select file with Roi List", "",
-                                                  "Zip Files (*.zip)") #toDo correct name
+                                                  "Zip Files (*.zip)")
 
         currentDirectory = curdir
 
