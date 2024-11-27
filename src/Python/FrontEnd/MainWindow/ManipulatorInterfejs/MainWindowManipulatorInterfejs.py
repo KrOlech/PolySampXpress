@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QLabel
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.MoveByValue import MoveByValue
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.RemoveSampleDialog import RemoveSampleDialog
 from Python.BackEnd.XeroStartup.Main import XeroStartup
+from Python.BackEnd.XeroStartup.XeroConfirmationWindow import XeroConfirmationWindow
 from Python.BackEnd.XeroStartup.XeroProgresWindow import XeroProgresWindow
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
@@ -22,6 +23,8 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     buttons = None
     testEventClose = False
     calibratePixelsMode = False
+
+    map00PointsVariable = None
 
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
@@ -53,6 +56,14 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         self.__saveAndCreateAction("&autoFocus", self.manipulatorInterferes.autoFokus, self.cameraMenu)
 
     def _00Points(self):
+
+        self.loger("do you wont to mark 00 Points?")
+        XeroConfirmationWindow(self).exec_()
+
+        if not self.createMapVariable:
+            self.loger("no I don't wont to mark 00 Points")
+            return
+
         self.zta = XeroStartup(self)
 
         window = XeroProgresWindow("Calculate Zero points", self.zeroOut, 200, self)

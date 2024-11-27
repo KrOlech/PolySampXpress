@@ -21,7 +21,7 @@ class AbstractDialog(QDialog, Loger):
 
     @property
     def okName(self):
-        return "ok"
+        return "Yes"
 
     @property
     def CancelName(self):
