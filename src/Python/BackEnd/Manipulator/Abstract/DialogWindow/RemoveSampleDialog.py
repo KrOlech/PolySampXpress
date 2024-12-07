@@ -6,7 +6,7 @@ from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractD
 class RemoveSampleDialog(AbstractDialogMaster):
     @property
     def windowName(self):
-        return 'Remove Sample Dialog'
+        return 'Sample access position'
 
     @property
     def CancelName(self):
@@ -15,7 +15,7 @@ class RemoveSampleDialog(AbstractDialogMaster):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.form.addRow(QLabel("Do You wont to save ROI list before removing sample Trey"))
+        self.form.addRow(QLabel("Do You wont to save ROI list before Go to Sample access position"))
 
         self.finaliseGUI()
 
