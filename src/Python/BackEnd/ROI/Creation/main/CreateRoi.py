@@ -86,8 +86,6 @@ class CreateRoi(SimpleCreateRoi,
 
         else:
             match self.leftMouseButton, self.editTribe, self.mainWindow.manipulatorInterferes.inMotion:
-                case False, False, _:
-                    self.mainWindow.showROIList(e)
                 case False, True, False:
                     self.editedROI.cursorEdit(e, self.mainWindow.manipulatorInterferes.x,
                                               self.mainWindow.manipulatorInterferes.y)
@@ -96,7 +94,6 @@ class CreateRoi(SimpleCreateRoi,
                                              self.mainWindow.manipulatorInterferes.y)
                 case True, False, False:
                     getattr(self, self.supportedModes[self.mainWindow.mode] + "__saveTemporaryLocation")(e)
-                    self.mainWindow.showROIList(e)
 
         # xOffset, yOffset = JsonHandling.loadOffsetsJson() #{self.x / xOffset} mm, {self.y / yOffset} mm, prawie ok brakuje wspułrzednych pkt 00
 
@@ -135,8 +132,7 @@ class CreateRoi(SimpleCreateRoi,
 
         self.__absolutZeroPoint = self.__newZeroPoint(x, y)
 
-        self.ROIList.append(self.__absolutZeroPoint)
-        self.mainWindow.addROIToList()
+        self.mainWindow.addROIToList(self.__absolutZeroPoint)
         self.mainWindow.zeroPoint = self.__absolutZeroPoint
 
         self.__absolutZeroPoint.fillFileDict()

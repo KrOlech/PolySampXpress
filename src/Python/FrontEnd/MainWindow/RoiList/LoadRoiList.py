@@ -67,9 +67,7 @@ class LoadRoiList(JsonHandling):
                         else:
                             roi = self.choseRoiType(data[currentId], qImg, newId)
 
-                        self.master.cameraView.ROIList.append(roi)
-
-                        self.master.addROIToList()
+                        self.master.addROIToList(roi)
 
             self.master.cameraView.roiNames = len(self.master.cameraView.ROIList)
 
@@ -171,9 +169,7 @@ class LoadRoiList(JsonHandling):
                                 name, 0,
                                 0, self.master.cameraView.pixelAbsolutValue, viue=img, zoom=values["zoom"])
 
-                self.master.cameraView.ROIList.append(roi)
-
-                self.master.addROIToList()
+                self.master.addROIToList(roi)
 
             self.master.cameraView.roiNames = len(self.master.cameraView.ROIList)
 

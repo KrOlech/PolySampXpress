@@ -92,7 +92,7 @@ class XeroStartup(Loger):
 
         p = Point(self.master.cameraView, x, y, f"{self.fileName}",
                   self.master.manipulatorInterferes.x,
-                  self.master.manipulatorInterferes.y, [0, 0], ooPoint=False, zValue=z)
+                  self.master.manipulatorInterferes.y, [0, 0], ooPoint=True, zValue=z)
 
         if not self.__inProgres:
             return
@@ -107,8 +107,6 @@ class XeroStartup(Loger):
             roi, x, y, z = values
 
             self.master.cameraView.ROIList.append(roi)
-
-            self.master.addROIToList()
 
             self.master.refPoints[self.treyConfigZoom][name] = {"x": x, "y": y, "z": z, "point": roi.fileDict}
 
