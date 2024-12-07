@@ -7,6 +7,7 @@ from Python.BackEnd.Manipulator.Abstract.DialogWindow.RemoveSampleDialog import 
 from Python.BackEnd.XeroStartup.Main import XeroStartup
 from Python.BackEnd.XeroStartup.XeroConfirmationWindow import XeroConfirmationWindow
 from Python.BackEnd.XeroStartup.XeroProgresWindow import XeroProgresWindow
+from Python.BackEnd.XeroStartup.XeroTreySelection import XeroTreySelection
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
 from Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
@@ -25,6 +26,8 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     calibratePixelsMode = False
 
     map00PointsVariable = None
+
+    sampleTreyName = None
 
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
@@ -46,8 +49,6 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
                      ("Go to Sample access position", self.removeSampleAsync),
                      ("Calculate Zero points", self._00Points)]
 
-        self.sampleTreyName = "Trey2"
-
         self.refPoints = {}
 
         for name, fun in menuSetup:
@@ -63,6 +64,8 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         if not self.createMapVariable:
             self.loger("no I don't wont to mark 00 Points")
             return
+
+        XeroTreySelection(self).exec_()
 
         self.zta = XeroStartup(self)
 
