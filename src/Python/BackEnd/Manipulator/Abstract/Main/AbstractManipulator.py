@@ -64,7 +64,7 @@ class AbstractManipulator(JsonHandling):
         self.abstractmetod()
 
     def upadteLable(self):
-        self.label.setText(f"Manipulator  X:{self.y:.4f}    Y:{self.x:.4f}")
+        self.label.setText(f"Manipulator X:{self.y:.2f} Y:{self.x:.2f}")
 
     def up(self):
         self.y += self.speed
