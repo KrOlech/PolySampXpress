@@ -46,7 +46,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
                      ("Go to Sample access position", self.removeSampleAsync),
                      ("Calculate Zero points", self._00Points)]
 
-        self.sampleTreyName = "Trey0"
+        self.sampleTreyName = "Trey2"
 
         self.refPoints = {}
 

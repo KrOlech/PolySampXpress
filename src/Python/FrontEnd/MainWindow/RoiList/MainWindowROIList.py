@@ -13,20 +13,20 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
 
         self.roiList = ROIList(self, self.widget)
         self.roiList.move(self.roiListWidthFilld - 80, 0)  # toDo proper Load from file not Hard coded
+        self.roiList.show()
 
     @property
     @cache
     def roiListWidthFilld(self):
         return self.windowSize.width() - self.roiList.width
 
-    def showROIList(self, e):
-        self.roiList.show()
-
     def showROIListButton(self, e):
         pass  # toDo extra window with info on ROIs
 
-    def addROIToList(self):
-        self.roiList.addROI(self.cameraView.ROIList[-1].label)
+    def addROIToList(self, roi):
+        self.cameraView.ROIList.append(roi)
+        self.cameraView.roiNames += 1
+        self.roiList.addROI(roi.label)
 
     def removeROIFromList(self, lable):
         self.roiList.removeROI(lable)
