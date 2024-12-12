@@ -43,7 +43,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
                      ("Move By Value", self.__moveByValue),
                      ("Set Step Size", self.__setStepSize),
                      ("Calculate Inaccuracy", self.__calculateInaccuracy),
-                     ("Remove Sample", self.removeSampleAsync),
+                     ("Go to Sample access position", self.removeSampleAsync),
                      ("Calculate Zero points", self._00Points)]
 
         self.sampleTreyName = "Trey0"
@@ -124,7 +124,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         if not self.manipulatorInterferes.AXIS_HOMED:
             self.__homeAxis()
 
-        window = GenericProgressClass("Remove Sample in progress", self.manipulatorInterferes.removeSample, 200, self)
+        window = GenericProgressClass("Going to Sample access position in progress", self.manipulatorInterferes.removeSample, 200, self)
         window.run()
         window.exec_()
 
