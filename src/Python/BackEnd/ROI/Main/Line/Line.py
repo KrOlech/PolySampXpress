@@ -40,7 +40,7 @@ class Line(LineEdit, LineNameHandling):
         self.fillFileDict()
         self.saveCenterToFileDict()
 
-    def fillFileDict(self):  # toDO proper type Name
+    def fillFileDict(self):
         x0 = self.x0 - self.pixelAbsolutValue[0]
         x1 = self.x1 - self.pixelAbsolutValue[0]
         y0 = self.y0 - self.pixelAbsolutValue[1]

@@ -19,7 +19,7 @@ class CalibrationInfoWindow(AbstractWindow):
 
         self.master = master
 
-        self.form.addRow(QLabel("Wuld you like to perform Calibration??")) #toDo proper Info Name
+        self.form.addRow(QLabel("Wuld you like to perform Calibration??"))
 
         self.finaliseGUI()
 
