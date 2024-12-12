@@ -39,3 +39,4 @@ class NameHandling(Loger):
 
     def rename(self):
         self.__textedit.show()
+        self.__textedit.setFocus()
