@@ -16,5 +16,6 @@ class MainWindowStepSize(MainWindowAbstract):
         self.toolBar.addWidget(self.valueX)
 
         self.valueX.setCurrentText("1")
+
     def newStepSize(self, i):
         self.step = self.manipulatorInterferes.setSpeed(float(self.valueX.itemText(i)))
