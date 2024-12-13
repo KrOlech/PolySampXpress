@@ -77,8 +77,11 @@ class JsonHandling(Loger):
 
     @staticmethod
     def simpleSaveFile(filePath, dictionary: dict):
-        with open(filePath, 'w') as file:
-            json.dump(dictionary, file, indent=4)
+        try:
+            with open(filePath, 'w') as file:
+                json.dump(dictionary, file, indent=4)
+        except PermissionError as error:
+            Loger.log(error,"simpleSaveFile","ERROR" )
 
     @staticmethod
     def readManipulatorPosition():
@@ -123,8 +126,12 @@ class JsonHandling(Loger):
         with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'r') as file:
             data = json.load(file)
         data["CurrentPosition"]["zoom"] = zoom
-        with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'w') as file:
-            json.dump(data, file, indent=4)
+        try:
+            with open(JsonHandling.getFileLocation("ManipulatorFullConfig.json"), 'w') as file:
+                json.dump(data, file, indent=4)
+        except PermissionError as error:
+            Loger.log(error,"saveZoomLocationJson","ERROR" )
+
 
     @staticmethod
     def saveFokusLocationJson(fokus):
