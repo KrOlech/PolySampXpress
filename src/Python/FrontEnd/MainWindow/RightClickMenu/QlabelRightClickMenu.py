@@ -1,24 +1,9 @@
-from time import sleep
+from PyQt5.QtCore import QThread
 
-from PyQt5.QtCore import QObject, QThread, pyqtSignal
-
-from Python.FrontEnd.MainWindow.Utilitis.QlabelROI import QlabelROI
-
-
-class Worker(QObject):
-    finished = pyqtSignal()
-
-    def __init__(self, mainWindow, *args, **kwargs):
-        super(Worker, self).__init__(*args, **kwargs)
-        self.mainWindow = mainWindow
-
-    def run(self):
-        sleep(0.01)
-        self.mainWindow.hideRightClickButtons()
-        self.finished.emit()
+from Python.FrontEnd.MainWindow.RightClickMenu.QlabelROI import QlabelROI
+from Python.FrontEnd.MainWindow.RightClickMenu.Worker import WorkerQObject
 
 
-#TODO Dlaczego to jest tutaj ????????
 class QlabelRightClickMenu(QlabelROI):
 
     def right_menu(self, pos):
@@ -28,7 +13,7 @@ class QlabelRightClickMenu(QlabelROI):
 
     def hideRightClickButtons(self):
         self.thread = QThread()
-        self.worker = Worker(self.mainWindow)
+        self.worker = WorkerQObject(self.mainWindow)
 
         self.worker.moveToThread(self.thread)
 

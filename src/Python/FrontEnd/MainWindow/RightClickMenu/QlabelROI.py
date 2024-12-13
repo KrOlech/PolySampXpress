@@ -49,7 +49,6 @@ class QlabelROI(RightClickLabel, CreateRoi):
 
         self.cen = self.__createCenter()
 
-    @abstractmethod
     def getFrame(self) -> QPixmap:
         cvBGBImg = self.mainWindow.camera.getFrame()
 
@@ -208,13 +207,11 @@ class QlabelROI(RightClickLabel, CreateRoi):
 
         menu.exec_(self.mapToGlobal(pos))
 
-    @abstractmethod
     def center(self):
         self.mainWindow.manipulatorInterferes.center(self.rightClickPos.x(),
                                                      self.rightClickPos.y(),
                                                      self.mainWindow.zoom)
 
-    @abstractmethod
     def checkIfInROI(self):
         rois = []
         for roi in self.ROIList:

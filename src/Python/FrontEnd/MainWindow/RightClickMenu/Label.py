@@ -23,17 +23,5 @@ class RightClickLabel(QLabel, Loger):
         menu.exec_(self.mapToGlobal(pos))
 
     @abstractmethod
-    def newROI(self):
-        self.abstractmetod()
-
-    @abstractmethod
-    def editROI(self):
-        self.abstractmetod()
-
-    @abstractmethod
     def center(self):
-        self.abstractmetod()
-
-    @abstractmethod
-    def deleteROI(self):
         self.abstractmetod()
