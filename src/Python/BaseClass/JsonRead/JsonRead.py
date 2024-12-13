@@ -91,9 +91,7 @@ class JsonHandling(Loger):
 
     @staticmethod
     def saveManipulatorPosition(positions: dict):
-        manipulatorConfig = JsonHandling.readFile("ManipulatorFullConfig.json")
-        manipulatorConfig["CurrentPosition"] = positions
-        JsonHandling.saveFile("ManipulatorFullConfig.json", manipulatorConfig)
+        JsonHandling.saveFile("ManipulatorCurrentPosition.json", positions)
 
     @staticmethod
     def loadResolution(resolution):
@@ -184,6 +182,3 @@ class JsonHandling(Loger):
 
         return treys
 
-
-if __name__ == '__main__':
-    print(JsonHandling.getFileLocation("test"))
