@@ -34,13 +34,21 @@ class Loger:
             self.__log(f"Abstract Methode {name}", state="Warning")
         else:
             self.__log("Abstract Methode", state="Warning")
+
     def __log(self, *message, state="log"):
-        info = f"[{datetime.now()}] - [{type(self).__name__}] - [{stack()[2].function}] [{state}] [{[mes for mes in message]}]"
+        info = f"[{datetime.now()}] - [{type(self).__name__}] - [{self.__resolveFunctionCall()}] [{state}] [{[mes for mes in message]}]"
 
         print(info)
 
         with open(f"{datetime.now().day}-{datetime.now().year}-{datetime.now().month}.log", "a") as file:
             file.write(info + "\n")
+
+    @staticmethod
+    def __resolveFunctionCall():
+        try:
+            return stack()[2].function
+        except IndexError as e:
+            return stack()[0].function
 
     @staticmethod
     def log(message, type, state="log"):
