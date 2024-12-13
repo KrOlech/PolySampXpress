@@ -85,8 +85,7 @@ class JsonHandling(Loger):
 
     @staticmethod
     def readManipulatorPosition():
-        manipulatorConfig = JsonHandling.readFile("ManipulatorFullConfig.json")
-        positions = manipulatorConfig["CurrentPosition"]
+        positions = JsonHandling.readFile("ManipulatorCurrentPosition.json")
         return positions["x"], positions["y"]
 
     @staticmethod

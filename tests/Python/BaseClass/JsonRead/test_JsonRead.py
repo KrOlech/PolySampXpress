@@ -30,7 +30,7 @@ class TestJsonRead(unittest.TestCase):
         self.assertEqual(y_max, 15)
 
     @patch("Python.BaseClass.JsonRead.JsonRead.JsonHandling.getFileLocation")
-    @patch("builtins.open", new_callable=mock_open, read_data='{"CurrentPosition": {"x": 10, "y": 20}}')
+    @patch("builtins.open", new_callable=mock_open, read_data='{"x": 10, "y": 20}')
     def test_readManipulatorPosition(self, mock_open, mock_getFileLocation):
         mock_getFileLocation.return_value = "dummy_path"
         x, y = JsonHandling.readManipulatorPosition()
