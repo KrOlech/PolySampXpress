@@ -1,0 +1,55 @@
+name: Build and Release Docker Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: "Version tag for the release"
+        required: true
+        default: "v1.0.0"
+      release_name:
+        description: "Name of the release"
+        required: false
+        default: "Docker Image Release"
+      prerelease:
+        description: "Mark as prerelease"
+        required: false
+        default: "false"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Build the Docker image
+    - name: Build Docker Image
+      run: docker build -t my-image:latest .
+
+    # Save the Docker image
+    - name: Save Docker Image
+      run: docker save my-image:latest -o my-image.tar
+
+    # Create a new release
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: ${{ github.event.inputs.release_version }}
+        release_name: ${{ github.event.inputs.release_name }}
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    # Upload the artifact to the release
+    - name: Upload Docker Image to Release
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./my-image.tar
+        asset_name: my-image.tar
+        asset_content_type: application/octet-stream

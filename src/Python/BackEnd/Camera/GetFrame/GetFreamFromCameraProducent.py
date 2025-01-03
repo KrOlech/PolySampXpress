@@ -2,7 +2,6 @@ from ctypes import c_int, POINTER, c_long, c_ubyte, cast, sizeof, c_uint8
 
 import tisgrabber as tis
 from numpy import ndarray, uint8
-from pygetwindow import getWindowsWithTitle
 
 from Python.BackEnd.Camera.FromProducent.Abstract import AbstractCameraFromProducent
 from Python.BackEnd.Camera.GetFrame.AbstractGetFream import AbstractGetFrame
@@ -13,7 +12,11 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
     def __init__(self):
         super().__init__(self)
 
-        if not self.isConnectionEstablished:
+        if self.linux:
+            self.loger("Camera not compatible with Linux.")
+            return
+
+        if not self.isConnectionEstablished :
             self.loger(f"Connection to Camera from Produce {self.establishConnection()}:")
 
         self.setVideoFormat()
@@ -42,7 +45,7 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
 
     def setVideoFormat(self):
         Error = None
-        if (self.ic.IC_IsDevValid(self.handle)):
+        if self.ic.IC_IsDevValid(self.handle):
             Error = self.ic.IC_SetVideoFormat(self.handle, tis.T("RGB64 (1536x1000) [Binning 2x]"))
 
         self.loger(f"ustawienie formatu Wideo res: {Error}")
@@ -82,11 +85,16 @@ class GetFrameFromProducent(AbstractGetFrame, AbstractCameraFromProducent):
     def StartLive(self):
         try:
             Error = self.ic.IC_StartLive(self.handle, 1)
+            from pygetwindow import getWindowsWithTitle
             win = getWindowsWithTitle('ActiveMovie Window')[0]
             win.close()
         except IndexError as e:
             self.logError(e)
             self.loger("no window to close?")
+        except NotImplementedError as e:
+            self.logError(e)
+            self.loger("no window to close?")
+            self.loger("Run in Docker:linux \n pygetwindow not support LINUX")
 
         return Error
 

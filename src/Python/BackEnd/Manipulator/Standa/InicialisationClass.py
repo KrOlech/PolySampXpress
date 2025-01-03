@@ -1,7 +1,7 @@
 import os
 import platform
 import sys
-from ctypes import create_string_buffer, byref, string_at, c_uint, CDLL, WinDLL, cast, POINTER, c_int
+from ctypes import create_string_buffer, byref, string_at, c_uint, CDLL, cast, POINTER, c_int
 
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.BackEnd.Manipulator.Standa.Filds.DeviceInformation import DeviceInformation
@@ -89,6 +89,7 @@ class StandaManipulatorInitialisation(AbstractStandaManipulator):
         elif platform.system() == "Darwin":
             return CDLL("libximc.framework/self.libximc")
         elif platform.system() == "Windows":
+            from ctypes import WinDLL
             if sys.version_info[0] == 3 and sys.version_info[0] >= 8:
                 return WinDLL("libximc.dll", winmode=os.RTLD_GLOBAL)
             else:

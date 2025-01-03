@@ -1,16 +1,16 @@
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.BaseClass.Logger.Logger import Loger
-from src.Python.BackEnd.Manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
-from src.Python.BackEnd.Manipulator.Standa.StandaManipulator import StandaManipulator
-from src.Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
+from Python.BackEnd.Manipulator.SCIIPPlus.Main.MainHardwer import SCIManipulatorMain
+from Python.BackEnd.Manipulator.Standa.StandaManipulator import StandaManipulator
+from Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import AbstractManipulator
 
 
 class SelectManipulator(Loger):
     _manipulator = None
     _focusManipulator = None
 
-    FOCUS_MANIPULATOR_ADDRESS = "xi-com:\\\.\COM3".encode()
-    ZOOM_MANIPULATOR_ADDRESS = "xi-com:\\\.\COM4".encode()
+    FOCUS_MANIPULATOR_ADDRESS = r"xi-com:\\.\COM3".encode()
+    ZOOM_MANIPULATOR_ADDRESS = r"xi-com:\\.\COM4".encode()
 
     def resolveManipulator(self):
 
