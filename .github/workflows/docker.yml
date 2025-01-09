@@ -4,36 +4,40 @@ on:
   workflow_dispatch:
     inputs:
       release_version:
-        description: "Version tag for the release"
+        description: "Version tag for the release (e.g., v1.0.0)"
         required: true
         default: "v1.0.0"
       release_name:
-        description: "Name of the release"
+        description: "Name of the release (e.g., 'Initial Release')"
         required: false
         default: "Docker Image Release"
       prerelease:
-        description: "Mark as prerelease"
+        description: "Mark as prerelease (true/false)"
         required: false
-        default: "false"
+        default: "true"
+
+permissions:
+  contents: write  # Ensures sufficient permissions for release creation
 
 jobs:
   release:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout code
+    # Step 1: Checkout code
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Build the Docker image
+    # Step 2: Build the Docker image
     - name: Build Docker Image
       run: docker build -t my-image:latest .
 
-    # Save the Docker image
+    # Step 3: Save the Docker image as a tarball
     - name: Save Docker Image
       run: docker save my-image:latest -o my-image.tar
 
-    # Create a new release
+
+    # Step 5: Create a new release
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -41,11 +45,11 @@ jobs:
         tag_name: ${{ github.event.inputs.release_version }}
         release_name: ${{ github.event.inputs.release_name }}
         draft: false
-        prerelease: false
+        prerelease: ${{ github.event.inputs.prerelease }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    # Upload the artifact to the release
+    # Step 6: Upload the Docker image to the release
     - name: Upload Docker Image to Release
       uses: actions/upload-release-asset@v1
       with:
