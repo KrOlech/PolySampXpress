@@ -47,7 +47,7 @@ jobs:
         draft: false
         prerelease: ${{ github.event.inputs.prerelease }}
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
     # Step 6: Upload the Docker image to the release
     - name: Upload Docker Image to Release
