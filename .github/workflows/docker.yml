@@ -28,23 +28,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Step 2: Restore Docker cache
-    - name: Restore Docker cache
-      uses: actions/cache@v3
-      with:
-        path: /tmp/docker_cache
-        key: ${{ runner.os }}-docker-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-docker-
-
-    # Step 3: Build the Docker image with cache
+    # Step 2: Build the Docker image
     - name: Build Docker Image
-      run: |
-        docker build --cache-from=type=local,src=/tmp/docker_cache \
-                     --cache-to=type=local,dest=/tmp/docker_cache \
-                     -t my-image:latest .
+      run: docker build -t my-image:latest .
 
-    # Step 4: Save the Docker image as a tarball
+    # Step 3: Save the Docker image as a tarball
     - name: Save Docker Image
       run: docker save my-image:latest -o my-image.tar
 
