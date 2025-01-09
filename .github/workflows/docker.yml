@@ -61,3 +61,5 @@ jobs:
         asset_path: ./my-image.tar
         asset_name: my-image.tar
         asset_content_type: application/octet-stream
+      env:
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
