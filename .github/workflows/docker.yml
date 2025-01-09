@@ -36,11 +36,6 @@ jobs:
     - name: Save Docker Image
       run: docker save my-image:latest -o my-image.tar
 
-    - name: Check Repository Access
-      run: |
-        curl -H "Authorization: token ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
-        https://api.github.com/repos/${{ github.repository }}
-
     # Step 5: Create a new release
     - name: Create Release
       id: create_release
