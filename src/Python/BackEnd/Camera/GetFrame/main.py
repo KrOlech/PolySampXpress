@@ -10,13 +10,17 @@ class GetFrame(GetFrameUSB, GetFrameFromProducent):
     def __init__(self):
         super().__init__()
 
-        try:
-            self.getFrameProducent()
-        except Exception as e:
-            self.loger(e)
+        if self.linux:
             self.FrameFun = self.getFrameUSB
         else:
-            self.FrameFun = self.getFrameProducent
+
+            try:
+                self.getFrameProducent()
+            except Exception as e:
+                self.loger(e)
+                self.FrameFun = self.getFrameUSB
+            else:
+                self.FrameFun = self.getFrameProducent
 
     def getFrame(self):
         return self.FrameFun()

@@ -1,20 +1,24 @@
-from ctypes import c_int, Structure, c_char_p, c_void_p, POINTER, c_long, windll
-
-from Python.BaseClass.JsonRead.JsonRead import JsonHandling
-import ctypes
-
 import tisgrabber as tis
+import platform
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class AbstractCameraFromProducent:
     __isConnectionEstablished = None
+    linux = False
 
     def __init__(self, *args, **kwargs):
-        self.ic = windll.LoadLibrary(JsonHandling.getFileLocation(r"CameraDLL\tisgrabber_x64.dll"))
+        if platform.system() == "Windows":
+            from ctypes import windll
 
-        tis.declareFunctions(self.ic)
+            self.ic = windll.LoadLibrary(JsonHandling.getFileLocation(r"CameraDLL\tisgrabber_x64.dll"))
 
-        self.ic.IC_InitLibrary(0)
+            tis.declareFunctions(self.ic)
+
+            self.ic.IC_InitLibrary(0)
+        else:
+            self.linux = True
+            self.__isConnectionEstablished = False
 
     def establishConnection(self):
         self.ic.IC_InitLibrary(0)

@@ -1,6 +1,7 @@
 import json
 from abc import ABCMeta
 from os.path import abspath
+from sys import platform
 
 from Python.BaseClass.Logger.Logger import Loger
 
@@ -47,8 +48,17 @@ class JsonHandling(Loger):
 
     @staticmethod
     def getFileLocation(file) -> str:
-        expectedLocation = r"C:\Program Files\PollsampleX\Config"
-        return expectedLocation + "\\" + file
+
+        if platform == "linux" or platform == "linux2":
+            expectedLocation = "Config/" + file
+            return expectedLocation
+        elif platform == "win32":
+            expectedLocation = r"C:\Program Files\PollsampleX\Config"
+            return expectedLocation + "\\" + file
+        else:
+            JsonHandling.logError("OS Type Error - [Unsaported OS]")
+            return ""
+
 
     @staticmethod
     def readFile(filePath) -> dict:

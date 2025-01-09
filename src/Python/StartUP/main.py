@@ -1,4 +1,5 @@
 import sys
+import os
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
@@ -16,6 +17,7 @@ class m(Loger):  # TODO better name
         pass
 
     def mainNoTryCahch(self):
+
         self.app = QApplication(sys.argv)
 
         self.app.setApplicationDisplayName("PolySampXpress 0.7")
