@@ -11,4 +11,4 @@ class AbstractCreateWorkFild:
         self.master.workFildActions.append(action)
         self.master.readWorkFieldWindow.workFields.append(field)
 
-        self.master.togle(nrWorkFields)
+        self.master.toggleWorkField(nrWorkFields)
