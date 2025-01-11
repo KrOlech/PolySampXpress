@@ -3,8 +3,8 @@ import os
 
 
 def main():
-    src_dir = r'C:\Users\Zenbook\PycharmProjects\Magisterka\src'
-    test_dir = r'C:\Users\Zenbook\PycharmProjects\Magisterka\tests'
+    src_dir = r'/'
+    test_dir = r'/'
     generate_unit_test_skeleton(src_dir, test_dir)
 
 
