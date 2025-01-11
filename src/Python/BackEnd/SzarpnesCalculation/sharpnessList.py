@@ -2,7 +2,7 @@ import os
 import re
 import numpy
 from skimage import filters, color, feature
-from sharpnessMetrics import *
+from Python.BackEnd.SzarpnesCalculation.sharpnessMetrics import *
 import matplotlib.pyplot as plt
 
 
@@ -55,6 +55,6 @@ def main(folder_path):
     # Plot the results
     plot_sharpness(image_paths, sharpness_values)
 
-
-folder_path = '..\\dane\\filmik'
-main(folder_path)
+if __name__ == '__main__':
+    folder_path = '..\\dane\\filmik'
+    main(folder_path)
