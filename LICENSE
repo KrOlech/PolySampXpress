@@ -15,9 +15,9 @@ The software PolySampXpress has been developed by Krzysztof Olech and utilizes t
 - PyQt5: https://www.riverbankcomputing.com/software/pyqt/
 - OpenCV: https://opencv.org/
 - NumPy: https://numpy.org/
-- IC Measure: Copyright - information about the license provided in "CameraLicense"
-- Standa: Copyright - information about the license provided in "StandaLicense"
-- ACS Motion Control Drivers: information about the license provided in "ACSLicense" file
+- IC Measure: Copyright - information about the license provided in "Other_License/CameraLicense"
+- Standa: Copyright - information about the license provided in "Other_License/StandaLicense"
+- ACS Motion Control Drivers: information about the license provided in "Other_License/ACSLicense" file
 
 All copyrights and rights associated with the [program name] software and its external components belong to their respective authors.
 
