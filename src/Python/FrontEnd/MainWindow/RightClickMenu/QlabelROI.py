@@ -151,7 +151,7 @@ class QlabelROI(RightClickLabel, CreateRoi):
 
         zoomsNames = {0: "1 mm", 1: "1 mm", 2: "0.5 mm", 3: "0.5 mm", 4: "0.2 mm", 5: "0.2 mm", 6: "0.2 mm",
                       7: "0.1 mm",
-                      8: "0.1 mm", 9: "0.1 mm", 10: "0.1 mm"}
+                      8: "0.1 mm", 9: "0.1 mm", 10: "0.1 mm"} #todo move to config File
 
         length = self.zoomsLengths[int(self.mainWindow.zoom)]
 

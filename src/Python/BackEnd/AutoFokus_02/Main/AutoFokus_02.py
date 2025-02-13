@@ -3,8 +3,6 @@ from numpy import sum, mean, array
 from cv2 import cvtColor, COLOR_BGR2GRAY, IMREAD_GRAYSCALE, imwrite, imread
 
 from Python.BackEnd.SzarpnesCalculation.CalculateAndSaveResults import CalculateAndSaveResults
-from Python.BackEnd.SzarpnesCalculation.sharpnessMetrics import image_sharpness, image_sharpness2, sobel, \
-    fft_based_sharpness, scharr_variance, edge_based_sharpness, lpc_based_sharpness
 from Python.BaseClass.Logger.Logger import Loger
 
 from scipy.optimize import minimize, curve_fit
@@ -13,16 +11,16 @@ from Python.Utilitis.SimpleStartEndWrapper import simpleStartEndWrapper
 
 
 class AutoFokus02(Loger):
-    funs = [image_sharpness]
-
     window = None
     fokusQuality = None
 
-    def __init__(self, manipulatorInterface, camera):
+    def __init__(self, manipulatorInterface, camera, fun):
         self.manipulatorInterface = manipulatorInterface
         self.camera = camera
 
-        self.metricCalculation = [CalculateAndSaveResults(fun) for fun in self.funs]
+        self.fun = fun
+
+        self.metricCalculator = CalculateAndSaveResults(fun)
 
     @simpleStartEndWrapper(text="Optimization")
     def run(self):
@@ -30,15 +28,9 @@ class AutoFokus02(Loger):
 
         self.guess()
 
-        #self.show()
-
         while self.fokusQuality:
             self.manipulatorInterface.fokusUp()
             self.guess()
-
-    @simpleStartEndWrapper(text="Optimization")
-    def runScan(self):
-        self.scan()
 
     def guess(self, plot=True):
 
@@ -47,51 +39,28 @@ class AutoFokus02(Loger):
             plt.cla()
             plt.clf()
 
-        for i in range(len(self.funs)):
-            self.manipulatorInterface.fokusUp(50)
-            self.iterator = i
+        self.manipulatorInterface.fokusUp(50)
 
-            self.fokusData = []
-            self.fokusDataX = []
+        self.fokusData = []
+        self.fokusDataX = []
 
-            rez = minimize(self.fokusFromValue, 2000, bounds=[(2000, 3000)], method='COBYLA', tol=0.005,
-                           options={"rhobeg": 100}
-                           )
+        rez = minimize(self.fokusFromValue, 2000, bounds=[(2000, 3000)], method='COBYLA', tol=0.005,
+                       options={"rhobeg": 100}
+                       )
 
-            self.loger(f"calculated Fokus rez = {rez}")
-            self.loger(f"calculated Fokus min = {rez.x[0]} low = {rez.x}")
+        self.loger(f"calculated Fokus rez = {rez}")
+        self.loger(f"calculated Fokus min = {rez.x[0]} low = {rez.x}")
 
-            self.manipulatorInterface.fokusGoTo(rez.x[0])
+        self.manipulatorInterface.fokusGoTo(rez.x[0])
 
-            maxY = max(self.fokusData)
-            self.normalizedRoad = array([w / maxY for w in self.fokusData])
+        maxY = max(self.fokusData)
+        self.normalizedRoad = array([w / maxY for w in self.fokusData])
 
-            self.calculateFocusGoodness()
+        self.calculateFocusGoodness()
 
-            if plot:
-                plt.scatter(self.fokusDataX, self.normalizedRoad, marker='.',
-                            label=self.metricCalculation[self.iterator].funName)
-
-    def show(self):
-        pass
-        #plt.legend()
-        #plt.show()
-
-    def scan(self):
-
-        self.fokusData = [[] for _ in range(len(self.metricCalculation))]
-
-        for i in range(50):
-            self.manipulatorInterface.fokusUp(50)
-            for it, fun in enumerate(self.metricCalculation):
-                self.fokusData[it].append(self.calcFokus(fun))
-            self.loger(f"calculated Fokus metric = {self.fokusData[-1]}")
-
-        for fData in self.fokusData:
-            maxY = max(fData)
-            plt.plot([w / maxY for w in fData])
-            plt.plot([1000 + i * 50 for i in range(50)], fData)
-        plt.show()
+        if plot:
+            plt.scatter(self.fokusDataX, self.normalizedRoad, marker='.',
+                        label=self.metricCalculator.funName)
 
     def calcFokus(self, fun):
         imwrite("temp.png", self.camera.getFrame())
@@ -106,7 +75,7 @@ class AutoFokus02(Loger):
 
     def fokusFromValue(self, i):
         self.manipulatorInterface.fokusGoTo(i[0])
-        rez = -self.calcFokus(self.metricCalculation[self.iterator])
+        rez = -self.calcFokus(self.metricCalculator)
         self.fokusData.append(-rez)
         self.fokusDataX.append(i[0])
         return rez

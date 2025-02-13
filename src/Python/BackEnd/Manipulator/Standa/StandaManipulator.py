@@ -15,7 +15,7 @@ class StandaManipulator(StandaManipulatorInitialisation):
             self.logError(f"Error reading current position")
 
 
-        self.setSpeed(10)
+        self.setSpeed(1)
 
         x_pos = get_position_t()
         result = self.lib.get_position(self.device_id, byref(x_pos))

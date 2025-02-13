@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QDialog, QFormLayout, QPushButton, QDoubleSpinBox, QLabel
+from PyQt5.QtWidgets import QDialog, QFormLayout, QPushButton, QDoubleSpinBox, QLabel, QSpinBox, QCheckBox
 
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.BaseClass.Logger.Logger import Loger
@@ -72,6 +72,18 @@ class AbstractDialog(QDialog, Loger):
         spinBox.setValue(value)
         spinBox.setRange(min, max)
         return spinBox
+
+    @staticmethod
+    def createQSpinBoxInt(value, min=0, max=200):  # todo move to util metods
+        spinBox = QSpinBox()
+        spinBox.setValue(value)
+        spinBox.setRange(min, max)
+        return spinBox
+
+    def createCheckBox(self, value=True):
+        checkBox = QCheckBox()
+        checkBox.setChecked(value)
+        return checkBox
 
     def createWaitingLabel(self):
         self.form.addRow(QLabel("Waiting for Manipulator"))

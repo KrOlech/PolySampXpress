@@ -1,9 +1,10 @@
 from PyQt5.Qt import QPoint
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QLabel, QMenu
 
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.MoveByValue import MoveByValue
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.RemoveSampleDialog import RemoveSampleDialog
+from Python.BackEnd.SzarpnesCalculation.Main import SzarpnesCalculation
 from Python.BackEnd.XeroStartup.Main import XeroStartup
 from Python.BackEnd.XeroStartup.XeroConfirmationWindow import XeroConfirmationWindow
 from Python.BackEnd.XeroStartup.XeroProgresWindow import XeroProgresWindow
@@ -11,6 +12,7 @@ from Python.BackEnd.XeroStartup.XeroTreySelection import XeroTreySelection
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.FrontEnd.MainWindow.ManipulatorInterfejs.CameraRotationProgressClass import CameraRotationProgressClass
 from Python.FrontEnd.MainWindow.ManipulatorInterfejs.CameraRotationResultWindow import CameraRotationResultWindow
+from Python.FrontEnd.MainWindow.ManipulatorInterfejs.SharpnessCalculationConfig import SharpnessCalculationConfig
 from Python.FrontEnd.MainWindow.ManipulatorInterfejs.SampleAccessProgressWindow import SampleAccessProgressWindow
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
@@ -21,6 +23,8 @@ from Python.BackEnd.Manipulator.Abstract.DialogWindow.StepSizeDialog import SetS
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.WaitDialoge import HomeAxisDialog
 from Python.Interface.ManipulatorInterfejs.Main.ManipulatorInterfejs import ManipulatorInterfere
 from Python.Utilitis.GenericProgressClass import GenericProgressClass
+from Python.BackEnd.SzarpnesCalculation.sharpnessMetrics import image_sharpness, image_sharpness2, sobel, \
+    fft_based_sharpness, scharr_variance, edge_based_sharpness, lpc_based_sharpness
 
 
 class MainWindowManipulatorInterfejs(CameraGUIExtension):
@@ -61,14 +65,41 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         self.refPoints = {}
 
-        for name, fun in menuSetup:
-            self.__saveAndCreateAction(name, fun, manipulatorMenu)
+        self.__addActionsToMenu(menuSetup, manipulatorMenu)
 
-        cameraMenuSetup = [("Auto Focus", self.manipulatorInterferes.autoFokus),
+        self.SzarpnesCalculator = SzarpnesCalculation(self.manipulatorInterferes, self.camera, self)
+
+        cameraMenuSetup = [("Auto Focus", lambda _: self.manipulatorInterferes.autoFokus(method=image_sharpness)),
                            ("Camera Rotation Calculation", self.__cameraRotationCalculationAsync)]
 
-        for name, fun in cameraMenuSetup:
-            self.__saveAndCreateAction(name, fun, self.cameraMenu)
+        self.__addActionsToMenu(cameraMenuSetup, self.cameraMenu)
+
+        self.focusMenu = QMenu("Auto Focus alternative Methods", self)
+        self.cameraMenu.addMenu(self.focusMenu)
+
+        focusMenuSetup = [("Focus methods Scann", self.__sharpnessCalculatorRunAlgo),
+                          ("Focus for current frame", self.SzarpnesCalculator.fokusForCurrentFrame)]
+
+        self.__addActionsToMenu(focusMenuSetup, self.focusMenu)
+        self.__addActionsToMenu(self.__focusMetods(), self.focusMenu)
+
+    def __sharpnessCalculatorRunAlgo(self):
+        window = SharpnessCalculationConfig("Szarpnes Calculation", self.SzarpnesCalculator.runAlgo, 250, self)
+        window.exec_()
+
+    def __focusMetods(self):
+        funs: list = [image_sharpness, image_sharpness2, sobel, fft_based_sharpness, scharr_variance,
+                      edge_based_sharpness, lpc_based_sharpness]
+        focusMetods: list = []
+
+        for fun in funs:
+            focusMetods.append((fun.__name__, lambda _: self.manipulatorInterferes.autoFokus(method=fun)))
+
+        return focusMetods
+
+    def __addActionsToMenu(self, acctions, menu):
+        for name, fun in acctions:
+            self.__saveAndCreateAction(name, fun, menu)
 
     def _00Points(self):
 
@@ -150,10 +181,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
             self.__homeAxis()
 
         window = SampleAccessProgressWindow("Going to Sample access position in progress",
-                                      self.manipulatorInterferes.removeSample, 200, self)
+                                            self.manipulatorInterferes.removeSample, 200, self)
         window.run()
         window.exec_()
-
 
     def __configureStatusBar(self):
         myStatusBar = QLabel(self)
