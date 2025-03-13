@@ -99,14 +99,14 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     def moveUp(self):
         self._manipulator.up()
 
-    def moveRight(self):
-        self._manipulator.right()
+    def moveRight(self, step: int = 1):
+        self._manipulator.right(step)
 
     def moveDown(self):
         self._manipulator.down()
 
-    def moveLeft(self):
-        self._manipulator.left()
+    def moveLeft(self, step: int = 1):
+        self._manipulator.left(step)
 
     def moveXY(self):
         x, y, speed = self.__getManipulatorParamiters()
@@ -152,7 +152,7 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         self.AXIS_HOMED = True
 
     def goToCenter(self):
-        self.goToCords(100,100)
+        self.goToCords(100, 100)
 
     def goToCords(self, x, y):
         self._manipulator.goToCords(x=x, y=y)
