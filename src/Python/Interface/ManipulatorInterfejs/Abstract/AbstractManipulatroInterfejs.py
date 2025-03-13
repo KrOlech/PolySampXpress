@@ -151,6 +151,9 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         self._manipulator.homeAxis()
         self.AXIS_HOMED = True
 
+    def goToCenter(self):
+        self.goToCords(100,100)
+
     def goToCords(self, x, y):
         self._manipulator.goToCords(x=x, y=y)
 

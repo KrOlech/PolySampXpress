@@ -43,6 +43,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         menuSetup = [("Home All Axis", self.__homeAxis),
                      ("Go To Cords", self.__goToCords),
+                     ("Go To Center", self.__goToCenter),
                      ("Move By Value", self.__moveByValue),
                      ("Set Step Size", self.__setStepSize),
                      ("Calculate Inaccuracy", self.__calculateInaccuracy),
@@ -98,6 +99,11 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         homeAxis = HomeAxisDialog(self.manipulatorInterferes)
         homeAxis.run()
         homeAxis.exec_()
+
+    def __goToCenter(self):
+        window = GenericProgressClass("Going to center in progress", self.manipulatorInterferes.goToCenter, 200, self)
+        window.run()
+        window.exec_()
 
     def __setZeroPoint(self):
         x, y = LocateCross(self, "00Location").locateCross()
