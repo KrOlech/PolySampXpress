@@ -74,12 +74,12 @@ class AbstractManipulator(JsonHandling):
         self.y -= self.speed
         self.gotoNotAsync()
 
-    def left(self):
-        self.x -= self.speed
+    def left(self, step: int = 1):
+        self.x -= self.speed * step
         self.gotoNotAsync()
 
-    def right(self):
-        self.x += self.speed
+    def right(self, step: int = 1):
+        self.x += self.speed * step
         self.gotoNotAsync()
 
     def forward(self):
@@ -107,7 +107,7 @@ class AbstractManipulator(JsonHandling):
     def center(self, x, y, zoom):
         self.xOffset, self.yOffset = self.loadOffsetsJson(zoom)
 
-        self.x += (x - 1536 // 2) / self.xOffset #toDo get From Camera not hend put
+        self.x += (x - 1536 // 2) / self.xOffset  # toDo get From Camera not hend put
         self.y += (y - 1000 // 2) / self.yOffset
 
         self.gotoNotAsync()

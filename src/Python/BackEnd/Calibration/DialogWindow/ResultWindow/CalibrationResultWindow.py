@@ -19,5 +19,5 @@ class CalibrationResultsDialog(AbstractWindow, JsonHandling, CalibrateProperty):
 
             self.form.addRow(QLabel(f"{legend}: "), QLabel(str(abs(values))))
 
-        self.form.addRow(QLabel(""), self.okButton)
+        self.finaliseGUISingleButton()
 

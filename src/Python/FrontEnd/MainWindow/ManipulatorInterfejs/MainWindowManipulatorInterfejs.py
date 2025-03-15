@@ -8,6 +8,9 @@ from Python.BackEnd.XeroStartup.Main import XeroStartup
 from Python.BackEnd.XeroStartup.XeroConfirmationWindow import XeroConfirmationWindow
 from Python.BackEnd.XeroStartup.XeroProgresWindow import XeroProgresWindow
 from Python.BackEnd.XeroStartup.XeroTreySelection import XeroTreySelection
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.FrontEnd.MainWindow.ManipulatorInterfejs.CameraRotationProgressClass import CameraRotationProgressClass
+from Python.FrontEnd.MainWindow.ManipulatorInterfejs.CameraRotationResultWindow import CameraRotationResultWindow
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
 from Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
@@ -28,6 +31,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     map00PointsVariable = None
 
     sampleTreyName = None
+
+    dXmm: float = 0.0
+    dYmm: float = 0.0
 
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
@@ -55,7 +61,11 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         for name, fun in menuSetup:
             self.__saveAndCreateAction(name, fun, manipulatorMenu)
 
-        self.__saveAndCreateAction("&autoFocus", self.manipulatorInterferes.autoFokus, self.cameraMenu)
+        cameraMenuSetup = [("Auto Focus", self.manipulatorInterferes.autoFokus),
+                           ("Camera Rotation Calculation", self.__cameraRotationCalculationAsync)]
+
+        for name, fun in cameraMenuSetup:
+            self.__saveAndCreateAction(name, fun, self.cameraMenu)
 
     def _00Points(self):
 
@@ -133,7 +143,8 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         if not self.manipulatorInterferes.AXIS_HOMED:
             self.__homeAxis()
 
-        window = GenericProgressClass("Going to Sample access position in progress", self.manipulatorInterferes.removeSample, 200, self)
+        window = GenericProgressClass("Going to Sample access position in progress",
+                                      self.manipulatorInterferes.removeSample, 200, self)
         window.run()
         window.exec_()
 
@@ -214,6 +225,47 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         myStatusBar.show()
 
         return myStatusBar
+
+    def __cameraRotationCalculationAsync(self):
+        cameraRotationCalculationWindow = CameraRotationProgressClass("Camera Rotation Calculation in progress",
+                                                                      self.__cameraRotationCalculation, 250,
+                                                                      self)
+        cameraRotationCalculationWindow.run()
+        cameraRotationCalculationWindow.exec_()
+
+    def showResultsRotationCalculation(self):
+        CameraRotationResultWindow(self).exec_()
+
+    def __cameraRotationCalculation(self):
+
+        ITERATION_COUNT: int = 10
+
+        ox, oy = JsonHandling.loadOffsetsJson(self.zoom)
+
+        dx: int = 0
+        dy: int = 0
+
+        self.dXmm: float = 0.0
+        self.dYmm: float = 0.0
+
+        for _ in range(ITERATION_COUNT):
+            x0, y0 = LocateCross(self, "Camera Rotation start point").locateCross(area=False)
+
+            self.manipulatorInterferes.moveLeft(4)
+            self.manipulatorInterferes.waitForTarget()
+            x1, y1 = LocateCross(self, "Camera Rotation end point").locateCross(area=False)
+
+            self.manipulatorInterferes.moveRight(4)
+            self.manipulatorInterferes.waitForTarget()
+
+            dx += x0 - x1
+            dy += y0 - y1
+
+            self.dXmm += dx / ox / ITERATION_COUNT
+            self.dYmm += dy / oy / ITERATION_COUNT
+
+        self.loger(f"dif in x:{dx} px dif in y:{dy} px ")
+        self.loger(f"dif in x:{self.dXmm} mm dif in y:{self.dYmm} mm ")
 
 
 if __name__ == '__main__':
