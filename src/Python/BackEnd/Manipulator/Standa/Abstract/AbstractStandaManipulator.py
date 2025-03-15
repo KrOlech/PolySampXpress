@@ -40,3 +40,6 @@ class AbstractStandaManipulator(AbstractManipulator):
     @property
     def no_device(self):
         return -4
+
+    def upadteLable(self):
+        self.label.setValue(int(self.x))

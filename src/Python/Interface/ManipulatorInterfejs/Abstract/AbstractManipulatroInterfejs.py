@@ -10,6 +10,8 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     _zoomManipulator = None
     _manipulator = None
 
+    focusSlider = None
+
     AXIS_HOMED = False
 
     @property
@@ -69,6 +71,8 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         self.windowSize = windowSize
 
         self.master = master
+
+        self.focusSlider = self.createFocusSlider()
 
         self.myStatusBar = myStatusBar
 
@@ -173,7 +177,7 @@ class AbstractManipulatorInterferes(QWidget, Loger):
 
     def createFocusSlider(self):
         slider = ManipulatorSlider(self._focusManipulator,
-                                   value=self._focusManipulator.x,
+                                   value=0,
                                    widget=self.master)
 
         return slider

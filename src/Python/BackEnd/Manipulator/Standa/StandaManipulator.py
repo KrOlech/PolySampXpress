@@ -46,9 +46,11 @@ class StandaManipulator(StandaManipulatorInitialisation):
 
     async def goto(self):
         self.__goto()
+        super().gotoNotAsync()
 
     def gotoNotAsync(self):
         self.__goto()
+        super().gotoNotAsync()
 
     def __goto(self):
         self.loger(self.x, self.y, self.z)

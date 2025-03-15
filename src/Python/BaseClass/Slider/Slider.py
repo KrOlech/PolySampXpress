@@ -45,6 +45,9 @@ class Slider(QSlider):
         self.max, self.min = int(maxV), int(minV)
         self.setValue(self.reconversion(self.value))
 
+    def setValue(self, a0: int) -> None:
+        super().setValue(self.reconversion(a0))
+
 
 if __name__ == '__main__':
     from PyQt5.QtWidgets import QMainWindow, QApplication
