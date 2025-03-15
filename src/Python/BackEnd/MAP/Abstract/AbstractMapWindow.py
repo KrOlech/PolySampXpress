@@ -53,10 +53,10 @@ class AbstractMapWindow(Loger):
         self.mapWidget.move(geometry)
 
     def showMap(self):
-        if self.master.mozaikBorders.isChecked():
-            self.mapPx = self.convertMap(self.mapNumpyBorders)
-        else:
-            self.mapPx = self.convertMap(self.mapNumpy)
+        #if self.master.mozaikBorders.isChecked():
+        #    self.mapPx = self.convertMap(self.mapNumpyBorders)
+        #else:
+        self.mapPx = self.convertMap(self.mapNumpy)
 
         self.mapWidget.show()
         self.mapWidget.activateWindow()
