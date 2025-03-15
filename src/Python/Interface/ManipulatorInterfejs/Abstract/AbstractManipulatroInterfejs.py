@@ -39,6 +39,18 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     def speed(self):
         return self._manipulator.speed
 
+    @property
+    def sampleAccessPosition(self) -> (int, int):
+        return 90, 0
+
+    @property
+    def centerPosition(self) -> (int, int):
+        return 100, 100
+
+    @property
+    def inMotion(self):
+        return self._manipulator.inMotion
+
     def conn(self):
         return self._manipulator.conn
 
@@ -152,21 +164,17 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         self.AXIS_HOMED = True
 
     def goToCenter(self):
-        self.goToCords(100, 100)
+        self.goToCords(*self.centerPosition)
 
     def goToCords(self, x, y):
         self._manipulator.goToCords(x=x, y=y)
 
     def removeSample(self):
-        self._manipulator.goToCords(110, 0)
+        self._manipulator.goToCords(*self.sampleAccessPosition)
 
     async def goToCordsAsync(self, x, y):
         self._manipulator.goToCords(x=x, y=y)
         self._manipulator.waitForTarget()
-
-    @property
-    def inMotion(self):
-        return self._manipulator.inMotion
 
     def center(self, x, y, zoom):
         self._manipulator.center(x, y, zoom)
