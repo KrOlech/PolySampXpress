@@ -53,7 +53,7 @@ class Loger:
 
     @staticmethod
     def __saveToFile(info):
-        with open(f"{os.path.expanduser('~')}\\Documents\\PolySampXpress\\{datetime.now().day}-{datetime.now().year}-{datetime.now().month}.log", "a") as file:
+        with open(f"{os.path.expanduser('~')}\\Documents\\PolySampXpress\\{datetime.now().day}-{datetime.now().month}-{datetime.now().year}.log", "a") as file:
             file.write(info + "\n")
 
     @staticmethod

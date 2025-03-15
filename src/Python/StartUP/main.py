@@ -1,5 +1,6 @@
 import sys
 import os
+from datetime import datetime
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
@@ -38,8 +39,6 @@ class m(Loger):  # TODO better name
 
         InsertSampleDialog(self.mainWindow).exec_()
 
-        #self.mainWindow.homeAllAxis()
-
         self.app.exec_()
 
     def trySavingRoiList(self):
@@ -56,14 +55,14 @@ class m(Loger):  # TODO better name
                 "ERROR During program runing unable to save ROI list")
 
     def main(self):
-        self.mainNoTryCahch()
 
-        # try:
-        #    self.mainNoTryCahch()
-        # except Exception as e:
-        #    self.logError(e)
-        #    self.logWarning("ERROR During program runing trying to save ROI list")
-        #    self.trySavingRoiList()
+        workDir = f"{os.path.expanduser('~')}\\Documents\\PolySampXpress\\{datetime.now().day}-{datetime.now().month}-{datetime.now().year}"
+        try:
+            os.mkdir(workDir)
+        except FileExistsError:
+            pass
+        os.chdir(workDir + "\\")
+        self.mainNoTryCahch()
 
 
 if __name__ == '__main__':
