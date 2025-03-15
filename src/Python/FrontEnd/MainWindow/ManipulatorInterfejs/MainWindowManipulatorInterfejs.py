@@ -76,6 +76,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
             self.loger("no I don't wont to mark 00 Points")
             return
 
+        if not self.manipulatorInterferes.AXIS_HOMED:
+            self.__homeAxis()
+
         XeroTreySelection(self).exec_()
 
         self.zta = XeroStartup(self)
