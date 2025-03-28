@@ -152,6 +152,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         window.run()
         window.exec_()
 
+
     def __configureStatusBar(self):
         myStatusBar = QLabel(self)
 

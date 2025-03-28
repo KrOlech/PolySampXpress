@@ -5,6 +5,8 @@ from Python.FrontEnd.MainWindow.ManipulatorInterfejs.MainWindowManipulatorInterf
 from Python.BackEnd.ROI.List.ROIList import ROIList
 from functools import cache
 
+from Python.Utilitis.timer import timeit
+
 
 class MainWindowROIList(MainWindowManipulatorInterfejs):
 
@@ -33,6 +35,11 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
 
     def saveListOfROI(self):
         SaveRoiList(self, self.cameraView.ROIList).save()
+
+    @timeit
+    def clearListOfRoi(self):
+        while len(self.cameraView.ROIList):
+            self.cameraView.ROIList[0].delete()
 
     def emergancysaveListOfROI(self):
         SaveRoiList(self, self.cameraView.ROIList).emergancySave()
