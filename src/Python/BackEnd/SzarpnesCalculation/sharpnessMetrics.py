@@ -1,8 +1,10 @@
 import numpy
 from skimage import filters, color, feature
 import cv2
+from numba import jit
 
 
+@jit(nopython=True)
 def image_sharpness(img):
     m = numpy.mean(img)
     img_s = numpy.add(-m, img)
@@ -25,7 +27,7 @@ def sobel(img):
 def fft_based_sharpness(image):
     f = numpy.fft.fft2(image)
     fshift = numpy.fft.fftshift(f)
-    magnitude_spectrum = 20 * numpy.log(numpy.abs(fshift))
+    magnitude_spectrum = 20 * numpy.log(numpy.abs(fshift) + 1e-99)
     return numpy.var(magnitude_spectrum)
 
 
@@ -39,6 +41,7 @@ def edge_based_sharpness(image, *args):
 
 
 def lpc_based_sharpness(image):
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     h, w = image.shape
     coherence_sum = 0
     for i in range(0, h - 15, 16):

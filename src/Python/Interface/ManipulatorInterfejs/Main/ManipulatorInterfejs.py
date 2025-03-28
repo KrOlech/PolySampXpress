@@ -1,8 +1,7 @@
 from PyQt5.QtCore import Qt
 
 from Python.BackEnd.AutoFokus_02.Main.AutoFokus_02 import AutoFokus02
-from Python.BackEnd.AutoFokus_03.Main import AutoFokus03
-from Python.BackEnd.SzarpnesCalculation.Main import SzarpnesCalculation
+from Python.BackEnd.SzarpnesCalculation.sharpnessMetrics import image_sharpness
 from Python.Interface.ManipulatorInterfejs.Abstract.AbstractManipulatroInterfejs import \
     AbstractManipulatorInterferes
 from Python.Interface.ManipulatorInterfejs.Selection.Select import SelectManipulator
@@ -26,17 +25,16 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
 
         # self.autoFokus()
 
-    def autoFokus(self, showResults=False):
-
-        fokus = AutoFokus02(self, self.master.camera)
-        window = GenericProgressClass("Auto Fokus in progress", fokus.run, 200, self)
-        fokus.window = window
+    def autoFokus(self, method=image_sharpness, showResults=False):
+        focus = AutoFokus02(self, self.master.camera, method)
+        window = GenericProgressClass("Auto Fokus in progress", focus.run, 200, self)
+        focus.window = window
 
         window.run()
         window.exec_()
 
         if showResults:
-            fokus.show()
+            focus.show()
 
     def autoFokusNotAsync(self):
         fokus = AutoFokus02(self, self.master.camera)
@@ -52,7 +50,16 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
         self._focusManipulator.gotoNotAsync()
         self._focusManipulator.waitForTarget()
 
-    def fokus0(self):
-        self._focusManipulator.x = -10000
+    def fokusDown(self, d=100):
+        self._focusManipulator.x -= d
         self._focusManipulator.gotoNotAsync()
         self._focusManipulator.waitForTarget()
+
+    def fokus0(self, x=2250):
+        self._focusManipulator.x = x
+        self._focusManipulator.gotoNotAsync()
+        self._focusManipulator.waitForTarget()
+
+    @property
+    def fokusPos(self):
+        return self._focusManipulator.x
