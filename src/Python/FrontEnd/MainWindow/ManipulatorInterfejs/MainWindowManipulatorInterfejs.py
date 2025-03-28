@@ -36,6 +36,8 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     dXmm: float = 0.0
     dYmm: float = 0.0
 
+    StopTheRotationCalculation: bool = False
+
     def __init__(self, *args, **kwargs):
         super(MainWindowManipulatorInterfejs, self).__init__(*args, **kwargs)
 
@@ -232,6 +234,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         return myStatusBar
 
     def __cameraRotationCalculationAsync(self):
+        self.StopTheRotationCalculation = True
         cameraRotationCalculationWindow = CameraRotationProgressClass("Camera Rotation Calculation in progress",
                                                                       self.__cameraRotationCalculation, 250,
                                                                       self)
@@ -268,6 +271,9 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
             self.dXmm += dx / ox / ITERATION_COUNT
             self.dYmm += dy / oy / ITERATION_COUNT
+
+            if self.StopTheRotationCalculation:
+                return
 
         self.loger(f"dif in x:{dx} px dif in y:{dy} px ")
         self.loger(f"dif in x:{self.dXmm} mm dif in y:{self.dYmm} mm ")
