@@ -18,6 +18,7 @@ class MainWindowZoom(MainWindowAbstract):
     # todo Unificacja
     labelsDictionary = {0.85: 0.85, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10}
 
+
     def createZoom(self):
         self.zoomInterface = ZoomInterface(self)
 
@@ -34,22 +35,14 @@ class MainWindowZoom(MainWindowAbstract):
         self.loger(f"readed zoom {self.zoom}")
         self.zooms.setCurrentText(self.zoom)
 
-    @deprecated("old unrealable metode")
-    def createZoomSlider(self):
-        self.__zoomSlider = self.zoomInterface.createZoomSlider()
-
-        self.__zoomSlider.move(self.geometry().bottomRight()
-                               - self.__zoomSlider.geometry().bottomRight()
-                               - QPoint(5, 35))
-
-        self.__zoomSlider.show()
-
     def zoomChangeActionMenu(self, i):
         self.zoom = float(self.zooms.itemText(i))
 
         if self.autoZoomMode:
             self.manipulatorInterferes.syncZoomManipulatorChange(i)
             return
+
+        self.setStepSize(i)
 
         window = GenericProgressClass("Zoom in progress", self.zoomChangeAction, 150, self)
         window.run()
