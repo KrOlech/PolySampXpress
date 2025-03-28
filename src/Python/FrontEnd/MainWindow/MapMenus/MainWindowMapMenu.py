@@ -15,15 +15,15 @@ class MainWindowMapMenu(MainWindowMapAbstract):
         createMapAction = self.qActionCreate("Create Mozaik", self.createMap)
         createMapFromHearAction = self.qActionCreate("Create Mozaik From Hear", self.createMapFromHear)
         loadMapFromFile = self.qActionCreate("load Mozaik from Fille", self.loadMap)
-        self.mozaikBorders = self.qActionCreate("Show Border Lines", lambda _: _, checkable=True)
+        #self.mozaikBorders = self.qActionCreate("Show Border Lines", lambda _: _, checkable=True)
 
-        self.mozaikBorders.setChecked(False)  # toDo reimplement or remove
+        #self.mozaikBorders.setChecked(False)  # toDo reimplement or remove
 
         mapMenu = self.menu.addMenu("&Mozaik")
         mapMenu.addAction(createMapAction)
         mapMenu.addAction(createMapFromHearAction)
         mapMenu.addAction(loadMapFromFile)
-        mapMenu.addAction(self.mozaikBorders)
+        #mapMenu.addAction(self.mozaikBorders)
 
     def createMapFromHear(self):
         MapFromHearWindow(self).exec_()

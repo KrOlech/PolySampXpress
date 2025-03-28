@@ -16,7 +16,7 @@ class MapFromFile(MapWindowInitialise):
         data, qImg = self.loadMapFile()
 
         self.mapNumpy = qImg
-        self.mapNumpyBorders = qImg
+        #self.mapNumpyBorders = qImg
         name = list(data.keys())[0]
         values = data[name]
         self.mapParams = MapParams(values["MapParams"])

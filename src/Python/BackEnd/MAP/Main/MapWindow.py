@@ -77,15 +77,15 @@ class MapWindow(MapWindowInitialise):
         else:
             self.loger(e)
 
-    def drewLines(self, n, m, photoShape):
-        self.mapNumpyBorders[n: n + photoShape[0], m - 1:m, :] = np.ones((photoShape[0], 1, 3), dtype=np.uint8) * 255
-        self.mapNumpyBorders[n: n + photoShape[0], m + photoShape[1] - 1:m + photoShape[1], :] = np.ones(
-            (photoShape[0], 1, 3),
-            dtype=np.uint8) * 255
-        self.mapNumpyBorders[n - 1:n, m:m + photoShape[1], :] = np.ones((1, photoShape[1], 3), dtype=np.uint8) * 255
-        self.mapNumpyBorders[n + photoShape[0] - 1:n + photoShape[0], m:m + photoShape[1], :] = np.ones(
-            (1, photoShape[1], 3),
-            dtype=np.uint8) * 255
+    #def drewLines(self, n, m, photoShape): #TODO reimplement if needed
+    #    self.mapNumpyBorders[n: n + photoShape[0], m - 1:m, :] = np.ones((photoShape[0], 1, 3), dtype=np.uint8) * 255
+    #    self.mapNumpyBorders[n: n + photoShape[0], m + photoShape[1] - 1:m + photoShape[1], :] = np.ones(
+    #        (photoShape[0], 1, 3),
+    #        dtype=np.uint8) * 255
+    #    self.mapNumpyBorders[n - 1:n, m:m + photoShape[1], :] = np.ones((1, photoShape[1], 3), dtype=np.uint8) * 255
+    #    self.mapNumpyBorders[n + photoShape[0] - 1:n + photoShape[0], m:m + photoShape[1], :] = np.ones(
+    #        (1, photoShape[1], 3),
+    #        dtype=np.uint8) * 255
 
     def decodeEroreMesage(self, mesage):
         cropMesage = mesage[mesage.find("into shape"):]
