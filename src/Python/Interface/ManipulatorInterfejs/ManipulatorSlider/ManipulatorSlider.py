@@ -13,7 +13,11 @@ class ManipulatorSlider(Slider):
         self.setFixedWidth(20)
         self.setFixedHeight(self.parent().geometry().height() - 100 - 200)
 
+    def setMaster(self, master):
+        self.master = master
+
     def change(self, value):
         super().change(value)
-        self.master.x = self.value
-        self.master.gotoNotAsync()
+        if self.master:
+            self.master.x = self.value
+            self.master.gotoNotAsync()

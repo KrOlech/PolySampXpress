@@ -29,6 +29,9 @@ class SelectManipulator(Loger):
             self.loger(e)
             self._focusManipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
+        self.focusSlider.setMaster(self._focusManipulator)
+        self.focusSlider.setValue(int(self._focusManipulator.x))
+
         try:
             self._zoomManipulator = StandaManipulator(self.ZOOM_MANIPULATOR_ADDRESS, self.windowSize, self.myStatusBar)
         except Exception as e:

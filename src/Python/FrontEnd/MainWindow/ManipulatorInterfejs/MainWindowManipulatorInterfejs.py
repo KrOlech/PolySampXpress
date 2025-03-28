@@ -216,7 +216,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def __manipulatorButtons(self):
         self.manipulatorButtons = self.manipulatorInterferes.createButtons(70)
         self.focusButtons = self.manipulatorInterferes.crateFocusButtons(70)
-        self.focusSlider = self.manipulatorInterferes.createFocusSlider()
+        self.focusSlider = self.manipulatorInterferes.focusSlider
 
         positions = [self.geometry().bottomRight() - button.geometry().bottomRight() - offset
                      for button, offset in zip(self.manipulatorButtons, self.offsets)]
