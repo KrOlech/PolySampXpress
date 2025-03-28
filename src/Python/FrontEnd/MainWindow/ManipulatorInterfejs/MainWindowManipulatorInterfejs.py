@@ -11,6 +11,7 @@ from Python.BackEnd.XeroStartup.XeroTreySelection import XeroTreySelection
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.FrontEnd.MainWindow.ManipulatorInterfejs.CameraRotationProgressClass import CameraRotationProgressClass
 from Python.FrontEnd.MainWindow.ManipulatorInterfejs.CameraRotationResultWindow import CameraRotationResultWindow
+from Python.FrontEnd.MainWindow.ManipulatorInterfejs.SampleAccessProgressWindow import SampleAccessProgressWindow
 from Python.InacuracyMesurments.Main.Main import InaccuracyMeasurements
 from Python.BackEnd.Calibration.LocateCrossAutomatic_3_0.main import LocateCross
 from Python.FrontEnd.MainWindow.CloseWindow.ClosseWindow import ClosseWindow
@@ -146,7 +147,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         if not self.manipulatorInterferes.AXIS_HOMED:
             self.__homeAxis()
 
-        window = GenericProgressClass("Going to Sample access position in progress",
+        window = SampleAccessProgressWindow("Going to Sample access position in progress",
                                       self.manipulatorInterferes.removeSample, 200, self)
         window.run()
         window.exec_()

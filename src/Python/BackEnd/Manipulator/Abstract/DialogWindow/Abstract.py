@@ -55,6 +55,9 @@ class AbstractDialog(QDialog, Loger):
     def finaliseGUISingleButton(self):
         self.form.addRow(QLabel(""), self.okButton)
 
+    def finaliseGUISingleButtonCancel(self):
+        self.form.addRow(QLabel(""), self.cancelButton)
+
     @abstractmethod
     def okPressed(self):
         self.accept()
