@@ -1,3 +1,4 @@
+from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QAction
 
 from Python.BaseClass.Logger.Logger import Loger
@@ -57,9 +58,13 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     def __init__(self, master, windowSize, myStatusBar, *args, **kwargs):
         super(AbstractManipulatorInterferes, self).__init__(*args, **kwargs)
 
+        self.__focusDownTimer = QTimer()
+        self.__focusUpTimer = QTimer()
+
         self.fun = [self.__key_down, self.__key_left, self.__key_right, self.__key_up]
 
-        self.focusFun = [self.__focus_key_down, self.__fockus_key_up]
+        self.focusFunPressed = [self.__focusKeyDownPressed, self.__focusKeyUpPressed]
+        self.focusFunReleased = [self.__focusKeyDownReleased, self.__focusKeyUpReleased]
 
         self.windowSize = windowSize
 
@@ -99,10 +104,24 @@ class AbstractManipulatorInterferes(QWidget, Loger):
         if not self._manipulator.inMotion:
             self._manipulator.down()
 
-    def __fockus_key_up(self):
+    def __focusKeyUpPressed(self):
+        self._focusManipulator.left()
+        self.__focusUpTimer.start(100)
+
+    def __focusKeyUpReleased(self):
+        self.__focusUpTimer.stop()
+
+    def __focusKeyUpHeld(self):
         self._focusManipulator.left()
 
-    def __focus_key_down(self):
+    def __focusKeyDownPressed(self):
+        self._focusManipulator.right()
+        self.__focusDownTimer.start(100)
+
+    def __focusKeyDownReleased(self):
+        self.__focusDownTimer.stop()
+
+    def __focusKeyDownHeld(self):
         self._focusManipulator.right()
 
     def __stop(self):
@@ -145,7 +164,10 @@ class AbstractManipulatorInterferes(QWidget, Loger):
     def crateFocusButtons(self, transparency=10):
         buttons = [QPushButton(r'\/', self.master.widget), QPushButton("/\\", self.master.widget)]
         [button.setStyleSheet(f"background-color: rgba(255, 255, 255, {transparency});") for button in buttons]
-        [button.released.connect(f) for f, button in zip(self.focusFun, buttons)]
+        [button.pressed.connect(f) for f, button in zip(self.focusFunPressed, buttons)]
+        [button.released.connect(f) for f, button in zip(self.focusFunReleased, buttons)]
+        self.__focusUpTimer.timeout.connect(self.__focusKeyUpHeld)
+        self.__focusDownTimer.timeout.connect(self.__focusKeyDownHeld)
         [button.setFixedSize(20, 20) for button in buttons]
         return buttons
 
