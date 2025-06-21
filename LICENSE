@@ -1,30 +1,36 @@
-GPL VERSION 3 LICENSE
+MIT License for PolySampXpress
 
-Software PolySampXpress
+Copyright (c) 2025 Krzysztof Olech
 
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell    
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:                       
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+The above copyright notice and this permission notice shall be included in all 
+copies or substantial portions of the Software.                                
 
-You should have received a copy of the GNU General Public License along with this program. If not, see GNULicence or visit the website: https://www.gnu.org/licenses/gpl-3.0.html.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR   
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,     
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE  
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER       
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-[SOFTWARE DESCRIPTION]
+This software uses proprietary binary components provided by third parties:
 
-The software PolySampXpress has been developed by Krzysztof Olech and utilizes the following external components, which are also covered by the GNU General Public License:
+- **Standa** (e.g `standa_driver.dll`)
+  License information: see `Other_License/StandaLicense`
 
-- PyQt5: https://www.riverbankcomputing.com/software/pyqt/
-- OpenCV: https://opencv.org/
-- NumPy: https://numpy.org/
-- IC Measure: Copyright - information about the license provided in "Other_License/CameraLicense"
-- Standa: Copyright - information about the license provided in "Other_License/StandaLicense"
-- ACS Motion Control Drivers: information about the license provided in "Other_License/ACSLicense" file
+- **ACS Motion Control** (e.g  `acsmotion.dll`)
+  License information: see `Other_License/ACSLicense`
 
-All copyrights and rights associated with the [program name] software and its external components belong to their respective authors.
+- **IC Measure / The Imaging Source** (e.g  `tisgrabber.dll`)
+  License information: see `Other_License/CameraLicense`
 
-[DISTRIBUTION AND MODIFICATION INSTRUCTIONS]
-
-1. If you distribute the PolySampXpress software, you must do so under the terms of the GNU General Public License, version 3.
-
-2. If you modify the PolySampXpress software, you must also provide the source code of those modifications under the terms specified in the GNU General Public License, version 3.
-
-3. Any modified versions of the PolySampXpress software must be clearly marked as modified, and information about the changes must be made available to recipients.
+All external components are subject to their own license terms.
+All copyrights and rights associated with the PolySampXpress software 
+and its external components belong to their respective authors.
