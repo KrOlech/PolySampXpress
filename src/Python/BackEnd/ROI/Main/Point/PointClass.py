@@ -37,9 +37,11 @@ class Point(PointEdit, NameHandling):
 
         self.fileDict = {}
 
-        if not ooPoint:
-            self.fillFileDict()
-            self.saveCenterToFileDict()
+        self.ooPoint = ooPoint
+
+
+        self.fillFileDict()
+        self.saveCenterToFileDict()
 
     def fillFileDict(self):
         x0 = self.x0 - self.pixelAbsolutValue[0]
@@ -66,6 +68,7 @@ class Point(PointEdit, NameHandling):
         self.fileDict["sample mm Values"]["y0"] = absoluteMMValuesY - deltaY
 
         self.fileDict["zero Point Present"] = zeroPointStatus
+        self.fileDict["is this a zero Point"] = self.ooPoint
 
         if self.zValue:
             self.fileDict["Pixell Values"] = {"x0": self.x0, "y0": self.y0, "z0": self.zValue}
@@ -77,6 +80,17 @@ class Point(PointEdit, NameHandling):
         self.fileDict["Type"] = "Point"
 
         return self.fileDict
+
+    def saveConversionToFileDict(self):
+
+        a,b,a1,b1 = self.createNewAxis()
+
+        absoluteMMValuesX = self.fileDict["mm Values"]["x0"]
+        absoluteMMValuesY = self.fileDict["mm Values"]["y0"]
+
+        self.fileDict["ref MM Values"] = {}
+        self.fileDict["ref MM Values"]["X"] = self.toLineDistance(a,b, absoluteMMValuesX, absoluteMMValuesY)
+        self.fileDict["ref MM Values"]["Y"] = self.toLineDistance(a1,b1, absoluteMMValuesX, absoluteMMValuesY)
 
     def createLabelMarker(self, scalaX, scalaY):
         xlabel = int(self.x0Label // scalaX)

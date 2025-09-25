@@ -85,6 +85,9 @@ class ROI(ROIEdit, AbstractROI, NameHandling):
 
         return self.fileDict
 
+    def saveConversionToFileDict(self):
+        self.saveConversionToFileDictFourPoints()
+
     def createLabelMarker(self, scalaX, scalaY):
         return QRect(MyQPoint(int(self.x0Label // scalaX), int(self.y0Label // scalaY)),
                      MyQPoint(int(self.x1Label // scalaX), int(self.y1Label // scalaY)))

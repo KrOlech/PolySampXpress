@@ -82,6 +82,9 @@ class Line(LineEdit, LineNameHandling):
 
         return self.fileDict
 
+    def saveConversionToFileDict(self):
+        self.saveConversionToFileDictFourPoints()
+
     def createLabelMarker(self, scalaX, scalaY):
         return QLine(MyQPoint(self.x0Label // scalaX, self.y0Label // scalaY),
                      MyQPoint(self.x1Label // scalaX, self.y1Label // scalaY))

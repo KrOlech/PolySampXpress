@@ -144,7 +144,63 @@ class AbstractR(Loger):
     def resolveFileDict(self):
         self.fillFileDict()
         self.saveCenterToFileDict()
+        self.saveConversionToFileDict()
         return self.fileDict
+
+    def createNewAxis(self):
+        # todo metoda zaklada ze sa 2 punkty tylko referecyjne nalezy przygotowac sie na ich dowolna ilosc
+        pointList = [point for point in self.master.mainWindow.refPoints[self.zoom].values()]
+
+        self.xOffset, self.yOffset = JsonHandling.loadOffsetsJson(self.zoom)
+
+        x0 = pointList[0]["point"]["mm Values"]["x0"]
+        y0 = pointList[0]["point"]["mm Values"]["y0"]
+
+        x1 = pointList[1]["point"]["mm Values"]["x0"]
+        y1 = pointList[1]["point"]["mm Values"]["y0"]
+
+        try:
+            a = (y1 - y0) / (x1 - x0)
+            a1 = -1 / a
+        except ZeroDivisionError:
+            # TODO edgvase not handled
+            return
+
+        b = -a * x0 + y0
+        b1 = -a1 * x0 + y0
+
+        return a, b, a1, b1
+
+    @staticmethod
+    def toLineDistance(a, b, ammx, ammy):
+
+        d = abs(ammx * a + ammy + b) / ((a ** 2 + 1) ** (1 / 2))
+
+        return d
+
+    @abstractmethod
+    def saveConversionToFileDict(self):
+        self.abstractmetod()
+
+    def saveConversionToFileDictFourPoints(self):
+        a, b, a1, b1 = self.createNewAxis()
+
+        absoluteMMValuesX0 = self.fileDict["mm Values"]["x0"]
+        absoluteMMValuesX1 = self.fileDict["mm Values"]["x1"]
+        absoluteMMValuesY0 = self.fileDict["mm Values"]["y0"]
+        absoluteMMValuesY1 = self.fileDict["mm Values"]["y1"]
+
+        self.fileDict["ref MM Values"] = {}
+
+        self.fileDict["ref MM Values"]["X0"] = self.toLineDistance(a, b, absoluteMMValuesX0, absoluteMMValuesY0)
+        self.fileDict["ref MM Values"]["Y0"] = self.toLineDistance(a1, b1, absoluteMMValuesX0, absoluteMMValuesY0)
+
+        self.fileDict["ref MM Values"]["X1"] = self.toLineDistance(a, b, absoluteMMValuesX1, absoluteMMValuesY1)
+        self.fileDict["ref MM Values"]["Y1"] = self.toLineDistance(a1, b1, absoluteMMValuesX1, absoluteMMValuesY1)
+
+    @abstractmethod
+    def fillFileDict(self):
+        self.abstractmetod()
 
     def saveCenterToFileDict(self):
         xCenter, yCenter = self.foundAbsoluteCenter()
