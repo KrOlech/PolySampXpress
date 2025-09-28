@@ -1,9 +1,9 @@
 from abc import ABCMeta
 from abc import abstractmethod
 
-from PyQt5 import QtGui
-from PyQt5.QtCore import QRect, QPoint, QLine
-from PyQt5.QtGui import QPixmap, QImage, QPainter, QBrush, QColor, QFont
+from PyQt6 import QtGui
+from PyQt6.QtCore import QRect, QPoint, QLine
+from PyQt6.QtGui import QPixmap, QImage, QPainter, QBrush, QColor, QFont
 
 from Python.BackEnd.ROI.Main.Line.Line import Line
 from Python.BackEnd.ROI.Main.Point.PointClass import Point
@@ -12,7 +12,7 @@ from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.FrontEnd.MainWindow.RightClickMenu.Label import RightClickLabel
 from Python.FrontEnd.MainWindow.RightClickMenu.RightClickMenu import RightMenu
 from Python.BackEnd.ROI.Creation.main.CreateRoi import CreateRoi
-
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 class QlabelROI(RightClickLabel, CreateRoi):
     __metaclass__ = ABCMeta
@@ -52,7 +52,7 @@ class QlabelROI(RightClickLabel, CreateRoi):
     def getFrame(self) -> QPixmap:
         cvBGBImg = self.mainWindow.camera.getFrame()
 
-        qImg = QImage(cvBGBImg.data, cvBGBImg.shape[1], cvBGBImg.shape[0], QImage.Format_BGR888)
+        qImg = QImage(cvBGBImg.data, cvBGBImg.shape[1], cvBGBImg.shape[0], QImage.Format.Format_BGR888)
 
         frame = QPixmap.fromImage(qImg)
 
@@ -86,8 +86,8 @@ class QlabelROI(RightClickLabel, CreateRoi):
     def __createCenter(self):
         cx = self.size().height() // 2
         cy = self.size().width() // 2
-        l1 = QPoint(cy, cx + 5), QPoint(cy, cx - 5)
-        l2 = QPoint(cy + 5, cx), QPoint(cy - 5, cx)
+        l1 = MyQPoint(cy, cx + 5), MyQPoint(cy, cx - 5)
+        l2 = MyQPoint(cy + 5, cx), MyQPoint(cy - 5, cx)
         return l1, l2
 
     def __drawCenter(self, qp):
@@ -112,7 +112,7 @@ class QlabelROI(RightClickLabel, CreateRoi):
     def __drawRectangleName(self, qp, rectangle):
         rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulatorInterferes.x,
                                            self.mainWindow.manipulatorInterferes.y)
-        qp.drawText(rx, ry, str(rectangle.name))
+        qp.drawText(int(rx),int( ry), str(rectangle.name))
 
     def __drawRectangleMarker(self, qp, rectangle):
         if isinstance(rectangle, ROI):
@@ -127,7 +127,7 @@ class QlabelROI(RightClickLabel, CreateRoi):
 
     def __drawCurrentlyMarkedRectangles(self, qp):
         if self.mainWindow.mode == "Point":
-            l1 = QLine(QPoint(self.x1 + 10, self.y1), QPoint(self.x1 - 10, self.y1))
+            l1 = QLine(MyQPoint(self.x1 + 10, self.y1), QPoint(self.x1 - 10, self.y1))
             l2 = QLine(QPoint(self.x1, self.y1 + 10), QPoint(self.x1, self.y1 - 10))
             qp.drawLines([l1, l2])
         elif self.mainWindow.mode == "pointSpacing":
@@ -140,7 +140,8 @@ class QlabelROI(RightClickLabel, CreateRoi):
                 x1, y1 = self.x1 + dx, self.y1 + dy
             else:
                 x1, y1 = self.x1, self.y1
-            qp.drawRect(QRect(QPoint(x1, y1), QPoint(self.x2, self.y2)))
+
+            qp.drawRect(QRect(QPoint(int(x1), int(y1)), QPoint(int(self.x2), int(self.y2))))
 
     def __drawRuler(self, qp):
 
@@ -205,7 +206,7 @@ class QlabelROI(RightClickLabel, CreateRoi):
 
         menu.addRoiMenus(self.rois, self.editTribe)
 
-        menu.exec_(self.mapToGlobal(pos))
+        menu.exec(self.mapToGlobal(pos))
 
     def center(self):
         self.mainWindow.manipulatorInterferes.center(self.rightClickPos.x(),

@@ -1,6 +1,6 @@
-from PyQt5.Qt import QPoint
-from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QLabel, QMenu
+from PyQt6.QtCore import QPoint
+from PyQt6.QtGui import QFont
+from PyQt6.QtWidgets import QLabel, QMenu
 
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.MoveByValue import MoveByValue
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.RemoveSampleDialog import RemoveSampleDialog
@@ -25,10 +25,10 @@ from Python.Interface.ManipulatorInterfejs.Main.ManipulatorInterfejs import Mani
 from Python.Utilitis.GenericProgressClass import GenericProgressClass
 from Python.BackEnd.SzarpnesCalculation.sharpnessMetrics import image_sharpness, image_sharpness2, sobel, \
     fft_based_sharpness, scharr_variance, edge_based_sharpness, lpc_based_sharpness
-
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 class MainWindowManipulatorInterfejs(CameraGUIExtension):
-    offsets = [QPoint(100, 120), QPoint(150, 85), QPoint(50, 85), QPoint(100, 50)]
+    offsets = [MyQPoint(100, 120), MyQPoint(150, 85), MyQPoint(50, 85), MyQPoint(100, 50)]
     buttons = None
     testEventClose = False
     calibratePixelsMode = False
@@ -85,7 +85,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
     def __sharpnessCalculatorRunAlgo(self):
         window = SharpnessCalculationConfig("Szarpnes Calculation", self.SzarpnesCalculator.runAlgo, 250, self)
-        window.exec_()
+        window.exec()
 
     def __focusMetods(self):
         funs: list = [image_sharpness, image_sharpness2, sobel, fft_based_sharpness, scharr_variance,
@@ -104,7 +104,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def _00Points(self):
 
         self.loger("do you wont to mark 00 Points?")
-        XeroConfirmationWindow(self).exec_()
+        XeroConfirmationWindow(self).exec()
 
         if not self.createMapVariable:
             self.loger("no I don't wont to mark 00 Points")
@@ -113,13 +113,13 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         if not self.manipulatorInterferes.AXIS_HOMED:
             self.__homeAxis()
 
-        XeroTreySelection(self).exec_()
+        XeroTreySelection(self).exec()
 
         self.zta = XeroStartup(self)
 
         window = XeroProgresWindow("Calculate Zero points", self.zeroOut, 200, self)
         window.run()
-        window.exec_()
+        window.exec()
 
     def zeroOut(self):
         self.zta.xeroOut()
@@ -134,7 +134,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def homeAllAxis(self):
         window = GenericProgressClass("Start Up in progress", self.manipulatorInterferes.homeAxis, 200, self)
         window.run()
-        window.exec_()
+        window.exec()
 
     def __createAction(self, name, manipulatorSeFun, checkable=True):
         return self.qActionCreate(name, manipulatorSeFun, checkable=checkable)
@@ -145,12 +145,12 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def __homeAxis(self):
         homeAxis = HomeAxisDialog(self.manipulatorInterferes)
         homeAxis.run()
-        homeAxis.exec_()
+        homeAxis.exec()
 
     def __goToCenter(self):
         window = GenericProgressClass("Going to center in progress", self.manipulatorInterferes.goToCenter, 200, self)
         window.run()
-        window.exec_()
+        window.exec()
 
     def __setZeroPoint(self):
         x, y = LocateCross(self, "00Location").locateCross()
@@ -161,13 +161,13 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         self.myStatusBarClick.setText("Select Zero Point")
 
     def __goToCords(self):
-        GoToCordsDialog(self.manipulatorInterferes).exec_()
+        GoToCordsDialog(self.manipulatorInterferes).exec()
 
     def __moveByValue(self):
-        MoveByValue(self.manipulatorInterferes).exec_()
+        MoveByValue(self.manipulatorInterferes).exec()
 
     def __setStepSize(self):
-        SetStepSizeDialog(self.manipulatorInterferes).exec_()
+        SetStepSizeDialog(self.manipulatorInterferes).exec()
 
     def __calculateInaccuracy(self):
         InaccuracyMeasurements(self).runScript()
@@ -175,7 +175,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def removeSampleAsync(self):
 
         if len(self.cameraView.ROIList):
-            RemoveSampleDialog(self).exec_()
+            RemoveSampleDialog(self).exec()
 
         if not self.manipulatorInterferes.AXIS_HOMED:
             self.__homeAxis()
@@ -183,7 +183,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         window = SampleAccessProgressWindow("Going to Sample access position in progress",
                                             self.manipulatorInterferes.removeSample, 200, self)
         window.run()
-        window.exec_()
+        window.exec()
 
     def __configureStatusBar(self):
         myStatusBar = QLabel(self)
@@ -201,7 +201,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         return myStatusBar
 
     def closeEvent(self, event):
-        ClosseWindow(self).exec_()
+        ClosseWindow(self).exec()
 
         if self.testEventClose:
             self.closeAction()
@@ -269,10 +269,10 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
                                                                       self.__cameraRotationCalculation, 250,
                                                                       self)
         cameraRotationCalculationWindow.run()
-        cameraRotationCalculationWindow.exec_()
+        cameraRotationCalculationWindow.exec()
 
     def showResultsRotationCalculation(self):
-        CameraRotationResultWindow(self).exec_()
+        CameraRotationResultWindow(self).exec()
 
     def __cameraRotationCalculation(self):
 
@@ -310,7 +310,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
 
 if __name__ == '__main__':
-    from PyQt5.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
     import sys
 
     app = QApplication(sys.argv)
@@ -319,4 +319,4 @@ if __name__ == '__main__':
 
     window.show()
 
-    app.exec_()
+    app.exec()

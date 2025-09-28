@@ -38,7 +38,7 @@ class AbstractEdit(Loger):
     def mouseRelease(self, e, x, y):
         self.firstPress = False
         dx, dy = self.calculateOffset(x, y)
-        self.px1, self.py1 = e.x() + dx, e.y() + dy
+        self.px1, self.py1 = int(e.position().x()) + dx, int(e.position().y()) + dy
         self.rect = self.createMarker()
         self.master.leftMouseButton = False
         self.updateViue()

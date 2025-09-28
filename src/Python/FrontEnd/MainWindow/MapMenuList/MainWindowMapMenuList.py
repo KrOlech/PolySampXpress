@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QMenu, QDesktopWidget
+from PyQt6.QtWidgets import QMenu
+from PyQt6.uic.properties import QtGui
 
 from Python.BackEnd.ROI.RenameWindow.RenameWidnow import ReNameWindow
 from Python.FrontEnd.MainWindow.MapMenuAbstract.MainWindowMapAbstract import MainWindowMapAbstract
@@ -39,7 +40,7 @@ class MainWindowMapMenuList(MainWindowMapAbstract):
         self.mapsList[mapId].saveMapFile()
 
     def showMap(self, mapId):
-        self.mapsList[mapId].move(QDesktopWidget().availableGeometry().topLeft())
+        self.mapsList[mapId].move(self.windowSize)
         self.mapsList[mapId].showMap()
 
     def removeMap(self, mapId):

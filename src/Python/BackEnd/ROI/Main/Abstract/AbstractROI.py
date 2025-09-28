@@ -1,10 +1,10 @@
 from abc import ABC
 from functools import cache
 
-from PyQt5.QtCore import QRect, QPoint
+from PyQt6.QtCore import QRect, QPoint
 
 from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
-
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 class AbstractROI(AbstractR, ABC):
     rect = None
@@ -21,7 +21,7 @@ class AbstractROI(AbstractR, ABC):
         self.__setBorders(*self.calculateCords(**kwargs))
 
     def createMarker(self):
-        return QRect(QPoint(self.x0, self.y0), QPoint(self.x1, self.y1))
+        return QRect(MyQPoint(self.x0, self.y0), MyQPoint(self.x1, self.y1))
 
     def inROI(self, pos, x, y):
         dx, dy = self.calculateOffset(x, y)
@@ -30,13 +30,13 @@ class AbstractROI(AbstractR, ABC):
     def getMarker(self, x, y):
         dx, dy = self.calculateOffset(x, y)
         # self.loger(f"x1 = {self.x0}, x2 = {self.x1}, y1 = {self.y0}, y2 = {self.y1}, manipulatotrX = {x}, manipulatorY = {y} deltaX = {dx} deltaY = {dy}")
-        return QRect(QPoint(self.x0 - dx, self.y0 - dy), QPoint(self.x1 - dx, self.y1 - dy))
+        return QRect(MyQPoint(self.x0 - dx, self.y0 - dy), MyQPoint(self.x1 - dx, self.y1 - dy))
 
     @cache
     def getMarkerMap(self, *args):
         x0mm, y0mm, x1mm, y1mm = self.calculateMapMarker4Cordynats(self, *args)
 
-        return QRect(QPoint(x0mm, y0mm), QPoint(x1mm, y1mm))
+        return QRect(MyQPoint(x0mm, y0mm), MyQPoint(x1mm, y1mm))
 
     def __setBorders(self, x1, x2, y1, y2):
         self.minX = min(x1, x2)

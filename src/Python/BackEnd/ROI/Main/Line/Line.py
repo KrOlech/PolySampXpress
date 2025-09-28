@@ -1,10 +1,10 @@
 import cv2
-from PyQt5.QtCore import QLine, QPoint
+from PyQt6.QtCore import QLine
 
 from Python.BackEnd.ROI.Main.Edit.LineEdit import LineEdit
 from Python.BackEnd.ROI.Main.NameHandling.LineNameHandling import LineNameHandling
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
-
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 class Line(LineEdit, LineNameHandling):
 
@@ -83,14 +83,19 @@ class Line(LineEdit, LineNameHandling):
         return self.fileDict
 
     def createLabelMarker(self, scalaX, scalaY):
-        return QLine(QPoint(self.x0Label // scalaX, self.y0Label // scalaY),
-                     QPoint(self.x1Label // scalaX, self.y1Label // scalaY))
+        return QLine(MyQPoint(self.x0Label // scalaX, self.y0Label // scalaY),
+                     MyQPoint(self.x1Label // scalaX, self.y1Label // scalaY))
 
     def saveViue(self, path):
         cv2.imwrite(path + str(self.name) + ".png", self.createViue())
 
     def createViue(self):
         image = self.convertQpixmapToOpenCV(self.view)
+
+        self.x0Label = int(self.x0Label)
+        self.y0Label = int(self.y0Label)
+        self.x1Label = int(self.x1Label)
+        self.y1Label = int(self.y1Label)
 
         cv2.line(image, [self.x0Label, self.y0Label], [self.x1Label, self.y1Label], (0, 0, 255), 2)
 

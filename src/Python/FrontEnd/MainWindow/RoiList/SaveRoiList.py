@@ -5,7 +5,7 @@ from io import BytesIO
 from os import chdir, curdir
 
 from PIL import Image
-from PyQt5.QtWidgets import QFileDialog
+from PyQt6.QtWidgets import QFileDialog
 
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 

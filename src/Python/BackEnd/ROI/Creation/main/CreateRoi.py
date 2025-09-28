@@ -1,7 +1,7 @@
 from abc import ABCMeta
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QEvent
+from PyQt6.QtCore import Qt
+from PyQt6.QtCore import QEvent
 
 from Python.BackEnd.ROI.PointDistance.PointSpacing import PointSpacing
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
@@ -35,11 +35,11 @@ class CreateRoi(SimpleCreateRoi,
 
     def eventFilter(self, source, event):
         if self.afterInitialisation:
-            if event.type() == QEvent.MouseButtonPress or \
-                    event.type() == QEvent.MouseButtonRelease:
-                if event.button() == Qt.LeftButton:
+            if event.type() == QEvent.Type.MouseButtonPress or \
+                    event.type() == QEvent.Type.MouseButtonRelease:
+                if event.button() == Qt.MouseButton.LeftButton:
                     self.leftMouseButton = True
-                elif event.button() == Qt.RightButton:
+                elif event.button() == Qt.MouseButton.RightButton:
                     self.leftMouseButton = False
 
         return super().eventFilter(source, event)
@@ -97,7 +97,7 @@ class CreateRoi(SimpleCreateRoi,
 
         # xOffset, yOffset = JsonHandling.loadOffsetsJson() #{self.x / xOffset} mm, {self.y / yOffset} mm, prawie ok brakuje wspułrzednych pkt 00
 
-        self.mainWindow.myStatusBarMouse.setText(f"     Cursor X: {e.x()}     Y: {e.y()}")
+        self.mainWindow.myStatusBarMouse.setText(f"     Cursor X: {e.position().x()}     Y: {e.position().y()}")
 
     def toggleModeCleenUp(self):
         getattr(self, self.supportedModes[self.mainWindow.mode] + "__toggleModeCleenUp")()
@@ -140,7 +140,7 @@ class CreateRoi(SimpleCreateRoi,
     @deprecated("old manual metode")
     def __setAbsolutZeroPositionForPixels(self, e):
         if self.leftMouseButton and not self.mainWindow.manipulatorInterferes.inMotion:
-            self.__createAndSaveZeroPoint(e.x(), e.y())
+            self.__createAndSaveZeroPoint(int(e.position().x()), int(e.position().y()))
 
             self.mainWindow.myStatusBarClick.setText("")
 

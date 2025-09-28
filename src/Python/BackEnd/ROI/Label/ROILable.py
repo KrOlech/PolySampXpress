@@ -1,6 +1,6 @@
-from PyQt5.QtGui import QFont
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel
+from PyQt6.QtGui import QFont
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel
 
 from Python.BackEnd.ROI.RightMenu.ROIRightMenu import RoiRightMenu
 from Python.BackEnd.ROI.LabelViue.ROILabelViue import ROILegendVue
@@ -14,7 +14,7 @@ class ROILabel(QWidget, Loger):
     def __init__(self, roi, screenSize, *args, **kwargs):
         super(ROILabel, self).__init__(*args, **kwargs)
 
-        self.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.customContextMenuRequested.connect(self.rightMenu)
 
         self.x = screenSize.width() // self.scalaX
@@ -45,7 +45,7 @@ class ROILabel(QWidget, Loger):
     def rightMenu(self, e):
         menu = RoiRightMenu(self.roi)
 
-        menu.exec_(self.mapToGlobal(e))
+        menu.exec(self.mapToGlobal(e))
 
     def updateName(self, NewName):
         self.name.setText(NewName)

@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel, QToolButton
-from PyQt5.QtCore import Qt, QSize
-from PyQt5.QtGui import QPalette, QIcon
+from PyQt6.QtWidgets import QWidget, QHBoxLayout, QLabel, QToolButton
+from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtGui import QPalette, QIcon
 
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
@@ -12,7 +12,7 @@ class MyBar(QWidget):
         super(MyBar, self).__init__(parent)
         self.setAutoFillBackground(True)
 
-        self.setBackgroundRole(QPalette.Shadow)
+        self.setBackgroundRole(QPalette.ColorRole.Shadow)
 
         layout = QHBoxLayout(self)
         layout.setContentsMargins(1, 1, 1, 1)
@@ -20,16 +20,16 @@ class MyBar(QWidget):
 
         self.title = QLabel(name, self)
         self.title.setMinimumWidth(180)
-        self.title.setForegroundRole(QPalette.Light)
+        self.title.setForegroundRole(QPalette.light)
 
         style = self.style()
         ref_size = self.fontMetrics().height()
-        ref_size += style.pixelMetric(style.PM_ButtonMargin) * 2
+        #ref_size += style.pixelMetric(style.pixelMetric().PM_ButtonMargin) * 2
         self.setMaximumHeight(ref_size + 2)
 
         btn_size = QSize(ref_size, ref_size)
         for target in ('min', 'close'):
-            btn = QToolButton(self, focusPolicy=Qt.NoFocus)
+            btn = QToolButton(self, focusPolicy=Qt.FocusPolicy.NoFocus)
             layout.addWidget(btn)
             btn.setFixedSize(btn_size)
 
@@ -60,7 +60,7 @@ class MyBar(QWidget):
             self.setWindowIcon(QIcon(JsonHandling.getFileLocation("smallLogo.png")))
 
     def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.Key.LeftButton:
             self.clickPos = event.windowPos().toPoint()
 
     def mouseMoveEvent(self, event):

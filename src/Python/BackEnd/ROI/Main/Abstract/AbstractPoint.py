@@ -1,9 +1,10 @@
 from abc import ABCMeta
 from functools import cache
 
-from PyQt5.QtCore import QRect, QPoint, QLine
+from PyQt6.QtCore import QRect, QPoint, QLine
 
 from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 
 class AbstractPoint(AbstractR):
@@ -24,7 +25,7 @@ class AbstractPoint(AbstractR):
         self.y0 = int(y0)
 
     def createMarker(self):
-        return QRect(QPoint(self.x0, self.y0), QPoint(self.x0, self.y0))
+        return QRect(MyQPoint(self.x0, self.y0), MyQPoint(self.x0, self.y0))
 
     def inROI(self, pos, x, y):
         dx, dy = self.calculateOffset(x, y)
@@ -32,8 +33,8 @@ class AbstractPoint(AbstractR):
 
     def getMarker(self, x, y):
         dx, dy = self.calculateOffset(x, y)
-        l1 = QLine(QPoint(self.x0 - dx + 10, self.y0 - dy), QPoint(self.x0 - dx - 10, self.y0 - dy))
-        l2 = QLine(QPoint(self.x0 - dx, self.y0 - dy + 10), QPoint(self.x0 - dx, self.y0 - dy - 10))
+        l1 = QLine(MyQPoint(self.x0 - dx + 10, self.y0 - dy), MyQPoint(self.x0 - dx - 10, self.y0 - dy))
+        l2 = QLine(MyQPoint(self.x0 - dx, self.y0 - dy + 10), MyQPoint(self.x0 - dx, self.y0 - dy - 10))
         return [l1, l2]
 
     @cache
@@ -47,7 +48,7 @@ class AbstractPoint(AbstractR):
         x0mm = int(MapLabel.calculatePixels(x0mm, screenWidth, mapX0, mapX0 + mapWidth))
         y0mm = int(MapLabel.calculatePixels(y0mm, screenheight, mapY0, mapY0 + mapHeight))
 
-        l1 = QLine(QPoint(x0mm + 10, y0mm), QPoint(x0mm - 10, y0mm))
+        l1 = QLine(MyQPoint(x0mm + 10, y0mm), QPoint(x0mm - 10, y0mm))
         l2 = QLine(QPoint(x0mm, y0mm + 10), QPoint(x0mm, y0mm - 10))
 
         self.loger(x0mm, y0mm)

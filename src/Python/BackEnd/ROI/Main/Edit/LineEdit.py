@@ -11,20 +11,20 @@ class LineEdit(AbstractLine, AbstractEdit, Cursor):
     px, py = 0, 0
 
     def mousePositionCheck(self, event, xManipulatorPosition, yManipulatorPosition):
-        self.__closerPoint(event.x(), event.y())
+        self.__closerPoint(int(event.position().x()), int(event.position().y()))
 
         self.move = False
 
         dx, dy = self.calculateOffset(xManipulatorPosition, yManipulatorPosition)
 
-        self.px, self.py = event.x() + dx, event.y() + dy
+        self.px, self.py = int(event.position().x()) + dx, int(event.position().y()) + dy
 
         self.move = self.__isCenter()
 
     def mouseMove(self, event, xManipulatorPosition, yManipulatorPosition):
         if self.firstPress:
             odx, ody = self.calculateOffset(xManipulatorPosition, yManipulatorPosition)
-            self.px, self.py = event.x() + odx, event.y() + ody
+            self.px, self.py = int(event.position().x()) + odx, int(event.position().y()) + ody
             if self.move:
                 self.__move()
 

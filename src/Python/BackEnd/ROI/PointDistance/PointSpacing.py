@@ -16,22 +16,22 @@ class PointSpacing(CreateRoiAbstract):
         if not (self.firstPress or self.secondPress):
             self.manipulatorXFirstPresX = self.mainWindow.manipulatorInterferes.x
             self.manipulatorYFirstPresY = self.mainWindow.manipulatorInterferes.y
-            self.x1 = e.x()
-            self.y1 = e.y()
-            self.x2 = e.x()
-            self.y2 = e.y()
+            self.x1 = int(e.position().x())
+            self.y1 = int(e.position().y())
+            self.x2 = int(e.position().x())
+            self.y2 = int(e.position().y())
             self.firstPress = True
             self.pressed = True
         elif self.firstPress and not self.secondPress:
-            self.x2 = e.x()
-            self.y2 = e.y()
+            self.x2 = int(e.position().x())
+            self.y2 = int(e.position().y())
             self.firstPress = False
             self.secondPress = True
 
     def __seveReliseLocation(self, e):
         if self.secondPress:
-            self.x2 = e.x()
-            self.y2 = e.y()
+            self.x2 = int(e.position().x())
+            self.y2 = int(e.position().y())
             dx, dy = self.calculateOffset()
             self.x1 += dx
             self.y1 += dy
@@ -43,8 +43,8 @@ class PointSpacing(CreateRoiAbstract):
             self.firstPress = False
 
     def __saveTemporaryLocation(self, e):
-        self.x2 = e.x()
-        self.y2 = e.y()
+        self.x2 = int(e.position().x())
+        self.y2 = int(e.position().y())
 
     def calculateOffset(self):
         return int((self.manipulatorXFirstPresX - self.mainWindow.manipulatorInterferes.x) * self.xOffset), int(

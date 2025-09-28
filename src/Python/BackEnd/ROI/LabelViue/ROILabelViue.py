@@ -1,6 +1,6 @@
-from PyQt5.QtCore import QRect, QPoint
-from PyQt5.QtGui import QPainter, QBrush, QColor
-from PyQt5.QtWidgets import QLabel
+from PyQt6.QtCore import QRect, QPoint
+from PyQt6.QtGui import QPainter, QBrush, QColor
+from PyQt6.QtWidgets import QLabel
 
 
 class ROILegendVue(QLabel):

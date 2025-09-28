@@ -1,6 +1,7 @@
+from Python.BaseClass.Depracation.DepractionFactory import deprecated
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.Abstract import AbstractDialog
-from PyQt5.QtWidgets import QLabel
-
+from PyQt6.QtWidgets import QLabel
+from Python.BaseClass.Depracation.DepractionFactory import deprecated
 
 
 class ClosseWindow(AbstractDialog):
@@ -9,8 +10,10 @@ class ClosseWindow(AbstractDialog):
         super(ClosseWindow, self).__init__()
 
 
-    def resizeEvent(self, event):
+    @deprecated
+    def resizeEvent_depracated(self, event):
         self.titleBar.resize(self.width(), self.titleBar.height())
+
     @property
     def windowName(self):
         return "mesage"
@@ -32,7 +35,8 @@ class ClosseWindow(AbstractDialog):
 
         self.finaliseGUI()
 
-    def resizeEvent(self, event):
+    @deprecated
+    def resizeEvent_depracated(self, event):
         self.titleBar.resize(self.width(), self.titleBar.height())
 
     def okPressed(self):

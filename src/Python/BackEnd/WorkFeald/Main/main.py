@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 from Python.BackEnd.WorkFeald.GUI.Gui import WorkFilledGui
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
@@ -13,7 +13,7 @@ class ReadPoleRobocze:
         self.workFields = JsonHandling.loadPolaRoboczeJson()
 
         self.GUI = WorkFilledGui(self.workFields, windowSize)
-        self.GUI.setWindowFlag(Qt.Popup)
+        self.GUI.setWindowFlag(Qt.WindowType.Popup)
 
     def show(self):
         self.GUI.show()

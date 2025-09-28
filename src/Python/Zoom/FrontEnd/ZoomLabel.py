@@ -1,7 +1,7 @@
-from PyQt5.QtCore import QPoint
-from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QLabel
-
+from PyQt6.QtCore import QPoint
+from PyQt6.QtGui import QFont
+from PyQt6.QtWidgets import QLabel
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 class ZoomLabel(QLabel):
 
@@ -16,7 +16,7 @@ class ZoomLabel(QLabel):
         font.setPointSize(13)
         self.setFont(font)
         self.move(
-            QPoint(master.windowSize.width() - (master.windowSize.width() // 8), master.windowSize.height() - 30 - self.height()))
+            MyQPoint(master.windowSize.width() - (master.windowSize.width() // 8), master.windowSize.height() - 30 - self.height()))
         self.show()
 
     def setText(self, a0: str) -> None:

@@ -54,9 +54,9 @@ class CalibrateAsync(Calibrate):
     def calibrateEndCall(self):
         self.loger("Calibration End")
         self.calibrationDialog.end()
-        CalibrationResultsDialog(self).exec_()
+        CalibrationResultsDialog(self).exec()
 
     def calibrateEndCallQuick(self):
         self.loger("Calibration End Quick")
         self.calibrationDialog.end()
-        CalibrationResultWindowNoResults(self).exec_()
+        CalibrationResultWindowNoResults(self).exec()

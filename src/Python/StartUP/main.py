@@ -2,8 +2,9 @@ import sys
 import os
 from datetime import datetime
 
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QApplication
+from PyQt6.uic.properties import QtGui
 
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.InsertSampleDialog import InsertSampleDialog
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
@@ -27,19 +28,20 @@ class m(Loger):  # TODO better name
 
         self.app.setWindowIcon(self.icon)
 
-        self.loger(
-            f"res {self.app.desktop().availableGeometry().size()} {type(self.app.desktop().availableGeometry().size())}")  # QSize(640, 640)
+        screenSize = self.app.primaryScreen().availableGeometry().size()
 
-        self.mainWindow = MainWindow(self.app.desktop().availableGeometry().size())
+        self.loger(f"res {screenSize} {type(screenSize)}")  # QSize(640, 640)
+
+        self.mainWindow = MainWindow(screenSize)
         self.mainWindow.setWindowIcon(self.icon)
 
         self.mainWindow.showMaximized()
 
         self.mainWindow.show()
 
-        InsertSampleDialog(self.mainWindow).exec_()
+        InsertSampleDialog(self.mainWindow).exec()
 
-        self.app.exec_()
+        self.app.exec()
 
     def trySavingRoiList(self):
         try:

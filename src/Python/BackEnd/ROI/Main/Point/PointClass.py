@@ -1,9 +1,10 @@
 import cv2
-from PyQt5.QtCore import QPoint, QLine
+from PyQt6.QtCore import QPoint, QLine
 
 from Python.BackEnd.ROI.Main.Edit.PointEdit import PointEdit
 from Python.BackEnd.ROI.Main.NameHandling.NameHandling import NameHandling
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 
 class Point(PointEdit, NameHandling):
@@ -80,14 +81,17 @@ class Point(PointEdit, NameHandling):
     def createLabelMarker(self, scalaX, scalaY):
         xlabel = int(self.x0Label // scalaX)
         ylabel = int(self.y0Label // scalaY)
-        l1 = QLine(QPoint(xlabel + 5, ylabel),
-                   QPoint(xlabel - 5, ylabel))
-        l2 = QLine(QPoint(xlabel, ylabel + 5),
-                   QPoint(xlabel, ylabel - 5))
+        l1 = QLine(MyQPoint(xlabel + 5, ylabel),
+                   MyQPoint(xlabel - 5, ylabel))
+        l2 = QLine(MyQPoint(xlabel, ylabel + 5),
+                   MyQPoint(xlabel, ylabel - 5))
         return [l1, l2]
 
     def saveViue(self, path):
         image = self.convertQpixmapToOpenCV(self.view)
+
+        self.x0Label = int(self.x0Label)
+        self.y0Label = int(self.y0Label)
 
         cv2.line(image, (self.x0Label + 5, self.y0Label), (self.x0Label - 5, self.y0Label), (0, 0, 255), 2)
         cv2.line(image, (self.x0Label, self.y0Label + 5), (self.x0Label, self.y0Label - 5), (0, 0, 255), 2)
@@ -96,6 +100,9 @@ class Point(PointEdit, NameHandling):
 
     def createViue(self):
         image = self.convertQpixmapToOpenCV(self.view)
+
+        self.x0Label = int(self.x0Label)
+        self.y0Label = int(self.y0Label)
 
         cv2.line(image, (self.x0Label + 5, self.y0Label), (self.x0Label - 5, self.y0Label), (0, 0, 255), 2)
         cv2.line(image, (self.x0Label, self.y0Label + 5), (self.x0Label, self.y0Label - 5), (0, 0, 255), 2)

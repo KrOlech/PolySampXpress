@@ -1,6 +1,6 @@
 import asyncio
 
-from PyQt5.QtCore import QThread
+from PyQt6.QtCore import QThread
 
 from Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleThreadWorker import Worker
 

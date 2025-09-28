@@ -1,11 +1,11 @@
 import cv2
-from PyQt5.QtCore import QRect, QPoint
+from PyQt6.QtCore import QRect, QPoint
 
 from Python.BackEnd.ROI.Main.Abstract.AbstractROI import AbstractROI
 from Python.BackEnd.ROI.Main.Edit.ROIEdit import ROIEdit
 from Python.BackEnd.ROI.Main.NameHandling.NameHandling import NameHandling
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
-
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 class ROI(ROIEdit, AbstractROI, NameHandling):
 
@@ -86,14 +86,19 @@ class ROI(ROIEdit, AbstractROI, NameHandling):
         return self.fileDict
 
     def createLabelMarker(self, scalaX, scalaY):
-        return QRect(QPoint(self.x0Label // scalaX, self.y0Label // scalaY),
-                     QPoint(self.x1Label // scalaX, self.y1Label // scalaY))
+        return QRect(MyQPoint(int(self.x0Label // scalaX), int(self.y0Label // scalaY)),
+                     MyQPoint(int(self.x1Label // scalaX), int(self.y1Label // scalaY)))
 
     def saveViue(self, path):
         cv2.imwrite(path + str(self.name) + ".png", self.createViue())
 
     def createViue(self):
         image = self.convertQpixmapToOpenCV(self.view)
+
+        self.x0Label = int(self.x0Label)
+        self.y0Label = int(self.y0Label)
+        self.x1Label = int(self.x1Label)
+        self.y1Label = int(self.y1Label)
 
         cv2.rectangle(image, [self.x0Label, self.y0Label], [self.x1Label, self.y1Label], (0, 0, 255), 2)
 

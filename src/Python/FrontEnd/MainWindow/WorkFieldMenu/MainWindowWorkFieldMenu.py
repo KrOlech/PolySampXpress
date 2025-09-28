@@ -55,4 +55,4 @@ class MainWindowWorkFieldMenu(MainWindowAbstract):
                 break
 
     def createWorkField(self):
-        WindowCreateWorkFeald(self).exec_()
+        WindowCreateWorkFeald(self).exec()

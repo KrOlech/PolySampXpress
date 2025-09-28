@@ -8,8 +8,8 @@ import numpy as np
 from PIL import Image
 
 import cv2
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QFileDialog
+from PyQt6.QtGui import QImage, QPixmap
+from PyQt6.QtWidgets import QFileDialog
 from numpy import frombuffer
 
 from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
@@ -50,7 +50,7 @@ class AbstractMapWindow(Loger):
     y0 = 100
 
     def move(self, geometry):
-        self.mapWidget.move(geometry)
+        self.mapWidget.move(geometry.width(), geometry.height())
 
     def showMap(self):
         #if self.master.mozaikBorders.isChecked():
@@ -76,7 +76,7 @@ class AbstractMapWindow(Loger):
     @staticmethod
     def convertMap(mozaikData):
         qImage = QImage(mozaikData.data, mozaikData.shape[1], mozaikData.shape[0], mozaikData.shape[1] * 3,
-                        QImage.Format_BGR888)
+                        QImage.Format.Format_BGR888)
         return QPixmap.fromImage(qImage)
 
     def takePhoto(self):

@@ -1,6 +1,6 @@
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 from Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
-from PyQt5.QtWidgets import QLabel
+from PyQt6.QtWidgets import QLabel
 
 
 class GenericProgressClass(AbstractDialogMaster):
