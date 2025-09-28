@@ -24,23 +24,23 @@ class ClickCreateAbstract(CreateRoiAbstract):
         if not (self.firstPress or self.secondPress):
             self.manipulatorXFirstPresX = self.mainWindow.manipulatorInterferes.x
             self.manipulatorYFirstPresY = self.mainWindow.manipulatorInterferes.y
-            self.x1 = e.x()
-            self.y1 = e.y()
-            self.x2 = e.x()
-            self.y2 = e.y()
+            self.x1 = e.position().x()
+            self.y1 = e.position().y()
+            self.x2 = e.position().x()
+            self.y2 = e.position().y()
             self.firstPress = True
             self.pressed = True
             self.mainWindow.myStatusBarClick.setText("First Corner Mark")
         elif self.firstPress and not self.secondPress:
-            self.x2 = e.x()
-            self.y2 = e.y()
+            self.x2 = e.position().x()
+            self.y2 = e.position().y()
             self.firstPress = False
             self.secondPress = True
 
     def seveReliseLocation(self, e):
         if self.secondPress:
-            self.x2 = e.x()
-            self.y2 = e.y()
+            self.x2 = e.position().x()
+            self.y2 = e.position().y()
             dx, dy = self.calculateOffset()
             self.x1 += dx
             self.y1 += dy
@@ -53,8 +53,8 @@ class ClickCreateAbstract(CreateRoiAbstract):
             self.mainWindow.myStatusBarClick.setText("Click Mode")
 
     def saveTemporaryLocation(self, e):
-        self.x2 = e.x()
-        self.y2 = e.y()
+        self.x2 = e.position().x()
+        self.y2 = e.position().y()
 
     def calculateOffset(self):
         return int((self.manipulatorXFirstPresX - self.mainWindow.manipulatorInterferes.x) * self.xOffset), int(

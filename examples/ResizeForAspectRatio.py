@@ -1,8 +1,8 @@
-from PyQt5.QtCore import Qt, QRect, QPoint, QEvent
-from PyQt5.QtWidgets import (QLabel, QMainWindow, QApplication, QSizePolicy,
+from PyQt6.QtCore import Qt, QRect, QPoint, QEvent
+from PyQt6.QtWidgets import (QLabel, QMainWindow, QApplication, QSizePolicy,
                              QVBoxLayout, QWidget, QHBoxLayout, QPushButton)
 from enum import Enum
-
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 class MainWindow(QMainWindow):
 
@@ -108,7 +108,7 @@ class MainWindow(QMainWindow):
 
         elif object == self.grabarea:
             if event.type() == QEvent.MouseButtonPress:
-                if event.button() == Qt.LeftButton and self.iswindowpress == False:
+                if event.button() == Qt.Key.LeftButton and self.iswindowpress == False:
                     self.oldpos = event.globalPos()
                     self.oldwindowpos = self.pos()
                     self.istitlebarpress = True
@@ -142,7 +142,7 @@ class MainWindow(QMainWindow):
         # make the resize handle include some space outside the window,
         # can avoid user move too fast and loss the handle.
         # top handle
-        if pos in QRect(QPoint(topLeft.x()+handlersize, topLeft.y()-2*handlersize),
+        if pos in QRect(MyQPoint(topLeft.x()+handlersize, topLeft.y()-2*handlersize),
                         QPoint(topRight.x()-handlersize, topRight.y()+handlersize)):
             self.setCursor(Qt.SizeVerCursor)
             self.cursorpos = CursorPos.TOP
@@ -282,4 +282,4 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     w = MainWindow()
     w.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

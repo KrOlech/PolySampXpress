@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QLabel
-from PyQt5.QtCore import Qt
+from PyQt6.QtWidgets import QWidget, QScrollArea, QVBoxLayout, QLabel
+from PyQt6.QtCore import Qt
 
 
 class ROIList(QScrollArea):
@@ -19,8 +19,8 @@ class ROIList(QScrollArea):
 
         self.widget.setLayout(self.vbox)
 
-        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
         self.setWidgetResizable(True)
 

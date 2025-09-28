@@ -41,6 +41,7 @@ class AbstractStandaManipulator(AbstractManipulator):
         return -4
 
     def upadteLable(self):
-        # todo label for standa
-        pass
-        # self.label.setText(str(int(self.x)))
+        try:
+            self.label.setValue(int(self.x))
+        except Exception as e:
+            self.logError(e)

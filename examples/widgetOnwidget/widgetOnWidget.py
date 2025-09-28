@@ -1,8 +1,8 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import *
 import sys
-
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 class ExampleWindow(QMainWindow):
 
@@ -32,7 +32,7 @@ class ExampleWindow(QMainWindow):
         leyaout.addWidget(QPushButton())
         self.image2.setLayout(leyaout)
 
-        p = self.geometry().bottomRight() - self.image2.geometry().bottomRight() - QPoint(100, 100)
+        p = self.geometry().bottomRight() - self.image2.geometry().bottomRight() - MyQPoint(100, 100)
         #self.image2.move(p)
 
 if __name__ == '__main__':
@@ -42,4 +42,4 @@ if __name__ == '__main__':
     ex = ExampleWindow(screensize)
     ex.show()
 
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

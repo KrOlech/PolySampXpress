@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QLabel
+from PyQt6.QtWidgets import QLabel
 
 from Python.BackEnd.Calibration.DialogWindow.AbstractWindow.AbstractWindow import AbstractWindow
 

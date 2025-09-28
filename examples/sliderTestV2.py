@@ -1,12 +1,12 @@
 import sys
-from PyQt5 import QtWidgets
-from PyQt5.QtGui import QPainter
-from PyQt5.QtWidgets import QStyle, QStyleOptionSlider
-from PyQt5.QtCore import QRect, QPoint, Qt
+from PyQt6 import QtWidgets
+from PyQt6.QtGui import QPainter
+from PyQt6.QtWidgets import QStyle, QStyleOptionSlider
+from PyQt6.QtCore import QRect, QPoint, Qt
 
 
 class LabeledSlider(QtWidgets.QWidget):
-    def __init__(self, minimum, maximum, interval=1, orientation=Qt.Horizontal,
+    def __init__(self, minimum, maximum, interval=1, orientation=Qt.Orientation.Horizontal,
             labels=None, parent=None):
         super(LabeledSlider, self).__init__(parent=parent)
 
@@ -20,9 +20,9 @@ class LabeledSlider(QtWidgets.QWidget):
         else:
             self.levels=list(zip(levels,map(str,levels)))
 
-        if orientation==Qt.Horizontal:
+        if orientation==Qt.Orientation.Horizontal:
             self.layout=QtWidgets.QVBoxLayout(self)
-        elif orientation==Qt.Vertical:
+        elif orientation==Qt.Orientation.Vertical:
             self.layout=QtWidgets.QHBoxLayout(self)
         else:
             raise Exception("<orientation> wrong.")
@@ -122,8 +122,8 @@ if __name__ == '__main__':
     ha=QtWidgets.QHBoxLayout()
     frame.setLayout(ha)
 
-    w = LabeledSlider(1, 1000 , 100, orientation=Qt.Vertical)
+    w = LabeledSlider(1, 1000 , 100, orientation=Qt.Orientation.Vertical)
 
     ha.addWidget(w)
     frame.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

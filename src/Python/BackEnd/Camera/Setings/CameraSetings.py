@@ -1,11 +1,12 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QLabel, QFormLayout
+from Python.BaseClass.Depracation.DepractionFactory import deprecated
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QWidget, QLabel, QFormLayout
 
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.BackEnd.Camera.Setings.CameraSetingsFromProducent import CameraSettingsFromProducent
 from Python.BackEnd.Camera.Slider.SliderCommunicationPoint import SliderCommunicationPoint
-from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
+#from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
 from Python.BaseClass.Logger.Logger import Loger
 
 class CameraSettingsWindow(QWidget, CameraSettingsFromProducent, Loger):
@@ -17,15 +18,16 @@ class CameraSettingsWindow(QWidget, CameraSettingsFromProducent, Loger):
 
         self.form = QFormLayout(self)
 
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        #self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
 
-        self.titleBar = MyBar(self, "Camera Settings")
-        self.setContentsMargins(0, self.titleBar.height(), 0, 0)
+        #self.titleBar = MyBar(self, "Camera Settings")
+        #self.setContentsMargins(0, self.titleBar.height(), 0, 0)
 
         icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
         self.setWindowIcon(icon)
 
-    def resizeEvent(self, event):
+    @deprecated
+    def resizeEvent_depracated(self, event):
         self.titleBar.resize(self.width(), self.titleBar.height())
 
     def show(self):

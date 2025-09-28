@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABCMeta
 
-from PyQt5.QtWidgets import QSlider
-from PyQt5.QtCore import Qt
+from PyQt6.QtWidgets import QSlider
+from PyQt6.QtCore import Qt
 
 
 class Slider(QSlider):
@@ -9,7 +9,7 @@ class Slider(QSlider):
 
     maxSlider = 1000
 
-    def __init__(self, master, minV, maxV, value=int(25), orientation=Qt.Horizontal, widget=None, *args, **kwargs):
+    def __init__(self, master, minV, maxV, value=int(25), orientation=Qt.Orientation.Horizontal, widget=None, *args, **kwargs):
         super(Slider, self).__init__(orientation, widget, *args, **kwargs)
         self.master = master
 
@@ -17,8 +17,8 @@ class Slider(QSlider):
 
         self.valueChanged[int].connect(self.change)
 
-        self.setFocusPolicy(Qt.StrongFocus)
-        self.setTickPosition(QSlider.TicksBothSides)
+        self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.setTickPosition(QSlider.TickPosition.TicksBothSides)
         self.setTickInterval(100)
         self.setSingleStep(1)
         self.setMaximum(self.maxSlider)
@@ -50,7 +50,7 @@ class Slider(QSlider):
 
 
 if __name__ == '__main__':
-    from PyQt5.QtWidgets import QMainWindow, QApplication
+    from PyQt6.QtWidgets import QMainWindow, QApplication
     import sys as sys
 
 
@@ -74,4 +74,4 @@ if __name__ == '__main__':
 
     okno.show()
 
-    app.exec_()
+    app.exec()

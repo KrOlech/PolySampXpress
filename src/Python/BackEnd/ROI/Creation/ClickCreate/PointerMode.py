@@ -6,17 +6,17 @@ class PointerMode(CreateRoiAbstract):
 
     def __savePressLocation(self, e):
         #self.pressed = True
-        self.mainWindow.manipulatorInterferes.center(e.x(), e.y(), self.mainWindow.zoom)
+        self.mainWindow.manipulatorInterferes.center(int(e.position().x()), int(e.position().y()), self.mainWindow.zoom)
 
     def __seveReliseLocation(self, e):
         pass
-        #self.mainWindow.manipulatorInterferes.center(e.x(), e.y(), self.mainWindow.zoom)
+        #self.mainWindow.manipulatorInterferes.center(int(e.position().x()), int(e.position().y()), self.mainWindow.zoom)
         #self.pressed = False
 
     def __saveTemporaryLocation(self, e):
         pass
         #if self.pressed:
-        #    self.mainWindow.manipulatorInterferes.center(e.x(), e.y(), self.mainWindow.zoom)
+        #    self.mainWindow.manipulatorInterferes.center(int(e.position().x()), int(e.position().y()), self.mainWindow.zoom)
 
     def __toggleModeCleenUp(self):
         self.pressed = False

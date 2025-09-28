@@ -1,10 +1,10 @@
 from abc import ABC
 from functools import cache
 
-from PyQt5.QtCore import QLine, QPoint
+from PyQt6.QtCore import QLine, QPoint
 
 from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
-
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 class AbstractLine(AbstractR, ABC):
     x0, x1, y0, y1 = 0, 0, 0, 0
@@ -16,7 +16,7 @@ class AbstractLine(AbstractR, ABC):
         self.x0, self.x1, self.y0, self.y1 = self.calculateCords(**kwargs)
 
     def createMarker(self):
-        return QLine(QPoint(self.x0, self.y0), QPoint(self.x1, self.y1))
+        return QLine(MyQPoint(self.x0, self.y0), MyQPoint(self.x1, self.y1))
 
     def inROI(self, pos, x, y):  # toDo Bounding Box for edit
         dx, dy = self.calculateOffset(x, y)
@@ -26,13 +26,13 @@ class AbstractLine(AbstractR, ABC):
 
     def getMarker(self, x, y):
         dx, dy = self.calculateOffset(x, y)
-        return QLine(QPoint(self.x0 - dx, self.y0 - dy), QPoint(self.x1 - dx, self.y1 - dy))
+        return QLine(MyQPoint(self.x0 - dx, self.y0 - dy), MyQPoint(self.x1 - dx, self.y1 - dy))
 
     @cache
     def getMarkerMap(self, *args):
         x0mm, y0mm, x1mm, y1mm = self.calculateMapMarker4Cordynats(self, *args)
 
-        return QLine(QPoint(x0mm, y0mm), QPoint(x1mm, y1mm))
+        return QLine(MyQPoint(x0mm, y0mm), MyQPoint(x1mm, y1mm))
 
     def foundCenter(self) -> (int, int):
         return (self.x1 + self.x0) // 2, (self.y1 + self.y0) // 2

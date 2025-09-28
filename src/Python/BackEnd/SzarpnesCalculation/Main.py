@@ -2,7 +2,7 @@ import os
 import re
 import cv2
 import cv2 as cv
-from PyQt5.QtWidgets import QFileDialog
+from PyQt6.QtWidgets import QFileDialog
 
 from Python.BackEnd.SzarpnesCalculation.CalculateAndSaveResults import CalculateAndSaveResults
 

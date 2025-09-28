@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QRadioButton
+from PyQt6.QtWidgets import QRadioButton
 
 from Python.FrontEnd.MainWindow.InicialisationFlag.AbstractCreateWorkFild import AbstractCreateWorkFild
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster

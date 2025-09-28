@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QLabel
+from PyQt6.QtWidgets import QLabel
 
 from Python.BackEnd.ThreadWorker.SimpleThreadWorker.SimpleFunWorker import workFunWorker
 from Python.FrontEnd.Utilitis.ProgresBar import ProgresBar

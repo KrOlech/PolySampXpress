@@ -2,7 +2,7 @@ import numpy as np
 
 from Python.ErrorHandling.CustomExceptions.Exceptions import NoPlaceToAddFreame
 from Python.BackEnd.MAP.Inicialiser.MapWindowInitialiser import MapWindowInitialise
-from PyQt5.QtWidgets import QFileDialog
+from PyQt6.QtWidgets import QFileDialog
 import cv2 as cv
 
 from Python.Utilitis.timer import timeit

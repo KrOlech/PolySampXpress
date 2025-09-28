@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 from Python.BackEnd.AutoFokus_02.Main.AutoFokus_02 import AutoFokus02
 from Python.BackEnd.SzarpnesCalculation.sharpnessMetrics import image_sharpness
@@ -14,12 +14,12 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
         super(ManipulatorInterfere, self).__init__(master, windowSize, myStatusBar, *args, **kwargs)
 
         # keyboard = [Qt.Key_W, Qt.Key_A, Qt.Key_D, Qt.Key_S]
-        keyboard2 = [Qt.Key_Up, Qt.Key_Left, Qt.Key_Right, Qt.Key_Down]
+        keyboard2 = [Qt.Key.Key_Up, Qt.Key.Key_Left, Qt.Key.Key_Right, Qt.Key.Key_Down]
 
         # [a.setShortcut(k) for a, k in zip(self.actions, keyboard)]
         [a.setShortcut(k) for a, k in zip(self.actions, keyboard2)]
 
-        [a.setShortcutContext(Qt.WindowShortcut) for a in self.actions]
+        [a.setShortcutContext(Qt.ShortcutContext.WindowShortcut) for a in self.actions]
 
         [self.master.addAction(a) for a in self.actions]
 
@@ -31,7 +31,7 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
         focus.window = window
 
         window.run()
-        window.exec_()
+        window.exec()
 
         if showResults:
             focus.show()

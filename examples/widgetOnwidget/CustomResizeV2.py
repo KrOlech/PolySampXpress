@@ -1,5 +1,5 @@
-from PyQt5.QtCore import QSize
-from PyQt5.QtWidgets import QWidget
+from PyQt6.QtCore import QSize
+from PyQt6.QtWidgets import QWidget
 
 class FixedAspectRatioWidget(QWidget):
     def __init__(self, parent=None):
@@ -22,7 +22,7 @@ class FixedAspectRatioWidget(QWidget):
         return int(height * self._aspectRatio)
 
 
-from PyQt5.QtWidgets import QVBoxLayout, QLabel, QApplication
+from PyQt6.QtWidgets import QVBoxLayout, QLabel, QApplication
 
 app = QApplication([])
 layout = QVBoxLayout()
@@ -35,4 +35,4 @@ widget.setAspectRatio(16/9)  # Change aspect ratio to 16:9
 
 layout.addWidget(widget)
 layout.addStretch()
-app.exec_()
+app.exec()

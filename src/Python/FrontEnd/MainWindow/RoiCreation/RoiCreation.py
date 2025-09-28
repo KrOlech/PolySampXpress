@@ -1,7 +1,7 @@
-from PyQt5.QtCore import QPoint, Qt
-from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QLabel
-
+from PyQt6.QtCore import QPoint, Qt
+from PyQt6.QtGui import QFont
+from PyQt6.QtWidgets import QLabel
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 
 
@@ -73,11 +73,11 @@ class MainWindowRoiCreationInterferes(MainWindowAbstract):
         font = QFont()
         font.setPointSize(13)
 
-        myStatusBar.setAlignment(Qt.AlignCenter)
+        myStatusBar.setAlignment(Qt.AlignmentFlag.AlignCenter)
         myStatusBar.setFont(font)
 
         myStatusBar.move(
-            QPoint(self.windowSize.width() // 2 - self.windowSize.width() // 16,
+            MyQPoint(self.windowSize.width() // 2 - self.windowSize.width() // 16,
                    self.windowSize.height() - 25 - myStatusBar.height()))
 
         myStatusBar.show()

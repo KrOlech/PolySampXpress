@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QMenu
-from PyQt5.uic.properties import QtGui
+from PyQt6.QtWidgets import QMenu
+from PyQt6.uic.properties import QtGui
 
 from Python.BackEnd.ROI.RenameWindow.RenameWidnow import ReNameWindow
 from Python.FrontEnd.MainWindow.MapMenuAbstract.MainWindowMapAbstract import MainWindowMapAbstract

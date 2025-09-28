@@ -66,7 +66,7 @@ class MainWindowMenuBar(MainWindowCustomBar, MainWindowAbstract):
 
 if __name__ == '__main__':
     import sys
-    from PyQt5.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
 
     app = QApplication(sys.argv)
 
@@ -74,4 +74,4 @@ if __name__ == '__main__':
 
     window.show()
 
-    app.exec_()
+    app.exec()

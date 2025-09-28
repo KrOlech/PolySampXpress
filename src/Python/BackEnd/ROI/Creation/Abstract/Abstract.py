@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from PyQt5.QtWidgets import QLabel
+from PyQt6.QtWidgets import QLabel
 
 from Python.BackEnd.ROI.Main.Line.Line import Line
 from Python.BackEnd.ROI.Main.Point.PointClass import Point
