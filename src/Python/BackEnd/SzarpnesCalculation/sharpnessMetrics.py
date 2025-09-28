@@ -41,7 +41,8 @@ def edge_based_sharpness(image, *args):
 
 
 def lpc_based_sharpness(image):
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    if len(image.shape) == 3:
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     h, w = image.shape
     coherence_sum = 0
     for i in range(0, h - 15, 16):
