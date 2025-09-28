@@ -184,6 +184,13 @@ class JsonHandling(Loger):
 
         return treys
 
+    @staticmethod
+    def loadManipulatorSymulators():
+        MANIPULATOR_FULL_MOVEMENT_FILEPATH = "ManipulatorFullConfig.json"
+        rowData = JsonHandling.readFile(MANIPULATOR_FULL_MOVEMENT_FILEPATH)
+
+        return rowData["Manipulator Symulators"]
+
 
 if __name__ == '__main__':
     print(JsonHandling.getFileLocation("test"))
