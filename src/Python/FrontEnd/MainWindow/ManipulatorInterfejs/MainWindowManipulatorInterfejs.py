@@ -54,7 +54,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
 
         manipulatorMenu = self.menu.addMenu("&Manipulator")
 
-        menuSetup = [("Home All Axis", self.__homeAxis),
+        menuSetup = [("Home All Axis", self.homeAxis),
                      ("Go To Cords", self.__goToCords),
                      ("Go To Center", self.__goToCenter),
                      ("Move By Value", self.__moveByValue),
@@ -111,7 +111,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
             return
 
         if not self.manipulatorInterferes.AXIS_HOMED:
-            self.__homeAxis()
+            self.homeAxis()
 
         XeroTreySelection(self).exec_()
 
@@ -142,7 +142,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
     def __saveAndCreateAction(self, name, manipulatorSeFun, menu, checkable=False):
         menu.addAction(self.__createAction(name, manipulatorSeFun, checkable))
 
-    def __homeAxis(self):
+    def homeAxis(self):
         homeAxis = HomeAxisDialog(self.manipulatorInterferes)
         homeAxis.run()
         homeAxis.exec_()
@@ -178,7 +178,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
             RemoveSampleDialog(self).exec_()
 
         if not self.manipulatorInterferes.AXIS_HOMED:
-            self.__homeAxis()
+            self.homeAxis()
 
         window = SampleAccessProgressWindow("Going to Sample access position in progress",
                                             self.manipulatorInterferes.removeSample, 200, self)

@@ -28,6 +28,9 @@ class LoadRoiList(JsonHandling):
 
     def load(self):
 
+        if not self.master.manipulatorInterferes.AXIS_HOMED:
+            self.master.homeAxis()
+
         self.filePath, currentDirectory = self.resolveFile()
 
         if not self.filePath or not currentDirectory:
