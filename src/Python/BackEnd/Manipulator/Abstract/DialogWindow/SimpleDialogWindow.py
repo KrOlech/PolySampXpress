@@ -11,8 +11,8 @@ class GoToCordsDialog(AbstractDialogMaster):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
-        self.valueX = self.createQSpinBox(self.master.x)
-        self.valueY = self.createQSpinBox(self.master.y)
+        self.valueX = self.createQSpinBox(self.master.y)
+        self.valueY = self.createQSpinBox(self.master.x)
 
         self.form.addRow('X:', self.valueX)
         self.form.addRow('Y:', self.valueY)
@@ -25,7 +25,7 @@ class GoToCordsDialog(AbstractDialogMaster):
         workFunWorker(self, self.goToThreadFun, self.endThread)
 
     def goToThreadFun(self):
-        self.master.goToCords(x=self.valueX.value(), y=self.valueY.value())
+        self.master.goToCords(y=self.valueX.value(), x=self.valueY.value())
 
     def endThread(self):
         self.accept()
