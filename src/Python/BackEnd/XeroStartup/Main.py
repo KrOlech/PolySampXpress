@@ -90,7 +90,7 @@ class XeroStartup(Loger):
         if not self.__inProgres:
             return
 
-        p = Point(self.master.cameraView, x, y, f"{self.fileName}",
+        p = Point(self.master.cameraView, xC, yC, f"{self.fileName}",
                   self.master.manipulatorInterferes.x,
                   self.master.manipulatorInterferes.y, [0, 0], ooPoint=True, zValue=z)
 

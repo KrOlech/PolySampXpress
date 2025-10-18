@@ -106,7 +106,7 @@ class MainWindowManipulatorInterfejs(CameraGUIExtension):
         self.loger("do you wont to mark 00 Points?")
         XeroConfirmationWindow(self).exec_()
 
-        if not self.createMapVariable:
+        if not self.createMapVariable: #toDO what is that variable name
             self.loger("no I don't wont to mark 00 Points")
             return
 
