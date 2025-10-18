@@ -49,8 +49,8 @@ class AbstractMapWindow(Loger):
     x0 = 100
     y0 = 100
 
-    def move(self, geometry):
-        self.mapWidget.move(geometry)
+    def move(self):
+        self.mapWidget.move(0, 0)
 
     def showMap(self):
         #if self.master.mozaikBorders.isChecked():
@@ -76,7 +76,7 @@ class AbstractMapWindow(Loger):
     @staticmethod
     def convertMap(mozaikData):
         qImage = QImage(mozaikData.data, mozaikData.shape[1], mozaikData.shape[0], mozaikData.shape[1] * 3,
-                        QImage.Format_BGR888)
+                        QImage.Format.Format_BGR888)
         return QPixmap.fromImage(qImage)
 
     def takePhoto(self):
