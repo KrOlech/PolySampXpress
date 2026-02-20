@@ -36,6 +36,7 @@ class Point(PointEdit, NameHandling):
         self.zoom = zoom if zoom else self.master.mainWindow.zoom
 
         self.fileDict = {}
+        self.fileDictMM = {}
 
         self.ooPoint = ooPoint
 
@@ -80,6 +81,23 @@ class Point(PointEdit, NameHandling):
         self.fileDict["Type"] = "Point"
 
         return self.fileDict
+
+    def fillfileDictMM(self):
+        x0 = self.x0 - self.pixelAbsolutValue[0]
+        y0 = self.y0 - self.pixelAbsolutValue[1]
+
+        xOffset, yOffset = JsonHandling.loadOffsetsJson(self.zoom)
+        absoluteMMValuesX0 = x0 / xOffset
+        absoluteMMValuesY0 = y0 / yOffset
+
+        deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
+
+        self.fileDictMM["x0"] = absoluteMMValuesX0 - deltaX
+        self.fileDictMM["y0"] = absoluteMMValuesY0 - deltaY
+
+        self.fileDictMM["Type"] = "Point"
+        self.fileDict["name"] = self.name
+
 
     def saveConversionToFileDict(self):
 

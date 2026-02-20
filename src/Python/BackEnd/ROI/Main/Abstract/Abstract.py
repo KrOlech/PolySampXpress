@@ -147,6 +147,14 @@ class AbstractR(Loger):
         self.saveConversionToFileDict()
         return self.fileDict
 
+    def resolveFileDictmm(self):
+        self.fillfileDictMM()
+        return self.fileDictMM
+
+    @abstractmethod
+    def fillfileDictMM(self):
+        self.abstractmetod()
+
     def createNewAxis(self):
         # todo metoda zaklada ze sa 2 punkty tylko referecyjne nalezy przygotowac sie na ich dowolna ilosc
         pointList = [point for point in self.master.mainWindow.refPoints[self.zoom].values()]

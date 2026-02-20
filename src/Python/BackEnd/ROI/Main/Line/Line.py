@@ -37,6 +37,7 @@ class Line(LineEdit, LineNameHandling):
         self.zoom = zoom if zoom else self.master.mainWindow.zoom
 
         self.fileDict = {}
+        self.fileDictMM = {}
         self.fillFileDict()
         self.saveCenterToFileDict()
 
@@ -81,6 +82,26 @@ class Line(LineEdit, LineNameHandling):
         self.fileDict["Type"] = "Line"
 
         return self.fileDict
+
+    def fillfileDictMM(self):
+        x0 = self.x0 - self.pixelAbsolutValue[0]
+        x1 = self.x1 - self.pixelAbsolutValue[0]
+        y0 = self.y0 - self.pixelAbsolutValue[1]
+        y1 = self.y1 - self.pixelAbsolutValue[1]
+
+        xOffset, yOffset = JsonHandling.loadOffsetsJson(self.zoom)
+        absoluteMMValuesX0, absoluteMMValuesX1 = x0 / xOffset, x1 / xOffset
+        absoluteMMValuesY0, absoluteMMValuesY1 = y0 / yOffset, y1 / yOffset
+
+        deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
+
+        self.fileDictMM["x0"] = absoluteMMValuesX0 - deltaX
+        self.fileDictMM["x1"] = absoluteMMValuesX1 - deltaX
+        self.fileDictMM["y0"] = absoluteMMValuesY0 - deltaY
+        self.fileDictMM["y1"] = absoluteMMValuesY1 - deltaY
+
+        self.fileDictMM["Type"] = "Line"
+        self.fileDict["name"] = self.name
 
     def saveConversionToFileDict(self):
         self.saveConversionToFileDictFourPoints()

@@ -19,6 +19,7 @@ class SaveRoiList(JsonHandling):
     def save(self):
         currentDirectory = curdir
         data = {roi.id: roi.resolveFileDict() for roi in self.roiList}
+        datamm = {roi.id: roi.resolveFileDictmm() for roi in self.roiList}
 
         folderPath, _ = QFileDialog.getSaveFileName(self.master, "Select Location to save Roi List", "",
                                                     "Zip Files (*.zip)")
@@ -34,6 +35,9 @@ class SaveRoiList(JsonHandling):
 
                 with zipF.open('data.json', 'w') as jsonfile:
                     jsonfile.write(json.dumps(data, indent=4).encode('utf-8'))
+
+                with zipF.open('dataMM.json', 'w') as jsonfile:
+                    jsonfile.write(json.dumps(datamm, indent=4).encode('utf-8'))
 
                 for roi in self.roiList:
                     photoArray = roi.createViue()
