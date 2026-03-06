@@ -118,7 +118,6 @@ class AbstractR(Loger):
         self.abstractmetod()
         return
 
-    @abstractmethod
     def centerOnMe(self):
         x, y = self.foundCenter()
         x -= self.master.mainWindow.windowSize.width() // 2
