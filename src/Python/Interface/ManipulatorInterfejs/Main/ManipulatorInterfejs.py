@@ -37,7 +37,7 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
             focus.show()
 
     def autoFokusNotAsync(self):
-        fokus = AutoFokus02(self, self.master.camera)
+        fokus = AutoFokus02(self, self.master.camera, image_sharpness)
         fokus.run()
 
     def fokusGoTo(self, x):
