@@ -31,7 +31,7 @@ class XeroStartup(Loger):
     def __xeroOutConfig(self):
         self.treyConfigZoom = float(JsonHandling.loadTreyConfigurations()["zoom"][str(int(self.master.zoom))])
 
-        self.master.refPoints[self.treyConfigZoom] = {}
+        self.master.refPoints[self.master.zoom] = {}
 
     def __xeroOutMainLoop(self):
 
@@ -108,11 +108,11 @@ class XeroStartup(Loger):
 
             self.master.cameraView.ROIList.append(roi)
 
-            self.master.refPoints[self.treyConfigZoom][name] = {"x": x, "y": y, "z": z, "point": roi.fileDict}
+            self.master.refPoints[self.master.zoom][name] = {"x": x, "y": y, "z": z, "point": roi.fileDict}
 
             print(self.master.refPoints)
 
-        self.master.zeroPoint[self.treyConfigZoom] = next(iter(self.master.refPoints[self.treyConfigZoom].values()))
+            self.master.zeroPoint[self.master.zoom] = roi
 
     def CalculateAndCheckCalibration(self, start, end):
 
