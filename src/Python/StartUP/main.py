@@ -22,7 +22,7 @@ class m(Loger):  # TODO better name
 
         self.app = QApplication(sys.argv)
 
-        self.app.setApplicationDisplayName("PolySampXpress 0.7")
+        self.app.setApplicationDisplayName("PolySampXpress 0.7.3")
 
         self.icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
 
