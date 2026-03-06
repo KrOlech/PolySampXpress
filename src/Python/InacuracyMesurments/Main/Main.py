@@ -21,7 +21,7 @@ class InaccuracyMeasurements(Loger):
     def aggregateUserData(self):
         self.loger("Start UserData aggregation")
         self.UserWindow = InaccuracyDialog(self.master, self)
-        self.UserWindow.exec_()
+        self.UserWindow.exec()
         self.loger("End UserData aggregation")
 
     def acceptEvent(self):
@@ -34,7 +34,7 @@ class InaccuracyMeasurements(Loger):
         workFunWorkerMaster(self, self.ranodmMovment, funEnd=self.finaliszeCalibration)
 
         self.infoWindow.run()
-        self.infoWindow.exec_()
+        self.infoWindow.exec()
 
     def cancelEvent(self):
         self.loger("User Cancelled inaccuracy measurement")
@@ -57,7 +57,7 @@ class InaccuracyMeasurements(Loger):
     def __displayResults(self):
         self.loger(f"Measured delta of Cross location: {self.delta}")
 
-        InacuracyResultWindow(self.master, self).exec_()
+        InacuracyResultWindow(self.master, self).exec()
 
         self.loger("End Inaccuracy Measurements")
 

@@ -1,15 +1,15 @@
-from PyQt5 import QtCore
-from PyQt5.QtCore import Qt, QSize, QLine, QPoint
-from PyQt5.QtGui import QPainter, QBrush, QColor, QFont, QIcon
-from PyQt5.QtWidgets import QLabel, QSizeGrip
-
+from PyQt6 import QtCore
+from PyQt6.QtCore import Qt, QSize, QLine, QPoint
+from PyQt6.QtGui import QPainter, QBrush, QColor, QFont, QIcon
+from PyQt6.QtWidgets import QLabel, QSizeGrip
+from Python.BaseClass.Depracation.DepractionFactory import deprecated
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.BaseClass.Logger.Logger import Loger
 from Python.BackEnd.ROI.Main.Point.PointClass import Point
 from Python.BackEnd.ROI.Main.ROI.ROI import ROI
 from Python.BackEnd.MAP.Label.WaitWindow import WaitWindow
-from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
-
+#from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
+from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
 class MapLabel(QLabel, Loger):
     _aspectRatio = 4 / 3
@@ -19,10 +19,10 @@ class MapLabel(QLabel, Loger):
 
         self.master = master
 
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        #self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
 
-        self.titleBar = MyBar(self, "Mozaik")
-        self.setContentsMargins(0, self.titleBar.height(), 0, 0)
+        #self.titleBar = MyBar(self, "Mozaik")
+        #self.setContentsMargins(0, self.titleBar.height(), 0, 0)
 
         icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
         self.setWindowIcon(icon)
@@ -43,7 +43,8 @@ class MapLabel(QLabel, Loger):
         self.yMax = self.master.master.fildParams[2] + self.master.realSizeIn_mm[1]
         self.mapHeight = self.yMax - self.yMin
 
-    def resizeEvent(self, event):
+    @deprecated
+    def resizeEvent_depracated(self, event):
         rect = self.rect()
 
         self.grips[1].move(rect.right() - self.gripSize, 0)
@@ -112,8 +113,8 @@ class MapLabel(QLabel, Loger):
         x = int(self.calculatePixels(self.master.manipulator.x, self.width(), self.xMin, self.xMax))
         y = int(self.calculatePixels(self.master.manipulator.y, self.height(), self.yMin, self.yMax))
 
-        l1 = QLine(QPoint(x + 10, y), QPoint(x - 10, y))
-        l2 = QLine(QPoint(x, y + 10), QPoint(x, y - 10))
+        l1 = QLine(MyQPoint(x + 10, y), MyQPoint(x - 10, y))
+        l2 = QLine(MyQPoint(x, y + 10), MyQPoint(x, y - 10))
 
         return [l1, l2]
 
@@ -125,13 +126,13 @@ class MapLabel(QLabel, Loger):
         return int(height * self._aspectRatio)
 
     def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.LeftButton:
+        if event.button() == QtCore.Qt.Key.LeftButton:
             waitWindow = WaitWindow(self)
             waitWindow.run(event)
-            waitWindow.exec_()
+            waitWindow.exec()
 
     def threadFun(self, event):
-        x, y = event.x(), event.y()
+        x, y = int(event.position().x()), int(event.position().y())
 
         self.loger("Map window width", self.width())
         self.loger("Map window height", self.height())

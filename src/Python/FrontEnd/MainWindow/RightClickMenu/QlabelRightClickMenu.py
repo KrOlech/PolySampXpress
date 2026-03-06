@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QThread
+from PyQt6.QtCore import QThread
 
 from Python.FrontEnd.MainWindow.RightClickMenu.QlabelROI import QlabelROI
 from Python.FrontEnd.MainWindow.RightClickMenu.Worker import WorkerQObject

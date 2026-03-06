@@ -1,6 +1,6 @@
 import asyncio
 
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 from Python.BaseClass.Slider.LabeledSlider import LabeledSlider
 
@@ -15,7 +15,7 @@ class ZoomSlider(LabeledSlider):
     labelsDictionary = {0: 0.85, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10}
 
     def __init__(self, master, widget):
-        super().__init__(self.minV, self.maxV, orientation=Qt.Vertical, parent=widget, labels=self.labels)
+        super().__init__(self.minV, self.maxV, orientation=Qt.Orientation.Vertical, parent=widget, labels=self.labels)
 
         self.master = master
 

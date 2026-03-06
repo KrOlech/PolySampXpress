@@ -1,7 +1,7 @@
-from PyQt5.QtCore import QRect
-from PyQt5.QtGui import QPixmap, QImage, QPainter
-from PyQt5 import QtGui
-from PyQt5.QtWidgets import QLabel
+from PyQt6.QtCore import QRect
+from PyQt6.QtGui import QPixmap, QImage, QPainter
+from PyQt6 import QtGui
+from PyQt6.QtWidgets import QLabel
 
 
 class SimpleView(QLabel):
@@ -15,7 +15,7 @@ class SimpleView(QLabel):
 
     def getFrame(self) -> QPixmap:
         cvBGBImg = self.mainWindow.camera.getFrame()
-        qImg = QImage(cvBGBImg.data, cvBGBImg.shape[1], cvBGBImg.shape[0], QImage.Format_BGR888)
+        qImg = QImage(cvBGBImg.data, cvBGBImg.shape[1], cvBGBImg.shape[0], QImage.Format.Format_BGR888)
 
         frame = QPixmap.fromImage(qImg)
 

@@ -3,7 +3,7 @@ from functools import cache
 
 import cv2
 import numpy as np
-from PyQt5.QtGui import QImage, QPixmap
+from PyQt6.QtGui import QImage, QPixmap
 from numpy import frombuffer
 
 from Python.BackEnd.ROI.Label.ROILable import ROILabel
@@ -222,7 +222,7 @@ class AbstractR(Loger):
 
     @staticmethod
     def convertQpixmapToOpenCV(Qpixmap):
-        image_array = Qpixmap.toImage().convertToFormat(QImage.Format_RGB888)
+        image_array = Qpixmap.toImage().convertToFormat(QImage.Format.Format_RGB888)
         width = image_array.width()
         height = image_array.height()
         buffer = image_array.bits().asstring(width * height * 3)
@@ -240,4 +240,4 @@ class AbstractR(Loger):
     def editScatter(self):
         self.scatter = True
         self.fileDict["scatter"] = True
-        ScatterConfigureWindow(self.master).exec_()
+        ScatterConfigureWindow(self.master).exec()

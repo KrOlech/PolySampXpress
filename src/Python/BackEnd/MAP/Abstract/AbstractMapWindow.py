@@ -8,11 +8,9 @@ import numpy as np
 from PIL import Image
 
 import cv2
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QFileDialog
-from numpy import frombuffer
+from PyQt6.QtGui import QImage, QPixmap
+from PyQt6.QtWidgets import QFileDialog
 
-from Python.BackEnd.ROI.Main.Abstract.Abstract import AbstractR
 from Python.BaseClass.Logger.Logger import Loger
 from Python.BackEnd.ThreadWorker.Sleeper.SleeperFun import workSleeperFun
 

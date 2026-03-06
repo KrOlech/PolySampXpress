@@ -1,11 +1,11 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtCore import QRect, QPoint, Qt
-from PyQt5.QtGui import QPainter
-from PyQt5.QtWidgets import QStyle, QStyleOptionSlider
+from PyQt6 import QtWidgets
+from PyQt6.QtCore import QRect, QPoint, Qt
+from PyQt6.QtGui import QPainter
+from PyQt6.QtWidgets import QStyle, QStyleOptionSlider
 
 
 class LabeledSlider(QtWidgets.QWidget):
-    def __init__(self, minimum, maximum, interval=1, orientation=Qt.Horizontal,
+    def __init__(self, minimum, maximum, interval=1, orientation=Qt.Orientation.Horizontal,
                  labels=None, parent=None):
         super(LabeledSlider, self).__init__(parent=parent)
 
@@ -109,7 +109,7 @@ class LabeledSlider(QtWidgets.QWidget):
                                                    self.top_margin, self.right_margin,
                                                    self.bottom_margin)
 
-            pos = QPoint(left, bottom)
+            pos = MyQPoint(left, bottom)
             painter.drawText(pos, v_str)
 
         return

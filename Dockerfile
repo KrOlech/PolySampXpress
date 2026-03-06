@@ -13,7 +13,7 @@ RUN apt-get install libqt5gui5 -y
 
 RUN apt-get install libxcb-cursor0 -y
 
-RUN pip install PyQt5
+RUN pip install PyQt6
 RUN pip install numpy
 RUN pip install opencv-contrib-python-headless
 RUN pip install setuptools
@@ -33,5 +33,5 @@ COPY Config Config
 
 ENV QT_DEBUG_PLUGINS=1
 
-# Run the PyQt5 application
+# Run the PyQt6 application
 CMD ["python", "Python/StartUP/main.py"]

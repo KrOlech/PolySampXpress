@@ -1,7 +1,7 @@
 from abc import ABCMeta
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication
 
 from Python.BackEnd.ROI.Main.ComonNames.CommonNames import CommonNames
 
@@ -12,14 +12,14 @@ class Cursor(CommonNames):
     def cursorEdit(self, e, x, y):
         self.mousePositionCheck(e, x, y)
         if self.move:
-            QApplication.setOverrideCursor(Qt.SizeAllCursor)
+            QApplication.setOverrideCursor(Qt.CursorShape.SizeAllCursor)
         elif self.rightTop or self.leftBottom:
-            QApplication.setOverrideCursor(Qt.SizeFDiagCursor)
+            QApplication.setOverrideCursor(Qt.CursorShape.SizeFDiagCursor)
         elif self.leftTop or self.rightBottom:
-            QApplication.setOverrideCursor(Qt.SizeBDiagCursor)
+            QApplication.setOverrideCursor(Qt.CursorShape.SizeBDiagCursor)
         elif self.left or self.right:
-            QApplication.setOverrideCursor(Qt.SizeHorCursor)
+            QApplication.setOverrideCursor(Qt.CursorShape.SizeHorCursor)
         elif self.top or self.bottom:
-            QApplication.setOverrideCursor(Qt.SizeVerCursor)
+            QApplication.setOverrideCursor(Qt.CursorShape.SizeVerCursor)
         else:
-            QApplication.setOverrideCursor(Qt.ArrowCursor)
+            QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)

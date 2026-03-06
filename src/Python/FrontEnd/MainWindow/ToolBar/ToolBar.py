@@ -1,5 +1,5 @@
 from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 
 class MainWindowToolBar(MainWindowAbstract):
@@ -9,6 +9,6 @@ class MainWindowToolBar(MainWindowAbstract):
 
         self.toolBar.setFloatable(False)
         self.toolBar.setMovable(False)
-        self.toolBar.setContextMenuPolicy(Qt.PreventContextMenu)
+        self.toolBar.setContextMenuPolicy(Qt.ContextMenuPolicy.PreventContextMenu)
 
         self.addToolBar(self.toolBar)

@@ -1,5 +1,6 @@
-from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QAction
+from PyQt6.QtCore import QTimer
+from PyQt6.QtWidgets import QWidget, QGridLayout, QPushButton
+from PyQt6.QtGui import QAction
 
 from Python.BaseClass.Logger.Logger import Loger
 from Python.Interface.ManipulatorInterfejs.ManipulatorSlider.ManipulatorSlider import ManipulatorSlider

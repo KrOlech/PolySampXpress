@@ -1,7 +1,7 @@
 import cv2 as cv
-from PyQt5.QtWidgets import QFileDialog
+from PyQt6.QtWidgets import QFileDialog
 
-from PyQt5 import QtWidgets, QtCore
+from PyQt6 import QtWidgets, QtCore
 
 from Python.BackEnd.Calibration.DialogWindow.IndoWindow.InfoWindow import CalibrationInfoWindow
 from Python.BackEnd.Camera.Main.Camera import Camera
@@ -35,13 +35,13 @@ class CameraGUI(MainWindowMenuBar):
             cv.imwrite(folderPath, self.camera.getFrame())
 
     def calibrate(self):
-        CalibrationInfoWindow(self).exec_()
+        CalibrationInfoWindow(self).exec()
     def performCalibration(self):
         MainCalibrate(self.camera, self).calibrate(self.manipulatorInterferes)
 
 
 if __name__ == '__main__':
-    from PyQt5.QtWidgets import QApplication, QFileDialog
+    from PyQt6.QtWidgets import QApplication, QFileDialog
     import sys
 
     if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
@@ -55,4 +55,4 @@ if __name__ == '__main__':
 
     window.show()
 
-    app.exec_()
+    app.exec()

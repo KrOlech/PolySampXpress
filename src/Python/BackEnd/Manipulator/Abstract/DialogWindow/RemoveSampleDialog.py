@@ -1,6 +1,6 @@
 import asyncio
 
-from PyQt5.QtWidgets import QLabel
+from PyQt6.QtWidgets import QLabel
 
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 from Python.FrontEnd.MainWindow.ManipulatorInterfejs.SaveRoiWindow import SaveRoiWindow
@@ -28,13 +28,13 @@ class RemoveSampleDialog(AbstractDialogMaster):
         savingWindow = SaveRoiWindow("Saving ROI's",
                                       self.master.saveListOfROI, 200, self)
         savingWindow.run()
-        savingWindow.exec_()
+        savingWindow.exec()
 
     def clearRoiList(self):
         clearingWindow = GenericProgressClass("Clearing ROI's",
                                       self.master.clearListOfRoi, 200, self)
         clearingWindow.run()
-        clearingWindow.exec_()
+        clearingWindow.exec()
 
     def cancelPressed(self):
         self.accept()

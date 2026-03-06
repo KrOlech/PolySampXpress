@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QMainWindow, QAction
+from PyQt6.QtWidgets import QMainWindow
+from PyQt6.QtGui import QAction
 
 from Python.BaseClass.Logger.Logger import Loger
 

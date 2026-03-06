@@ -1,10 +1,10 @@
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QMainWindow
 
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
+#rom Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
 
 
 class MainWindowCustomBar(QMainWindow):
@@ -27,11 +27,11 @@ class MainWindowCustomBar(QMainWindow):
 
 if __name__ == "__main__":
     import sys
-    from PyQt5.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
 
     app = QApplication(sys.argv)
     mw = MainWindowCustomBar()
 
     mw.show()
 
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

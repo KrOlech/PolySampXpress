@@ -1,6 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QSlider
-from PyQt5.QtCore import Qt
+from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QSlider
+from PyQt6.QtCore import Qt
 
 class FixedValueSlider(QSlider):
     def __init__(self):
@@ -48,7 +48,7 @@ def main():
     app = QApplication(sys.argv)
     window = SliderExample()
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 if __name__ == '__main__':
     main()

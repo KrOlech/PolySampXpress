@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QLabel, QComboBox
+from PyQt6.QtWidgets import QLabel, QComboBox
 
 from Python.FrontEnd.MainWindow.Abstract.MainWindowAbstract import MainWindowAbstract
 

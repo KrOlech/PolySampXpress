@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QRadioButton, QLabel
+from PyQt6.QtWidgets import QRadioButton, QLabel
 
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 

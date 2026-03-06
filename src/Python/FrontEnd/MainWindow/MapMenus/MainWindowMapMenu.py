@@ -1,8 +1,4 @@
-from PyQt5.QtWidgets import QDesktopWidget
-
-from Python.BackEnd.MAP.Main.MapWindow import MapWindow
 from Python.BackEnd.MAP.MapFromFile.MapFromFile import MapFromFile
-from Python.BackEnd.ROI.RenameWindow.RenameWidnow import ReNameWindow
 from Python.FrontEnd.MainWindow.InicialisationFlag.MapFromHearWindow import MapFromHearWindow
 from Python.FrontEnd.MainWindow.MapMenuAbstract.MainWindowMapAbstract import MainWindowMapAbstract
 
@@ -26,7 +22,7 @@ class MainWindowMapMenu(MainWindowMapAbstract):
         # mapMenu.addAction(self.mozaikBorders)
 
     def createMapFromHear(self):
-        MapFromHearWindow(self).exec_()
+        MapFromHearWindow(self).exec()
 
     def loadMap(self):
         if not self.manipulatorInterferes.AXIS_HOMED:

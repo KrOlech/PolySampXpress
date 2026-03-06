@@ -1,6 +1,6 @@
 import cv2
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from PyQt6.QtGui import QImage, QPixmap
+from PyQt6.QtWidgets import QFileDialog, QMessageBox
 from os import chdir, curdir
 import zipfile
 import json
@@ -72,7 +72,7 @@ class LoadRoiList(JsonHandling):
 
                         img = np.array(Image.open(BytesIO(imgfile.read())))
 
-                        qImg = QPixmap.fromImage(QImage(img.data, img.shape[1], img.shape[0], QImage.Format_BGR888))
+                        qImg = QPixmap.fromImage(QImage(img.data, img.shape[1], img.shape[0], QImage.Format.Format_BGR888))
 
 
 
@@ -199,7 +199,7 @@ class LoadRoiList(JsonHandling):
             msg.setIcon(QMessageBox.Critical)
             msg.setStandardButtons(QMessageBox.Cancel)
 
-            msg.exec_()
+            msg.exec()
 
 
         finally:

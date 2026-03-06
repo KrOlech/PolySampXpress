@@ -1,9 +1,10 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QHBoxLayout, QDialog
+from Python.BaseClass.Depracation.DepractionFactory import deprecated
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QHBoxLayout, QDialog
 
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
-from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
+#from Python.FrontEnd.MainWindow.Utilitis.WindowBar import MyBar
 from Python.BackEnd.WorkFeald.Label.Label import WorkFaldLabel
 
 
@@ -19,15 +20,16 @@ class WorkFilledGui(QDialog):
         self.layout = QHBoxLayout(self)
 
         [self.layout.addWidget(label) for label in self.fildLabels]
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        #self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
 
-        self.titleBar = MyBar(self, "Work Fild")
-        self.setContentsMargins(0, self.titleBar.height(), 0, 0)
+        #self.titleBar = MyBar(self, "Work Fild")
+        #self.setContentsMargins(0, self.titleBar.height(), 0, 0)
 
         icon = QIcon(JsonHandling.getFileLocation("smallLogo.png"))
         self.setWindowIcon(icon)
 
-    def resizeEvent(self, event):
+    @deprecated
+    def resizeEvent_depracated(self, event):
         self.titleBar.resize(self.width(), self.titleBar.height())
 
     def setFildParams(self, fildParams):
@@ -38,7 +40,7 @@ class WorkFilledGui(QDialog):
 
 if __name__ == "__main__":
     import sys
-    from PyQt5.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
     from tests import loadPolaRoboczeJson
 
     app = QApplication(sys.argv)
@@ -47,4 +49,4 @@ if __name__ == "__main__":
 
     window.show()
 
-    app.exec_()
+    app.exec()

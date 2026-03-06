@@ -1,7 +1,7 @@
 import asyncio
 
-from PyQt5.QtCore import QPoint, Qt
-from PyQt5.QtWidgets import QComboBox, QLabel
+from PyQt6.QtCore import QPoint, Qt
+from PyQt6.QtWidgets import QComboBox, QLabel
 
 from Python.BaseClass.Depracation.DepractionFactory import deprecated
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
@@ -23,7 +23,7 @@ class MainWindowZoom(MainWindowAbstract):
         self.zoomInterface = ZoomInterface(self)
 
         self.zooms = QComboBox()
-        self.zooms.setFocusPolicy(Qt.NoFocus)
+        self.zooms.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.zooms.activated.connect(self.zoomChangeActionMenu)
 
         self.toolBar.addWidget(QLabel("ZOOM: "))
@@ -46,7 +46,7 @@ class MainWindowZoom(MainWindowAbstract):
 
         window = GenericProgressClass("Zoom in progress", self.zoomChangeAction, 150, self)
         window.run()
-        window.exec_()
+        window.exec()
 
     def zoomChangeAction(self):
         asyncio.run(self.manipulatorInterferes.zoomManipulatorChange(self.zoom))

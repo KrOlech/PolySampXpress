@@ -1,4 +1,4 @@
-from PyQt5.QtCore import QObject, pyqtSignal, QThread
+from PyQt6.QtCore import QObject, pyqtSignal, QThread
 from abc import abstractmethod
 
 from Python.BaseClass.Logger.Logger import Loger

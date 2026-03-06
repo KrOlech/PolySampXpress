@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class SideGrip(QtWidgets.QWidget):
@@ -43,7 +43,7 @@ class SideGrip(QtWidgets.QWidget):
         window.resize(window.width(), height)
 
     def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.LeftButton:
+        if event.button() == QtCore.Qt.Key.LeftButton:
             self.mousePos = event.pos()
 
     def mouseMoveEvent(self, event):
@@ -129,4 +129,4 @@ app = QtWidgets.QApplication([])
 m = Main()
 m.show()
 m.resize(240, 160)
-app.exec_()
+app.exec()

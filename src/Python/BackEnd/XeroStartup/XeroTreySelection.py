@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QLabel, QComboBox
+from PyQt6.QtWidgets import QLabel, QComboBox
 
 from Python.BackEnd.Manipulator.Abstract.DialogWindow.AbstractM import AbstractDialogMaster
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling

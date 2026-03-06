@@ -16,7 +16,7 @@ class ZoomInterface:
         return ZoomSlider(self, widget=self.master)  # self.zoomManipulator.x)
 
     def zoomValueChange(self):
-        ZoomChangeDialogWindow(self).exec_()
+        ZoomChangeDialogWindow(self).exec()
 
     def endZoomChange(self):
         self.zoomChange = False

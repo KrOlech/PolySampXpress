@@ -50,7 +50,7 @@ class MainWindowROIList(MainWindowManipulatorInterfejs):
 
 if __name__ == '__main__':
     import faulthandler
-    from PyQt5.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
     import sys
 
     faulthandler.enable()
@@ -61,4 +61,4 @@ if __name__ == '__main__':
 
     window.show()
 
-    app.exec_()
+    app.exec()

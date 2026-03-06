@@ -1,5 +1,5 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QApplication
 
 from Python.BackEnd.ROI.Creation.Abstract.Abstract import CreateRoiAbstract
 
@@ -9,7 +9,7 @@ class RoiEdit(CreateRoiAbstract):
     editedROI = None
 
     def endEdit(self):
-        QApplication.setOverrideCursor(Qt.ArrowCursor)
+        QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
         self.editTribe = False
 
     def mousePressEventEdit(self, e):

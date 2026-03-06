@@ -19,11 +19,11 @@ class ROIEdit(AbstractROI, AbstractEdit, Cursor):
 
         if self.firstPress:
             odx, ody = self.calculateOffset(xManipulatorPosition, yManipulatorPosition)
-            self.px1, self.py1 = event.x() + odx, event.y() + ody
+            self.px1, self.py1 = int(event.position().x()) + odx, int(event.position().y()) + ody
 
             if self.move:
                 self.__move()
-                self.px0, self.py0 = event.x() + odx, event.y() + ody
+                self.px0, self.py0 = int(event.position().x()) + odx, int(event.position().y()) + ody
             else:
                 self.__edgeMove()
 
@@ -49,7 +49,7 @@ class ROIEdit(AbstractROI, AbstractEdit, Cursor):
 
         dx, dy = self.calculateOffset(xManipulatorPosition, yManipulatorPosition)
 
-        self.px0, self.py0 = event.x() + dx, event.y() + dy
+        self.px0, self.py0 = int(event.position().x()) + dx, int(event.position().y()) + dy
 
         self.move = self.isCenter()
 

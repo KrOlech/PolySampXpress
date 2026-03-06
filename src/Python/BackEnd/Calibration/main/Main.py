@@ -24,7 +24,7 @@ class MainCalibrate(CalibrateAsync):
 
         self.startAsyncCalibration()
 
-        self.calibrationDialog.exec_()
+        self.calibrationDialog.exec()
 
     def stopCalibrationProces(self):
         self.calibrationOnGoing = False

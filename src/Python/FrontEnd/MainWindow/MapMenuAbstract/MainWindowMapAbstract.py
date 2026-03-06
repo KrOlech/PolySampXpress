@@ -28,7 +28,7 @@ class MainWindowMapAbstract(MainWindowAbstract):
             self.creatingMap = True
 
             self.loger("do you wont to created Map?")
-            NewMapDialog(self).exec_()
+            NewMapDialog(self).exec()
 
             if not self.createMapVariable:
                 self.loger("no I don't wont to created Map?")
@@ -51,7 +51,7 @@ class MainWindowMapAbstract(MainWindowAbstract):
         self.dialogWindowMap = DialogWindowMap(self)
         self.dialogWindowMap.run()
         workFunWorkerAsync(self, mapWindowObject.mapCreate)
-        self.dialogWindowMap.exec_()
+        self.dialogWindowMap.exec()
 
         self.addMap(mapWindowObject)
 

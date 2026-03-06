@@ -1,5 +1,5 @@
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout
+from PyQt6 import QtCore
+from PyQt6.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
@@ -25,15 +25,15 @@ class WorkFaldLabel(QWidget):
         self.layout.addWidget(self.button)
 
         self.nameLabel = QLabel(workFildParams[-1], self)
-        self.nameLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.nameLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.nameLabel.move(self.x // 2 - self.nameLabel.size().width() // 2, self.y // 2 - 40)
 
         self.xLabel = QLabel(f"X:{workFildParams[0]}mm->{workFildParams[1]}mm", self)
-        self.xLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.xLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.xLabel.move(self.x // 2 - self.xLabel.size().width() // 2, self.y // 2 - 20)
 
         self.yLabel = QLabel(f"Y:{workFildParams[2]}mm->{workFildParams[3]}mm   ", self)
-        self.yLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.yLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.yLabel.move(self.x // 2 - self.yLabel.size().width() // 2, self.y // 2)
 
         self.setLayout(self.layout)
@@ -47,7 +47,7 @@ class WorkFaldLabel(QWidget):
 
 if __name__ == "__main__":
     import sys
-    from PyQt5.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
 
     app = QApplication(sys.argv)
 
@@ -55,4 +55,4 @@ if __name__ == "__main__":
 
     window.show()
 
-    app.exec_()
+    app.exec()
