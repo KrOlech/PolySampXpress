@@ -5,7 +5,6 @@ from Python.BackEnd.Manipulator.Abstract.Main.AbstractManipulator import Abstrac
 
 
 class AbstractStandaManipulator(AbstractManipulator):
-
     # Specifies the current directory.
     cur_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -42,4 +41,6 @@ class AbstractStandaManipulator(AbstractManipulator):
         return -4
 
     def upadteLable(self):
-        self.label.setValue(int(self.x))
+        # todo label for standa
+        pass
+        # self.label.setText(str(int(self.x)))
