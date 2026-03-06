@@ -53,15 +53,28 @@ class LoadRoiList(JsonHandling):
             for fileName in zipF.namelist():
                 if fileName.endswith('.png') or fileName.endswith('.jpg'):
 
+                    currentId = fileName[:fileName.rfind(r".")]
+
+                    try:
+                        if data[currentId]["is this a zero Point"]:
+                            continue
+                        newId = int(currentId) + startId
+                    except KeyError as e:
+                        self.logWarning(e)
+                        if currentId.isnumeric():
+                            newId = int(currentId) + startId
+                        else:
+                            self.logWarning("old type of 00 Points unsupported")
+                            continue
+
+
                     with zipF.open(fileName) as imgfile:
 
                         img = np.array(Image.open(BytesIO(imgfile.read())))
 
                         qImg = QPixmap.fromImage(QImage(img.data, img.shape[1], img.shape[0], QImage.Format_BGR888))
 
-                        currentId = fileName[:fileName.rfind(r".")]
 
-                        newId = int(currentId) + startId
 
                         try:
                             data[currentId]["Type"]
