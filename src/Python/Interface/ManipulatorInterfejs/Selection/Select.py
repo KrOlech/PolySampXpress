@@ -17,26 +17,33 @@ class SelectManipulator(Loger):
         self.zoom_Position = JsonHandling.loadZoomLocationJson()
         self.fokus_Position = JsonHandling.loadFokusLocationJson()
 
-        try:
-            self._manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
-        except Exception as e:
-            self.loger(e)
+        if JsonHandling.loadManipulatorSymulators():
             self._manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
-
-        try:
-            self._focusManipulator = StandaManipulator(self.FOCUS_MANIPULATOR_ADDRESS, self.windowSize, self.myStatusBar)
-        except Exception as e:
-            self.loger(e)
             self._focusManipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
+            self._zoomManipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
+        else:
+            try:
+                self._manipulator = SCIManipulatorMain(self.windowSize, self.myStatusBar)
+            except Exception as e:
+                self.loger(e)
+                self._manipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
+
+            try:
+                self._focusManipulator = StandaManipulator(self.FOCUS_MANIPULATOR_ADDRESS, self.windowSize,
+                                                           self.myStatusBar)
+            except Exception as e:
+                self.loger(e)
+                self._focusManipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
+
+            try:
+                self._zoomManipulator = StandaManipulator(self.ZOOM_MANIPULATOR_ADDRESS, self.windowSize,
+                                                          self.myStatusBar)
+            except Exception as e:
+                self.loger(e)
+                self._zoomManipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
         self.focusSlider.setMaster(self._focusManipulator)
         self.focusSlider.setValue(int(self._focusManipulator.x))
-
-        try:
-            self._zoomManipulator = StandaManipulator(self.ZOOM_MANIPULATOR_ADDRESS, self.windowSize, self.myStatusBar)
-        except Exception as e:
-            self.loger(e)
-            self._zoomManipulator = AbstractManipulator(self.windowSize, self.myStatusBar)
 
     def closeAction(self):
         if self._manipulator:
