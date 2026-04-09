@@ -42,6 +42,17 @@ class CreateRoi(SimpleCreateRoi,
                 elif event.button() == Qt.MouseButton.RightButton:
                     self.leftMouseButton = False
 
+        if event.type() == QEvent.Type.MouseButtonDblClick:
+            if event.button() == Qt.MouseButton.LeftButton:
+                window = source.window()
+
+                if window.isFullScreen():
+                    window.showNormal()
+                else:
+                    window.showFullScreen()
+
+                return True
+
         return super().eventFilter(source, event)
 
     def mousePressEvent(self, e):
