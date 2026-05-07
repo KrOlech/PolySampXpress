@@ -53,6 +53,11 @@ class Point(PointEdit, NameHandling):
         self.fileDict["Pixell Values"]["x0"] = x0
         self.fileDict["Pixell Values"]["y0"] = y0
 
+        self.fileDict["Reference Pixell Values"] = {}
+
+        self.fileDict["Reference Pixell Values"]["x0"] = self.rpx
+        self.fileDict["Reference Pixell Values"]["y0"] = self.rpy
+
         self.xOffset, self.yOffset = JsonHandling.loadOffsetsJson(self.zoom)
         absoluteMMValuesX, absoluteMMValuesY = x0 / self.xOffset, y0 / self.yOffset
 

@@ -10,11 +10,11 @@ class PointEdit(AbstractPoint, AbstractEdit, Cursor):
         self.x0 = self.px
         self.y0 = self.py
 
-
     def mouseMove(self, event, xManipulatorPosition, yManipulatorPosition):
         if self.firstPress:
             odx, ody = self.calculateOffset(xManipulatorPosition, yManipulatorPosition)
-            self.px, self.py = int(event.position().x()) + odx, int(event.position().y()) + ody
+            self.rpx, self.rpy = int(event.position().x()), int(event.position().y())
+            self.px, self.py = self.rpx + odx, self.rpy + ody
             if self.move:
                 self.__move()
 
@@ -31,4 +31,4 @@ class PointEdit(AbstractPoint, AbstractEdit, Cursor):
 
     def isCenter(self):
         return self.py + self.pressPrecision > self.y0 > self.py - self.pressPrecision and \
-               self.px + self.pressPrecision > self.x0 > self.px - self.pressPrecision
+            self.px + self.pressPrecision > self.x0 > self.px - self.pressPrecision

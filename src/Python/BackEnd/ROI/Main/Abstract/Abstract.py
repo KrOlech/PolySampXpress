@@ -19,6 +19,9 @@ class AbstractR(Loger):
     zoom = None
     pixelAbsolutValue = None
 
+    trpx1, trpy1 = 0, 0
+    rpx0, rpy0, rpx1, rpy1 = 0, 0, 0, 0
+
     def __init__(self, *args, **kwargs):
 
         self.master = kwargs['master']
@@ -90,6 +93,8 @@ class AbstractR(Loger):
     def calculateCords(self, **kwargs):
         dx, dy = self.calculateOffset(kwargs["manipulatotrX"], kwargs["manipulatorY"])
 
+        self.rpx0, self.rpy0, self.rpx1, self.rpy1 = kwargs["x1"], kwargs['x2'], kwargs['y1'], kwargs["y2"]
+
         return kwargs["x1"] + dx, kwargs['x2'] + dx, kwargs['y1'] + dy, kwargs["y2"] + dy
 
     @abstractmethod
@@ -143,12 +148,12 @@ class AbstractR(Loger):
     def resolveFileDict(self):
         self.fillFileDict()
         self.saveCenterToFileDict()
-        #self.saveConversionToFileDict()
+        # self.saveConversionToFileDict()
         return self.fileDict
 
     def createNewAxis(self):
         if not len(self.master.mainWindow.refPoints):
-            return 0,0,0,0
+            return 0, 0, 0, 0
         # todo metoda zaklada ze sa 2 punkty tylko referecyjne nalezy przygotowac sie na ich dowolna ilosc
         pointList = [point for point in self.master.mainWindow.refPoints[self.zoom].values()]
 
@@ -165,7 +170,7 @@ class AbstractR(Loger):
             a1 = -1 / a
         except ZeroDivisionError:
             # TODO edgvase not handled
-            return 0,0,0,0
+            return 0, 0, 0, 0
 
         b = -a * x0 + y0
         b1 = -a1 * x0 + y0

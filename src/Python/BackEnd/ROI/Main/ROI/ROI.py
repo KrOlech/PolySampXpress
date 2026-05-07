@@ -57,6 +57,13 @@ class ROI(ROIEdit, AbstractROI, NameHandling):
         self.fileDict["Pixell Values"]["y0"] = y0
         self.fileDict["Pixell Values"]["y1"] = y1
 
+        self.fileDict["Reference Pixell Values"] = {}
+
+        self.fileDict["Reference Pixell Values"]["x0"] = self.rpx0
+        self.fileDict["Reference Pixell Values"]["y0"] = self.rpy0
+        self.fileDict["Reference Pixell Values"]["x1"] = self.rpx1
+        self.fileDict["Reference Pixell Values"]["y1"] = self.rpy1
+
         xOffset, yOffset = JsonHandling.loadOffsetsJson(self.zoom)
         absoluteMMValuesX0, absoluteMMValuesX1, = x0 / xOffset, x1 / xOffset,
         absoluteMMValuesY0, absoluteMMValuesY1 = y0 / yOffset, y1 / yOffset

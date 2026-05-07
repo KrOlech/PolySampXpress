@@ -74,23 +74,43 @@ class ROIEdit(AbstractROI, AbstractEdit, Cursor):
         if self.leftTop:
             self.x1 = self.px1
             self.y0 = self.py1
+
+            self.rpx1 = self.trpx1
+            self.rpy0 = self.trpy1
         elif self.leftBottom:
             self.x1 = self.px1
             self.y1 = self.py1
+
+            self.rpx1 = self.trpx1
+            self.rpy1 = self.trpy1
         elif self.rightBottom:
             self.x0 = self.px1
             self.y1 = self.py1
+
+            self.rpx0 = self.trpx1
+            self.rpy1 = self.trpy1
         elif self.rightTop:
             self.x0 = self.px1
             self.y0 = self.py1
+
+            self.rpx0 = self.trpx1
+            self.rpy1 = self.trpy1
         elif self.bottom:
             self.y1 = self.py1
+
+            self.rpy1 = self.trpy1
         elif self.left:
             self.x1 = self.px1
+
+            self.rpx1 = self.trpx1
         elif self.right:
             self.x0 = self.px1
+
+            self.rpx0 = self.trpx1
         elif self.top:
             self.y0 = self.py1
+
+            self.rpy0 = self.trpx1
         self.setNewBorders()
 
     def __move(self):
@@ -99,4 +119,8 @@ class ROIEdit(AbstractROI, AbstractEdit, Cursor):
         self.x1 += dx
         self.y0 += dy
         self.y1 += dy
+        self.rpx0 += dx
+        self.rpy0 += dy
+        self.rpx1 += dx
+        self.rpy1 += dy
         self.setNewBorders()

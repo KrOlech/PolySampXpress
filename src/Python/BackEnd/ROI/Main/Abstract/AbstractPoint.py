@@ -14,12 +14,16 @@ class AbstractPoint(AbstractR):
 
     x0, y0 = 0, 0
 
+    rpx, rpy = 0, 0
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         dx, dy = self.calculateOffset(kwargs["manipulatotrX"], kwargs["manipulatorY"])
 
-        x0, y0 = kwargs["x1"] + dx, kwargs['y1'] + dy
+        self.rpx, self.rpy = int(kwargs["x1"]), int(kwargs['y1'])
+
+        x0, y0 = self.rpx + dx, self.rpy + dy
 
         self.x0 = int(x0)
         self.y0 = int(y0)
