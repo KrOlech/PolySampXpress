@@ -4,8 +4,8 @@ from Python.BaseClass.Slider.Slider import Slider
 
 
 class ManipulatorSlider(Slider):
-    minV = -10000
-    maxV = 10000
+    minV = 0
+    maxV = 20000
 
     def __init__(self, master, value, *args, **kwargs):
         super().__init__(master, self.minV, self.maxV, value, *args, orientation=Qt.Orientation.Vertical, **kwargs)

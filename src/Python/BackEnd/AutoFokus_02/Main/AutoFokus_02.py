@@ -24,7 +24,7 @@ class AutoFokus02(Loger):
 
     @simpleStartEndWrapper(text="Optimization")
     def run(self):
-        self.manipulatorInterface.fokusGoTo(1000)  # ToDo potecial fokus from file not hardCoded
+        #self.manipulatorInterface.fokusGoTo(1000)  # ToDo potecial fokus from file not hardCoded
 
         self.guess()
 
@@ -39,7 +39,7 @@ class AutoFokus02(Loger):
             plt.cla()
             plt.clf()
 
-        self.manipulatorInterface.fokusUp(50)
+        #self.manipulatorInterface.fokusUp(50)
 
         self.fokusData = []
         self.fokusDataX = []
