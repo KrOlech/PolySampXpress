@@ -37,8 +37,9 @@ class Point(PointEdit, NameHandling):
 
         self.fileDict = {}
 
-        self.ooPoint = ooPoint
+        self.fokus = self.master.mainWindow.manipulatorInterferes.fokusPos
 
+        self.ooPoint = ooPoint
 
         self.fillFileDict()
         self.saveCenterToFileDict()
@@ -60,12 +61,20 @@ class Point(PointEdit, NameHandling):
         self.fileDict["mm Values"]["x0"] = absoluteMMValuesX
         self.fileDict["mm Values"]["y0"] = absoluteMMValuesY
 
+        self.fileDict["mm Values X rev"] = {}
+        self.fileDict["mm Values X rev"]["x0"] = 200 - absoluteMMValuesX
+        self.fileDict["mm Values X rev"]["y0"] = absoluteMMValuesY
+
         deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
 
         self.fileDict["sample mm Values"] = {}
 
         self.fileDict["sample mm Values"]["x0"] = absoluteMMValuesX - deltaX
         self.fileDict["sample mm Values"]["y0"] = absoluteMMValuesY - deltaY
+
+        self.fileDict["sample mm Values X rev"] = {}
+        self.fileDict["sample mm Values X rev"]["x0"] = 200 - absoluteMMValuesX - deltaX
+        self.fileDict["sample mm Values X rev"]["y0"] = absoluteMMValuesY - deltaY
 
         self.fileDict["zero Point Present"] = zeroPointStatus
         self.fileDict["is this a zero Point"] = self.ooPoint
@@ -76,21 +85,21 @@ class Point(PointEdit, NameHandling):
 
         self.fileDict["zoom"] = self.zoom
         self.fileDict["name"] = self.name
+        self.fileDict["Fokus"] = self.fokus
 
         self.fileDict["Type"] = "Point"
 
         return self.fileDict
 
     def saveConversionToFileDict(self):
-
-        a,b,a1,b1 = self.createNewAxis()
+        a, b, a1, b1 = self.createNewAxis()
 
         absoluteMMValuesX = self.fileDict["mm Values"]["x0"]
         absoluteMMValuesY = self.fileDict["mm Values"]["y0"]
 
         self.fileDict["ref MM Values"] = {}
-        self.fileDict["ref MM Values"]["X"] = self.toLineDistance(a,b, absoluteMMValuesX, absoluteMMValuesY)
-        self.fileDict["ref MM Values"]["Y"] = self.toLineDistance(a1,b1, absoluteMMValuesX, absoluteMMValuesY)
+        self.fileDict["ref MM Values"]["X"] = self.toLineDistance(a, b, absoluteMMValuesX, absoluteMMValuesY)
+        self.fileDict["ref MM Values"]["Y"] = self.toLineDistance(a1, b1, absoluteMMValuesX, absoluteMMValuesY)
 
     def createLabelMarker(self, scalaX, scalaY):
         xlabel = int(self.x0Label // scalaX)
