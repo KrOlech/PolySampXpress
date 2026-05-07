@@ -6,6 +6,7 @@ from Python.BackEnd.ROI.Main.NameHandling.LineNameHandling import LineNameHandli
 from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 from Python.FrontEnd.MyQPoint.MyQPoint import MyQPoint
 
+
 class Line(LineEdit, LineNameHandling):
 
     def __init__(self, master, x1, y1, x2, y2, name, manipulatotrX, manipulatorY, pixelAbsolutValue,
@@ -36,6 +37,8 @@ class Line(LineEdit, LineNameHandling):
 
         self.zoom = zoom if zoom else self.master.mainWindow.zoom
 
+        self.fokus = self.master.mainWindow.manipulatorInterferes.fokusPos
+
         self.fileDict = {}
         self.fillFileDict()
         self.saveCenterToFileDict()
@@ -64,6 +67,12 @@ class Line(LineEdit, LineNameHandling):
         self.fileDict["mm Values"]["y0"] = absoluteMMValuesY0
         self.fileDict["mm Values"]["y1"] = absoluteMMValuesY1
 
+        self.fileDict["mm Values X rev"] = {}
+        self.fileDict["mm Values X rev"]["x0"] = 200 - absoluteMMValuesX0
+        self.fileDict["mm Values X rev"]["x1"] = 200 - absoluteMMValuesX1
+        self.fileDict["mm Values X rev"]["y0"] = absoluteMMValuesY0
+        self.fileDict["mm Values X rev"]["y1"] = absoluteMMValuesY1
+
         deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
 
         self.fileDict["sample mm Values"] = {}
@@ -73,10 +82,17 @@ class Line(LineEdit, LineNameHandling):
         self.fileDict["sample mm Values"]["y0"] = absoluteMMValuesY0 - deltaY
         self.fileDict["sample mm Values"]["y1"] = absoluteMMValuesY1 - deltaY
 
+        self.fileDict["sample mm Values X rev"] = {}
+        self.fileDict["sample mm Values X rev"]["x0"] = 200 - absoluteMMValuesX0 - deltaX
+        self.fileDict["sample mm Values X rev"]["x1"] = 200 - absoluteMMValuesX1 - deltaX
+        self.fileDict["sample mm Values X rev"]["y0"] = absoluteMMValuesY0 - deltaY
+        self.fileDict["sample mm Values X rev"]["y1"] = absoluteMMValuesY1 - deltaY
+
         self.fileDict["zero Point Present"] = zeroPointStatus
 
         self.fileDict["zoom"] = self.zoom
         self.fileDict["name"] = self.name
+        self.fileDict["Fokus"] = self.fokus
 
         self.fileDict["Type"] = "Line"
 
