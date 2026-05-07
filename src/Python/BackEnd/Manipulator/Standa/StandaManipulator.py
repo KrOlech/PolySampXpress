@@ -32,10 +32,22 @@ class StandaManipulator(StandaManipulatorInitialisation):
         except KeyError as e:
             self.logError(e)
 
+        if int(self.device_id) == 1:
+
+            self.goToCords(x=-20100)
+            self.waitForTarget()
+
+            self.goToCords(x=10000)
+            self.waitForTarget()
+
+            x_pos = get_position_t()
+            result = self.lib.get_position(self.device_id, byref(x_pos))
+            self.loger(f"Test ACh Standa {self.device_id} Resived Position: " + repr(result))
+
     def getCurrentPosition(self):
         return self.x, self.y, self.z
 
-    def center(self, pozycja, pozycja2):
+    def center(self, pozycja, pozycja2, zoom):
         self.lib.command_home(self.device_id)
 
     def home(self):

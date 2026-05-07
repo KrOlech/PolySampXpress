@@ -23,7 +23,6 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
 
         [self.master.addAction(a) for a in self.actions]
 
-        # self.autoFokus()
 
     def autoFokus(self, method=image_sharpness, showResults=False):
         focus = AutoFokus02(self, self.master.camera, method)

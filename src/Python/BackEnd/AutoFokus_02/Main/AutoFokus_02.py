@@ -24,7 +24,6 @@ class AutoFokus02(Loger):
 
     @simpleStartEndWrapper(text="Optimization")
     def run(self):
-        #self.manipulatorInterface.fokusGoTo(1000)  # ToDo potecial fokus from file not hardCoded
 
         self.guess()
 
@@ -39,12 +38,10 @@ class AutoFokus02(Loger):
             plt.cla()
             plt.clf()
 
-        #self.manipulatorInterface.fokusUp(50)
-
         self.fokusData = []
         self.fokusDataX = []
 
-        rez = minimize(self.fokusFromValue, 2000, bounds=[(2000, 3000)], method='COBYLA', tol=0.005,
+        rez = minimize(self.fokusFromValue, self.manipulatorInterface.fokusPos, bounds=[(10000, 15000)], method='Powell', tol=1,
                        options={"rhobeg": 100}
                        )
 
@@ -61,6 +58,7 @@ class AutoFokus02(Loger):
         if plot:
             plt.scatter(self.fokusDataX, self.normalizedRoad, marker='.',
                         label=self.metricCalculator.funName)
+            plt.savefig(r"C:\Users\Administrator\Desktop\test.png")
 
     def calcFokus(self, fun):
         imwrite("temp.png", self.camera.getFrame())
