@@ -32,6 +32,11 @@ class AbstractROI(AbstractR, ABC):
         # self.loger(f"x1 = {self.x0}, x2 = {self.x1}, y1 = {self.y0}, y2 = {self.y1}, manipulatotrX = {x}, manipulatorY = {y} deltaX = {dx} deltaY = {dy}")
         return QRect(MyQPoint(self.x0 - dx, self.y0 - dy), MyQPoint(self.x1 - dx, self.y1 - dy))
 
+    def getErrorMarker(self,x,y, ox,oy):
+        dx, dy = self.calculateOffset(x, y)
+        # self.loger(f"x1 = {self.x0}, x2 = {self.x1}, y1 = {self.y0}, y2 = {self.y1}, manipulatotrX = {x}, manipulatorY = {y} deltaX = {dx} deltaY = {dy}")
+        return QRect(MyQPoint(self.x0 - dx -ox, self.y0 - dy-oy), MyQPoint(self.x1 - dx+ox, self.y1 - dy+oy))
+
     @cache
     def getMarkerMap(self, *args):
         x0mm, y0mm, x1mm, y1mm = self.calculateMapMarker4Cordynats(self, *args)

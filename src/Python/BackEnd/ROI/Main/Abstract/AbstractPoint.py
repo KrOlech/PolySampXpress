@@ -37,6 +37,10 @@ class AbstractPoint(AbstractR):
         l2 = QLine(MyQPoint(self.x0 - dx, self.y0 - dy + 10), MyQPoint(self.x0 - dx, self.y0 - dy - 10))
         return [l1, l2]
 
+    def getErrorMarker(self,x,y):
+        dx, dy = self.calculateOffset(x, y)
+        return MyQPoint(self.x0 - dx, self.y0 - dy)
+
     @cache
     def getMarkerMap(self, screenWidth, screenheight, mapWidth, mapHeight, mapX0, mapY0, scale, MapLabel):
         x0 = self.x0 - self.pixelAbsolutValue[0]

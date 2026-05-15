@@ -6,6 +6,7 @@ from Python.Interface.ManipulatorInterfejs.Abstract.AbstractManipulatroInterfejs
     AbstractManipulatorInterferes
 from Python.Interface.ManipulatorInterfejs.Selection.Select import SelectManipulator
 from Python.Utilitis.GenericProgressClass import GenericProgressClass
+from Python.BaseClass.JsonRead.JsonRead import JsonHandling
 
 
 class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
@@ -63,3 +64,12 @@ class ManipulatorInterfere(AbstractManipulatorInterferes, SelectManipulator):
     @property
     def fokusPos(self):
         return self._focusManipulator.x
+
+    @property
+    def getZoom(self):
+        return self._zoomManipulator.x
+
+    @property
+    def getZoomCalibration(self):
+        ox,oy = JsonHandling.loadOffsetsJson(self.getZoom)
+        return int(15*ox/ 1000), int(15*oy/1000)
