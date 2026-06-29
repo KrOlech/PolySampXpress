@@ -16,7 +16,7 @@ class ZoomLabel(QLabel):
         font.setPointSize(13)
         self.setFont(font)
         self.move(
-            MyQPoint(master.windowSize.width() - (master.windowSize.width() // 8), master.windowSize.height() - 30 - self.height()))
+            MyQPoint(master.windowSize.width() - (master.windowSize.width() // 8), master.windowSize.height() - self.height()))
         self.show()
 
     def setText(self, a0: str) -> None:
