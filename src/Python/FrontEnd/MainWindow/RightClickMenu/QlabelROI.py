@@ -112,18 +112,29 @@ class QlabelROI(RightClickLabel, CreateRoi):
     def __drawRectangleName(self, qp, rectangle):
         rx, ry = rectangle.GetTextLocation(self.mainWindow.manipulatorInterferes.x,
                                            self.mainWindow.manipulatorInterferes.y)
-        qp.drawText(int(rx),int( ry), str(rectangle.name))
+        qp.drawText(int(rx), int(ry), str(rectangle.name))
 
     def __drawRectangleMarker(self, qp, rectangle):
         if isinstance(rectangle, ROI):
             qp.drawRect(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
                                             self.mainWindow.manipulatorInterferes.y))
+            qp.setBrush(QBrush(QColor(200, 10, 10, 100)))
+            qp.drawRect(rectangle.getErrorMarker(self.mainWindow.manipulatorInterferes.x,
+                                                 self.mainWindow.manipulatorInterferes.y,
+                                                 *self.mainWindow.manipulatorInterferes.getZoomCalibration))
+            qp.setBrush(QBrush(QColor(200, 10, 10, 200)))
+
         elif isinstance(rectangle, Point):
             qp.drawLines(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
                                              self.mainWindow.manipulatorInterferes.y))
+            qp.setBrush(QBrush(QColor(200, 10, 10, 100)))
+            qp.drawEllipse(rectangle.getErrorMarker(self.mainWindow.manipulatorInterferes.x,
+                                                 self.mainWindow.manipulatorInterferes.y),
+                                                 *self.mainWindow.manipulatorInterferes.getZoomCalibration)
+            qp.setBrush(QBrush(QColor(200, 10, 10, 200)))
         elif isinstance(rectangle, Line):
             qp.drawLine(rectangle.getMarker(self.mainWindow.manipulatorInterferes.x,
-                                             self.mainWindow.manipulatorInterferes.y))
+                                            self.mainWindow.manipulatorInterferes.y))
 
     def __drawCurrentlyMarkedRectangles(self, qp):
         if self.mainWindow.mode == "Point":
@@ -152,7 +163,7 @@ class QlabelROI(RightClickLabel, CreateRoi):
 
         zoomsNames = {0: "1 mm", 1: "1 mm", 2: "0.5 mm", 3: "0.5 mm", 4: "0.2 mm", 5: "0.2 mm", 6: "0.2 mm",
                       7: "0.1 mm",
-                      8: "0.1 mm", 9: "0.1 mm", 10: "0.1 mm"} #todo move to config File
+                      8: "0.1 mm", 9: "0.1 mm", 10: "0.1 mm"}  # todo move to config File
 
         length = self.zoomsLengths[int(self.mainWindow.zoom)]
 
