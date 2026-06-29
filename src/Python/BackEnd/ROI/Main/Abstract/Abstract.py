@@ -143,10 +143,12 @@ class AbstractR(Loger):
     def resolveFileDict(self):
         self.fillFileDict()
         self.saveCenterToFileDict()
-        self.saveConversionToFileDict()
+        #self.saveConversionToFileDict()
         return self.fileDict
 
     def createNewAxis(self):
+        if not len(self.master.mainWindow.refPoints):
+            return 0,0,0,0
         # todo metoda zaklada ze sa 2 punkty tylko referecyjne nalezy przygotowac sie na ich dowolna ilosc
         pointList = [point for point in self.master.mainWindow.refPoints[self.zoom].values()]
 
@@ -163,7 +165,7 @@ class AbstractR(Loger):
             a1 = -1 / a
         except ZeroDivisionError:
             # TODO edgvase not handled
-            return
+            return 0,0,0,0
 
         b = -a * x0 + y0
         b1 = -a1 * x0 + y0
@@ -209,8 +211,11 @@ class AbstractR(Loger):
         xCenterMM, yCenterMM = xCenter / xOffset, yCenter / xOffset,
         self.fileDict["mm Values"]["center mm"] = {"x": xCenterMM, "y": yCenterMM}
 
-        deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
-        self.fileDict["sample mm Values"]["sample center mm"] = {"x": xCenterMM - deltaX, "y": yCenterMM - deltaY}
+        try:
+            deltaX, deltaY, zeroPointStatus = self.resolveZeroPoint()
+            self.fileDict["sample mm Values"]["sample center mm"] = {"x": xCenterMM - deltaX, "y": yCenterMM - deltaY}
+        except Exception as e:
+            self.logError(e)
 
     @abstractmethod
     def saveViue(self, path):
